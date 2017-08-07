@@ -1,0 +1,29 @@
+<div class='actions actions_board'>
+  {{? it.board.postingEnabled}}
+    <label for='post-form-button' class="toggle_label button primary coloured">
+      {{? it.thread}}
+        {{!it.translate('Reply to thread', 'createAction')}}
+      {{??}}
+        {{!it.translate('Create a thread')}}
+      {{?}}
+    </label>
+  {{??}}
+    <h2 class='disabled'>
+      {{!it.translate('Posting is disabled at this board', 'postingDisabledBoardText')}}
+    </h2>
+    <br>
+  {{?}}
+  {{? !it.thread}}
+    <a class='button' href='/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html'>
+      {{!it.translate('Catalog', 'boardCatalogLinkText')}}
+    </a>
+    <a class='button' href='/{{!it.site.pathPrefix}}{{!it.board.name}}/archive.html'>
+      {{!it.translate('Archive', 'boardArchiveLinkText')}}
+    </a>
+    <a class='button' href='/{{!it.site.pathPrefix}}{{!it.board.name}}/rss.xml'>
+      <i class='fa fa-rss'></i>
+    </a>
+    {{#def['partials/pagination']}}
+  {{?}}
+</div>
+<div class='post-form-container {{? 'top' === position}}no-js-only{{?}} js-post-form-container'>{{? 'top' === position}}{{#def['postForm/postForm']}}{{?}}</div>

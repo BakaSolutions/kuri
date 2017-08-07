@@ -1,0 +1,25 @@
+{{? it.pageCount > 1}}
+<div class='pagination'>
+  {{? it.currentPage > 0}}
+  <a class='button' href='/{{!it.site.pathPrefix}}{{!it.board.name}}{{? it.currentPage > 1}}/{{!(it.currentPage - 1)}}.html{{?}}'>
+    &lt;
+  </a>
+  {{?}}
+  {{~it._.range(it.pageCount) :pageNumber}}
+  {{? pageNumber == 0 || pageNumber == it.pageCount - 1 || (pageNumber >= it.currentPage - 2 && pageNumber <= it.currentPage + 2)}}
+  {{? pageNumber !== it.currentPage}}
+  <a class='button' href='/{{!it.site.pathPrefix}}{{!it.board.name}}{{? pageNumber > 0}}/{{!pageNumber.toString()}}.html{{?}}'>
+    {{!pageNumber.toString()}}
+  </a>
+  {{??}}
+  <button class="button selected">{{!pageNumber.toString()}}</button>
+  {{?}}
+  {{?}}
+  {{~}}
+  {{? it.currentPage < (it.pageCount - 1)}}
+  <a class='button' href='/{{!it.site.pathPrefix}}{{!it.board.name}}/{{!(it.currentPage + 1)}}.html'>
+    &gt;
+  </a>
+  {{?}}
+</div>
+{{?}}

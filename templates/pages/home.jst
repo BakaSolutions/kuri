@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang='{{!it.site.locale}}'>
+{{#def['partials/head']}}
+<body>
+  {{#def['partials/sidebar']}}
+  <main>
+    {{#def['custom/content/0'] || ''}}
+    {{#def['custom/home'] || def['default/home'] || ''}}
+    {{#def['partials/footer']}}
+  </main>
+</body>
+</html>

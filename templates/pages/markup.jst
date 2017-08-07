@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang='{{!it.site.locale}}'>
+{{#def['partials/head']}}
+<body>
+{{#def['partials/sidebar']}}
+<main>
+  {{#def['custom/content/0'] || ''}}
+  <div>
+    <h1 class='page-title'>{{!it.title}}</h1>
+  </div>
+  <div id='basic' class='section-header'>
+    <h3>{{!it.translate('Basic markup')}}</h3>
+  </div>
+  <div class='section-body'>
+    <table>
+      <tr>
+        <td>
+          **{{!it.translate('bold text', 'boldText')}}**
+        </td>
+        <td rowspan="3">
+          <b>{{!it.translate('bold text', 'boldText')}}</b>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          __{{!it.translate('bold text', 'boldText')}}__
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          [b]{{!it.translate('bold text', 'boldText')}}[/b]
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          *{{!it.translate('italics', 'italics')}}*
+        </td>
+        <td rowspan="4">
+          <i>{{!it.translate('italics', 'italics')}}</i>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          _{{!it.translate('italics', 'italics')}}_
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          ///{{!it.translate('italics', 'italics')}}///
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+         [i]{{!it.translate('italics', 'italics')}}[/i]
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          ---{{!it.translate('striked out text')}}---
+        </td>
+        <td rowspan="3">
+          <s>{{!it.translate('striked out text')}}</s>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{!it.translate('striked out text')}}{{!(new Array(it.translate('striked out text').length + 1)).join("^H")}}
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          [s]{{!it.translate('striked out text')}}[/s]
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          {{!it.translate('striked out', 'strikedoutWord1')}} {{!it.translate('word', 'strikedoutWord2')}}^W
+        </td>
+        <td>
+          {{!it.translate('striked out', 'strikedoutWord1')}} <s>{{!it.translate('word', 'strikedoutWord2')}}</s>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ***{{!it.translate('underlined text', 'underlinedText')}}***
+        </td>
+        <td rowspan="3">
+          <u>{{!it.translate('underlined text', 'underlinedText')}}</u>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ___{{!it.translate('underlined text', 'underlinedText')}}___
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          [u]{{!it.translate('underlined text', 'underlinedText')}}[/u]
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          ``{{!it.translate('monospace font', 'monospace')}}``
+        </td>
+        <td rowspan="2">
+          <font face='monospace'>{{!it.translate('monospace font', 'monospace')}}</font>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [m]{{!it.translate('monospace font', 'monospace')}}[/m]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ''[b]{{!it.translate('no markup', 'nomarkup')}}[/b]''
+        </td>
+        <td>
+          [b]{{!it.translate('no markup', 'nomarkup')}}[/b]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [n]**{{!it.translate('no markup', 'nomarkup')}}**[/n]
+        </td>
+        <td>
+          **{{!it.translate('no markup', 'nomarkup')}}**
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ``{{!it.translate('monospace \\`` font with escaped \\`` characters')}}``
+        </td>
+        <td>
+          <font face='monospace'>{{!it.translate('monospace \\`` font with escaped \\`` characters')}}</font>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ''[b]{{!it.translate("no markup \\'' with escaped \\'' characters")}}[/b]''
+        </td>
+        <td>
+          [b]no markup \'' with escaped \'' characters[/b]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          /--pre
+          {{!it.translate('Preformatted\ntext', 'preformattedText')}}
+          \--
+        </td>
+        <td rowspan="2">
+          <pre>{{!it.translate('Preformatted\ntext', 'preformattedText')}}</pre>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [pre]
+          {{!it.translate('Preformatted\ntext', 'preformattedText')}}
+          [/pre]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          %%{{!it.translate('spoiler', 'spoiler')}}%%
+        </td>
+        <td rowspan="2">
+          <span class='spoiler'>{{!it.translate('spoiler', 'spoiler')}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [spoiler]{{!it.translate('spoiler', 'spoiler')}}[/spoiler]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          %%%{{!it.translate('collapsible spoiler text')}}%%%
+        </td>
+        <td>
+          <span class='collapsible-spoiler'>
+            <span class='collapsible-spoiler-title' onclick='lord.expandCollapseSpoiler(this);'>Spoiler</span>
+            <span class='collapsible-spoiler-body'
+                  style='display: none;'>{{!it.translate('collapsible spoiler text')}}</span>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [cspoiler title="{{!it.translate('collapsible spoiler title')}}"]
+            {{!it.translate('collapsible spoiler text')}}
+          [/cspoiler]
+        </td>
+        <td>
+          <span class='collapsible-spoiler'>
+            <span class='collapsible-spoiler-title' title='Spoiler'
+                  onclick='lord.expandCollapseSpoiler(this);'>{{!it.translate('collapsible spoiler title')}}</span>
+            <span class='collapsible-spoiler-body'
+                  style='display: none;'>{{!it.translate('collapsible spoiler text')}}</span>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{!it.translate('text with tooltip')}}???"{{!it.translate('tooltip', 'tooltip')}}"
+        </td>
+        <td>
+          <span class='tooltip js-with-tooltip'
+                title='{{!it.translate('tooltip', 'tooltip')}}'>{{!it.translate('text with tooltip')}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [tooltip value="{{!it.translate('tooltip', 'tooltip')}}"]{{!it.translate('text with tooltip')}}[/tooltip]
+        </td>
+        <td>
+          <span class='tooltip js-with-tooltip' title='{{!it.translate('tooltip', 'tooltip')}}'>
+            {{!it.translate('text with tooltip')}}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          %%_[b]{{!it.translate('combined text')}}[/b]_%%
+        </td>
+        <td>
+          <span class='spoiler'><i><b>{{!it.translate('combined text')}}</b></i></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [spoiler][i]**{{!it.translate('combined text')}}**[/i][/spoiler]
+        </td>
+        <td>
+          <span class='spoiler'><i><b>{{!it.translate('combined text')}}</b></i></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          &gt;{{!it.translate('quotation', 'quotation')}}
+        </td>
+        <td>
+          <span class='quotation'>&gt;{{!it.translate('quotation', 'quotation')}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [sub]{{!it.translate('subscript', 'subscriptText')}}[/sub]
+        </td>
+        <td>
+          <sub>{{!it.translate('subscript', 'subscriptText')}}</sub>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [sup]{{!it.translate('superscript', 'superscriptText')}}[/sup]
+        </td>
+        <td>
+          <sup>{{!it.translate('superscript', 'superscriptText')}}</sup>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id='link' class='section-header'>
+    <h3>{{!it.translate('Link markup')}}</h3>
+  </div>
+  <div class='section-body'>
+    <a href='javascript:void(0);'>&gt;&gt;1675284</a> {{!it.translate('Link to a post on the same board')}}
+    <br /><br />
+    <a href="javascript:void(0);">&gt;&gt;/h/127154</a> {{!it.translate('Link to a post on another board')}}
+    <br /><br />
+    example.com —&gt; <a href="http://example.com">example.com</a>
+    <br /><br />
+    example1.com, (example2.com) —&gt;
+    <a href='http://example1.com,'>example1.com,</a> (<a href='http://example2.com)'>example2.com)</a>
+    <br /><br />
+    [url]example1.com[/url], ([url]example2.com[/url]) —&gt;
+    <a href='http://example.com'>example1.com</a>, (<a href='http://example.com'>example2.com</a>)
+    <br /><br />
+    mailto:user@example.com —&gt; <a href='mailto:user@example.com'>user@example.com</a>
+    <br /><br />
+    irc:#some_channel —&gt; <a href='irc:#some_channel'>#some_channel</a>
+  </div>
+  <div id='video' class='section-header'>
+    <h3>{{!it.translate('YouTube and Coub video embedding')}}</h3>
+  </div>
+  <div class='section-body'>
+    <div class='overflow-x-container'>https://www.youtube.com/watch?v=7wHhnX1WMNA</div>
+    http://coub.com/view/qq94
+    <br /><br />
+    {{!it.translate('becomes', 'becomesText')}}
+    <br /><br />
+    <span data-video-id='7wHhnX1WMNA' data-video-title='О квадратных формочках и говне, в которое превратился веб'
+          data-video-author='Andrey Bogdanov' data-thumb-url='https://i.ytimg.com/vi/7wHhnX1WMNA/mqdefault.jpg'
+          data-thumb-width='320' data-thumb-height='180'>
+    <span title='YouTube' class='icon icon-youtube-16 sign-icon no-invert'></span>
+    <a href='https://www.youtube.com/watch?v=7wHhnX1WMNA' title='Andrey Bogdanov'
+       onmouseover='lord.showVideoThumb(event, this);' onmousemove='lord.moveVideoThumb(event, this);'
+       onmouseout='lord.hideVideoThumb(event, this);'>О квадратных формочках и говне, в которое превратился веб</a>
+    <span class='expandable'
+          onclick='lord.expandCollapseYoutubeVideo(this); return false;'>[Развернуть видео]</a><span>
+  </div>
+  <div id='replacement' class='section-header'>
+    <h3>{{!it.translate('Auto replacement')}}</h3>
+  </div>
+  <div class='section-body'>
+    -- ({{!it.translate('double hyphen')}}) —&gt; – ({{!it.translate('en dash')}})
+    <br /><br />
+    ---- ({{!it.translate('quadriple hyphen')}}) —&gt; — ({{!it.translate('em dash')}})
+  </div>
+  <div id='code' class='section-header'>
+    <h3>{{!it.translate('Code markup')}}</h3>
+  </div>
+  <div class='section-body'>
+    /--code c++<br />static const int = 0;<br />\--
+    <br /><br />
+    [code lang=&quot;cpp&quot;]{{!it.codeToMarkup}}[/code]
+    <br /></br />
+    [c++]{{!it.codeToMarkup}}[/c++]
+    <br /><br />
+    {{=it.markedUpCode}}
+    <br />
+    <span class='collapsible-spoiler'>
+      <span class='collapsible-spoiler-title'
+            onclick='lord.expandCollapseSpoiler(this);'>{{!it.translate('Supported languages')}}</span>
+      <span class='collapsible-spoiler-body' style='display: none;'>
+        <table>
+          <thead>
+            <tr>
+              <th>{{!it.translate('Language name')}}</th>
+              <th>{{!it.translate('Language ID')}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{~it.availableCodeLangs :lang}}
+              <tr>
+                <td>{{!lang.name}}</td>
+                <td>{{!lang.id}}</td>
+              </tr>
+            {{~}}
+          </tbody>
+        </table>
+      </span>
+    </span>
+  </div>
+  <div id='list' class='section-header'>
+    <h3>{{!it.translate('List markup')}}</h3>
+  </div>
+  <div class='section-body'>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            [ul type="disc"][li]{{!it.translate('first list item')}}[/li]
+            <br />[li]{{!it.translate('second list item')}}[/li]
+            <br />[li]{{!it.translate('third list item')}}[/li][/ul]
+          </td>
+          <td>
+            <ul type='disc'>
+              <li>{{!it.translate('first list item')}}</li>
+              <li>{{!it.translate('second list item')}}</li>
+              <li>{{!it.translate('third list item')}}</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [ul type=circle]
+            <br />
+            [li]{{!it.translate('first list item')}}[/li]
+            <br />
+            [li]{{!it.translate('second list item')}}[/li]
+            <br />
+            [li]{{!it.translate('third list item')}}[/li]
+            <br />
+            [/ul]
+          </td>
+          <td>
+            <ul type='circle'>
+              <li>{{!it.translate('first list item')}}</li>
+              <li>{{!it.translate('second list item')}}</li>
+              <li>{{!it.translate('third list item')}}</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [ul type=s]
+            <br />
+            [li]{{!it.translate('first list item')}}[/li]
+            <br />
+            [li]{{!it.translate('second list item')}}[/li]
+            <br />
+            [li]{{!it.translate('third list item')}}[/li]
+            <br />
+            [/ul]
+          </td>
+          <td>
+            <ul type='square'>
+              <li>{{!it.translate('first list item')}}</li>
+              <li>{{!it.translate('second list item')}}</li>
+              <li>{{!it.translate('third list item')}}</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [ol]
+            <br />
+            [li value=1]{{!it.translate('first list item')}}[/li]
+            <br />
+            [li]{{!it.translate('second list item')}}[/li]
+            <br />
+            [li value=5]{{!it.translate('third list item')}}[/li]
+            <br />
+            [/ol]
+          </td>
+          <td>
+            <ol>
+              <li value='1'>{{!it.translate('first list item')}}</li>
+              <li value='2'>{{!it.translate('second list item')}}</li>
+              <li value='5'>{{!it.translate('third list item')}}</li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{{#def['partials/footer']}}
+</main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='{{!it.site.locale}}'>
+{{#def['partials/head']}}
+<body>
+  {{#def['partials/sidebar']}}
+  {{#def['partials/nav']}}
+  <a id="top"></a>
+  <main>
+    {{#def['custom/content/0'] || ''}}
+    <div>
+      <span class='disabled stats float-r'>
+        {{!it.translate('Bump limit', 'bumpLimitText')}}: {{!it.board.bumpLimit}}<br>
+        {{!it.translate('Post limit', 'postLimitText')}}: {{!it.board.postLimit}}<br>
+        {{!it.translate('Max size of a file', 'maxFileSizeText')}}: {{!it.board.maxFileSize/1024/1024}} Mb
+      </span>
+      <h1>{{!it.board.title}}
+        <a href='/{{!it.site.pathPrefix}}{{!it.board.name}}/'>
+          <span class="board-name">/{{!it.board.name}}/</span>
+        </a>
+      </h1>
+      {{? it.board.description}}
+      <i class="disabled">{{=it.board.description}}</i>
+      {{?}}
+      <div class="clr"></div>
+    </div>
+    {{~['top'] :position}}
+      {{#def['board/createAction']}}
+    {{~}}
+    <div id='threads'>
+      {{? !it.threads.length}}
+        <h2 class="disabled">{{!it.translate('Still nothing here, but you can fix it!', 'noPostsText')}}</h2>
+      {{??}}
+        {{~it.threads :thread}}
+        {{#def['board/thread']}}
+        <hr>
+      {{~}}
+      {{?}}
+    </div>
+    {{? it.threads.length}}
+      {{~['bottom'] :position}}
+        {{#def['board/createAction']}}
+      {{~}}
+    {{?}}
+    {{#def['partials/footer']}}
+  </main>
+  <a id="bottom"></a>
+</body>
+</html>

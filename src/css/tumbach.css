@@ -1,0 +1,151 @@
+/*!Tumbach Future*/
+@import "./archetypes/future.css";
+
+:root {
+  --color: #62becb;
+  --color-butt: rgba(0,0,0,.87);
+  --color-disa: rgba(0,0,0,.54);
+  --color-new: #080;
+  --color-satu: var(--color);
+  --color-text: rgba(0,0,0,.87);
+  --back-asid: #ececec;
+  --back-butt: #00cfeb;
+  --back-erro: #c96f63;
+  --back-main: #fafafa;
+  --back-spoi: var(--back-butt);
+  --back-targ: rgba(153, 217, 234, .42);
+}
+
+body { background: var(--back-main); color: var(--color-text) }
+a { color: var(--color-satu) }
+hr { border: 1px solid var(--back-asid) }
+s {
+  text-decoration-color: var(--color-satu);
+  -webkit-text-decoration-color: var(--color-satu);
+}
+.disabled { color: var(--color-disa) }
+::-webkit-scrollbar-track { background: #ececec }
+::-webkit-scrollbar-thumb { background: var(--color-satu) }
+::-moz-scrollbar-track { background: #ececec }
+::-moz-scrollbar-thumb { background: var(--color-satu) }
+::scrollbar-track { background: #ececec }
+::scrollbar-thumb { background: var(--color-satu) }
+
+textarea::-webkit-scrollbar-track { background: #070913; }
+textarea::-moz-scrollbar-track { background: #070913; }
+textarea::scrollbar-track { background: #070913; }
+
+textarea::-webkit-resizer{ border-left: 15px solid transparent; border-bottom: 15px solid #292a2f;}
+textarea::-webkit-scrollbar-corner{border:none;background: #292a2f}
+textarea::-moz-resizer{ border-left: 15px solid transparent; border-bottom: 15px solid #292a2f;}
+textarea::-moz-scrollbar-corner{border:none;background: #292a2f}
+
+::selection {
+  background: #60a6a6;
+  color: white;
+}
+
+.button {
+  color: var(--color-butt);
+  border: none;
+}
+
+.button .coloured {
+  background: var(--back-butt);
+}
+
+.button.error {
+  background: var(--back-erro);
+}
+
+.button :hover,
+.button:focus {
+  background: var(--color);
+}
+
+.pagination .selected {
+  background: var(--back-butt)
+}
+
+aside, menu {
+  background: var(--back-asid);
+}
+
+main {
+  border-top: 10px solid var(--color-satu);
+  box-shadow: -2px 0 5px #aaa;
+}
+
+
+aside a {
+  color: var(--color);
+}
+
+aside a:hover, aside a:focus, aside a.selected {
+  background: var(--color);
+  box-shadow: -7px 0 7px -5px var(--color-satu) inset;
+  border-right: 1px solid var(--color-satu);
+}
+
+aside a > span.board-name {
+  color: var(--color);
+}
+
+aside a span.new {
+  color: var(--color-new);
+}
+
+aside select {
+  color: var(--color);
+}
+
+span.board-name {
+  color: var(--color-satu);
+}
+
+.radio-menu .tab {
+  background: var(--color);
+}
+.radio-menu .tab label:hover,
+.radio-menu .tablabel:focus {
+  background: var(--color);
+}
+
+.radio-menu .content {
+  background: var(--back-asid);
+}
+
+.radio-menu input[type=radio]:nth-child(1):checked ~ .tab label:nth-child(1),
+.radio-menu input[type=radio]:nth-child(2):checked ~ .tab label:nth-child(2),
+.radio-menu input[type=radio]:nth-child(3):checked ~ .tab label:nth-child(3),
+.radio-menu input[type=radio]:nth-child(4):checked ~ .tab label:nth-child(4) {
+  background: var(--back-butt);
+}
+
+/* Post */
+.quotation {
+  color: #080;
+}
+.post-subject {
+  font-weight: bold;
+}
+.post.reply-post .post-internal-wrapper, .catalog-thread {
+  background: var(--back-asid);
+  box-shadow: 0 0 1px 1px rgba(0,0,0,.24);
+}
+.catalog-thread { box-shadow: inset 0 -42px 84px -33px #ccc }
+.catalog-thread-container:hover .catalog-thread { box-shadow: 0 0 1px 2px #ccc }
+
+.post:target > .post-internal-wrapper,
+.post-internal-wrapper:target {
+  background: var(--back-targ) !important;
+  box-shadow: 0 0 1px 2px var(--back-targ) !important;
+}
+.spoiler {
+  color: var(--back-spoi);
+  background-color: var(--back-spoi);
+}
+.spoiler:hover {
+  color: inherit;
+  background: var(--back-spoi);
+}

@@ -1,0 +1,37 @@
+{
+  "name": "kuri",
+  "version": "0.0.1",
+  "description": "The Foxtan web-client.",
+  "main": "kuri.js",
+  "scripts": {
+    "build:all": "run build:all",
+    "install": "run install --without-npm",
+    "install:assets": "run install --only-assets",
+    "start": "node kuri.js",
+    "start:dev": "NODE_ENV=development node kuri.js",
+    "test": "mocha tests --check-leaks --reporter nyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tumbach/kuri.git"
+  },
+  "keywords": [
+    "imageboard"
+  ],
+  "author": "rngnrs",
+  "license": "MIT",
+  "homepage": "https://github.com/tumbach/kuri",
+  "dependencies": {
+    "dot": "^1.1.2",
+    "express": "^4.15.3",
+    "minimal-request-promise": "^1.4.0"
+  },
+  "devDependencies": {
+    "clean-css": "^4.1.7",
+    "mocha": "^3.4.2",
+    "runjs": "^3.4.1"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  }
+}

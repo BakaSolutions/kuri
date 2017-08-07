@@ -1,0 +1,38 @@
+<aside>
+  <menu>
+    <li>
+      <a href="/{{!it.site.pathPrefix}}">
+        {{!it.translate('Home', 'toHomePageText')}}
+        <span class="board-name">/</span>
+      </a>
+    </li>
+    {{~it.boards.filter(function(board) { return !board.hidden; }) :board}}
+      <li>
+        <a href="/{{!it.site.pathPrefix}}{{!board.name}}/" {{? it.board && board.name == it.board.name}}class="selected"{{?}}>
+          <span class="board-title">{{!board.title}}</span>
+          <span class="board-name">/{{!board.name}}/</span>
+        </a>
+      </li>
+    {{~}}
+  </menu>
+  <menu>
+    <li>
+      <a href="/{{!it.site.pathPrefix}}markup.html">
+        {{!it.translate('Markup', 'toMarkupPageText')}}
+        <span class="board-name">/markup/</span>
+      </a>
+    </li>
+    <li>
+      <a href="/{{!it.site.pathPrefix}}faq.html">
+        {{!it.translate('F.A.Q.', 'toFaqPageText')}}
+        <span class="board-name">/faq/</span>
+      </a>
+    </li>
+    <select class='js-only select theme-select'
+            data-bind='value: settings.style'>
+      {{~it.styles :style}}
+        <option value='{{!style.name}}'>{{!style.title}}</option>
+      {{~}}
+    </select>
+  </menu>
+</aside>

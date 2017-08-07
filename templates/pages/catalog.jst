@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang='{{!it.site.locale}}'>
+{{#def['partials/head']}}
+<body>
+  {{#def['partials/sidebar']}}
+  {{#def['partials/nav']}}
+  <a id="top"></a>
+  <main>
+    {{#def['custom/content/0'] || ''}}
+    <div>
+      <h1>
+        {{!it.translate('Catalog of', 'catalogOfText')}}
+        <a href='/{{!it.site.pathPrefix}}{{!it.board.name}}/'>{{!it.board.title}}</a>
+      </h1>
+    </div>
+    <hr>
+    <div class='sorting-mode-select-container'>
+      {{!it.translate('Sort by:', 'sortingModeLabelText')}}
+      <span class='js-only'>
+        <select class='select'
+                onchange='location = "/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog" + this.value + ".html";'>
+          <option {{? 'date' === it.sortMode}}selected='true'{{?}}
+                  value=''>{{!it.translate('Creation date', 'sortingModeDateLabelText')}}</option>
+          <option {{? 'recent' === it.sortMode}}selected='true'{{?}}
+                  value='-recent'>{{!it.translate('Last post date', 'sortingModeRecentLabelText')}}</option>
+          <option {{? 'bumps' === it.sortMode}}selected='true'{{?}}
+                  value='-bumps'>{{!it.translate('Bump count', 'sortingModeBumpsLabelText')}}</option>
+        </select>
+      </span>
+      <span class='no-js-only'>
+            {{? 'date' === it.sortMode}}
+              <b>
+            {{??}}
+              <a href='/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html'>
+            {{?}}
+            {{!it.translate('Creation date', 'sortingModeDateLabelText')}}{{? 'date' === it.sortMode}}</b>{{??}}</a>{{?}}
+            {{? 'recent' === it.sortMode}}
+              <b>
+            {{??}}
+              <a href='/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog-recent.html'>
+            {{?}}
+            {{!it.translate('Last post date', 'sortingModeRecentLabelText')}}{{? 'recent' === it.sortMode}}</b>{{??}}</a>{{?}}
+            {{? 'bumps' === it.sortMode}}
+              <b>
+            {{??}}
+              <a href='/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog-bumps.html'>
+            {{?}}
+            {{!it.translate('Bump count', 'sortingModeBumpsLabelText')}}{{? 'bumps' === it.sortMode}}</b>{{??}}</a>{{?}}
+          </span>
+    </div>
+    <hr>
+    <div id='threads' class='catalog-threads'>
+      {{? !it.threads.length}}
+        <h2 class="disabled">{{!it.translate('Still nothing here, but you can fix it!', 'noPostsText')}}</h2>
+      {{??}}
+        {{~it.threads :thread}}
+        <div class='catalog-thread-container'>
+          <div class='catalog-thread'>
+            <div>
+              <a href='/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!thread.opPost.number}}.html'
+                 class='post-file-link'
+                 {{? thread.opPost.fileInfos.length > 0}}data-rating='{{!thread.opPost.fileInfos[0].rating}}'{{?}}>
+                {{? thread.opPost.fileInfos.length > 0}}
+                {{~[thread.opPost.fileInfos[0]] :fileInfo}}
+                {{#def['file/fileThumb']}}
+                {{~}}
+                {{??}}
+                &gt;&gt;/{{!it.board.name}}/{{!thread.opPost.number}}
+                {{?}}
+              </a>
+            </div>
+            {{~[thread.opPost] :post}}
+            <div>
+              {{#def['post/name']}}
+              {{!it.translate('Reply count:', 'replyCountLabelText')}} {{!(thread.postCount - 1).toString()}}
+              {{? post.subject}}
+              <br />
+              {{?}}
+              {{#def['post/subject']}}
+            </div>
+            <div>
+              <blockquote>{{=(post.text || '')}}</blockquote>
+            </div>
+            {{? post.referringPosts.length > 0}}
+            <div>
+              {{#def['post/referringPosts']}}
+            </div>
+            {{?}}
+            {{~}}
+          </div>
+        </div>
+        {{~}}
+      {{?}}
+    </div>
+    {{#def['partials/footer']}}
+  </main>
+  <a id='bottom'></a>
+</body>
+</html>
