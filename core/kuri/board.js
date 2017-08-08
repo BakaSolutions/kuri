@@ -27,8 +27,3 @@ Board.getBoards = async function () {
 Board.getBoard = function (board) {
   return Board.boards[board] || {};
 };
-
-
-(async function() {
-  await Board.syncBoards().then(()=>console.log(Board.boards));
-})();

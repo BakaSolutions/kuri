@@ -5,7 +5,7 @@
   "main": "kuri.js",
   "scripts": {
     "build:all": "run build:all",
-    "install": "run install --without-npm",
+    "install:all": "run install",
     "install:assets": "run install --only-assets",
     "start": "node kuri.js",
     "start:dev": "NODE_ENV=development node kuri.js",
@@ -24,6 +24,7 @@
   "dependencies": {
     "dot": "^1.1.2",
     "express": "^4.15.3",
+    "figurecon": "github:rngnrs/figurecon",
     "minimal-request-promise": "^1.4.0"
   },
   "devDependencies": {

@@ -14,8 +14,8 @@ let templates = {};
 const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 //const ENCODE_HTML_SOURCE = doT.encodeHTMLSource.toString();
 
-let templateFolder = 'templates';
-let destinationFolder = 'tmp/views';
+let templateFolder = 'src/views';
+let destinationFolder = '.tmp/views';
 
 
 

@@ -39,9 +39,7 @@ FS.check = function (filePath) {
  * @returns {*}
  */
 FS.readSync = function (filePath) {
-  //console.log('R: ', filePath);
   filePath = FS.normalize(filePath);
-  //console.log('RN: ',filePath);
   if (!this.check(filePath)) {
     return false;
   }
@@ -78,7 +76,6 @@ FS.unlinkSync = function (filePath) {
  */
 FS.writeFileSync = function (filePath, content) {
   filePath = FS.normalize(filePath);
-  //console.log('W: ' + filePath);
   if (!this.check(filePath)) {
     return false;
   }
@@ -140,7 +137,6 @@ FS.mkdirSync = function (dir) {
     parent.pop();
     parent = parent.join('/');
     dir[dir.length] = parent;
-    console.log('MK: ', dir);
     return this.mkdirSync(dir);
   }
   dir.pop();
@@ -181,7 +177,6 @@ FS.readFileStream = function (source, res) {
   source.on('error', function(err) {
     res.statusCode = 500;
     res.end('Server Error');
-    console.error(err);
   });
 };
 

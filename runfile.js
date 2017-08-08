@@ -3,7 +3,6 @@ const os = require('os');
 const path = require('path');
 const CleanCSS = require('clean-css');
 
-const Tools = require('./helpers/tools');
 const FS = require('./helpers/fs');
 const build = module.exports = {};
 
@@ -12,20 +11,21 @@ console.log('Kuri runfile, version 0.0.1');
 build.install = function () {
   let o = this.options;
   if (o) {
-    if(!o['without-assets'] || o['with-assets'] || o['only-assets']) {
-      if (o['only-assets']) {
-        return assets();
-      }
+    if(!o['without-assets'] && o['with-assets']) {
       assets();
     }
-    if(!o['without-npm'] || o['with-npm']) {
+    if(!o['without-npm'] && o['with-npm']) {
       console.log('Installing NPM packages...');
       run('npm i');
     }
+    if(!o['without-build'] && o['with-build']) {
+      build.build.all();
+    }
     return finish();
   }
-
-
+  assets();
+  build.build.all();
+  finish();
 
 
   function assets(){
@@ -67,7 +67,7 @@ build.build = {
     }
 
     console.log('Building CSS...');
-    let input = FS.readdirSync('./src/css').filter(function (file, i, input) {
+    let input = FS.readdirSync(path.resolve('./src/css')).filter(function (file, i, input) {
       if (/\.css$/i.test(file))
         return file;
     });
@@ -79,7 +79,7 @@ build.build = {
     });
 
     console.log('Building custom CSS...');
-    let customInput = FS.readdirSync('./src/css/custom');
+    let customInput = FS.readdirSync(path.resolve('./src/css/custom'));
     css.minify(customInput, cssProgress.bind(this, path.resolve('./public/css/custom.css')));
 
     function cssProgress(outFile, err, out) {
@@ -91,6 +91,7 @@ build.build = {
     }
   },
   all: function() {
+    console.log('Building kuri...');
     build.build.css();
   }
 };

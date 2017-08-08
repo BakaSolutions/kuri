@@ -9,7 +9,7 @@ called [Foxtan](https://github.com/tumbach/foxtan).
 ````
 git clone https://github.com/tumbach/kuri
 cd kuri
-npm run install
+npm run install:all
 npm run build
 npm start
 ````

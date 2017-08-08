@@ -13,11 +13,11 @@ process.on('uncaughtException', function (err) {
 async function initMaster() {
   await Renderer.compileTemplates();
   await Renderer.reloadTemplates();
+  await Board.syncBoards();
   await Renderer.rerender();
   /*if (config('system.rerenderCacheOnStartup')) {
     await Renderer.rerender();
   }*/
-  await Board.syncBoards();
 }
 
 async function initWorker() {
