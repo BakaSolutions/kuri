@@ -1,5 +1,6 @@
 const Figurecon = require('figurecon');
 const path = require('path');
+const packageJSON = require('../package.json');
 
 let config = {
   foxtan: {
@@ -13,7 +14,7 @@ let config = {
     output: 'port', // port | socket
     socket: '/tmp/sock',
     enableStatic: true,
-    version: '0.0.1'
+    version: packageJSON['version']
   },
   site: {
     protocol: 'https',

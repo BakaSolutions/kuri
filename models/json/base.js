@@ -1,4 +1,5 @@
 const config = require('../../helpers/config');
+const Board = require('../../core/kuri/board');
 
 module.exports = {
   site: {
@@ -12,5 +13,5 @@ module.exports = {
   translate: function (arg) {
     return arg;
   },
-  boards: [],
+  boards: Board.get(),
 };

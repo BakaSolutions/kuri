@@ -9,6 +9,7 @@ let router = express.Router();
 app.routers = [];
 
 function initialize() {
+  console.log('Initializing controllers...');
 
   router.use(async function (req, res, next) {
     const start = new Date();

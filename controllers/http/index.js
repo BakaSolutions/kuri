@@ -9,6 +9,6 @@ let router = module.exports = express.Router();
 
 router.paths = 'index.html';
 
-router.render = function (path) {
+router.render = function () {
   return Renderer.render('pages/home', {});
 };

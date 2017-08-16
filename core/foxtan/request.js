@@ -14,7 +14,7 @@ const defaultOptions = {
 let Request = module.exports = {};
 
 Request.get = async function (url, options) {
-  console.log('get', url);
+  console.log('get', Foxtan + url);
   return await defaultRequest('get', url, options);
 };
 

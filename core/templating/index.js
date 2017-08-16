@@ -1,9 +1,7 @@
 const doT = require('dot');
 const FS = require('../../helpers/fs');
-const path = require('path');
+const Path = require('path');
 const Tools = require('../../helpers/tools');
-
-const BaseModel = require('../../models/json/base');
 
 let Templating = module.exports = {};
 let includes = {};
@@ -23,12 +21,12 @@ Templating.reloadTemplates = function () {
   try {
     FS.readdirSync(destinationFolder, true).map(function (source) {
       source.substring(0, source.indexOf('.'));
-      return source.replace(path.join(__dirname, '../../', destinationFolder, path.sep), '');
+      return source.replace(Path.join(__dirname, '../../', destinationFolder, Path.sep), '');
     }).forEach(function (templateName) {
-      if (path.parse(templateName).ext !== '.js')
+      if (Path.parse(templateName).ext !== '.js')
         return false;
       templateName = templateName.split('.').shift();
-      let id = require.resolve(path.join(__dirname, '../../', destinationFolder, templateName));
+      let id = require.resolve(Path.join(__dirname, '../../', destinationFolder, templateName));
       if (require.cache[id]) {
         delete require.cache[id];
       }
@@ -49,7 +47,7 @@ Templating.compileTemplates = function () {
   console.log("Compiling templates...");
 
   let sources = FS.readdirSync(templateFolder, true).map(function (source) {
-    return source.replace(path.join(__dirname, '../../', templateFolder, path.sep), '');
+    return source.replace(Path.join(__dirname, '../../', templateFolder, Path.sep), '');
   });
 
   let k;
@@ -59,19 +57,19 @@ Templating.compileTemplates = function () {
   for(k = 0; k < l; k++) {
     name = sources[k];
     if (/\.def(\.dot|\.jst)?$/.test(name)) {
-      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(path.join(__dirname, '../../', templateFolder, name));
+      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(Path.join(__dirname, '../../', templateFolder, name));
     }
   }
 
   for(k = 0; k < l; k++) {
     name = sources[k];
-    let realPath = path.join(__dirname, '../../', templateFolder, name);
+    let realPath = Path.join(__dirname, '../../', templateFolder, name);
     /*if (/\.dot(\.def|\.jst)?$/.test(name)) {
       this.__rendermodule[name.substring(0, name.indexOf('.'))] = realPath;
     }*/
     if (/\.jst(\.dot|\.def)?$/.test(name)) {
       let template = FS.readSync(realPath);
-      this.compileToFile(path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
+      this.compileToFile(Path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
     }
   }
   //return this.__rendermodule;
@@ -86,7 +84,7 @@ Templating.compileToFile = function(filePath, template) {
   /*let compiled = '(function(){' + precompiled + 'var itself=' + moduleName + ',_encodeHTML=('
       + ENCODE_HTML_SOURCE + '());module.exports=itself;})()';*/
   let compiled = '(function(){' + precompiled + 'module.exports=' + moduleName + ';})()';
-  FS.writeFileSync(path.join(__dirname, '../../', destinationFolder, filePath), compiled);
+  FS.writeFileSync(Path.join(__dirname, '../../', destinationFolder, filePath), compiled);
 };
 
 Templating.render = function (templateName, model) {
@@ -95,7 +93,7 @@ Templating.render = function (templateName, model) {
     console.log('Ni-paa~! This template doesn\'t exist: ' + templateName);
     return '';
   }
-  let baseModel = BaseModel;
+  let baseModel = require('../../models/json/base');
   model = Tools.merge(baseModel, model) || baseModel;
   try {
     return template(model);
@@ -105,21 +103,23 @@ Templating.render = function (templateName, model) {
   }
 };
 
-Templating.rerender = function (what) { // TODO: Optional render
+Templating.rerender = async function (what) { // TODO: Optional render
   let controllers = Tools.requireWrapper(require('../../controllers'));
-  controllers.routers.forEach(async function (router) {
+  for (let router of controllers.routers) {
     let paths = typeof router.paths === 'function'
       ? await router.paths()
       : router.paths;
     if (!Array.isArray(paths)) {
       paths = [ paths ];
     }
-    let path_;
+    let path;
     for (let i = 0; i < paths.length; i++) {
-      path_ = paths[i];
-      console.log('Rendering ' + path_ + '...');
-      let result = await router.render(path_);
-      FS.writeFileSync(path.join('public', path_), result);
+      path = paths[i];
+      console.log('Rendering ' + path + '...');
+      let result = await router.render(path);
+      if (result) {
+        FS.writeFileSync(Path.join('public', path), result);
+      }
     }
-  })
+  }
 };

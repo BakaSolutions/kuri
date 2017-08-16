@@ -81,7 +81,7 @@ FS.writeFileSync = function (filePath, content) {
   }
 
   let dir = path.parse(filePath).dir + path.sep;
-  if (!this.existsSync(dir, 1)) {
+  if (!this.existsSync(dir)) {
     this.mkdirSync(dir);
   }
 
@@ -133,6 +133,7 @@ FS.mkdirSync = function (dir) {
   try {
     fs.mkdirSync(dir[dir.length - 1]);
   } catch (e) {
+    console.log(e);
     let parent = dir[dir.length - 1].replace(/\/$/, '').split('/');
     parent.pop();
     parent = parent.join('/');
