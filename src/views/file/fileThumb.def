@@ -1,5 +1,0 @@
-<img src='/{{!it.site.pathPrefix}}{{!it.board.name}}/thumb/{{!fileInfo.thumb.name}}'
-     class='post-file-link-image hide-if-mum-watching'
-     alt='{{!fileInfo.thumb.name}}'
-     {{? fileInfo.thumb.dimensions}}width='{{!fileInfo.thumb.dimensions.width}}'{{?}}
-     {{? fileInfo.thumb.dimensions}}height='{{!fileInfo.thumb.dimensions.height}}'{{?}} />

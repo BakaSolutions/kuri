@@ -1,9 +1,0 @@
-@import './include/base.css';
-
-@media handheld {
-  @import './include/mobile.css';
-}
-
-@media not handheld {
-  @import './include/desktop.css';
-}

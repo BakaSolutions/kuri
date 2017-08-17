@@ -133,7 +133,6 @@ FS.mkdirSync = function (dir) {
   try {
     fs.mkdirSync(dir[dir.length - 1]);
   } catch (e) {
-    console.log(e);
     let parent = dir[dir.length - 1].replace(/\/$/, '').split('/');
     parent.pop();
     parent = parent.join('/');

@@ -4,12 +4,12 @@
   "description": "The Foxtan web-client.",
   "main": "app/kuri.js",
   "scripts": {
-    "build:all": "run build:all",
-    "install:all": "run install",
-    "install:assets": "run install --only-assets",
+    "build": "NODE_ENV=production gulp",
+    "build:js": "gulp js",
     "start": "node app/kuri.js",
     "start:dev": "NODE_ENV=development node app/kuri.js",
-    "test": "mocha tests --check-leaks --reporter nyan"
+    "test": "mocha tests --check-leaks --reporter nyan",
+    "watch": "gulp --watch"
   },
   "repository": {
     "type": "git",
@@ -28,9 +28,15 @@
     "minimal-request-promise": "^1.4.0"
   },
   "devDependencies": {
-    "clean-css": "^4.1.7",
-    "mocha": "^3.4.2",
-    "runjs": "^3.4.1"
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-remember": "^0.3.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.11",
+    "mocha": "^3.4.2"
   },
   "engines": {
     "node": ">= 7.6.0"
