@@ -11,17 +11,16 @@ process.on('uncaughtException', function (err) {
 });
 
 async function initMaster() {
+  controllers.initialize();
   let sync = await Board.sync();
   if (!sync) {
     console.log('Foxtan is unreachable. Start Foxtan or come later.');
-    return false;
-  }
-  await Renderer.compileTemplates();
-  await Renderer.reloadTemplates();
-
-  controllers.initialize();
-  if (config('system.rerenderCacheOnStartup', true)) {
-    await Renderer.rerender();
+  } else {
+    await Renderer.compileTemplates();
+    await Renderer.reloadTemplates();
+    if (config('system.rerenderCacheOnStartup', true)) {
+      await Renderer.rerender();
+    }
   }
 }
 

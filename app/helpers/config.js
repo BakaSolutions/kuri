@@ -1,6 +1,6 @@
 const Figurecon = require('figurecon');
 const path = require('path');
-const packageJSON = require('../package.json');
+const packageJSON = require('../../package.json');
 
 let config = {
   foxtan: {
@@ -26,4 +26,4 @@ let config = {
   }
 };
 
-module.exports = new Figurecon(path.join(__dirname, "/../config.js"), config);
+module.exports = new Figurecon(path.join(__dirname, "/../../config.js"), config);

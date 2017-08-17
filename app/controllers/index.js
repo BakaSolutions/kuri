@@ -26,7 +26,7 @@ function initialize() {
   });
 
   if(config('server.enableStatic')) {
-    app.use(express.static(path.join(__dirname, '../public')));
+    app.use(express.static(path.join(__dirname, '../../public')));
   }
 
   app.use(router);

@@ -35,7 +35,7 @@ router.render = async function (path) {
 };
 
 async function renderPages(boardName) {
-  let pageCount = 1; /*await Board.getPageCount(boardName);*/
+  let pageCount = await Board.getPageCount(boardName);
   for (let i = 0; i < pageCount; i++) {
     await renderPage(boardName, i);
   }
@@ -47,7 +47,8 @@ async function renderPage(boardName, pageNumber) {
     throw new Error('Invalid board');
   }
   let page = {};
-  page.threads = await Board.getPage(boardName, pageNumber);
+  let threads = await Board.getPage(boardName, pageNumber);
+  page.threads = threads;
   /*for (let thread of page.threads) {
     delete thread.password;
     await Renderer.renderThread(thread);
@@ -55,7 +56,7 @@ async function renderPage(boardName, pageNumber) {
   let pageID = pageNumber > 0
     ? pageNumber
     : 'index';
-  page.title =`/${board.name}/ &mdash; ${board.title}`;
+  page.title ='/' + board.name + '/ &mdash; ' + board.title;
   page.board = board;
   FS.writeFileSync('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }

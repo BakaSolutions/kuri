@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Tools = require('../helpers/tools');
+var Tools = require('../app/helpers/tools');
 
 describe('Модуль инструментов', function () {
 

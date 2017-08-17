@@ -46,6 +46,10 @@ Board.getOne = function (board) {
   return Board.boards[board] || false;
 };
 
+Board.getPageCount = async function (board) {
+  return 1 /* await API.getPageCount(board) */;
+};
+
 Board.getPage = async function (board, page) {
   if (!Tools.isNumber(page)) {
     console.log('Trying to get something unexpectable!');

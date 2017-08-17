@@ -3,7 +3,7 @@ const path = require('path'),
   config = require('./config');
 
 let FS = module.exports = {};
-const ROOT = path.join(__dirname, '/../');
+const ROOT = path.join(__dirname, '/../../');
 
 if (config('fs.existscache')) {
   FS.cache = new Map();

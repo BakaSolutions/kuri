@@ -21,12 +21,12 @@ Templating.reloadTemplates = function () {
   try {
     FS.readdirSync(destinationFolder, true).map(function (source) {
       source.substring(0, source.indexOf('.'));
-      return source.replace(Path.join(__dirname, '../../', destinationFolder, Path.sep), '');
+      return source.replace(Path.join(__dirname, '../../../', destinationFolder, Path.sep), '');
     }).forEach(function (templateName) {
       if (Path.parse(templateName).ext !== '.js')
         return false;
       templateName = templateName.split('.').shift();
-      let id = require.resolve(Path.join(__dirname, '../../', destinationFolder, templateName));
+      let id = require.resolve(Path.join(__dirname, '../../../', destinationFolder, templateName));
       if (require.cache[id]) {
         delete require.cache[id];
       }
@@ -47,7 +47,7 @@ Templating.compileTemplates = function () {
   console.log("Compiling templates...");
 
   let sources = FS.readdirSync(templateFolder, true).map(function (source) {
-    return source.replace(Path.join(__dirname, '../../', templateFolder, Path.sep), '');
+    return source.replace(Path.join(__dirname, '../../../', templateFolder, Path.sep), '');
   });
 
   let k;
@@ -57,13 +57,13 @@ Templating.compileTemplates = function () {
   for(k = 0; k < l; k++) {
     name = sources[k];
     if (/\.def(\.dot|\.jst)?$/.test(name)) {
-      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(Path.join(__dirname, '../../', templateFolder, name));
+      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(Path.join(__dirname, '../../../', templateFolder, name));
     }
   }
 
   for(k = 0; k < l; k++) {
     name = sources[k];
-    let realPath = Path.join(__dirname, '../../', templateFolder, name);
+    let realPath = Path.join(__dirname, '../../../', templateFolder, name);
     /*if (/\.dot(\.def|\.jst)?$/.test(name)) {
       this.__rendermodule[name.substring(0, name.indexOf('.'))] = realPath;
     }*/
@@ -84,7 +84,7 @@ Templating.compileToFile = function(filePath, template) {
   /*let compiled = '(function(){' + precompiled + 'var itself=' + moduleName + ',_encodeHTML=('
       + ENCODE_HTML_SOURCE + '());module.exports=itself;})()';*/
   let compiled = '(function(){' + precompiled + 'module.exports=' + moduleName + ';})()';
-  FS.writeFileSync(Path.join(__dirname, '../../', destinationFolder, filePath), compiled);
+  FS.writeFileSync(Path.join(__dirname, '../../../', destinationFolder, filePath), compiled);
 };
 
 Templating.render = function (templateName, model) {
@@ -94,7 +94,7 @@ Templating.render = function (templateName, model) {
     return '';
   }
   let baseModel = require('../../models/json/base');
-  model = Tools.merge(baseModel, model) || baseModel;
+  model = Tools.merge(model, baseModel) || baseModel;
   try {
     return template(model);
   } catch (err) {

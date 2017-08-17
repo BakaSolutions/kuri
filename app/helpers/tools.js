@@ -113,7 +113,7 @@ tools.isNumber = function(n) {
  * @param {Object|Map} theArgs
  * @return {Object|Map} target
  */
-tools.merge = function (target, ...theArgs) {
+tools.merge = function (target, ...theArgs) { //TODO: Improve merging
   if(tools.isMap(target)) {
     let out = [...target];
     theArgs.forEach(function(arg) {

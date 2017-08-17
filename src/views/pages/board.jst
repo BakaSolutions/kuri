@@ -23,6 +23,16 @@
       {{?}}
       <div class="clr"></div>
     </div>
+    <div id='threads'>
+      {{? !it.threads.length}}
+        <h2 class="disabled">{{!it.translate('Still nothing here, but you can fix it!', 'noPostsText')}}</h2>
+      {{??}}
+        {{~it.threads :thread}}
+          {{#def['board/thread']}}
+          <hr>
+        {{~}}
+      {{?}}
+    </div>
     {{#def['partials/footer']}}
   </main>
   <a id="bottom"></a>
