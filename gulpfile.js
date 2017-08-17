@@ -1,10 +1,10 @@
 const gulp = require('gulp');
 const cached = require('gulp-cached');
 const remember = require('gulp-remember');
-const uglify = require('gulp-uglify');
 const cleanCSS = require('gulp-clean-css');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
+const babili = require("gulp-babili");
 
 const Templating = require('./app/core/templating');
 
@@ -39,7 +39,11 @@ function buildDot() {
 function buildJS() {
   return gulp.src(input.js)
       .pipe(cached('js'))
-      .pipe(uglify())
+      .pipe(babili({
+        mangle: {
+          keepClassName: true
+        }
+      }))
       .pipe(remember('js'))
       .pipe(gulp.dest(output.js));
 }
