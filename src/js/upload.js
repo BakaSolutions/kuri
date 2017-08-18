@@ -2,8 +2,8 @@ let fileInputCounter = 0,
 		fullFileInputCounter = 0,
 		lastFileInput = '',
 		counter = 0;
-const BOX_CONTENT = select('#replyForm .boxContent'),
-			DROPZONE = select('#dropZone');
+const BOX_CONTENT = document.querySelector('#replyForm .boxContent'),
+			DROPZONE = document.querySelector('#dropZone');
 
 function checkFile(file) {
 	if(config.fileUpload.allowedTypes.indexOf(file.type) > -1){
@@ -36,15 +36,15 @@ function handleFiles(e) {
 
 	const FILE = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
 	if (checkFile(FILE)){
-		if (e.dataTransfer) encodeToString(FILE, select(`#encodedFile${lastFileInput}`).value);
+		if (e.dataTransfer) encodeToString(FILE, document.querySelector(`#encodedFile${lastFileInput}`).value);
 
 		fullFileInputCounter++;
 
 		const BUTTON = document.querySelector(`#fileInput${lastFileInput} .uploadButton`);
 		const SPAN = document.querySelector(`#fileInput${lastFileInput} span.fileName`);
 
-		select(`#fileInput${lastFileInput} label`).style.pointerEvents = 'none';
-		SPAN.innerHTML = acromion.truncate(FILE.name, 13);
+		document.querySelector(`#fileInput${lastFileInput} label`).style.pointerEvents = 'none';
+		SPAN.innerHTML = truncate(FILE.name, 13);
 
 		renderPreview(FILE, BUTTON)
 
@@ -69,7 +69,7 @@ function renderPreview(file, target) {
 		READER.readAsDataURL(file);
 	} else{
 		const DIV = document.createElement('div');
-		DIV.innerHTML = acromion.getFileExtension(file.name);
+		DIV.innerHTML = file.name.split('.').pop();
 		DIV.className = 'thumb';
 
 		target.appendChild(DIV);
@@ -99,14 +99,14 @@ function createNewFileInput() {
 	DIV.addEventListener("change", handleFiles);
 
 	lastFileInput = TIMESTAMP;
-	select('#replyForm .column:nth-child(2)').appendChild(DIV);
+	document.querySelector('#replyForm .column:nth-child(2)').appendChild(DIV);
 }
 
 function removeFileInput(timestamp) {
-	const EMPTY = select(`#file${timestamp}`).files[0] || select(`#encodedFile${lastFileInput}`).value ? false : true;
+	const EMPTY = document.querySelector(`#file${timestamp}`).files[0] || document.querySelector(`#encodedFile${lastFileInput}`).value ? false : true;
 	if (EMPTY) return false;
 
-	select('#replyForm .column:nth-child(2)').removeChild(select(`#fileInput${timestamp}`));
+	document.querySelector(`#fileInput${timestamp}`).outerHTML = '';
 	fileInputCounter--;
 	fullFileInputCounter--;
 
@@ -117,7 +117,7 @@ function initFileInput() {
 // Удаление стандартных инпутов
 	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
 	for (let i = 0; i < INPUTS_TO_REMOVE.length; i++) {
-		remove(INPUTS_TO_REMOVE[i]);
+		INPUTS_TO_REMOVE[i].outerHTML = '';
 	}
 
 // Создание первой формы прикрепления файла
@@ -144,9 +144,4 @@ function initFileInput() {
 		DROPZONE.classList.remove('shown');
 		handleFiles(e);
 	});
-
-// Drop the bomb!
-	const KOAKUMA = new Image();
-	KOAKUMA.onload = () => DROPZONE.classList.add('koakuma');
-	KOAKUMA.src = './img/dropTheBomb.gif';
 }

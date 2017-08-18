@@ -5,6 +5,7 @@
   "main": "app/kuri.js",
   "scripts": {
     "build": "NODE_ENV=production gulp",
+		"build:dev": "NODE_ENV=development gulp",
     "build:js": "gulp js",
     "build:sass": "gulp sass",
     "start": "node app/kuri.js",
@@ -26,6 +27,7 @@
     "dot": "^1.1.2",
     "express": "^4.15.3",
     "figurecon": "github:rngnrs/figurecon",
+    "gulp-copy": "^1.0.1",
     "minimal-request-promise": "^1.4.0"
   },
   "devDependencies": {

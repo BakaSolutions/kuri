@@ -13,7 +13,7 @@ document.onkeydown = e => {
 let mascotShown = false;
 
 function mascotAnimationFix() {
-	const MSCT = select('#mascot');
+	const MSCT = document.querySelector('#mascot');
 
 	if (mascotShown){
 		MSCT.style.pointerEvents = 'none';
@@ -34,43 +34,27 @@ function mascotAnimationFix() {
 
 /* Темы */
 function setTheme(name) {
-  select('body').dataset.theme = name;
+  document.querySelector('body').dataset.theme = name;
   // Тут еще нужна хрень с сохранением этого дела в куки, но ее без сервера не потестить
 }
 
 function applyColor() {
 	const THEME = document.querySelectorAll('[type="color"]');
-	const MANUAL_EDITOR = select('#generatedTheme');
-	clear(MANUAL_EDITOR);
+	const MANUAL_EDITOR = document.querySelector('#generatedTheme');
+	MANUAL_EDITOR.innerHTML = '';
 
 	for (let i = 0; i < THEME.length; i++){
 		const STRING = THEME[i];
 		MANUAL_EDITOR.innerHTML += `--${STRING.getAttribute('name')}: ${STRING.value};\n`;
 	}
 
-	select('style#customTheme').innerHTML = `body[data-theme="custom"]{${MANUAL_EDITOR.innerHTML}}`;
+	document.querySelector('style#customTheme').innerHTML = `body[data-theme="custom"]{${MANUAL_EDITOR.innerHTML}}`;
 }
-
-/* Конами-код */
-cheet('↑ ↑ ↓ ↓ ← → ← → b a', () => {
-	const OVRL = select('.overlay#fullsizeImage');
-
-	const DIV = document.createElement('div');
-	DIV.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/Y0mbeQy93aI?autoplay=1" width="640" height="360" frameborder="0" allowfullscreen></iframe>';
-
-	OVRL.appendChild(DIV);
-	OVRL.style.display = 'flex';
-
-	OVRL.onclick = () => {
-		OVRL.removeChild(DIV);
-		OVRL.style.display = 'none';
-	}
-})
 
 /* Виджеты */
 const DRGS = [];
 function toggleWidget(id) {
-	const WDGT = select(`.widget#${id}`);
+	const WDGT = document.querySelector(`.widget#${id}`);
   if (WDGT.style.display == 'flex'){
 		WDGT.style.display = 'none';
 		DRGS[id].destroy();
@@ -89,7 +73,7 @@ function showImage(event, url) {
 		event.preventDefault();
 		event.stopPropagation();
 
-		const OVRL = select('#imageViewer');
+		const OVRL = document.querySelector('#imageViewer');
 		const IMG = new Image();
 
 		IMG.onload = () => {
@@ -132,6 +116,6 @@ function Notification(text = 'Всё норм, Саня, не забудь уб�
 
 function replyFormInit() {
 	toggleWidget('replyForm');
-	select('#replyForm').style.position = 'fixed';
-	select('#replyForm .boxHandle').style.display = 'block';
+	document.querySelector('#replyForm').style.position = 'fixed';
+	document.querySelector('#replyForm .boxHandle').style.display = 'block';
 }

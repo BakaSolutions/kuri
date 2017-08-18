@@ -5,18 +5,6 @@ const config = {
 	}
 }
 
-function clear(target) {
-	target.innerHTML = '';
-}
-
-function remove(target) {
-	target.outerHTML = '';
-}
-
-function select(e){
-	return document.querySelector(e);
-}
-
 function init(){
 	replyFormInit();
 	initFileInput();

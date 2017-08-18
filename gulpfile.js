@@ -10,8 +10,8 @@ const Templating = require('./app/core/templating');
 const isDev = process.env.NODE_ENV !== 'production';
 
 let tasks = {
-  development: ['dot', 'js', 'sass', 'watch'],
-  production: ['dot', 'js', 'sass']
+  development: ['dot', 'js', 'sass', 'images', 'watch'],
+  production: ['dot', 'js', 'sass', 'images']
 };
 
 let input = {
@@ -20,18 +20,27 @@ let input = {
          '!src/js/**/*.min.js', '!custom/src/js/**/*.min.js'],
   minjs:['src/js/**/*.min.js', 'custom/src/js/**/*.min.js'],
   sass: ['src/css/**/*.?(s)css', 'custom/src/css/**/*.?(s)css'],
+	images: ['src/images/*']
 };
 
 let output = {
   js:  'public/js',
-  sass: 'public/css'
+  sass: 'public/css',
+	images: 'public/images'
 };
 
 gulp.task('dot', buildDot.bind(null));
 gulp.task('js', buildJS.bind(null));
 gulp.task('sass', buildSass.bind(null));
+gulp.task('images', copyImages.bind(null));
 gulp.task('watch', watchTask.bind(null));
 gulp.task('default', tasks[process.env.NODE_ENV || 'development']);
+
+function copyImages() {
+	console.log('Copying pictures from /src to /public')
+	return gulp.src(input.images)
+		.pipe(gulp.dest(output.images))
+}
 
 function buildDot() {
   return Templating.compileTemplates();
