@@ -1,0 +1,146 @@
+@import '_global.scss';
+@import '_mascot.scss';
+@import '_replyForm.scss';
+
+#threadFlow{
+	padding: 0 10px;
+}
+
+.postWrapper{
+	margin-top: 2px;
+	min-height: 85px;
+	.postText{
+		margin: 0 5px;
+	}
+	&:first-child .postMedia a:last-child{
+		border-bottom-left-radius: var(--border-radius);
+	}
+	&:not(:first-child){
+		margin-left: 10px;
+		background-color: var(--foreground-color);
+		background-image: var(--foreground-image);
+		.postText{
+			margin: 5px;
+		}
+		.postDetails{
+			cursor: default;
+			padding-top: 3px;
+			border-radius: inherit;
+			background-color: var(--header-color);
+		}
+	}
+	&:nth-child(2) {
+		border-top-left-radius: var(--border-radius);
+		border-top-right-radius: var(--border-radius);
+	}
+	&:last-child {
+		border-bottom-left-radius: var(--border-radius);
+		border-bottom-right-radius: var(--border-radius);
+	}
+}
+
+.post{
+	display: flex;
+}
+
+.postReplies{
+	opacity: .9;
+	margin-top: 7px;
+	font-size: 0.8em;
+}
+
+/* Шапка поста */
+.postDetails{
+	cursor: default;
+	@include user-select(none);
+	padding-left: 5px;
+	.topic{
+		font-weight: bold;
+		color: var(--link-color);
+	}
+	.author{
+		color: var(--link-color);
+	}
+	.postMenu{
+		right: 15px;
+		position: absolute;
+	}
+}
+
+/* Меню поста */
+input + .postMenu + div{
+	display: none;
+}
+
+input:checked + .postMenu + div{
+	right: 10px;
+	padding: 3px;
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	border-radius: var(--border-radius);
+	border: 1px solid var(--text-color);
+	background-color: var(--foreground-color);
+	z-index: 100;
+}
+
+input:checked + .postMenu + div div{
+	padding: 3px;
+	color: var(--text-color);
+}
+
+input:checked + .postMenu + div div:hover{
+	background-color: var(--header-color);
+}
+
+input + .postMenu + div .source:before{
+	content: "\f0f6";
+}
+
+input + .postMenu + div .spoil:before{
+	content: "\f070";
+}
+
+input + .postMenu + div .edit:before{
+	content: "\f040";
+}
+
+/* Прикрепления поста */
+.postMedia{
+	@include user-select(none);
+	max-width: 200px;
+	max-height: 175px;
+	position: relative;
+	a:hover{
+		.imgInfo{
+			height: 17px;
+		}
+		.preview{
+			opacity: 1;
+		}
+	}
+	a:last-child{
+		border-bottom-left-radius: inherit;
+	}
+	.preview{
+		max-width: 200px;
+		max-height: 175px;
+		transition: opacity .1s;
+		opacity: var(--img-opacity);
+		border-bottom-left-radius: inherit;
+	}
+}
+
+.postMedia .imgInfo{
+	bottom: 0px;
+	height: 0px;
+	width: 100%;
+	font-size: .9em;
+	overflow: hidden;
+	position: absolute;
+	text-align: center;
+	transition-duration: .1s;
+	color: var(--text-color);
+	border-bottom-left-radius: inherit;
+	background: var(--foreground-color);
+}

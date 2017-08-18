@@ -1,0 +1,30 @@
+#topbar{
+	top: -20px;
+	height: 27px;
+	padding: 3px;
+	width: 100vw;
+	display: flex;
+	z-index: 665;
+	position: fixed;
+	justify-content: center;
+	@include user-select(none);
+	background-color: var(--sidebar-color);
+	background-image: var(--sidebar-image);
+	transition: top var(--animation-duration);
+	a{
+		margin: 0 5px;
+	}
+}
+
+#sidebarCheckbox:checked + #sidebar + #topbar {
+		top: 0;
+		a{
+			color: var(--link-color);
+		}
+		& + #mainColumn{
+			top: 20px;
+			& + #rightTopCorner{
+				opacity: 0;
+			}
+		}
+}

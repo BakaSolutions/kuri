@@ -1,0 +1,20 @@
+span{
+	&.quote{
+		color: #693;
+	}
+	&.bold{
+		font-weight: bold;
+	}
+	&.spoiler{
+		color: transparent;
+		transition-duration: var(--animation-duration);
+		text-shadow: 0 0 7px var(--text-color);
+		&:hover{
+			text-shadow: none;
+			color: var(--text-color);
+		}
+	}
+	&.italic{
+		font-style: italic;
+	}
+}

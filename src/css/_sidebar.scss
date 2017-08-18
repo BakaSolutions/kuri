@@ -1,0 +1,118 @@
+
+/* Сайдбар */
+#sidebar{
+  left: 0;
+  width: 210px;
+  z-index: 666;
+  height: 100vh;
+  padding: 10px;
+  position: fixed;
+	min-height: 420px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	@include user-select(none);
+  transition: left var(--animation-duration);
+  background-color: var(--sidebar-color);
+	background-image: var(--sidebar-image);
+}
+
+/* Кнопки поиска и скрытия панели */
+#actionBar{
+  top: 0;
+  left: 0;
+  display: flex;
+  width: inherit;
+  min-width: 160px;
+  max-width: 230px;
+	padding: inherit;
+  position: absolute;
+  pointer-events: none;
+	justify-content: space-between;
+	& > *{
+		z-index: 2018;
+		pointer-events: auto;
+	}
+	#toggleSidebar:before{
+		content: "\f053";
+	}
+	#toggleSearch:before{
+		content: "\f002";
+	}
+}
+
+/* Лого */
+#tumbach{
+	position: fixed;
+	left: inherit;
+	width: inherit;
+  z-index: 1000;
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+	color: var(--text-color);
+	&:hover{
+	  text-decoration: none;
+	}
+	.name{
+	  font-size: 1.8em;
+		line-height: 25px;
+	}
+	.desc{
+	  font-size: .95em;
+	}
+}
+
+/* Список досок */
+#boards{
+	margin-top: 60px;
+}
+
+#boards input[type="checkbox"]:checked + label{
+		max-height: 22px;
+}
+
+#boards .group{
+	display: flex;
+	margin-top: 5px;
+	overflow: hidden;
+	max-height: 150px;
+	flex-direction: column;
+	transition-duration: .2s;
+	.header{
+		padding: 3px;
+		display: block;
+		cursor: pointer;
+		border-radius: var(--border-radius);
+		background-color: var(--header-color);
+	}
+	a{
+	  margin-top: 2px;
+		margin-left: 7px;
+	}
+}
+
+/* Кнопки внизу */
+#sidebar #config{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Скрытие панели */
+input[type="checkbox"]:checked + #sidebar{
+	left: -210px;
+}
+
+#sidebarCheckbox:checked + #sidebar #actionBar #toggleSidebar:before{
+	left: 5px;
+	position: fixed;
+	content: "\f054";
+}
+
+.themeName{
+	color: var(--link-color);
+	&:after{
+		content: ' ' var(--theme-name);
+	}
+}
