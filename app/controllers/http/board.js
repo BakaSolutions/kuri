@@ -50,13 +50,12 @@ async function renderPage(boardName, pageNumber) {
   let threads = await Board.getPage(boardName, pageNumber);
   page.threads = threads;
   /*for (let thread of page.threads) {
-    delete thread.password;
     await Renderer.renderThread(thread);
   }*/
   let pageID = pageNumber > 0
     ? pageNumber
     : 'index';
-  page.title ='/' + board.name + '/ &mdash; ' + board.title;
+  page.title = '/' + board.name + '/ &mdash; ' + board.title;
   page.board = board;
   FS.writeFileSync('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }

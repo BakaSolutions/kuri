@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const merge = require('merge');
 
 let tools = module.exports = {},
   toString = Object.prototype.toString;
@@ -113,7 +114,8 @@ tools.isNumber = function(n) {
  * @param {Object|Map} theArgs
  * @return {Object|Map} target
  */
-tools.merge = function (target, ...theArgs) { //TODO: Improve merging
+tools.merge = function (target, ...theArgs) {
+  target = tools.clone(target);
   if(tools.isMap(target)) {
     let out = [...target];
     theArgs.forEach(function(arg) {
@@ -128,7 +130,7 @@ tools.merge = function (target, ...theArgs) { //TODO: Improve merging
         if (typeof target === 'undefined') {
           target = {};
         }
-        target[prop] = (typeof source[prop] === 'object')
+        target[prop] = tools.isObject(source[prop])
           ? tools.merge(target[prop], source[prop])
           : source[prop];
       }
@@ -137,14 +139,11 @@ tools.merge = function (target, ...theArgs) { //TODO: Improve merging
   return target;
 };
 
-tools.toPromise = function (ctx, func, ...args) {
-  return new Promise(function (resolve, reject) {
-    args.push(function (err, res) {
-      if (err) {
-        reject(err);
-      }
-      resolve(res);
-    });
-    func.apply(ctx, args);
-  });
+tools.clone = function (value) {
+  if (Array.isArray(value)) {
+    return value.slice(0).map(val => tools.clone(val));
+  } else if (tools.isObject(value)) {
+    return merge.recursive(true, value);
+  }
+  return value;
 };
