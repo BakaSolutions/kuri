@@ -1,4 +1,55 @@
-<aside>
+<input type="checkbox" id="sfwCheckbox" class="hidden">
+<input type="checkbox" id="sidebarCheckbox" class="hidden">
+<div id="sidebar">
+	<div id="actionBar">
+		<a onclick="void(0)"><i class="actionIcon" id="toggleSearch" aria-hidden="true"></i></a>
+		<label for="sidebarCheckbox" class="actionIcon" id="toggleSidebar" aria-hidden="true"></label>
+	</div>
+	<a href="#" id="tumbach">
+		<div class="name">
+			Ту<!--дери.ту-->мба.ч
+		</div>
+		<div class="desc">
+			технологичный и удобный имиджборд
+		</div>
+	</a>
+	<div id="boards">
+		<input type="checkbox" id="common-group" class="hidden">
+		<label for="common-group" class="group">
+			<div class="header">Общее</div>
+			<a href="#">/b/ — Бардак</a>
+			<a href="#">/d/ — Работа сайта</a>
+			<a href="#">/news/ — Новости</a>
+			<a href="#">/op/ — ОП-модерация</a>
+		</label>
+		<input type="checkbox" id="topics-group" class="hidden">
+		<label for="topics-group" class="group">
+			<div class="header">Тематика</div>
+			<a href="#">/a/ — Акихабара</a>
+			<a href="#">/art/ — Творчество</a>
+			<a href="#">/mu/ — Музыка</a>
+			<a href="#">/s/ — Софт и железо</a>
+			<a href="#">/vg/ — Видеоигры</a>
+		</label>
+		<input type="checkbox" id="embassies-group" class="hidden">
+		<label for="embassies-group" class="group">
+			<div class="header">Посольства</div>
+			<a href="#">/fox/ — Лисички</a>
+			<a href="#">/hk/ — Хомячки</a>
+		</label>
+	</div>
+	<div id="config">
+		<noscript>
+			JS отключен.
+		</noscript>
+		<a onclick="toggleWidget('settings')" class="jsOnly">Настройки</a>
+		<a onclick="toggleWidget('autoSpoil')" class="jsOnly">Автоскрытие</a>
+		<a class="themeName" onclick="(new Notification()).show()">Тема:</a>
+		<label for="sfwCheckbox"><a onclick="void(0)">Мамка в комнате!</a></label>
+	</div>
+</div>
+
+<!--<aside>
   <menu>
     <li>
       <a href="/{{!it.site.pathPrefix}}">
@@ -35,4 +86,4 @@
       {{~}}
     </select>
   </menu>
-</aside>
+</aside>-->

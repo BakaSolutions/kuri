@@ -1,8 +1,18 @@
 <head>
-  <title>{{!it.title}}</title>
   <meta charset='utf-8'>
-  <link id='favicon' rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
-  <meta name='theme-color' content='{{!it.site.themeColor || '#62becb' }}'>
-  <link rel="stylesheet" href="/{{!it.site.pathPrefix}}css/base.css" />
-  <link id="themeLink" rel="stylesheet" href="/{{!it.site.pathPrefix}}css/tumbach.css" />
+  <title>{{!it.title}}</title>
+  <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
+  <link id="stylesheet" rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.stylesheet}}.css">
+  <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}css/{{!it.script}}.js"></script>
+  <noscript>
+  	<style>
+  		.jsOnly{
+  			display: none !important
+  		}
+  		#replyForm input[type="file"] {
+  	  	display: block !important;
+  		}
+  	</style>
+  </noscript>
+  <style media="screen" id="customTheme"></style>
 </head>

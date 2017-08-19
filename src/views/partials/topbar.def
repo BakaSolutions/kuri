@@ -1,0 +1,8 @@
+<div id="topbar">
+	<a href="#">Главная</a>
+	<a href="#">Поиск</a>
+	<a href="#">Настройки</a>
+	<a href="#">Галерея</a>
+	<a href="./catalog.htm">Каталог</a>
+	<a href="#">Архив</a>
+</div>

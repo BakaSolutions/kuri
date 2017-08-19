@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang='{{!it.site.locale}}'>
-{{#def['partials/head']}}
-<body>
-  {{#def['partials/sidebar']}}
-  <main>
-    {{#def['custom/content/0'] || ''}}
-    {{#def['custom/home'] || def['default/home'] || ''}}
-    {{#def['partials/footer']}}
-  </main>
-</body>
+  {{#def['partials/head']}}
+	<body data-theme="tumbach">
+		{{#def['partials/sidebar']}}
+    {{#def['partials/topbar']}}
+		<div id="mainColumn">
+			<img id="meguka" src="/{{!it.site.pathPrefix}}images/meguka.gif" alt="">
+			<div>
+				Это страница простая, но не пустая!
+			</div>
+			<div>
+				Тут будет главная.
+			</div>
+		</div>
+	</body>
 </html>
