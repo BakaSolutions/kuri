@@ -26,7 +26,8 @@ let input = {
 };
 
 let jsBundles = {
-  home: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js']
+  home: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js'],
+  board: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js', 'src/js/truncate.js', 'src/js/upload.js']
 }
 
 let output = {
@@ -70,7 +71,7 @@ function buildDot() {
 }
 
 function buildJS() {
-  return gulp.src('.tmp/js/*.js')
+  return gulp.src(['.tmp/js/*.js'])
     .pipe(cached('js'))
     .pipe(minify())
     .pipe(remember('js'))

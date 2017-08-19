@@ -128,10 +128,13 @@ a {
 #banner {
 	font-size: 2em;
 	line-height: 30px;
-	cursor: pointer;
 	margin-top: 10px;
 	font-weight: bold;
 	user-select: none;
+	color: var(--text-color);
+	&:hover{
+		text-decoration: none;
+	}
 }
 
 /* Блок ссылок в правом верхнем углу */

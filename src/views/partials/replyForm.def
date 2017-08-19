@@ -1,0 +1,42 @@
+<input type="checkbox" class="hidden" id="replyFormExpand">
+<input type="checkbox" class="hidden" id="replyFormShow">
+<label for="replyFormShow">Новый пост</label>
+<form id="replyForm" class="widget box" action="" method="post">
+	<div class="boxHandle">Новый пост<label for="replyFormShow" class="actionIcon close"></label></div>
+	<div class="boxContent">
+		<div class="column">
+			<textarea placeholder="Нет, постинг пока не работает."></textarea>
+		<div class="row">
+			<input type="checkbox" name="OP" id="opCheckbox" class="hidden">
+			<label for="opCheckbox" class="iconCheckbox op"> OP</label>
+			<input type="checkbox" name="sage" id="sageCheckbox" class="hidden">
+			<label for="sageCheckbox" class="iconCheckbox sage"> Sage</label>
+			<input type="checkbox" id="markupHelp" class="hidden">
+			<label for="markupHelp" class="actionIcon help"> Help</label>
+			<button type="button">Отправить</button>
+		</div>
+		</div>
+		<div class="column">
+			<div class="row">
+				<input type="text" name="name" placeholder="Имя">
+			</div>
+			<input type="text" name="topic" placeholder="Тема">
+			<div class="row removeMe">
+				<input type="file" name="file0" id="file0">
+				<input type="checkbox" class="hidden" name="file1Rating" id="file0Rating">
+				<label class="iconCheckbox nsfw" for="file0Rating">
+			</div>
+			<div class="row removeMe">
+				<input type="file" name="file1" id="file1">
+				<input type="checkbox" class="hidden" name="file1Rating" id="file1Rating">
+				<label class="iconCheckbox nsfw" for="file1Rating">
+			</div>
+		</div>
+		<div class="column">
+			<label for="replyFormExpand" class="actionIcon rightLeft"></label>
+		</div>
+		<div id="dropZone">
+
+		</div>
+	</div>
+</form>
