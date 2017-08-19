@@ -36,6 +36,7 @@
     "gulp-babel-minify": "^0.2.0",
     "gulp-cached": "^1.1.1",
     "gulp-clean-css": "^3.7.0",
+    "gulp-concat": "^2.6.1",
     "gulp-remember": "^0.3.1",
     "gulp-sass": "^3.1.0",
     "gulp-watch": "^4.3.11",

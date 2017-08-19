@@ -1,0 +1,65 @@
+<div class="widget box" id="settings">
+	<div class="boxHandle">Настройки<i class="actionIcon close" onclick="toggleWidget('settings')"></i></div>
+	<div class="boxContent">
+		<ul>
+			<li><a onclick="setTheme('tumbach')">Tumbach</a></li>
+			<!--<li><a onclick="setTheme('tumbachLight')">Tumbach Light</a></li>-->
+			<li><a onclick="setTheme('proton')">Proton</a></li>
+			<li><a onclick="setTheme('futaba')">Futaba</a></li>
+			<li><a onclick="setTheme('myata')">Myata</a></li>
+			<li><a onclick="setTheme('brchan')">Brchan</a></li>
+			<li><a onclick="applyColor(); toggleWidget('themeEditor'); setTheme('custom')">Своя тема</a></li>
+		</ul>
+	</div>
+	<div class="boxButtons">
+		<button type="button" onclick="toggleWidget('settings')">Принять</button>
+	</div>
+</div>
+
+<div class="widget box" id="themeEditor">
+	<div class="boxHandle">Редактирование темы<i class="actionIcon close" onclick="toggleWidget('themeEditor')"></i></div>
+	<div class="boxContent">
+		<div class="row">
+			<div class="column">
+				<div class="row">
+					<input type="color" name="text-color" value="#e1efff" onchange="applyColor()"> Цвет текста
+				</div>
+				<div class="row">
+					<input type="color" name="link-color" value="#79bde2" onchange="applyColor()"> Цвет ссылок
+				</div>
+				<div class="row">
+					<input type="color" name="link-hover-color" value="#5496b9" onchange="applyColor()"> Цвет ссылок при наведении
+				</div>
+				<div class="row">
+					<input type="color" name="background-color" value="#10161f" onchange="applyColor()"> Цвет фона
+				</div>
+				<div class="row">
+					<input type="color" name="foreground-color" value="#141e27" onchange="applyColor()"> Цвет переднего плана
+				</div>
+				<div class="row">
+					<input type="color" name="header-color" value="#18252f" onchange="applyColor()"> Цвет заголовков
+				</div>
+			</div>
+			<div class="column">
+				<textarea id="generatedTheme" rows="15" cols="50"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="boxButtons">
+		<button type="button" onclick="applyColor(); toggleWidget('themeEditor')">Принять</button>
+	</div>
+</div>
+
+<div class="widget box" id="autoSpoil">
+	<div class="boxHandle">Автоскрытие<i class="actionIcon close" onclick="toggleWidget('autoSpoil')"></i></div>
+	<div class="boxContent">
+		<textarea>#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
+	</div>
+	<div class="boxButtons">
+		<button type="button" onclick="toggleWidget('autoSpoil')">Принять</button>
+	</div>
+</div>
+
+<div class="widget fullscreen" id="imageViewer">
+
+</div>

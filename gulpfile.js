@@ -6,12 +6,13 @@ const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const minify = require("gulp-babel-minify");
 const Templating = require('./app/core/templating');
+const concat = require('gulp-concat');
 
 const isDev = process.env.NODE_ENV !== 'production';
 
 let tasks = {
-  development: ['dot', 'js', 'sass', 'images', 'watch'],
-  production: ['dot', 'js', 'sass', 'images']
+  development: ['dot', 'concat js', 'js', 'sass', 'images', 'fonts', 'watch'],
+  production: ['dot', 'concat js', 'js', 'sass', 'images', 'fonts']
 };
 
 let input = {
@@ -20,19 +21,27 @@ let input = {
          '!src/js/**/*.min.js', '!custom/src/js/**/*.min.js'],
   minjs:['src/js/**/*.min.js', 'custom/src/js/**/*.min.js'],
   sass: ['src/css/**/*.?(s)css', 'custom/src/css/**/*.?(s)css'],
-	images: ['src/images/*']
+	images: ['src/images/*'],
+  fonts: ['src/fonts/*']
 };
+
+let jsBundles = {
+  home: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js']
+}
 
 let output = {
   js:  'public/js',
   sass: 'public/css',
-	images: 'public/images'
+	images: 'public/images',
+  fonts: 'public/fonts',
 };
 
 gulp.task('dot', buildDot.bind(null));
+gulp.task('concat js', concatJS.bind(null));
 gulp.task('js', buildJS.bind(null));
 gulp.task('sass', buildSass.bind(null));
 gulp.task('images', copyImages.bind(null));
+gulp.task('fonts', copyFonts.bind(null));
 gulp.task('watch', watchTask.bind(null));
 gulp.task('default', tasks[process.env.NODE_ENV || 'development']);
 
@@ -42,14 +51,26 @@ function copyImages() {
 		.pipe(gulp.dest(output.images))
 }
 
+function copyFonts() {
+	console.log('Copying fonts from /src to /public')
+	return gulp.src(input.fonts)
+		.pipe(gulp.dest(output.fonts))
+}
+
+function concatJS() {
+  for (var bundle in jsBundles) {
+    gulp.src(jsBundles[bundle])
+      .pipe(concat(bundle + '.js'))
+      .pipe(gulp.dest('./.tmp/js'));
+  }
+}
+
 function buildDot() {
   return Templating.compileTemplates();
 }
 
 function buildJS() {
-  gulp.src(input.minjs).pipe(gulp.dest(output.js));
-
-  return gulp.src(input.js)
+  return gulp.src('.tmp/js/*.js')
     .pipe(cached('js'))
     .pipe(minify())
     .pipe(remember('js'))

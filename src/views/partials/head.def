@@ -2,8 +2,8 @@
   <meta charset='utf-8'>
   <title>{{!it.title}}</title>
   <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
-  <link id="stylesheet" rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.stylesheet}}.css">
-  <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}css/{{!it.script}}.js"></script>
+  <link id="stylesheet" rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.stylesheet}}">
+  <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/{{!it.script}}"></script>
   <noscript>
   	<style>
   		.jsOnly{

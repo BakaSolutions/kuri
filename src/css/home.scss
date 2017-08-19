@@ -1,74 +1,17 @@
 @import '_global.scss';
 
-/* Анимация */
-@keyframes bgScroll {
-	from{
-		background-position: 255px 0px;
+#meguka{
+	max-width: 50vw;
+	max-height: 50vh;
+}
+
+#mainColumn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	div:nth-child(2){
+		font-size: 1.5em;
+		padding: 10px;
 	}
-	to{
-		background-position: 0px 0px;
-	}
-}
-
-@keyframes logoSpin {
-	from{
-		background-position: 1285px 0px;
-	}
-	to{
-		background-position: 0px 0px;
-	}
-}
-
-#anim{
-	bottom: 0;
-	position: absolute;
-	width: 100vw;
-	height: 250px;
-	image-rendering: pixelated;
-}
-
-#waves0{
-	bottom: 0;
-	position: absolute;
-	height: 195px;
-	width: 100vw;
-	animation: bgScroll;
-	animation-duration: 3s;
-	background-size: contain;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	background-image: url(../img/waves0.gif);
-}
-
-#waves1{
-	bottom: 0;
-	position: absolute;
-	height: 100px;
-	width: 100vw;
-	animation: bgScroll;
-	background-size: contain;
-	animation-duration: 2s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	background-image: url(../img/waves1.gif);
-}
-
-#logos{
-	bottom: 90px;
-	position: absolute;
-	height: 120px;
-	width: 100vw;
-	animation: logoSpin;
-	background-size: contain;
-	animation-duration: 10s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	background-image: url(../img/logos.gif);
-}
-
-#grl{
-	left: 49vw;
-	bottom: 40px;
-	height: 120px;
-	position: absolute;
 }
