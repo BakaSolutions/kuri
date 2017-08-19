@@ -6,6 +6,7 @@ let paths = {
   getCounters: 'lastPostNumbers.json',
   getBoard: '$1/board.json',
   getPage: '$1/$2.json',
+  getPageCount: '$1/pageCount.json',
   getFeed: '$1/feed.json',
   getCatalog: '$1/catalog.json',
   getThread: '$1/res/$2.json',

@@ -47,7 +47,7 @@ Board.getOne = function (board) {
 };
 
 Board.getPageCount = async function (board) {
-  return 1 /* await API.getPageCount(board) */;
+  return (await API.getPageCount(board)).pageCount || 0;
 };
 
 Board.getPage = async function (board, page) {

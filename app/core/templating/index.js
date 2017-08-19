@@ -17,18 +17,19 @@ let destinationFolder = '.tmp/views';
 
 Templating.reloadTemplates = function () {
   try {
-    FS.readdirSync(destinationFolder, true).map(function (source) {
-      source.substring(0, source.indexOf('.'));
-      return source.replace(Path.join(__dirname, '../../../', destinationFolder, Path.sep), '');
-    }).forEach(function (templateName) {
-      if (Path.parse(templateName).ext !== '.js')
+    let templatePaths = FS.readdirSync(destinationFolder, true);
+    templatePaths.forEach(function (templatePath) {
+      if (Path.parse(templatePath).ext !== '.js') {
         return false;
-      templateName = templateName.split('.').shift();
-      let id = require.resolve(Path.join(__dirname, '../../../', destinationFolder, templateName));
-      if (require.cache[id]) {
-        delete require.cache[id];
       }
-      templates[templateName] = require(id);
+      let templateName = templatePath
+        .replace(Path.join(__dirname, '../../../', destinationFolder, Path.sep), '')
+        .split('.')
+        .shift();
+      if (require.cache[templatePath]) {
+        delete require.cache[templatePath];
+      }
+      templates[templateName] = require(templatePath);
     });
   } catch (err) {
     console.log(err.stack || err);
