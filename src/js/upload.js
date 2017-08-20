@@ -2,8 +2,7 @@ let fileInputCounter = 0,
 		fullFileInputCounter = 0,
 		lastFileInput = '',
 		counter = 0;
-const BOX_CONTENT = document.querySelector('#replyForm .boxContent'),
-			DROPZONE = document.querySelector('#dropZone');
+const BOX_CONTENT = document.querySelector('#replyForm .boxContent');
 
 function checkFile(file) {
 	if(config.fileUpload.allowedTypes.indexOf(file.type) > -1){
@@ -115,6 +114,7 @@ function removeFileInput(timestamp) {
 
 function initFileInput() {
 // Удаление стандартных инпутов
+	const DROPZONE = document.querySelector('#dropZone');
 	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
 	for (let i = 0; i < INPUTS_TO_REMOVE.length; i++) {
 		INPUTS_TO_REMOVE[i].outerHTML = '';

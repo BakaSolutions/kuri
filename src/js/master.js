@@ -5,7 +5,7 @@ const config = {
 	}
 }
 
-function init(){
+window.onload = e => {
 	replyFormInit();
 	initFileInput();
-}
+});
