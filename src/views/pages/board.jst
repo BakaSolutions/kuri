@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
-  {{#def['partials/head']}}
+  {{#def["partials/head"]}}
 	<body data-theme="tumbach">
-  {{#def['partials/sidebar']}}
-  {{#def['partials/topbar']}}
+  {{#def["partials/sidebar"]}}
+  {{#def["partials/topbar"]}}
 		<div id="mainColumn">
 			<header>
-        <a id="banner" href='/{{!it.site.pathPrefix}}{{!it.board.name}}/'>
-          <span class="board-name">/{{!it.board.name}}/</span>
-          {{!it.board.title}}
+        <a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
+          /{{!it.board.name}}/ &mdash; {{!it.board.title}}
         </a>
-				{{#def['partials/replyForm']}}
+				{{#def["partials/replyForm"]}}
 			</header>
-      <!--<span class='disabled stats float-r'>
-        {{!it.translate('Bump limit', 'bumpLimitText')}}: {{!it.board.bumpLimit}}<br>
-        {{!it.translate('Thread limit', 'ThreadLimitText')}}: {{!it.board.threadLimit}}<br>
-        {{!it.translate('Max size of a file', 'maxFileSizeText')}}: {{!it.board.maxFileSize/1024/1024}} Mb
+      <!--<span class="disabled stats float-r">
+        {{!it.translate("Bump limit", "bumpLimitText")}}: {{!it.board.bumpLimit}}<br>
+        {{!it.translate("Thread limit", "ThreadLimitText")}}: {{!it.board.threadLimit}}<br>
+        {{!it.translate("Max size of a file", "maxFileSizeText")}}: {{!it.board.maxFileSize/1024/1024}} Mb
       </span>-->
 			<div id="threadFlow">
 				<div class="thread">
@@ -145,10 +144,10 @@
 		</div>
 		<div id="rightTopCorner">
 			<a href="#">Галерея</a>
-			<a href="./catalog.htm">Каталог</a>
+			<a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html">Каталог</a>
 			<a href="#">Архив</a>
 		</div>
-		{{#def['partials/widgets']}}
+		{{#def["partials/widgets"]}}
 		<!-- include _mascot.htm -->
 	</body>
 </html>

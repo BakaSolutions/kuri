@@ -11,8 +11,8 @@ const concat = require('gulp-concat');
 const isDev = process.env.NODE_ENV !== 'production';
 
 let tasks = {
-  development: ['dot', 'concat js', 'js', 'sass', 'images', 'fonts', 'watch'],
-  production: ['dot', 'concat js', 'js', 'sass', 'images', 'fonts']
+  development: ['dot', 'js', 'sass', 'images', 'fonts', 'watch'],
+  production: ['dot', 'js', 'sass', 'images', 'fonts']
 };
 
 let input = {
@@ -28,7 +28,7 @@ let input = {
 let jsBundles = {
   home: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js'],
   board: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js', 'src/js/truncate.js', 'src/js/upload.js']
-}
+};
 
 let output = {
   js:  'public/js',
@@ -39,7 +39,7 @@ let output = {
 
 gulp.task('dot', buildDot.bind(null));
 gulp.task('concat js', concatJS.bind(null));
-gulp.task('js', buildJS.bind(null));
+gulp.task('js', ['concat js'], buildJS.bind(null));
 gulp.task('sass', buildSass.bind(null));
 gulp.task('images', copyImages.bind(null));
 gulp.task('fonts', copyFonts.bind(null));
@@ -47,19 +47,19 @@ gulp.task('watch', watchTask.bind(null));
 gulp.task('default', tasks[process.env.NODE_ENV || 'development']);
 
 function copyImages() {
-	console.log('Copying pictures from /src to /public')
+	console.log('Copying pictures from /src to /public');
 	return gulp.src(input.images)
 		.pipe(gulp.dest(output.images))
 }
 
 function copyFonts() {
-	console.log('Copying fonts from /src to /public')
+	console.log('Copying fonts from /src to /public');
 	return gulp.src(input.fonts)
 		.pipe(gulp.dest(output.fonts))
 }
 
 function concatJS() {
-  for (var bundle in jsBundles) {
+  for (let bundle in jsBundles) {
     gulp.src(jsBundles[bundle])
       .pipe(concat(bundle + '.js'))
       .pipe(gulp.dest('./.tmp/js'));
@@ -67,6 +67,7 @@ function concatJS() {
 }
 
 function buildDot() {
+  Templating.reloadTemplates();
   return Templating.compileTemplates();
 }
 

@@ -7,7 +7,10 @@ let Templating = module.exports = {};
 let includes = {};
 let templates = {};
 
-
+const settings = {
+  __proto__: doT.templateSettings,
+  strip: false
+};
 const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 
 let templateFolder = 'src/views';
@@ -73,7 +76,7 @@ Templating.compileTemplates = function () {
 
 Templating.compileToFile = function(filePath, template) {
   let moduleName = filePath.split('.').shift().replace(ILLEGAL_CHARACTERS_REGEXP, '_');
-  let precompiled = doT.template(template, doT.templateSettings, includes)
+  let precompiled = doT.template(template, settings, includes)
     .toString()
     .replace('anonymous', moduleName);
   let compiled = '(function(){' + precompiled + 'module.exports=' + moduleName + ';})()';

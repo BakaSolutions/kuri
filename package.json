@@ -27,7 +27,6 @@
     "dot": "^1.1.2",
     "express": "^4.15.4",
     "figurecon": "github:rngnrs/figurecon",
-    "gulp-copy": "^1.0.1",
     "merge": "^1.2.0",
     "minimal-request-promise": "^1.4.0"
   },
