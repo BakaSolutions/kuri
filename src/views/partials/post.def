@@ -1,0 +1,42 @@
+<div class="postWrapper" id="wrapper{{!it.postNumber}}">
+  <div class="postDetails">
+    <input type="checkbox" class="hidden" id="delete-{{!it.postNumber}}">
+    <label for="delete-{{!it.postNumber}}" class="iconCheckbox checkbox"></label>
+    <span class="topic">{{!it.topic}}</span>
+    <span class="author">{{!it.name}}</span>
+    <span class="postDate">{{!it.postDate}}</span>
+    <a onclick="void(0)" class="refLink">№{{!it.postNumber}}</a>
+    <input type="checkbox" id="postMenu{{!it.postNumber}}" class="hidden">
+    <label for="postMenu{{!it.postNumber}}" class="iconCheckbox postMenu menu jsOnly"></label>
+    <div>
+      <div class="actionIcon source">
+        Исходный текст
+      </div>
+      <div class="actionIcon edit">
+        Редактировать
+      </div>
+      <div class="actionIcon delete">
+        Удалить
+      </div>
+      <div class="actionIcon spoil">
+        Скрыть
+      </div>
+    </div>
+  </div>
+  <div class="post">
+    <div class="postMedia">
+      <!--<a href="https://tuderi.tumba.ch/img/fullsize0.png" target="_blank" onclick="showImage(event, 'https://tuderi.tumba.ch/img/fullsize0.png')">
+        <img class="preview" src="https://tuderi.tumba.ch/img/preview0.png">
+        <div class="imgInfo">
+          fullsize0.png, 0.4MB
+        </div>
+      </a>-->
+    </div>
+    <div class="postText">
+      {{!it.text}}
+      <div class="postReplies">
+        Ответы: {{!it.replies}}
+      </div>
+    </div>
+  </div>
+</div>
