@@ -11,136 +11,9 @@
         </a>
 				{{#def["partials/replyForm"]}}
 			</header>
-      <!--<span class="disabled stats float-r">
-        {{!it.translate("Bump limit", "bumpLimitText")}}: {{!it.board.bumpLimit}}<br>
-        {{!it.translate("Thread limit", "ThreadLimitText")}}: {{!it.board.threadLimit}}<br>
-        {{!it.translate("Max size of a file", "maxFileSizeText")}}: {{!it.board.maxFileSize/1024/1024}} Mb
-      </span>-->
-			<div id="threadFlow">
-				<div class="thread">
-					<div class="postWrapper" id="wrapper11">
-						<div class="postDetails">
-							<input type="checkbox" class="hidden" id="delete-11">
-							<label for="delete-11" class="iconCheckbox checkbox"></label>
-							<span class="topic">Я шизик?</span>
-							<span class="author">Аноним</span>
-							<span class="postDate">28.07.2017 12:31</span>
-							<a onclick="void(0)" class="refLink">№11</a>
-							<input type="checkbox" id="postMenu11" class="hidden">
-							<label for="postMenu11" class="iconCheckbox postMenu menu jsOnly"></label>
-							<div>
-								<div class="actionIcon source">
-									Исходный текст
-								</div>
-								<div class="actionIcon edit">
-									Редактировать
-								</div>
-								<div class="actionIcon delete">
-									Удалить
-								</div>
-								<div class="actionIcon spoil">
-									Скрыть
-								</div>
-							</div>
-						</div>
-						<div class="post">
-							<div class="postMedia">
-								<a href="https://tuderi.tumba.ch/img/fullsize0.png" target="_blank" onclick="showImage(event, 'https://tuderi.tumba.ch/img/fullsize0.png')">
-									<img class="preview" src="https://tuderi.tumba.ch/img/preview0.png">
-									<div class="imgInfo">
-										fullsize0.png, 0.4MB
-									</div>
-								</a>
-							</div>
-							<div class="postText">
-								Привет, Тумбач. Иногда мне кажется, будто все, что происходит вокруг меня — не настоящее. И ладно бы только это, но даже я сам будто персонаж дешевых романов, таких, что обычно покупают чтобы прочитать во время поездки на поезде до соседнего города, а затем с легким сердцем выбросить и никогда больше не вспоминать.
-								<div class="postReplies">
-									Ответы: <a href="#">>>12</a>, <a href="#">>>13</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="postWrapper">
-						<div class="postDetails">
-							<input type="checkbox" class="hidden" id="delete-12">
-							<label for="delete-12" class="iconCheckbox checkbox"></label>
-							<span class="author">Аноним</span>
-							<span class="postDate">28.07.2017 12:35</span>
-							<a onclick="void(0)" class="refLink">№12</a>
-							<i class="actionIcon reply" onclick="void(0)"></i>
-							<input type="checkbox" id="postMenu12" class="hidden">
-							<label for="postMenu12" class="iconCheckbox postMenu menu jsOnly"></label>
-							<div>
-								<div class="actionIcon source">
-									Исходный текст
-								</div>
-								<div class="actionIcon edit">
-									Редактировать
-								</div>
-								<div class="actionIcon delete">
-									Удалить
-								</div>
-								<div class="actionIcon spoil">
-									Скрыть
-								</div>
-							</div>
-						</div>
-						<div class="post">
-							<div class="postMedia">
-								<a href="https://tuderi.tumba.ch/img/fullsize1.png" target="_blank" onclick="showImage(event, 'https://tuderi.tumba.ch/img/fullsize1.png')">
-									<img class="preview" src="https://tuderi.tumba.ch/img/preview1.png">
-									<div class="imgInfo">
-										fullsize1.png, 0.3MB
-									</div>
-								</a>
-							</div>
-							<div class="postText">
-								<a href="#" class="post-reply">>>11</a>
-								<br>
-								<span class="quote">>все, что происходит вокруг меня — не настоящее</span>
-								<br>Радуйся, что у тебя <span class="italic">хоть что-то</span> происходит.
-								<div class="postReplies">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="postWrapper">
-						<div class="postDetails">
-							<input type="checkbox" class="hidden" id="delete-13">
-							<label for="delete-13" class="iconCheckbox checkbox"></label>
-							<span class="author">Аноним</span>
-							<span class="postDate">28.07.2017 12:37</span>
-							<a onclick="void(0)" class="refLink">№13</a>
-							<i class="actionIcon reply" onclick="void(0)"></i>
-							<input type="checkbox" id="postMenu13" class="hidden">
-							<label for="postMenu13" class="iconCheckbox postMenu menu jsOnly"></label>
-							<div>
-								<div class="actionIcon source">
-									Исходный текст
-								</div>
-								<div class="actionIcon edit">
-									Редактировать
-								</div>
-								<div class="actionIcon delete">
-									Удалить
-								</div>
-								<div class="actionIcon spoil">
-									Скрыть
-								</div>
-							</div>
-						</div>
-						<div class="post">
-							<div class="postMedia">
-							</div>
-							<div class="postText">
-								<a href="#" class="post-reply">>>11</a>
-								<br>
-									Это потому что мы — <span class="bold">всего лишь</span> придуманный фронтендером текст, наполняющий не написанные никем посты. <span class="spoiler">Смирись.</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			{{~it.threads :thread}}
+				{{#def["board/thread"]}}
+			{{~}}
 		</div>
 		<div id="rightTopCorner">
 			<a href="#">Галерея</a>
@@ -148,6 +21,5 @@
 			<a href="#">Архив</a>
 		</div>
 		{{#def["partials/widgets"]}}
-		<!-- include _mascot.htm -->
 	</body>
 </html>

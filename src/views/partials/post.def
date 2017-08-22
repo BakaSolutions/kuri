@@ -1,13 +1,13 @@
-<div class="postWrapper" id="wrapper{{!it.postNumber}}">
+<div class="postWrapper" id="wrapper-{{!post.id}}">
   <div class="postDetails">
-    <input type="checkbox" class="hidden" id="delete-{{!it.postNumber}}">
-    <label for="delete-{{!it.postNumber}}" class="iconCheckbox checkbox"></label>
-    <span class="topic">{{!it.topic}}</span>
-    <span class="author">{{!it.name}}</span>
-    <span class="postDate">{{!it.postDate}}</span>
-    <a onclick="void(0)" class="refLink">№{{!it.postNumber}}</a>
-    <input type="checkbox" id="postMenu{{!it.postNumber}}" class="hidden">
-    <label for="postMenu{{!it.postNumber}}" class="iconCheckbox postMenu menu jsOnly"></label>
+    <input type="checkbox" class="hidden" id="delete-{{!post.id}}">
+    <label for="delete-{{!post.id}}" class="iconCheckbox checkbox"></label>
+    <span class="topic">{{!post.subject}}</span>
+    <span class="author">{{!post.name}}</span>
+    <span class="postDate">{{!post.created_at}}</span>
+    <a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.id}}.html" class="refLink">№{{!post.id}}</a>
+    <input type="checkbox" id="postMenu{{!post.id}}" class="hidden">
+    <label for="postMenu{{!post.id}}" class="iconCheckbox postMenu menu jsOnly"></label>
     <div>
       <div class="actionIcon source">
         Исходный текст
@@ -33,10 +33,12 @@
       </a>-->
     </div>
     <div class="postText">
-      {{!it.text}}
-      <div class="postReplies">
-        Ответы: {{!it.replies}}
-      </div>
+      {{!post.bodymarkup}}
+      {{? post.replies}}
+        <div class="postReplies">
+          Ответы: {{!post.replies}}
+        </div>
+      {{?}}
     </div>
   </div>
 </div>

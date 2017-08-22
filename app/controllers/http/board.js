@@ -46,9 +46,7 @@ async function renderPage(boardName, pageNumber) {
   if (!board) {
     throw new Error('Invalid board');
   }
-  let page = {};
-  let threads = await Board.getPage(boardName, pageNumber);
-  page.threads = threads;
+  let page = await Board.getPage(boardName, pageNumber);
   /*for (let thread of page.threads) {
     await Renderer.renderThread(thread);
   }*/
