@@ -2,25 +2,29 @@
 <input type="checkbox" class="hidden" id="replyFormShow">
 <label for="replyFormShow">Новый пост</label>
 <form id="replyForm" class="widget box" action="" method="post">
+	<input type="hidden" name="boardName" value="{{!it.board.name}}">
+	<input type="hidden" name="threadNumber" value="">
+	<input type="hidden" name="password" value="">
+
 	<div class="boxHandle">Новый пост<label for="replyFormShow" class="actionIcon close"></label></div>
 	<div class="boxContent">
 		<div class="column">
-			<textarea placeholder="Нет, постинг пока не работает."></textarea>
+			<textarea name="text" placeholder="Нет, постинг пока не работает."></textarea>
 		<div class="row">
 			<input type="checkbox" name="OP" id="opCheckbox" class="hidden">
 			<label for="opCheckbox" class="iconCheckbox op"> OP</label>
-			<input type="checkbox" name="sage" id="sageCheckbox" class="hidden">
+			<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
 			<label for="sageCheckbox" class="iconCheckbox sage"> Sage</label>
 			<input type="checkbox" id="markupHelp" class="hidden">
 			<label for="markupHelp" class="actionIcon help"> Help</label>
-			<button type="button">Отправить</button>
+			<button>Отправить</button>
 		</div>
 		</div>
 		<div class="column">
 			<div class="row">
 				<input type="text" name="name" placeholder="Имя">
 			</div>
-			<input type="text" name="topic" placeholder="Тема">
+			<input type="text" name="subject" placeholder="Тема">
 			<div class="row removeMe">
 				<input type="file" name="file0" id="file0">
 				<input type="checkbox" class="hidden" name="file1Rating" id="file0Rating">
