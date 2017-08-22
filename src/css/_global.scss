@@ -6,7 +6,7 @@
 @import '_scrollbar.scss';
 @import '_wakabaMark.scss';
 @import '_notifications.scss';
-
+@import '_responsive.scss';
 
 @font-face {
 	font-style: normal;
@@ -16,18 +16,6 @@
 	src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2') format('woff2'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.svg') format('svg');
 }
 
-@media screen and (min-width: 980px) /* Desktop */ {
-	#mainColumn {
-		width: calc(100vw - 440px);
-	}
-}
-
-@media screen	and (max-width: 979px) /* Tablet */ {
-	#mainColumn {
-		width: calc(100vw - 220px);
-	}
-}
-
 /* Глобальные стили */
 ul{
 	list-style: none;
@@ -35,8 +23,6 @@ ul{
 
 *{
 	outline: none;
-	line-height: 17px;
-	font-family: Helvetica;
 	box-sizing: border-box;
 }
 
@@ -44,12 +30,12 @@ body {
 	margin: 0;
 	width: 100vw;
 	display: flex;
-	font-size: 15px;
 	min-height: 100vh;
 	overflow-x: hidden;
 	flex-direction: row;
 	color: var(--text-color);
 	@include font-smoothing();
+	font: 15px/17px Arial, sans-serif;
 	box-shadow: var(--body-box-shadow);
 	background-color: var(--background-color);
 	background-image: var(--background-image);
@@ -101,22 +87,14 @@ a {
 
 /* Основная колонка */
 #mainColumn {
-	left: 210px;
-	min-width: 500px;
-	min-height: 100vh;
+	min-width: 200px;
 	position: absolute;
-	transition: width var(--animation-duration), left var(--animation-duration), top var(--animation-duration);
+	transition: top var(--animation-duration), width var(--animation-duration), left var(--animation-duration);
 	header{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
-}
-
-/* Разворачивание основной колонки при сворачивании боковой панели */
-#sidebarCheckbox:checked + #sidebar + #topbar +#mainColumn {
-	left: 20px;
-	width: calc(100vw - 40px);
 }
 
 /* Мамка в комнате */
@@ -128,13 +106,10 @@ a {
 #banner {
 	font-size: 2em;
 	line-height: 30px;
+	cursor: pointer;
 	margin-top: 10px;
 	font-weight: bold;
 	user-select: none;
-	color: var(--text-color);
-	&:hover{
-		text-decoration: none;
-	}
 }
 
 /* Блок ссылок в правом верхнем углу */

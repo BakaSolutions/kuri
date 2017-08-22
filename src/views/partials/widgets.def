@@ -10,6 +10,9 @@
 			<li><a onclick="setTheme('brchan')">Brchan</a></li>
 			<li><a onclick="applyColor(); toggleWidget('themeEditor'); setTheme('custom')">Своя тема</a></li>
 		</ul>
+		<ul>
+			<li><input type="checkbox">Закругленные края</li>
+		</ul>
 	</div>
 	<div class="boxButtons">
 		<button type="button" onclick="toggleWidget('settings')">Принять</button>

@@ -1,5 +1,6 @@
 <head>
   <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{!it.title}}</title>
   <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
   <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
@@ -22,4 +23,9 @@
   	</style>
   </noscript>
   <style media="screen" id="customTheme"></style>
+  <style media="screen" id="configStyle">
+  	:root{
+  		--border-radius: 0;
+  	}
+  </style>
 </head>

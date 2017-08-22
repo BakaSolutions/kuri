@@ -5,4 +5,5 @@
 	<a href="#">Галерея</a>
 	<a href="./catalog.htm">Каталог</a>
 	<a href="#">Архив</a>
+	<div id="progressBar"></div>
 </div>

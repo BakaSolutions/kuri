@@ -2,10 +2,6 @@
 @import '_mascot.scss';
 @import '_replyForm.scss';
 
-#threadFlow{
-	padding: 0 10px;
-}
-
 .postWrapper{
 	margin-top: 2px;
 	min-height: 85px;
@@ -62,7 +58,7 @@
 		color: var(--link-color);
 	}
 	.postMenu{
-		right: 15px;
+		right: 5px;
 		position: absolute;
 	}
 }
@@ -107,10 +103,11 @@ input + .postMenu + div .edit:before{
 
 /* Прикрепления поста */
 .postMedia{
-	@include user-select(none);
-	max-width: 200px;
-	max-height: 175px;
 	position: relative;
+	@include user-select(none);
+	a{
+		position: relative;
+	}
 	a:hover{
 		.imgInfo{
 			height: 17px;
@@ -124,7 +121,7 @@ input + .postMenu + div .edit:before{
 	}
 	.preview{
 		max-width: 200px;
-		max-height: 175px;
+		max-height: 200px;
 		transition: opacity .1s;
 		opacity: var(--img-opacity);
 		border-bottom-left-radius: inherit;
@@ -132,7 +129,7 @@ input + .postMenu + div .edit:before{
 }
 
 .postMedia .imgInfo{
-	bottom: 0px;
+	bottom: 3px;
 	height: 0px;
 	width: 100%;
 	font-size: .9em;
@@ -143,4 +140,11 @@ input + .postMenu + div .edit:before{
 	color: var(--text-color);
 	border-bottom-left-radius: inherit;
 	background: var(--foreground-color);
+}
+
+#banner{
+	color: var(--text-color);
+	&:hover{
+		text-decoration: none;
+	}
 }

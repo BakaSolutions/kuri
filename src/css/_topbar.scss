@@ -1,7 +1,13 @@
+@keyframes fakeProgressBar {
+	0% {width: 0vw}
+	30% {width: 50vw}
+	70% {width: 70vw}
+	100% {width: 100vw}
+}
+
 #topbar{
-	top: -20px;
-	height: 27px;
-	padding: 3px;
+	height: 25px;
+	padding: 4px;
 	width: 100vw;
 	display: flex;
 	z-index: 665;
@@ -14,17 +20,16 @@
 	a{
 		margin: 0 5px;
 	}
-}
-
-#sidebarCheckbox:checked + #sidebar + #topbar {
-		top: 0;
-		a{
-			color: var(--link-color);
-		}
-		& + #mainColumn{
-			top: 20px;
-			& + #rightTopCorner{
-				opacity: 0;
-			}
-		}
+	#progressBar{
+		animation-name: fakeProgressBar;
+		animation-duration: 3s;
+		left: 0;
+		bottom: -2px;
+		height: 2px;
+		width: 0vw;
+		position: absolute;
+		background-color: var(--link-color);
+		z-index: 667;
+		opacity: .7;
+	}
 }

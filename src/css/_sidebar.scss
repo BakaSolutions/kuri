@@ -1,14 +1,13 @@
 
 /* Сайдбар */
 #sidebar{
-  left: 0;
-  width: 210px;
+  width: 200px;
   z-index: 666;
   height: 100vh;
-  padding: 10px;
-  position: fixed;
-	min-height: 420px;
+  padding: 5px;
 	display: flex;
+  position: fixed;
+  min-height: 420px;
 	flex-direction: column;
 	justify-content: space-between;
 	@include user-select(none);
@@ -25,11 +24,11 @@
   width: inherit;
   min-width: 160px;
   max-width: 230px;
-	padding: inherit;
   position: absolute;
   pointer-events: none;
 	justify-content: space-between;
 	& > *{
+    padding: 5px;
 		z-index: 2018;
 		pointer-events: auto;
 	}
@@ -80,9 +79,9 @@
 	flex-direction: column;
 	transition-duration: .2s;
 	.header{
-		padding: 3px;
 		display: block;
 		cursor: pointer;
+    padding: 2px 5px;
 		border-radius: var(--border-radius);
 		background-color: var(--header-color);
 	}
