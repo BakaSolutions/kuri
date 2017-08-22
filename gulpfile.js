@@ -19,15 +19,9 @@ let input = {
   dot:  ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
   js:   ['src/js/**/*.js', 'custom/src/js/**/*.js',
          '!src/js/**/*.min.js', '!custom/src/js/**/*.min.js'],
-  minjs:['src/js/**/*.min.js', 'custom/src/js/**/*.min.js'],
   sass: ['src/css/**/*.?(s)css', 'custom/src/css/**/*.?(s)css'],
 	images: ['src/images/*'],
   fonts: ['src/fonts/*']
-};
-
-let jsBundles = {
-  home: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js'],
-  board: ['src/js/draggabilly.pkgd.min.js', 'src/js/master.js', 'src/js/ui.js', 'src/js/truncate.js', 'src/js/upload.js']
 };
 
 let output = {
@@ -38,8 +32,7 @@ let output = {
 };
 
 gulp.task('dot', buildDot.bind(null));
-gulp.task('concat js', concatJS.bind(null));
-gulp.task('js', ['concat js'], buildJS.bind(null));
+gulp.task('js', buildJS.bind(null));
 gulp.task('sass', buildSass.bind(null));
 gulp.task('images', copyImages.bind(null));
 gulp.task('fonts', copyFonts.bind(null));
@@ -58,21 +51,13 @@ function copyFonts() {
 		.pipe(gulp.dest(output.fonts))
 }
 
-function concatJS() {
-  for (let bundle in jsBundles) {
-    gulp.src(jsBundles[bundle])
-      .pipe(concat(bundle + '.js'))
-      .pipe(gulp.dest('./.tmp/js'));
-  }
-}
-
 function buildDot() {
   Templating.reloadTemplates();
   return Templating.compileTemplates();
 }
 
 function buildJS() {
-  return gulp.src(['.tmp/js/*.js'])
+  return gulp.src(input.js)
     .pipe(cached('js'))
     .pipe(minify())
     .pipe(remember('js'))

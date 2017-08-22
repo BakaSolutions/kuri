@@ -8,4 +8,4 @@ const config = {
 window.onload = e => {
 	replyFormInit();
 	initFileInput();
-});
+};
