@@ -113,9 +113,8 @@ function Notification(text = 'Всё норм, Саня, не забудь уб�
 	}
 }
 
-
-function replyFormInit() {
+(() => {
 	toggleWidget('replyForm');
 	document.querySelector('#replyForm').style.position = 'fixed';
 	document.querySelector('#replyForm .boxHandle').style.display = 'block';
-}
+})()

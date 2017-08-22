@@ -112,7 +112,7 @@ function removeFileInput(timestamp) {
 	if (fileInputCounter == fullFileInputCounter) createNewFileInput();
 }
 
-function initFileInput() {
+(() => {
 // Удаление стандартных инпутов
 	const DROPZONE = document.querySelector('#dropZone');
 	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
@@ -144,4 +144,4 @@ function initFileInput() {
 		DROPZONE.classList.remove('shown');
 		handleFiles(e);
 	});
-}
+})();
