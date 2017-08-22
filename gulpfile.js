@@ -19,6 +19,7 @@ let input = {
   dot:  ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
   js:   ['src/js/**/*.js', 'custom/src/js/**/*.js',
          '!src/js/**/*.min.js', '!custom/src/js/**/*.min.js'],
+  minjs: ['src/js/**/*.min.js', 'custom/src/js/**/*.min.js'],
   sass: ['src/css/**/*.?(s)css', 'custom/src/css/**/*.?(s)css'],
 	images: ['src/images/*'],
   fonts: ['src/fonts/*']
@@ -57,6 +58,9 @@ function buildDot() {
 }
 
 function buildJS() {
+  gulp.src(input.minjs)
+		.pipe(gulp.dest(output.js))
+
   return gulp.src(input.js)
     .pipe(cached('js'))
     .pipe(minify())

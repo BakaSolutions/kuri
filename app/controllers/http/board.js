@@ -54,8 +54,10 @@ async function renderPage(boardName, pageNumber) {
     ? pageNumber
     : 'index';
   page.title = '/' + board.name + '/ &mdash; ' + board.title;
-  page.stylesheet = 'board.css';
-  page.script = 'board.js';
+  page.dependencies = {
+    css: "['../css/board.css']",
+    js: "['../js/master.js', '../js/draggabilly.pkgd.min.js', '../js/ui.js', '../js/truncate.js', '../js/upload.js']"
+  }
   page.board = board;
   FS.writeFileSync('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }

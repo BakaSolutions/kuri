@@ -16,8 +16,6 @@ const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 let templateFolder = 'src/views';
 let destinationFolder = '.tmp/views';
 
-
-
 Templating.reloadTemplates = function () {
   try {
     let templatePaths = FS.readdirSync(destinationFolder, true);

@@ -2,8 +2,15 @@
   <meta charset='utf-8'>
   <title>{{!it.title}}</title>
   <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
-  <link id="stylesheet" rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.stylesheet}}">
-  <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/{{!it.script}}"></script>
+  <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
+  <script type="text/javascript">
+  window.onload = () => {
+    let css = {{=it.dependencies.css}};
+    let js = {{=it.dependencies.js}};
+
+    (new RSQ([css, js])).run()
+  }
+  </script>
   <noscript>
   	<style>
   		.jsOnly{
