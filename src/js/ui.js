@@ -113,6 +113,13 @@ function Notification(text = 'Всё норм, Саня, не забудь уб�
 	}
 }
 
+function quickReply(postNumber) {
+	document.querySelector("#replyFormShow").checked = true;
+
+	const TEXTAREA = document.querySelector('#replyForm textarea');
+	TEXTAREA.innerHTML += TEXTAREA.innerHTML ? `\n>>${postNumber}` : `>>${postNumber}`;
+}
+
 (() => {
 	toggleWidget('replyForm');
 	document.querySelector('#replyForm').style.position = 'fixed';

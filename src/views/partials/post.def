@@ -5,7 +5,8 @@
     <span class="topic">{{!post.subject}}</span>
     <span class="author">{{!post.name}}</span>
     <span class="postDate">{{!post.created_at}}</span>
-    <a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.id}}.html" class="refLink">№{{!post.id}}</a>
+    <a class="refLink" onclick="quickReply({{!post.id}})">№{{!post.id}}</a>
+    [<a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.id}}.html">В тред</a>]
     <input type="checkbox" id="postMenu{{!post.id}}" class="hidden">
     <label for="postMenu{{!post.id}}" class="iconCheckbox postMenu menu jsOnly"></label>
     <div>
