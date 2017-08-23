@@ -1,3 +1,16 @@
+const CACHED_POSTS = {};
+
+function displayFloatingPost(link) {
+	const NUMBER = link.href.split('/').pop();
+
+	if (!CACHED_POSTS.hasOwnProperty(NUMBER)){
+		CACHED_POSTS[NUMBER] = document.querySelector(`#wrapper-${NUMBER}`).cloneNode(true);
+	}
+
+	CACHED_POSTS[NUMBER].classList.add('floating');
+	link.appendChild(CACHED_POSTS[NUMBER]);
+}
+
 /* Маскот */
 let mascotShown = false;
 

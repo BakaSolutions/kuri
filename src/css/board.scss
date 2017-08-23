@@ -7,6 +7,31 @@
 	min-height: 85px;
 	.postText{
 		margin: 0 5px;
+		a{
+			position: relative;
+		}
+	}
+	&.floating{
+		display: none;
+		position: absolute;
+		color: var(--text-color);
+		background-color: var(--foreground-color);
+		background-image: var(--foreground-image);
+		width: calc(100vw - 420px);
+		.postText{
+			margin: 5px;
+		}
+		.postDetails{
+			cursor: default;
+			padding-top: 3px;
+			border-radius: inherit;
+			background-color: var(--header-color);
+		}
+	}
+	a:hover > &.floating{
+		top: 10px;
+		left: 10px;
+		display: block;
 	}
 	&:first-child .postMedia a:last-child{
 		border-bottom-left-radius: var(--border-radius);
