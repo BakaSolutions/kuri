@@ -5,7 +5,7 @@
 		<a onclick="void(0)"><i class="actionIcon" id="toggleSearch" aria-hidden="true"></i></a>
 		<label for="sidebarCheckbox" class="actionIcon" id="toggleSidebar" aria-hidden="true"></label>
 	</div>
-	<a href="#" id="tumbach">
+	<a href="/{{!it.site.pathPrefix}}" id="tumbach">
 		<div class="name">
 			Ту<!--дери.ту-->мба.ч
 		</div>

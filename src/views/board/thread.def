@@ -1,7 +1,0 @@
-<div id="threadFlow">
-  <div class="thread" id="thread-{{!thread.opPost.number}}">
-    {{~[thread.opPost, ...thread.lastPosts] :post}}
-      {{#def['partials/post']}}
-    {{~}}
-  </div>
-</div>

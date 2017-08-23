@@ -50,9 +50,6 @@ async function parseDates(page){
   let d;
 
   for (let a = 0; a < page.threads.length; a++) {
-    d = new Date(page.threads[a].opPost.created_at);
-    page.threads[a].opPost.created_at = `${await pad(d.getDate(), 2)}.${await pad(d.getMonth(), 2)}.${d.getFullYear()} ${await pad(d.getHours(), 2)}:${await pad(d.getMinutes(), 2)}`;
-
     for (let b = 0; b < page.threads[a].lastPosts.length; b++) {
       d = new Date(page.threads[a].lastPosts[b].created_at);
       page.threads[a].lastPosts[b].created_at = `${await pad(d.getDate(), 2)}.${await pad(d.getMonth(), 2)}.${d.getFullYear()} ${await pad(d.getHours(), 2)}:${await pad(d.getMinutes(), 2)}`;
