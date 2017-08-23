@@ -57,7 +57,7 @@
 		</noscript>
 		<a onclick="toggleWidget('settings')" class="jsOnly">Настройки</a>
 		<a onclick="toggleWidget('autoSpoil')" class="jsOnly">Автоскрытие</a>
-		<a class="themeName" onclick="(new Notification()).show()">Тема:</a>
+		<a class="themeName">Тема:</a>
 		<label for="sfwCheckbox"><a onclick="void(0)">Мамка в комнате!</a></label>
 	</div>
 </div>
