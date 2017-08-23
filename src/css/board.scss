@@ -3,8 +3,8 @@
 @import '_replyForm.scss';
 
 .postWrapper{
-	margin-top: 2px;
-	min-height: 85px;
+	min-height: 75px;
+	border: 1px solid var(--background-color);
 	.postText{
 		margin: 0 5px;
 		a{
@@ -85,6 +85,10 @@
 	.postMenu{
 		right: 5px;
 		position: absolute;
+	}
+	.sage:before{
+		color: var(--link-color);
+		cursor: default;
 	}
 }
 

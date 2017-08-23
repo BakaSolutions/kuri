@@ -167,6 +167,9 @@ input:checked + .iconCheckbox.checkbox:before{
 	&.delete:before{
 		content: "\f014";
 	}
+	&.sage:before{
+		content: "\f165"
+	}
 }
 
 input:checked + .menu:before{
