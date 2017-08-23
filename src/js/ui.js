@@ -1,14 +1,3 @@
-/* Проверка, нажат ли конрол */
-let controlPressed = false;
-
-document.onkeyup = e => {
-	if (e.keyCode == 17) controlPressed = false;
-}
-
-document.onkeydown = e => {
-	if (e.keyCode == 17) controlPressed = true;
-}
-
 /* Маскот */
 let mascotShown = false;
 
@@ -33,9 +22,10 @@ function mascotAnimationFix() {
 }
 
 /* Темы */
-function setTheme(name) {
+function setTheme(name = 'tumbach') {
   document.querySelector('body').dataset.theme = name;
-  // Тут еще нужна хрень с сохранением этого дела в куки, но ее без сервера не потестить
+	document.cookie = `theme=${name}; expires=31 Dec 9999 23:59:59 GMT; path=/`;
+	console.log('set ', document.cookie);
 }
 
 function applyColor() {
@@ -68,10 +58,10 @@ function toggleWidget(id) {
 }
 
 /* Оверлей с картинкой */
-function showImage(event, url) {
-	if (!controlPressed) {
-		event.preventDefault();
-		event.stopPropagation();
+function showImage(e, url) {
+	if (!e.ctrlKey) {
+		e.preventDefault();
+		e.stopPropagation();
 
 		const OVRL = document.querySelector('#imageViewer');
 		const IMG = new Image();
@@ -121,6 +111,8 @@ function quickReply(postNumber) {
 }
 
 (() => {
+	console.log('got ', document.cookie);
+	setTheme(getCookie("theme"));
 	toggleWidget('replyForm');
 	document.querySelector('#replyForm').style.position = 'fixed';
 	document.querySelector('#replyForm .boxHandle').style.display = 'block';

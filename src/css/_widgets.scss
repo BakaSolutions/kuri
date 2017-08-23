@@ -44,8 +44,10 @@
 			border-top-left-radius: var(--border-radius);
 			border-top-right-radius: var(--border-radius);
 			.actionIcon.close{
+				right: 2px;
+				width: 16px;
+				height: 16px;
 				position: absolute;
-				right: 5px;
 			}
 			&:active{
 				cursor: -webkit-grabbing;
