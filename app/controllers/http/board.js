@@ -74,8 +74,9 @@ async function renderPage(boardName, pageNumber) {
     ? pageNumber
     : 'index';
   page.title = '/' + board.name + '/ &mdash; ' + board.title;
+  page.mainStyleshet = 'board.css';
   page.dependencies = {
-    css: "['../css/board.css']",
+    css: "[]",
     js: "['../js/master.js', '../js/draggabilly.pkgd.min.js', '../js/ui.js', '../js/truncate.js', '../js/upload.js']"
   }
   page.board = board;
