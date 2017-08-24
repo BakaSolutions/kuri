@@ -1,6 +1,7 @@
 const express = require('express');
 const Renderer = require('../../core/templating');
 const API = require('../../core/foxtan/api');
+const Markup = require('../../core/foxtan/markup');
 const Board = require('../../core/kuri/board');
 const FS = require('../../helpers/fs');
 
@@ -61,8 +62,10 @@ async function renderPage(boardName, pageNumber) {
   }
   let page = await Board.getPage(boardName, pageNumber);
   for (let a = 0; a < page.threads.length; a++) {
-    for (let b = 0; b < page.threads[a].lastPosts.length; b++) {
-      page.threads[a].lastPosts[b].created_at = parseDate(page.threads[a].lastPosts[b].created_at);
+    let thread = page.threads[a];
+    for (let b = 0; b < thread.lastPosts.length; b++) {
+      thread.lastPosts[b].created_at = parseDate(thread.lastPosts[b].created_at);
+      thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']);
     }
   }
 
@@ -94,6 +97,7 @@ async function renderThread(boardName, threadNumber) {
   let posts = thread.thread.posts;
   for (let i = 0; i < posts.length; i++) {
     posts[i].created_at = parseDate(posts[i].created_at);
+    posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
   }
   thread.board = board;
   thread.mainStylesheet = 'board.css';

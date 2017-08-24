@@ -33,7 +33,7 @@
       </a>-->
     </div>
     <div class="postText">
-      {{=post.bodymarkup}}
+      {{=post.body}}
       {{? post.replies}}
         <div class="postReplies">
           Ответы: {{!post.replies}}
