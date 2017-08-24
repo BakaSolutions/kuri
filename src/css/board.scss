@@ -45,7 +45,6 @@
 		}
 		.postDetails{
 			cursor: default;
-			padding-top: 3px;
 			border-radius: inherit;
 			background-color: var(--header-color);
 		}
@@ -72,62 +71,33 @@
 
 /* Шапка поста */
 .postDetails{
-	cursor: default;
-	@include user-select(none);
-	padding-left: 5px;
-	.topic{
-		font-weight: bold;
-		color: var(--link-color);
-	}
-	.author{
-		color: var(--link-color);
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.info{
+		padding: 0 5px;
+		cursor: default;
+		@include user-select(none);
+		.sage:before{
+			color: var(--link-color);
+			cursor: default;
+		}
+		.topic{
+			font-weight: bold;
+			color: var(--link-color);
+		}
+		.author{
+			color: var(--link-color);
+		}
 	}
 	.postMenu{
-		right: 5px;
-		position: absolute;
+		padding: 0 5px;
+		& > .actionIcon:before{
+			height: 15px;
+			width: 15px;
+		}
 	}
-	.sage:before{
-		color: var(--link-color);
-		cursor: default;
-	}
-}
-
-/* Меню поста */
-input + .postMenu + div{
-	display: none;
-}
-
-input:checked + .postMenu + div{
-	right: 10px;
-	padding: 3px;
-	display: flex;
-	position: absolute;
-	flex-direction: column;
-	border-radius: var(--border-radius);
-	border: 1px solid var(--text-color);
-	background-color: var(--foreground-color);
-	z-index: 100;
-}
-
-input:checked + .postMenu + div div{
-	padding: 3px;
-	color: var(--text-color);
-}
-
-input:checked + .postMenu + div div:hover{
-	background-color: var(--header-color);
-}
-
-input + .postMenu + div .source:before{
-	content: "\f0f6";
-}
-
-input + .postMenu + div .spoil:before{
-	content: "\f070";
-}
-
-input + .postMenu + div .edit:before{
-	content: "\f040";
 }
 
 /* Прикрепления поста */

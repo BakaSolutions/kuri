@@ -1,33 +1,27 @@
 <div class="postWrapper" id="wrapper-{{!post.id}}">
   <div class="postDetails">
-    <input type="checkbox" class="hidden" id="delete-{{!post.id}}">
-    <label for="delete-{{!post.id}}" class="iconCheckbox checkbox"></label>
-    {{? post.sageru}}
-      <i class="actionIcon sage"></i>
-    {{?}}
-    <span class="topic">{{!post.subject}}</span>
-    <span class="author">{{!post.name}}</span>
-    <span class="postDate">{{!post.created_at}}</span>
-    <a class="refLink" onclick="quickReply({{!post.id}})">№{{!post.id}}</a>
-    {{? post.id == post.thread}}
-      [<a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.thread}}.html#{{!post.id}}">В тред</a>]
-    {{?}}
-    <input type="checkbox" id="postMenu{{!post.id}}" class="hidden">
-    <label for="postMenu{{!post.id}}" class="iconCheckbox postMenu menu jsOnly"></label>
-    <div>
-      <div class="actionIcon source">
-        Исходный текст
-      </div>
-      <div class="actionIcon edit">
-        Редактировать
-      </div>
-      <div class="actionIcon delete">
-        Удалить
-      </div>
-      <div class="actionIcon spoil">
-        Скрыть
-      </div>
-    </div>
+    <!--
+      <input type="checkbox" class="hidden" id="delete-{{!post.id}}">
+      <label for="delete-{{!post.id}}" class="iconCheckbox checkbox"></label>
+    -->
+    <span class="info">
+      {{? post.sageru}}
+        <i class="actionIcon sage"></i>
+      {{?}}
+      <span class="topic">{{!post.subject}}</span>
+      <span class="author">{{!post.name}}</span>
+      <span class="postDate">{{!post.created_at}}</span>
+      <a class="refLink" onclick="quickReply({{!post.id}})">№{{!post.id}}</a>
+      {{? post.id == post.thread}}
+        [<a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.thread}}.html#{{!post.id}}">В тред</a>]
+      {{?}}
+    </span>
+    <span class="postMenu">
+      <i class="actionIcon edit"></i>
+      <i class="actionIcon delete"></i>
+      <i class="actionIcon spoil"></i>
+      <!--<i class="actionIcon source"></i>-->
+    </span>
   </div>
   <div class="post">
     <div class="postMedia">

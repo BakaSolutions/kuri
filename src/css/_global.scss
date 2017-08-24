@@ -170,6 +170,15 @@ input:checked + .iconCheckbox.checkbox:before{
 	&.sage:before{
 		content: "\f165"
 	}
+	&.source:before{
+		content: "\f0f6";
+	}
+	&.spoil:before{
+		content: "\f070";
+	}
+	&.edit:before{
+		content: "\f040";
+	}
 }
 
 input:checked + .menu:before{
