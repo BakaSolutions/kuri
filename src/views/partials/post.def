@@ -17,9 +17,9 @@
       {{?}}
     </span>
     <span class="postMenu">
-      <i class="actionIcon edit"></i>
-      <i class="actionIcon delete"></i>
-      <i class="actionIcon spoil"></i>
+      <i class="actionIcon edit jsOnly"></i>
+      <i class="actionIcon delete jsOnly"></i>
+      <i class="actionIcon spoil jsOnly" onclick="spoil(this{{? post.id == post.thread}}, true{{?}})"></i>
       <!--<i class="actionIcon source"></i>-->
     </span>
   </div>

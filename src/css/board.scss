@@ -2,9 +2,27 @@
 @import '_mascot.scss';
 @import '_replyForm.scss';
 
+.thread{
+	max-height: calc(420px * 4);
+	transition-duration: var(--animation-duration);
+}
+
+.thread, .postWrapper{
+	overflow: hidden;
+	&.spoiled{
+		max-height: 22px;
+		.postDetails{
+			border-radius: var(--border-radius);
+			background-color: var(--foreground-color);
+			background-image: var(--foreground-image);
+		}
+	}
+}
+
 .postWrapper{
-	min-height: 75px;
+	max-height: 420px;
 	border: 1px solid var(--background-color);
+	transition-duration: var(--animation-duration);
 	.postText{
 		margin: 0 5px;
 		a{
