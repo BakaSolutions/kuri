@@ -1,5 +1,6 @@
 const express = require('express');
 const Renderer = require('../../core/templating');
+const API = require('../../core/foxtan/api');
 const Board = require('../../core/kuri/board');
 const FS = require('../../helpers/fs');
 
@@ -27,11 +28,11 @@ router.render = async function (path) {
 /*  match = path.match(/^\/([^\/]+)\/catalog$/);
   if (match) {
     return await router.renderCatalog(match[1]);
-  }
+  }*/
   match = path.match(/^\/([^\/]+)\/res\/(\d+)$/);
   if (match) {
     return await renderThread(match[1], +match[2]);
-  }*/
+  }
 };
 
 async function renderPages(boardName) {
@@ -41,22 +42,16 @@ async function renderPages(boardName) {
   }
 }
 
-async function pad(n, width) {
-  n += '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join(0) + n;
-}
-
-async function parseDates(page){
-  let d;
-
-  for (let a = 0; a < page.threads.length; a++) {
-    for (let b = 0; b < page.threads[a].lastPosts.length; b++) {
-      d = new Date(page.threads[a].lastPosts[b].created_at);
-      page.threads[a].lastPosts[b].created_at = `${await pad(d.getDate(), 2)}.${await pad(d.getMonth(), 2)}.${d.getFullYear()} ${await pad(d.getHours(), 2)}:${await pad(d.getMinutes(), 2)}`;
-    }
+function parseDate(d){
+  if (!(d instanceof Date)) {
+    d = new Date(d);
   }
-
-  return page
+  let date = d.getDate().toString().padStart(2, 0);
+  let month = d.getMonth().toString().padStart(2, 0);
+  let year = d.getFullYear();
+  let hours = d.getHours().toString().padStart(2, 0);
+  let minutes = d.getMinutes().toString().padStart(2, 0);
+  return `${date}.${month}.${year} ${hours}:${minutes}`;
 }
 
 async function renderPage(boardName, pageNumber) {
@@ -65,20 +60,45 @@ async function renderPage(boardName, pageNumber) {
     throw new Error('Invalid board');
   }
   let page = await Board.getPage(boardName, pageNumber);
-  page = await parseDates(page);
+  for (let a = 0; a < page.threads.length; a++) {
+    for (let b = 0; b < page.threads[a].lastPosts.length; b++) {
+      page.threads[a].lastPosts[b].created_at = parseDate(page.threads[a].lastPosts[b].created_at);
+    }
+  }
 
-  /*for (let thread of page.threads) {
-    await Renderer.renderThread(thread);
-  }*/
+  for (let thread of page.threads) {
+    await renderThread(thread['board_name'], thread['thread_id']);
+  }
   let pageID = pageNumber > 0
     ? pageNumber
     : 'index';
   page.title = '/' + board.name + '/ &mdash; ' + board.title;
-  page.mainStyleshet = 'board.css';
+  page.mainStylesheet = 'board.css';
   page.dependencies = {
-    css: "[]",
-    js: "['../js/master.js', '../js/draggabilly.pkgd.min.js', '../js/ui.js', '../js/truncate.js', '../js/upload.js']"
-  }
+    js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js', '/js/truncate.js', '/js/upload.js']"
+  };
   page.board = board;
   FS.writeFileSync('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
+}
+
+async function renderThread(boardName, threadNumber) {
+  let board = Board.getOne(boardName);
+  if (!board) {
+    throw new Error('Invalid board');
+  }
+  let thread = {};
+  thread.thread = await API.getThread(boardName, threadNumber);
+  if (!thread.thread) {
+    throw new Error('Invalid thread');
+  }
+  let posts = thread.thread.posts;
+  for (let i = 0; i < posts.length; i++) {
+    posts[i].created_at = parseDate(posts[i].created_at);
+  }
+  thread.board = board;
+  thread.mainStylesheet = 'board.css';
+  thread.dependencies = {
+    js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js', '/js/truncate.js', '/js/upload.js']"
+  };
+  return await Renderer.renderThread(thread);
 }

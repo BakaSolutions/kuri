@@ -12,7 +12,19 @@
 				{{#def["partials/replyForm"]}}
 			</header>
 			{{~it.threads :thread}}
-				{{#def["partials/thread"]}}
+				<div id="threadFlow">
+					<div class="thread">
+						{{~[thread.lastPosts.shift()] :post}}
+						{{#def['partials/post']}}
+						{{~}}
+						{{? thread.omittedPosts}}
+						Пропущено постов: {{!thread.omittedPosts}}
+						{{?}}
+						{{~thread.lastPosts :post}}
+						{{#def['partials/post']}}
+						{{~}}
+					</div>
+				</div>
 			{{~}}
 		</div>
 		<div id="rightTopCorner">

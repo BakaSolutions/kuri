@@ -3,14 +3,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{!it.title}}</title>
   <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
-  <link rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.mainStyleshet}}">
+  <link rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.mainStylesheet}}">
   <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
   <script type="text/javascript">
   window.onload = () => {
-    let css = {{=it.dependencies.css}};
-    let js = {{=it.dependencies.js}};
-
-    (new RSQ([css, js])).run()
+    let rsq = [];
+    {{? it.dependencies.css}}
+      rsq.push({{=it.dependencies.css}});
+    {{?}}
+    {{? it.dependencies.js}}
+      rsq.push({{=it.dependencies.js}});
+    {{?}}
+    (new RSQ(rsq)).run()
   }
   </script>
   <noscript>
