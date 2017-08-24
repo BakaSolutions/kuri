@@ -8,10 +8,9 @@ router.paths = 'index.html';
 router.render = function () {
   return Renderer.render('pages/home', {
     title: 'Home &mdash; Kuri',
-    mainStyleshet: 'home.css',
+    mainStylesheet: 'home.css',
     dependencies: {
-      css: "[]",
-      js: "['../js/master.js', '../js/draggabilly.pkgd.min.js', '../js/ui.js']"
+      js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js']"
     }
   });
 };
