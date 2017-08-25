@@ -1,12 +1,14 @@
 <input type="checkbox" class="hidden" id="replyFormExpand">
 <input type="checkbox" class="hidden" id="replyFormShow">
-<label for="replyFormShow">Новый пост</label>
-<form id="replyForm" class="widget box" action="" method="post">
+<label for="replyFormShow">Новый {{? it.thread}}пост{{?}}{{? !it.thread}}тред{{?}}</label>
+<form action="https://tuderi.tumba.ch:48596/api/post.create" method="post" id="replyForm" class="widget box">
 	<input type="hidden" name="boardName" value="{{!it.board.name}}">
-	<input type="hidden" name="threadNumber" value="">
+	{{? it.thread}}
+		<input type="hidden" name="threadNumber" value="{{=it.thread.id}}">
+	{{?}}
 	<input type="hidden" name="password" value="">
 
-	<div class="boxHandle">Новый пост<label for="replyFormShow" class="actionIcon close"></label></div>
+	<div class="boxHandle">Новый {{? it.thread}}пост{{?}}{{? !it.thread}}тред{{?}}<label for="replyFormShow" class="actionIcon close"></label></div>
 	<div class="boxContent">
 		<div class="column">
 			<textarea name="text" placeholder="Нет, постинг пока не работает."></textarea>
@@ -15,6 +17,7 @@
 			<label for="opCheckbox" class="iconCheckbox op"> OP</label>
 			<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
 			<label for="sageCheckbox" class="iconCheckbox sage"> Sage</label>
+			<input type="checkbox" name="redirect" class="hidden" checked>
 			<input type="checkbox" id="markupHelp" class="hidden">
 			<label for="markupHelp" class="actionIcon help"> Help</label>
 			<button>Отправить</button>
