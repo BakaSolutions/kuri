@@ -4,7 +4,7 @@
 <form action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/post.create" method="post" id="replyForm" class="widget box">
 	<input type="hidden" name="boardName" value="{{!it.board.name}}">
 	{{? it.thread}}
-		<input type="hidden" name="threadNumber" value="{{=it.thread.id}}">
+		<input type="hidden" name="threadNumber" value="{{=it.thread.thread_id}}">
 	{{?}}
 	<input type="hidden" name="password" value="">
 
