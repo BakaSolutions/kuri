@@ -6,11 +6,7 @@
 	<input type="hidden" name="redirect" class="hidden" value="{{=it.board.name}}{{? it.thread}}/res/{{=it.thread.id}}.html#bottom{{?}}">
 	<input type="hidden" name="password" value="password">
 	{{? it.thread}}
-<<<<<<< Updated upstream
-		<input type="hidden" name="threadNumber" value="{{=it.thread.thread_id}}">
-=======
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{=it.thread.thread_id}}">
->>>>>>> Stashed changes
 	{{?}}
 
 	<div class="boxHandle">Новый {{? it.thread}}пост{{??}}тред{{?}}<label for="replyFormShow" class="actionIcon close"></label></div>
