@@ -17,11 +17,13 @@
   </header>
   {{~[it.thread] :thread}}
     <div id="threadFlow">
+      <a name="top"></a>
       <div class="thread">
         {{~thread.posts :post}}
           {{#def['partials/post']}}
         {{~}}
       </div>
+      <a name="bottom"></a>
     </div>
   {{~}}
 </div>

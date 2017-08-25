@@ -13,6 +13,7 @@
 			</header>
 			{{~it.threads :thread}}
 				<div id="threadFlow">
+          <a name="top"></a>
 					<div class="thread">
 						{{~[thread.lastPosts.shift()] :post}}
 						{{#def['partials/post']}}
@@ -24,6 +25,7 @@
 						{{#def['partials/post']}}
 						{{~}}
 					</div>
+          <a name="bottom"></a>
 				</div>
 			{{~}}
 		</div>

@@ -10,7 +10,7 @@
 .thread, .postWrapper{
 	overflow: hidden;
 	&.spoiled{
-		max-height: 22px;
+		max-height: 21px;
 		.postDetails{
 			border-radius: var(--border-radius);
 			background-color: var(--foreground-color);

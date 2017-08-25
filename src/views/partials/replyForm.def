@@ -1,23 +1,27 @@
 <input type="checkbox" class="hidden" id="replyFormExpand">
 <input type="checkbox" class="hidden" id="replyFormShow">
-<label for="replyFormShow">Новый {{? it.thread}}пост{{??}}тред{{?}}</label>
+<label for="replyFormShow" {{? !it.thread}}onclick="createThread(event, '{{=it.board.name}}')"{{?}}>Новый {{? it.thread}}пост{{??}}тред{{?}}</label>
 <form action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/post.create" method="post" id="replyForm" class="widget box">
 	<input type="hidden" name="boardName" value="{{!it.board.name}}">
+	<input type="hidden" name="redirect" class="hidden" value="{{=it.board.name}}{{? it.thread}}/res/{{=it.thread.id}}.html#bottom{{?}}">
+	<input type="hidden" name="password" value="password">
 	{{? it.thread}}
+<<<<<<< Updated upstream
 		<input type="hidden" name="threadNumber" value="{{=it.thread.thread_id}}">
+=======
+		<input type="hidden" id="threadNumber" name="threadNumber" value="{{=it.thread.thread_id}}">
+>>>>>>> Stashed changes
 	{{?}}
-	<input type="hidden" name="password" value="">
 
 	<div class="boxHandle">Новый {{? it.thread}}пост{{??}}тред{{?}}<label for="replyFormShow" class="actionIcon close"></label></div>
 	<div class="boxContent">
 		<div class="column">
-			<textarea name="text" placeholder="Нет, постинг пока не работает."></textarea>
+			<textarea name="text" placeholder="Постинг работает!"></textarea>
 		<div class="row">
 			<input type="checkbox" name="OP" id="opCheckbox" class="hidden">
 			<label for="opCheckbox" class="iconCheckbox op"> OP</label>
 			<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
 			<label for="sageCheckbox" class="iconCheckbox sage"> Sage</label>
-			<input type="checkbox" name="redirect" class="hidden" checked>
 			<input type="checkbox" id="markupHelp" class="hidden">
 			<label for="markupHelp" class="actionIcon help"> Help</label>
 			<button>Отправить</button>

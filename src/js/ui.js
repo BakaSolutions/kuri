@@ -134,11 +134,29 @@ function Notification(text = 'Всё норм, Саня, не забудь уб�
 	}
 }
 
-function quickReply(postNumber) {
+function createThread(e, boardName){
+	e.preventDefault();
+	e.stopPropagation();
 	document.querySelector("#replyFormShow").checked = true;
 
-	const TEXTAREA = document.querySelector('#replyForm textarea');
-	TEXTAREA.innerHTML += TEXTAREA.innerHTML ? `\n>>${postNumber}` : `>>${postNumber}`;
+	document.querySelector('#replyForm .boxHandle').innerHTML = 'Новый тред<label for="replyFormShow" class="actionIcon close"></label>';
+	if (document.querySelector('input#threadNumber')) {
+		document.querySelector('input#threadNumber').outerHTML = '';
+	}
+}
+
+function quickReply(postNumber, threadNumber) {
+	document.querySelector("#replyFormShow").checked = true;
+
+	document.querySelector('#replyForm .boxHandle').innerHTML = 'Новый пост<label for="replyFormShow" class="actionIcon close"></label>';
+
+	if (!document.querySelector('input#threadNumber')) {
+		const THREAD_NUMBER_INPUT = document.createElement('input');
+		document.querySelector('#replyForm').appendChild(THREAD_NUMBER_INPUT);
+		THREAD_NUMBER_INPUT.outerHTML = `<input type="hidden" id="threadNumber" name="threadNumber" value="${threadNumber}">`
+	};
+
+	document.querySelector('#replyForm textarea').innerHTML += `>>${postNumber}\n`;
 }
 
 (() => {
