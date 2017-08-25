@@ -92,10 +92,10 @@ async function renderThread(boardName, threadNumber) {
     }
     let thread = {};
     thread.thread = await API.getThread(boardName, threadNumber);
-    let posts = thread.thread.posts;
-    if (!posts.length) {
-      throw new Error('Can\'t get a thread');
+    if (Array.isArray(thread.thread) && !thread.thread.length) {
+      throw new Error('Foxtan problem! Can\'t get a thread!');
     }
+    let posts = thread.thread.posts;
     for (let i = 0; i < posts.length; i++) {
       posts[i].created_at = parseDate(posts[i].created_at);
       posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
