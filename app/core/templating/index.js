@@ -98,7 +98,7 @@ Templating.render = function (templateName, model) {
 };
 
 Templating.renderThread = function (thread) {
-  FS.writeFileSync('public/' + thread.board.name + '/res/' + thread.thread.id + '.html', Templating.render('pages/thread', thread));
+  FS.writeFileSync('public/' + thread.board.name + '/res/' + thread.thread.thread_id + '.html', Templating.render('pages/thread', thread));
 };
 
 Templating.rerender = async function (what) { // TODO: Optional render

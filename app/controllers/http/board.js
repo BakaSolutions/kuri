@@ -85,24 +85,28 @@ async function renderPage(boardName, pageNumber) {
 }
 
 async function renderThread(boardName, threadNumber) {
-  let board = Board.getOne(boardName);
-  if (!board) {
-    throw new Error('Invalid board');
+  try {
+    let board = Board.getOne(boardName);
+    if (!board) {
+      throw new Error('Invalid board');
+    }
+    let thread = {};
+    thread.thread = await API.getThread(boardName, threadNumber);
+    let posts = thread.thread.posts;
+    if (!posts.length) {
+      throw new Error('Can\'t get a thread');
+    }
+    for (let i = 0; i < posts.length; i++) {
+      posts[i].created_at = parseDate(posts[i].created_at);
+      posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
+    }
+    thread.board = board;
+    thread.mainStylesheet = 'board.css';
+    thread.dependencies = {
+      js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js', '/js/truncate.js', '/js/upload.js']"
+    };
+    return await Renderer.renderThread(thread);
+  } catch (e) {
+    console.log(e.message, boardName, threadNumber);
   }
-  let thread = {};
-  thread.thread = await API.getThread(boardName, threadNumber);
-  if (!thread.thread) {
-    throw new Error('Invalid thread');
-  }
-  let posts = thread.thread.posts;
-  for (let i = 0; i < posts.length; i++) {
-    posts[i].created_at = parseDate(posts[i].created_at);
-    posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
-  }
-  thread.board = board;
-  thread.mainStylesheet = 'board.css';
-  thread.dependencies = {
-    js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js', '/js/truncate.js', '/js/upload.js']"
-  };
-  return await Renderer.renderThread(thread);
 }

@@ -10,6 +10,11 @@ module.exports = {
     dateFormat: config('site.dateFormat'),
     timeOffset: config('site.timeOffset'),
   },
+  foxtan: {
+    host: config('foxtan.host'),
+    port: config('foxtan.port'),
+    protocol: config('foxtan.protocol')
+  },
   translate: function (arg) {
     return arg;
   },

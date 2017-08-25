@@ -1,14 +1,14 @@
 <input type="checkbox" class="hidden" id="replyFormExpand">
 <input type="checkbox" class="hidden" id="replyFormShow">
-<label for="replyFormShow">Новый {{? it.thread}}пост{{?}}{{? !it.thread}}тред{{?}}</label>
-<form action="https://tuderi.tumba.ch:48596/api/post.create" method="post" id="replyForm" class="widget box">
+<label for="replyFormShow">Новый {{? it.thread}}пост{{??}}тред{{?}}</label>
+<form action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/post.create" method="post" id="replyForm" class="widget box">
 	<input type="hidden" name="boardName" value="{{!it.board.name}}">
 	{{? it.thread}}
 		<input type="hidden" name="threadNumber" value="{{=it.thread.id}}">
 	{{?}}
 	<input type="hidden" name="password" value="">
 
-	<div class="boxHandle">Новый {{? it.thread}}пост{{?}}{{? !it.thread}}тред{{?}}<label for="replyFormShow" class="actionIcon close"></label></div>
+	<div class="boxHandle">Новый {{? it.thread}}пост{{??}}тред{{?}}<label for="replyFormShow" class="actionIcon close"></label></div>
 	<div class="boxContent">
 		<div class="column">
 			<textarea name="text" placeholder="Нет, постинг пока не работает."></textarea>
@@ -25,9 +25,9 @@
 		</div>
 		<div class="column">
 			<div class="row">
-				<input type="text" name="name" placeholder="Имя">
+				<input name="name" placeholder="Имя">
 			</div>
-			<input type="text" name="subject" placeholder="Тема">
+			<input name="subject" placeholder="Тема">
 			<div class="row removeMe">
 				<input type="file" name="file0" id="file0">
 				<input type="checkbox" class="hidden" name="file1Rating" id="file0Rating">
