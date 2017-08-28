@@ -9,8 +9,16 @@ router.render = function () {
   return Renderer.render('pages/home', {
     title: 'Home &mdash; Kuri',
     mainStylesheet: 'home.css',
-    dependencies: {
-      js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js']"
-    }
+    dependencies: [
+      'master.js',
+      'cookieTools.js',
+      'themes.css',
+      'theming.js',
+      'draggabilly.pkgd.min.js',
+      'widgets.css',
+      'widgets.js',
+      'notifications.css',
+      'notifications.js'
+    ]
   });
 };

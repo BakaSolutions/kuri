@@ -5,18 +5,13 @@
   <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
   <link rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.mainStylesheet}}">
   <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
-  <script type="text/javascript">
-  window.onload = () => {
-    let rsq = [];
-    {{? it.dependencies.css}}
-      rsq.push({{=it.dependencies.css}});
-    {{?}}
-    {{? it.dependencies.js}}
-      rsq.push({{=it.dependencies.js}});
-    {{?}}
-    (new RSQ(rsq)).run()
-  }
-  </script>
+  {{? it.dependencies}}
+    <script type="text/javascript">
+      const DEPENDENCIES = [{{=it.dependencies}}];
+
+      window.onload = () => (new RSQ(DEPENDENCIES)).run();
+    </script>
+  {{?}}
   <noscript>
   	<style>
   		.jsOnly{

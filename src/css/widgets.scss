@@ -1,0 +1,79 @@
+.widget{
+	z-index: 2017;
+	display: none;
+	user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	border-radius: var(--border-radius);
+	textarea{
+		resize: none;
+	}
+	&#autoSpoil textarea{
+		width: 100%;
+		height: 100%;
+	}
+	&.fullscreen{
+		width: 100vw;
+		height: 100vh;
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, .5);
+		img{
+			max-width: 100vw;
+			max-height: 100vh;
+		}
+	}
+	&.box{
+		flex-direction: column;
+		background-color: var(--foreground-color);
+		background-image: var(--foreground-image);
+		border: 1px solid var(--background-color);
+		&#settings, &#autoSpoil, &#themeEditor{
+			width: 600px;
+			height: 400px;
+		}
+		& > *{
+			width: 100%;
+		}
+		.boxHandle{
+			height: 20px;
+			padding: 2px;
+			text-align: center;
+			cursor: move; // Для устаревших браузеров
+			cursor: -webkit-grab;
+			background-color: var(--header-color);
+			border-top-left-radius: var(--border-radius);
+			border-top-right-radius: var(--border-radius);
+			.actionIcon.close{
+				right: 2px;
+				width: 16px;
+				height: 16px;
+				position: absolute;
+			}
+			&:active{
+				cursor: -webkit-grabbing;
+			}
+		}
+		.boxContent{
+			padding: 5px;
+			height: calc(100% - 50px);
+			flex-direction: row;
+			display: flex;
+		}
+		.boxButtons{
+			height: 30px;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			border-bottom-left-radius: var(--border-radius);
+			border-bottom-right-radius: var(--border-radius);
+			button{
+				margin: 5px;
+				width: 100px;
+				cursor: pointer;
+			}
+		}
+	}
+}

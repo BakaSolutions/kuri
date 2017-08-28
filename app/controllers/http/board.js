@@ -7,6 +7,22 @@ const FS = require('../../helpers/fs');
 
 let router = module.exports = express.Router();
 
+const BOARD_DEPENDENCIES = `
+  'master.js',
+  'cookieTools.js',
+  'themes.css',
+  'theming.js',
+  'posts.js',
+  'floatingPosts.js',
+  'truncate.js',
+  'draggabilly.pkgd.min.js',
+  'widgets.css',
+  'widgets.js',
+  'posting.js',
+  'notifications.css',
+  'notifications.js'
+`;
+
 router.paths = function () {
   let out = [];
   let boards = Board.get();
@@ -77,9 +93,7 @@ async function renderPage(boardName, pageNumber) {
     : 'index';
   page.title = '/' + board.name + '/ &mdash; ' + board.title;
   page.mainStylesheet = 'board.css';
-  page.dependencies = {
-    js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js', '/js/truncate.js', '/js/upload.js']"
-  };
+  page.dependencies = BOARD_DEPENDENCIES;
   page.board = board;
   FS.writeFileSync('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }
@@ -102,9 +116,7 @@ async function renderThread(boardName, threadNumber) {
     }
     thread.board = board;
     thread.mainStylesheet = 'board.css';
-    thread.dependencies = {
-      js: "['/js/master.js', '/js/draggabilly.pkgd.min.js', '/js/ui.js', '/js/truncate.js', '/js/upload.js']"
-    };
+    thread.dependencies = BOARD_DEPENDENCIES;
     return await Renderer.renderThread(thread);
   } catch (e) {
     console.log(e.message, boardName, threadNumber);
