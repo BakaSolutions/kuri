@@ -1,4 +1,4 @@
-const API = require('./api');
+const API = require('./http/api');
 const Tools = require('../../helpers/tools');
 
 let Markup = module.exports = {};

@@ -1,4 +1,5 @@
-const API = require('../foxtan/api');
+const config = require('../../helpers/config');
+const API = require('../foxtan/' + config('foxtan.use') + '/api');
 const Tools = require('../../helpers/tools');
 
 let Board = module.exports = {};

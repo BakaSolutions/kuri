@@ -1,6 +1,8 @@
 const Request = require('./request');
+const config = require('../../../helpers/config');
 
 let API = module.exports = {};
+
 let paths = {
   getBoards: 'boards.json',
   getCounters: 'lastPostNumbers.json',
@@ -13,6 +15,10 @@ let paths = {
   getPost: 'api/post.get?boardName=$1&postNumber=$2'
 };
 
+const Foxtan = config('foxtan.http.protocol') + '://' +
+    config('foxtan.http.host') + ':' +
+    config('foxtan.http.port') + '/' +
+    config('foxtan.http.suffix');
 for (let path in paths) {
   API[path] = APIPlaceholder(paths[path]);
 }
@@ -20,11 +26,11 @@ for (let path in paths) {
 function APIPlaceholder(url) {
   return async function defaultFunctionForAPI() {
     let link = url;
-    let args = Array.prototype.slice.call(arguments);
+    let args = [...arguments];
     for (let i = 0; i < args.length; i++) {
       link = link.replace('$' + (i + 1), args[i]);
     }
-    let out = await Request.get(link);
+    let out = await Request.get(Foxtan + link);
     return out
       ? out.body
       : [];
