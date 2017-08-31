@@ -65,7 +65,7 @@ class WSClient {
       console.log('>> ' + data + id);
 
       let promiseWrapper = (data) => {
-        this.instance.removeEventListener(promiseWrapper);
+        this.instance.removeEventListener('message', promiseWrapper);
         if (data.indexOf(id) >= 0) {
           data = data.replace(id, '');
           return resolve(data);
@@ -92,6 +92,7 @@ class WSClient {
   }
 
   onOpen () {
+    this.reconnects = 0;
     console.log("OPENED");
   }
 

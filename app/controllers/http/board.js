@@ -1,6 +1,7 @@
 const express = require('express');
 const Renderer = require('../../core/templating');
-const API = require('../../core/foxtan/http/api');
+const config = require('../../helpers/config');
+const API = require('../../core/foxtan/' + config('foxtan.use') + '/api');
 const Markup = require('../../core/foxtan/markup');
 const Board = require('../../core/kuri/board');
 const FS = require('../../helpers/fs');
