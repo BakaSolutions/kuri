@@ -12,7 +12,7 @@ class WSClient {
       this.instance = new WebSocket(this.url);
       this.instance.on('open', () => {
         this.onOpen();
-        resolve();
+        resolve(1);
       });
       this.instance.on('message', (data, flags) => {
         this.onMessage(data, flags);
@@ -42,15 +42,14 @@ class WSClient {
                 break;
               case 404:
                 message = 'Not found!';
+                break;
               case 504:
                 message = 'Timeout!';
-              default:
-                this.onError(message);
                 break;
             }
+            return this.onError(message);
           }
         }
-        reject(e);
       });
     }).catch((e) => this.instance.emit('error', e));
   }
@@ -59,7 +58,8 @@ class WSClient {
     return new Promise(async (resolve, reject) => {
       let id = this.generateID();
       if (!this.instance || this.instance.readyState !== WebSocket.OPEN) {
-        await this.open();
+        let open = await this.open();
+        if (!open) return reject('FAIL 504');
       }
       this.instance.send(data + id);
       console.log('>> ' + data + id);
@@ -77,9 +77,7 @@ class WSClient {
       setTimeout(function () {
         reject('FAIL 504')
       }, 5000);
-    }).catch((e) => {
-      this.instance.emit('error', e);
-    });
+    }).catch((e) => this.instance.emit('error', e));
   }
 
   reconnect (e) {
