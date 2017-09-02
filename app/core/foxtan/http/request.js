@@ -1,8 +1,7 @@
 const request = require('minimal-request-promise');
-const config = require('../../helpers/config');
-const Tools = require('../../helpers/tools');
+const config = require('../../../helpers/config');
+const Tools = require('../../../helpers/tools');
 
-const Foxtan = config('foxtan.protocol') + '://' + config('foxtan.host') + ':' + config('foxtan.port') + '/';
 const defaultOptions = {
   headers: {
     'User-Agent': 'Kuri/' + config('server.version'),
@@ -14,7 +13,7 @@ const defaultOptions = {
 let Request = module.exports = {};
 
 Request.get = async function (url, options) {
-  console.log('get', Foxtan + url);
+  console.log('get', url);
   return await defaultRequest('get', url, options);
 };
 
@@ -31,7 +30,7 @@ Request.post = async function (url, body, options) {
 function defaultRequest(type, url, options) {
   options = Tools.merge(defaultOptions, options);
 
-  return request[type](Foxtan + url, options)
+  return request[type](url, options)
     .then(function(response){
       if (/application\/json/.test(response.headers['content-type'])) {
         try {
@@ -43,9 +42,6 @@ function defaultRequest(type, url, options) {
       return response;
     })
     .catch(function(error) {
-      //if (error instanceof Error)
-        //console.log(4242424, error);
-        //return Promise.reject(error);
-      //return error;
+      //
     });
 }

@@ -4,9 +4,19 @@ const packageJSON = require('../../package.json');
 
 let config = {
   foxtan: {
-    host: 'tuderi.tumba.ch',
-    port: 48596,
-    protocol: 'https'
+    use: 'websocket', // http | websocket
+    http: {
+      host: 'tuderi.tumba.ch',
+      port: 48596,
+      protocol: 'https',
+      suffix: ''
+    },
+    websocket: {
+      host: 'tuderi.tumba.ch',
+      port: 48596,
+      protocol: 'wss',
+      suffix: 'ws'
+    }
   },
   server: {
     host: 'localhost',

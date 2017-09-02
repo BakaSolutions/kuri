@@ -1,4 +1,5 @@
-const API = require('./api');
+const config = require('../../helpers/config');
+const API = require('./' + config('foxtan.use') + '/api');
 const Tools = require('../../helpers/tools');
 
 let Markup = module.exports = {};
