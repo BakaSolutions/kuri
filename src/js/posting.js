@@ -1,23 +1,26 @@
 function createNewFileInput() {
+	// Skip function fulfillment if input max count is already reached
 	if (fileInputCounter >= config.fileUpload.maxFiles) return false;
 
 	fileInputCounter++
-
+	// Used for generating new unique file inputs
 	const TIMESTAMP = (+new Date).toString().slice(-5);
-	const DIV = document.createElement('div');
-	DIV.id = `fileInput${TIMESTAMP}`;
-	DIV.className = 'row';
-	DIV.innerHTML = `
-		<input type="file" name="file${TIMESTAMP}" id="file${TIMESTAMP}">
-		<label for="file${TIMESTAMP}">
-			<div class="actionIcon uploadButton"></div><span class="fileName">Нет файла</span>
-		</label>
-		<input name="encodedFile${TIMESTAMP}" id="encodedFile${TIMESTAMP}" class="hidden">
-		<i class="actionIcon delete" onclick="removeFileInput('${TIMESTAMP}')"></i>
-		<input type="checkbox" class="hidden" name="file${TIMESTAMP}Rating" id="file${TIMESTAMP}Rating">
-		<label class="iconCheckbox nsfw" for="file${TIMESTAMP}Rating">
-	`
 
+	// Generation
+	const DIV = createElement('div', {
+		className: 'row',
+		id: `fileInput${TIMESTAMP}`,
+		innerHTML: `
+			<input type="file" name="file${TIMESTAMP}" id="file${TIMESTAMP}">
+			<label for="file${TIMESTAMP}">
+				<div class="actionIcon uploadButton"></div><span class="fileName">Нет файла</span>
+			</label>
+			<input name="encodedFile${TIMESTAMP}" id="encodedFile${TIMESTAMP}" class="hidden">
+			<i class="actionIcon delete" onclick="removeFileInput('${TIMESTAMP}')"></i>
+			<input type="checkbox" class="hidden" name="file${TIMESTAMP}Rating" id="file${TIMESTAMP}Rating">
+			<label class="iconCheckbox nsfw" for="file${TIMESTAMP}Rating"></label>
+		`
+	});
 	DIV.addEventListener("change", handleFiles);
 
 	lastFileInput = TIMESTAMP;
@@ -25,8 +28,8 @@ function createNewFileInput() {
 }
 
 function removeFileInput(timestamp) {
-	const EMPTY = document.querySelector(`#file${timestamp}`).files[0] || document.querySelector(`#encodedFile${lastFileInput}`).value ? false : true;
-	if (EMPTY) return false;
+	const NOT_EMPTY = document.querySelector(`#file${timestamp}`).files[0] || document.querySelector(`#encodedFile${lastFileInput}`).value;
+	if (NOT_EMPTY) return false;
 
 	document.querySelector(`#fileInput${timestamp}`).outerHTML = '';
 	fileInputCounter--;
@@ -36,8 +39,10 @@ function removeFileInput(timestamp) {
 }
 
 function createThread(e, boardName){
+	// Ignore link for non-js browsers
 	e.preventDefault();
-	e.stopPropagation();
+
+	// Show reply form
 	document.querySelector("#replyFormShow").checked = true;
 
 	document.querySelector('#replyForm .boxHandle').innerHTML = 'Новый тред<label for="replyFormShow" class="actionIcon close"></label>';
@@ -64,17 +69,14 @@ let fileInputCounter = 0,
 		fullFileInputCounter = 0,
 		lastFileInput = '',
 		counter = 0;
+
 const BOX_CONTENT = document.querySelector('#replyForm .boxContent');
 
 function checkFile(file) {
 	if(config.fileUpload.allowedTypes.indexOf(file.type) > -1){
 		return true
 	} else{
-		if (file.type) {
-			(new Notification(`Тип файла "${file.type}" не поддерживается!`, 'error')).show();
-		} else {
-			(new Notification(`Файл поврежден!`, 'error')).show();
-		}
+		(new Notification(file.type ? `Тип файла "${file.type}" не поддерживается!` : `Файл поврежден!`, 'error')).show();
 	}
 }
 
@@ -90,7 +92,6 @@ function encodeToString(file, target){
 
 function handleFiles(e) {
 	e.stopPropagation();
-	e.preventDefault();
 	console.log(e);
 
 	if ((!e.target.files && !e.dataTransfer) || (e.dataTransfer && !e.dataTransfer.files[0])) return false;
@@ -135,10 +136,41 @@ function renderPreview(file, target) {
 
 		target.appendChild(DIV);
 	}
+};
+
+function checkReplyForm() {
+	if (document.querySelector("#replyForm textarea").value){
+		return true
+	} else {
+		(new Notification('Текст поста не может быть пустым', 'error')).show();
+	}
 }
 
+function sendPost(){
+	// Get posting url and form elements
+	const URL = document.querySelector('#replyForm').action,
+				INPUTS = document.querySelectorAll("#replyForm input, #replyForm textarea");
+
+	// Create and fill formData
+  let formData = new FormData();
+	for(let i = 0; i < INPUTS.length; i++){
+    formData.append(INPUTS[i].name, INPUTS[i].value);
+  }
+
+	checkReplyForm() ? (() => {
+		// Create and fulfill XMLHttpRequest
+		const XHR = new XMLHttpRequest();
+		XHR.onload = () => {
+			console.log(XHR.responseText);
+		};
+	  XHR.open("POST", URL);
+	  XHR.send(formData);
+	})() : false;
+};
+
+// Init
 (() => {
-	// Замена nojs полей для файлов на красивенькие
+	// Replace non-js file inputs with cool ones
 	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
 
 	while (document.querySelector('.row.removeMe')) {
@@ -148,10 +180,7 @@ function renderPreview(file, target) {
 
 	createNewFileInput();
 
-
-	const DROPZONE = document.querySelector('#dropZone');
-
-// Появление формы дропа
+	// Init drop zone
 	document.addEventListener('dragenter', () => {
 		if (counter++ === 0) DROPZONE.classList.add('shown');
 	});
@@ -160,7 +189,8 @@ function renderPreview(file, target) {
 	  if (--counter === 0) DROPZONE.classList.remove('shown');
 	});
 
-// Функционал формы дропа
+	const DROPZONE = document.querySelector('#dropZone');
+
 	DROPZONE.addEventListener('dragover', e => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -172,4 +202,10 @@ function renderPreview(file, target) {
 		DROPZONE.classList.remove('shown');
 		handleFiles(e);
 	});
+
+	// Replace form sending with an async function
+	document.querySelector('#replyForm button').onclick = (e) => {
+		e.preventDefault();
+		sendPost();
+	}
 })();

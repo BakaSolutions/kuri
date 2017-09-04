@@ -8,8 +8,8 @@
       {{? post.sageru}}
         <i class="actionIcon sage"></i>
       {{?}}
-      <span class="topic">{{!post.subject}}</span>
-      <span class="author">{{!post.name}}</span>
+      {{? post.subject}}<span class="topic">{{!post.subject}}</span>{{?}}
+      <span class="author">{{? post.name}}{{!post.name}}{{??}}Лисичка{{?}}</span>
       <span class="postDate">{{!post.created_at}}</span>
       <a class="refLink" onclick="quickReply({{!post.id}}, {{!post.thread}})">№{{!post.id}}</a>
       {{? !it.thread && post.id == post.thread}}
