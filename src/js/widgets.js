@@ -20,6 +20,8 @@ function showImage(e, url) {
 		e.stopPropagation();
 
 		const OVRL = document.querySelector('#imageViewer');
+		OVRL.innerHTML = '';
+
 		const IMG = new Image();
 
 		IMG.onload = () => {
@@ -29,7 +31,6 @@ function showImage(e, url) {
 
 		IMG.src = url;
 		OVRL.onclick = () => {
-			OVRL.removeChild(IMG);
 			OVRL.style.display = 'none';
 		}
 	}
