@@ -94,7 +94,7 @@ async function renderPage(boardName, pageNumber) {
     let thread = page.threads[a];
     for (let b = 0; b < thread.lastPosts.length; b++) {
       thread.lastPosts[b].created_at = parseDate(thread.lastPosts[b].created_at);
-      thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']);
+      //thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']); //TODO: Transfer markup to Foxtan
     }
   }
 
@@ -125,7 +125,7 @@ async function renderThread(boardName, threadNumber) {
     let posts = thread.thread.posts;
     for (let i = 0; i < posts.length; i++) {
       posts[i].created_at = parseDate(posts[i].created_at);
-      posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
+      //posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
     }
     thread.board = board;
     thread.mainStylesheet = 'board.css';
