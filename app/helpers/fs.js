@@ -1,16 +1,9 @@
-const path = require('path'),
-  fs = require('fs'),
-  config = require('./config');
+const path = require('path');
+const fs = require('fs');
+const config = require('./config');
 
 let FS = module.exports = {};
 const ROOT = path.join(__dirname, '/../../');
-
-if (config('fs.existscache')) {
-  FS.cache = new Map();
-  /*FS.cacheInterval = setInterval(function () {
-    FS.cache.clear();
-  }, config('fs.existscache.interval'));*/
-}
 
 /**
  * Normalizes the path (removes all unnecessary "../")
@@ -91,28 +84,18 @@ FS.writeFileSync = function (filePath, content) {
 };
 
 /**
- * Check if file exists directly or from cache
+ * Check if file exists directly
  * @param {String} filePath
- * @param {Boolean} [cache]
  * @returns {boolean}
  */
-FS.existsSync = function (filePath, cache) {
+FS.existsSync = function (filePath) {
   filePath = FS.normalize(filePath);
-  let key = filePath, out;
-
-  cache = cache && config('fs.existscache');
-  if(cache && this.cache.has(key)) {
-    return this.cache.get(key);
-  }
+  let out;
   try {
     fs.accessSync(filePath, fs.constants.R_OK | fs.constants.W_OK);
     out = true;
   } catch (e) {
     out = false;
-  }
-
-  if (cache) {
-    this.cache.set(key, out);
   }
   return out;
 };
@@ -197,5 +180,38 @@ FS.copyFile = function (source, target) {
     }
     wr.on('finish', resolve);
     rd.pipe(wr);
+  });
+};
+
+FS.readFile = async function (filePath) {
+  return new Promise((resolve, reject) => {
+    filePath = FS.normalize(filePath);
+    if (!this.check(filePath)) {
+      return reject('Forbidden');
+    }
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};
+
+FS.writeFile = function (filePath, content) {
+  return new Promise((resolve, reject) => {
+    filePath = FS.normalize(filePath);
+    if (!this.check(filePath)) {
+      return false;
+    }
+
+    let dir = path.parse(filePath).dir + path.sep;
+    if (!this.existsSync(dir)) {
+      this.mkdirSync(dir);
+    }
+
+    content = content || '';
+    fs.writeFile(filePath, content, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
   });
 };

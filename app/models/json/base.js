@@ -11,9 +11,9 @@ module.exports = {
     timeOffset: config('site.timeOffset'),
   },
   foxtan: {
-    host: config('foxtan.host'),
-    port: config('foxtan.port'),
-    protocol: config('foxtan.protocol')
+    host: config('foxtan.http.host'),
+    port: config('foxtan.http.port'),
+    protocol: config('foxtan.http.protocol')
   },
   translate: function (arg) {
     return arg;

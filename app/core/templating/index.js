@@ -101,7 +101,7 @@ Templating.renderThread = function (thread) {
   FS.writeFileSync('public/' + thread.board.name + '/res/' + thread.thread.thread_id + '.html', Templating.render('pages/thread', thread));
 };
 
-Templating.rerender = async function (what) { // TODO: Optional render
+Templating.rerender = async function (what) {
   let controllers = Tools.requireWrapper(require('../../controllers'));
   for (let router of controllers.routers) {
     let paths = typeof router.paths === 'function'
@@ -109,6 +109,14 @@ Templating.rerender = async function (what) { // TODO: Optional render
       : router.paths;
     if (!Array.isArray(paths)) {
       paths = [ paths ];
+    }
+    if (typeof what !== 'undefined') {
+      if (!Array.isArray(what)) {
+        what = [ what ];
+      }
+      paths = what.filter(function(el) {
+        return paths.indexOf(el) >= 0;
+      });
     }
     let path;
     for (let i = 0; i < paths.length; i++) {

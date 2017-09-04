@@ -4,6 +4,7 @@ const config = require('../../../helpers/config');
 let API = module.exports = {};
 
 let paths = {
+  sync: 'syncData.json',
   getBoards: 'boards.json',
   getCounters: 'lastPostNumbers.json',
   getBoard: '$1/board.json',

@@ -29,7 +29,8 @@
     "figurecon": "github:rngnrs/figurecon",
     "merge": "^1.2.0",
     "minimal-request-promise": "^1.4.0",
-    "ws": "^3.1.0"
+    "ws": "^3.1.0",
+    "deep-diff": "latest"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

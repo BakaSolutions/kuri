@@ -4,6 +4,7 @@ const config = require('../../../helpers/config');
 let API = module.exports = {};
 
 let commands = {
+  sync: 'SYNC',
   getBoards: 'GET BOARDS',
   getCounters: 'GET LPN',
   getBoard: 'BOARD $1 INFO',

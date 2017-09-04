@@ -1,6 +1,5 @@
 const http = require('http');
 const config = require('./helpers/config');
-const Renderer = require('./core/templating');
 const controllers = require('./controllers');
 const Board = require('./core/kuri/board');
 
@@ -15,12 +14,6 @@ async function initMaster() {
   let sync = await Board.sync();
   if (!sync) {
     console.log('Foxtan is unreachable. Start Foxtan or come later.');
-  } else {
-    await Renderer.compileTemplates();
-    await Renderer.reloadTemplates();
-    if (config('system.rerenderCacheOnStartup', true)) {
-      await Renderer.rerender();
-    }
   }
 }
 

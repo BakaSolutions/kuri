@@ -5,6 +5,7 @@ const API = require('../../core/foxtan/' + config('foxtan.use') + '/api');
 const Markup = require('../../core/foxtan/markup');
 const Board = require('../../core/kuri/board');
 const FS = require('../../helpers/fs');
+const SyncData = require('../../models/json/sync');
 
 let router = module.exports = express.Router();
 
@@ -24,7 +25,9 @@ const BOARD_DEPENDENCIES = `
   'notifications.js'
 `;
 
-router.paths = function () {
+router.paths = async function () {
+  let SD = new SyncData('.tmp/syncData.json');
+  let data = await SD.get('threadCounts');
   let out = [];
   let boards = Board.get();
   let boardName;
@@ -34,6 +37,15 @@ router.paths = function () {
       '/' + boardName
     //'/' + boardName + '/catalog'
     );
+    if (!data || !data[boardName]) {
+      continue;
+    }
+    let threads = Object.keys(data[boardName] || {}).map((thread) => {
+      return '/' + boardName + '/res/' + thread;
+    });
+    if (threads.length) {
+      out = out.concat(threads);
+    }
   }
   return out;
 };
