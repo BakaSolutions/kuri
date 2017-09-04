@@ -58,11 +58,13 @@ Board.sync = async function () {
         case 'threadCounts':
           if (Tools.isNumber(+thread)) {
             await Templating.rerender('/' + board + '/res/' + thread);
+          } else {
+            await Templating.rerender('/' + board);
           }
           break;
       }
     }
-
+    await Templating.rerender('/');
     console.log('Synced!');
   }
   return true;

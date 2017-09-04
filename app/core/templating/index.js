@@ -43,7 +43,7 @@ Templating.reloadTemplates = function () {
  * First and the main reason: it doesn't ignore subdirectories.
  * @returns {Object} -- object with template functions
  */
-Templating.compileTemplates = function () {
+Templating.compileTemplates = async function () {
   console.log("Compiling templates...");
 
   let sources = FS.readdirSync(templateFolder, true).map(function (source) {
@@ -66,19 +66,19 @@ Templating.compileTemplates = function () {
     let realPath = Path.join(__dirname, '../../../', templateFolder, name);
     if (/\.jst(\.dot|\.def)?$/.test(name)) {
       let template = FS.readSync(realPath);
-      this.compileToFile(Path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
+      await this.compileToFile(Path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
     }
   }
 };
 
 
-Templating.compileToFile = function(filePath, template) {
+Templating.compileToFile = async function(filePath, template) {
   let moduleName = filePath.split('.').shift().replace(ILLEGAL_CHARACTERS_REGEXP, '_');
   let precompiled = doT.template(template, settings, includes)
     .toString()
     .replace('anonymous', moduleName);
   let compiled = '(function(){' + precompiled + 'module.exports=' + moduleName + ';})()';
-  FS.writeFileSync(Path.join(__dirname, '../../../', destinationFolder, filePath), compiled);
+  await FS.writeFile(Path.join(__dirname, '../../../', destinationFolder, filePath), compiled);
 };
 
 Templating.render = function (templateName, model) {
@@ -97,8 +97,8 @@ Templating.render = function (templateName, model) {
   }
 };
 
-Templating.renderThread = function (thread) {
-  FS.writeFileSync('public/' + thread.board.name + '/res/' + thread.thread.thread_id + '.html', Templating.render('pages/thread', thread));
+Templating.renderThread = async function (thread) {
+  await FS.writeFile('public/' + thread.board.name + '/res/' + thread.thread.thread_id + '.html', Templating.render('pages/thread', thread));
 };
 
 Templating.rerender = async function (what) {
@@ -124,7 +124,7 @@ Templating.rerender = async function (what) {
       console.log('Rendering ' + path + '...');
       let result = await router.render(path);
       if (result) {
-        FS.writeFileSync(Path.join('public', path), result);
+        await FS.writeFile(Path.join('public', path), result);
       }
     }
   }

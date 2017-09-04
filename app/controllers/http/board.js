@@ -2,7 +2,7 @@ const express = require('express');
 const Renderer = require('../../core/templating');
 const config = require('../../helpers/config');
 const API = require('../../core/foxtan/' + config('foxtan.use') + '/api');
-const Markup = require('../../core/foxtan/markup');
+const Tools = require('../../helpers/tools');
 const Board = require('../../core/kuri/board');
 const FS = require('../../helpers/fs');
 const SyncData = require('../../models/json/sync');
@@ -66,7 +66,7 @@ router.render = async function (path) {
 };
 
 async function renderPages(boardName) {
-  let pageCount = await Board.getPageCount(boardName);
+  let pageCount = await Board.getPageCount(boardName) || 1;
   for (let i = 0; i < pageCount; i++) {
     await renderPage(boardName, i);
   }
@@ -90,6 +90,9 @@ async function renderPage(boardName, pageNumber) {
     throw new Error('Invalid board');
   }
   let page = await Board.getPage(boardName, pageNumber);
+  if (!Tools.isObject(page)) {
+    page = { threads:[] };
+  }
   for (let a = 0; a < page.threads.length; a++) {
     let thread = page.threads[a];
     for (let b = 0; b < thread.lastPosts.length; b++) {
@@ -97,10 +100,11 @@ async function renderPage(boardName, pageNumber) {
       //thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']); //TODO: Transfer markup to Foxtan
     }
   }
-
   for (let thread of page.threads) {
     await renderThread(thread['board_name'], thread['thread_id']);
   }
+
+
   let pageID = pageNumber > 0
     ? pageNumber
     : 'index';
@@ -108,7 +112,7 @@ async function renderPage(boardName, pageNumber) {
   page.mainStylesheet = 'board.css';
   page.dependencies = BOARD_DEPENDENCIES;
   page.board = board;
-  FS.writeFileSync('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
+  await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }
 
 async function renderThread(boardName, threadNumber) {

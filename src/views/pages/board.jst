@@ -11,6 +11,9 @@
         </a>
 				{{#def["partials/replyForm"]}}
 			</header>
+			{{? !it.threads.length}}
+				<strong>Здесь ничего нет, но ты можешь всё исправить!</strong>
+			{{?}}
 			{{~it.threads :thread}}
 				<div id="threadFlow">
           <a name="top"></a>
