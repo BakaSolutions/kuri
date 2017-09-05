@@ -3,6 +3,7 @@ const FS = require('../../helpers/fs');
 module.exports = class SyncData {
   constructor(filePath) {
     this.filePath = filePath;
+    this.get();
   }
 
   async get (value) {

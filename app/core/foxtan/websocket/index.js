@@ -1,4 +1,8 @@
 const WebSocket = require('ws');
+const Templating = require('../../templating');
+const SyncData = require('../../../models/json/sync');
+
+let SD = new SyncData('.tmp/syncData.json');
 
 class WSClient {
   constructor (url) {
@@ -14,8 +18,8 @@ class WSClient {
         this.onOpen();
         resolve(1);
       });
-      this.instance.on('message', (data, flags) => {
-        this.onMessage(data, flags);
+      this.instance.on('message', async (data) => {
+        await this.onMessage(data);
       });
       this.instance.on('close', (e) => {
         switch (e) {
@@ -94,9 +98,27 @@ class WSClient {
     console.log("OPENED");
   }
 
-  onMessage (data) {
-    console.log("<<", data);
+  async onMessage (message) {
+    if (typeof message === 'undefined') {
+      return false;
+    }
+    let probe = message.split(' ');
+    let command = probe.shift();
+    message = probe.shift();
+
+    switch (command) {
+      case 'LPN':
+        let [ board, thread, id ] = message.split(':');
+        let pattern = [ `/${board}` ];
+        if (thread) pattern.push(`${pattern[0]}/res/${thread}`);
+        SD.set(['lastPostNumbers', board], id || thread);
+        await Templating.rerender(pattern);
+        return true;
+      default:
+        return false;
+    }
   }
+
 
   onError (e) {
     console.log("ER", e);
