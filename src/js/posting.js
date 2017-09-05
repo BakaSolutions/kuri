@@ -57,9 +57,10 @@ function quickReply(postNumber, threadNumber) {
 	document.querySelector('#replyForm .boxHandle').innerHTML = 'Новый пост<label for="replyFormShow" class="actionIcon close"></label>';
 
 	if (!document.querySelector('input#threadNumber')) {
-		const THREAD_NUMBER_INPUT = document.createElement('input');
+		const THREAD_NUMBER_INPUT = createElement('input', {
+			outerHTML: '<input type="hidden" id="threadNumber" name="threadNumber" value="${threadNumber}">'
+		});
 		document.querySelector('#replyForm').appendChild(THREAD_NUMBER_INPUT);
-		THREAD_NUMBER_INPUT.outerHTML = `<input type="hidden" id="threadNumber" name="threadNumber" value="${threadNumber}">`
 	};
 
 	document.querySelector('#replyForm textarea').innerHTML += `>>${postNumber}\n`;
@@ -120,9 +121,10 @@ function renderPreview(file, target) {
 
 		READER.onload = (file => {
 			return e => {
-				const IMG = document.createElement('img');
-				IMG.src = e.target.result;
-				IMG.className = 'thumb';
+				const IMG = createElement('img', {
+					src: e.target.result,
+					className: 'thumb'
+				});
 
 				target.appendChild(IMG);
 			};
@@ -130,9 +132,10 @@ function renderPreview(file, target) {
 
 		READER.readAsDataURL(file);
 	} else{
-		const DIV = document.createElement('div');
-		DIV.innerHTML = file.name.split('.').pop();
-		DIV.className = 'thumb';
+		const DIV = createElement('div', {
+			innerHTML: file.name.split('.').pop(),
+			className: 'thumb'
+		});
 
 		target.appendChild(DIV);
 	}
@@ -172,12 +175,7 @@ function sendPost(){
 (() => {
 	// Replace non-js file inputs with cool ones
 	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
-
-	while (document.querySelector('.row.removeMe')) {
-		console.log('Removed file input!');
-		document.querySelector('.row.removeMe').outerHTML = '';
-	}
-
+	while (document.querySelector('.row.removeMe')) document.querySelector('.row.removeMe').outerHTML = '';
 	createNewFileInput();
 
 	// Init drop zone

@@ -4,14 +4,16 @@ function Notification(text = 'Всё норм, Саня, не забудь уб�
 	if (document.querySelector('#notificationFlow')){
 		notificationFlow = document.querySelector('#notificationFlow');
 	} else{
-		notificationFlow = document.createElement('div');
-		notificationFlow.id = 'notificationFlow';
+		notificationFlow = createElement('div', {
+			id: 'notificationFlow'
+		});
 		document.querySelector('body').appendChild(notificationFlow);
 	}
 
-	const NOTIFICATION = document.createElement('div');
-	NOTIFICATION.classList.add('notification', type);
-	NOTIFICATION.innerHTML = text;
+	const NOTIFICATION = createElement('div', {
+		className: 'notification ' + type,
+		innerHTML: text
+	});
 
 	this.show = function (){
 		notificationFlow.appendChild(NOTIFICATION);

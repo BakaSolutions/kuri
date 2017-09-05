@@ -13,3 +13,17 @@ function createElement (tagName, attributes = {}){
 
 	return element
 }
+
+function loadPage(URL) {
+	const XHR = new XMLHttpRequest();
+	XHR.onload = () => {
+		const BODY = /<body[\s\S]*<\/body>/.exec(XHR.response);
+		document.querySelector('body').outerHTML = BODY[0];
+
+		const TITLE = /<title>(.+)<\/title>/.exec(XHR.response);
+		document.querySelector('title').innerHTML = TITLE[1];
+		history.pushState({}, TITLE, URL);
+	};
+	XHR.open("GET", URL);
+	XHR.send(null);
+}
