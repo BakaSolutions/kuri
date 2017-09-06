@@ -20,36 +20,11 @@
 				<div class="header">{{!group.title}}</div>
 				{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
 					<a href="/{{!it.site.pathPrefix}}{{!board.name}}/" {{? it.board && board.name == it.board.name}}class="selected"{{?}}>
-						<span>/{{!board.name}}/</span>
-						<span>&mdash;</span>
-						<span>{{!board.title}}</span>
+						/{{!board.name}}/ &mdash; {{!board.title}}
 					</a>
 				{{~}}
 			</label>
 		{{~}}
-<!--		<input type="checkbox" id="common-group" class="hidden">
-		<label for="common-group" class="group">
-			<div class="header">Общее</div>
-			<a href="#">/b/ — Бардак</a>
-			<a href="#">/d/ — Работа сайта</a>
-			<a href="#">/news/ — Новости</a>
-			<a href="#">/op/ — ОП-модерация</a>
-		</label>
-		<input type="checkbox" id="topics-group" class="hidden">
-		<label for="topics-group" class="group">
-			<div class="header">Тематика</div>
-			<a href="#">/a/ — Акихабара</a>
-			<a href="#">/art/ — Творчество</a>
-			<a href="#">/mu/ — Музыка</a>
-			<a href="#">/s/ — Софт и железо</a>
-			<a href="#">/vg/ — Видеоигры</a>
-		</label>
-		<input type="checkbox" id="embassies-group" class="hidden">
-		<label for="embassies-group" class="group">
-			<div class="header">Посольства</div>
-			<a href="#">/fox/ — Лисички</a>
-			<a href="#">/hk/ — Хомячки</a>
-		</label>-->
 	</div>
 	<div id="config">
 		<noscript>

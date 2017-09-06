@@ -2,9 +2,9 @@
 <html>
   {{#def["partials/head"]}}
 	<body data-theme="tumbach">
-  {{#def["partials/sidebar"]}}
-  {{#def["partials/topbar"]}}
-		<div id="mainColumn">
+    {{#def["partials/sidebar"]}}
+    {{#def["partials/topbar"]}}
+    <div id="mainColumn">
 			<header>
         <a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
           /{{!it.board.name}}/ &mdash; {{!it.board.title}}
@@ -32,11 +32,11 @@
 				</div>
 			{{~}}
 		</div>
-		<div id="rightTopCorner">
-			<a href="#">Галерея</a>
-			<a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html">Каталог</a>
-			<a href="#">Архив</a>
-		</div>
-		{{#def["partials/widgets"]}}
+    <div id="rightTopCorner">
+      <a href="#">Галерея</a>
+      <a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html">Каталог</a>
+      <a href="#">Архив</a>
+    </div>
+    {{#def["partials/widgets"]}}
 	</body>
 </html>

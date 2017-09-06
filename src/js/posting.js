@@ -58,7 +58,10 @@ function quickReply(postNumber, threadNumber) {
 
 	if (!document.querySelector('input#threadNumber')) {
 		const THREAD_NUMBER_INPUT = createElement('input', {
-			outerHTML: '<input type="hidden" id="threadNumber" name="threadNumber" value="${threadNumber}">'
+			type: "hidden",
+			id: "threadNumber",
+			name: "threadNumber",
+			value: threadNumber
 		});
 		document.querySelector('#replyForm').appendChild(THREAD_NUMBER_INPUT);
 	};
@@ -172,6 +175,9 @@ function sendPost(){
 };
 
 // Init
+function init() {
+
+}
 (() => {
 	// Replace non-js file inputs with cool ones
 	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
