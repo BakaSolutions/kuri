@@ -22,7 +22,8 @@ const BOARD_DEPENDENCIES = `
   'widgets.js',
   'posting.js',
   'notifications.css',
-  'notifications.js'
+  'notifications.js',
+  'time.js'
 `;
 
 router.paths = async function () {
@@ -124,7 +125,7 @@ async function renderThread(boardName, threadNumber) {
     let thread = {};
     thread.thread = await API.getThread(boardName, threadNumber);
     if (Array.isArray(thread.thread) && !thread.thread.length) {
-      throw new Error('Foxtan problem! Can\'t get a thread!');
+      throw new Error('Foxtan problem! Can\'t get thread!');
     }
     let posts = thread.thread.posts;
     for (let i = 0; i < posts.length; i++) {
