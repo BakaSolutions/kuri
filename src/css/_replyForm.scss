@@ -82,9 +82,6 @@ label[for="replyFormShow"]{
 		border-color: transparent;
 		border-radius: var(--border-radius);
 	}
-	.iconCheckbox{
-		color: var(--link-color);
-	}
 	.boxContent{
 		padding: 0;
 	}
@@ -105,12 +102,12 @@ input:checked + label + #replyForm{
 /* Кнопка отправки */
 #replyForm button{
 	height: 30px;
-	font-size: 15px;
+	border: none;
 	cursor: pointer;
 	color: var(--text-color);
+	background-color: transparent;
+	font: 15px/17px Arial, sans-serif;
 	border-radius: var(--border-radius);
-	background-color: var(--header-color);
-	border: 1px solid var(--background-color);
 	&:before{
 		content: "\f1d8" ' ';
 		font: normal normal normal 14px/1 FontAwesome;

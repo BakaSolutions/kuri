@@ -176,6 +176,9 @@ input:checked + .iconCheckbox.checkbox:before{
 	&.edit:before{
 		content: "\f040";
 	}
+	&.reply:before{
+		content: "\f112";
+	}
 }
 
 input:checked + .menu:before{

@@ -29,7 +29,7 @@ function createNewFileInput() {
 
 function removeFileInput(timestamp) {
 	const NOT_EMPTY = document.querySelector(`#file${timestamp}`).files[0] || document.querySelector(`#encodedFile${lastFileInput}`).value;
-	if (NOT_EMPTY) return false;
+	if (!NOT_EMPTY) return false;
 
 	document.querySelector(`#fileInput${timestamp}`).outerHTML = '';
 	fileInputCounter--;

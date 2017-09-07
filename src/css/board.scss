@@ -54,7 +54,7 @@
 		border-bottom-left-radius: var(--border-radius);
 	}
 	&:not(:first-child){
-		margin-left: 10px;
+		margin-left: 15px;
 		background-color: var(--foreground-color);
 		background-image: var(--foreground-image);
 		.postText{
@@ -97,7 +97,6 @@
 		cursor: default;
 		@include user-select(none);
 		.sage:before{
-			color: var(--link-color);
 			cursor: default;
 		}
 		.topic{
