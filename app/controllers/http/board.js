@@ -11,8 +11,6 @@ let router = module.exports = express.Router();
 
 const BOARD_DEPENDENCIES = `
   'master.js',
-  'cookieTools.js',
-  'themes.css',
   'theming.js',
   'posts.js',
   'time.js',

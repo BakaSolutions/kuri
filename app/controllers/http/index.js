@@ -12,8 +12,6 @@ router.render = async function () {
     mainStylesheet: 'home.css',
     dependencies: `
       'master.js',
-      'cookieTools.js',
-      'themes.css',
       'theming.js',
       'draggabilly.pkgd.min.js',
       'widgets.css',

@@ -21,7 +21,7 @@
 .postWrapper{
 	max-height: 420px;
 	border: 1px solid var(--background-color);
-	transition-duration: var(--animation-duration);
+	transition: max-height var(--animation-duration);
 	.postText{
 		margin: 0 5px;
 		a{

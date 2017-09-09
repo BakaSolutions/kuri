@@ -22,10 +22,5 @@
   		}
   	</style>
   </noscript>
-  <style media="screen" id="customTheme"></style>
-  <style media="screen" id="configStyle">
-  	:root{
-  		--border-radius: 0;
-  	}
-  </style>
+  <style media="screen" id="theme"></style>
 </head>

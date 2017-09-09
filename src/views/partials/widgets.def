@@ -3,15 +3,9 @@
 	<div class="boxContent">
 		<ul>
 			<li><a onclick="setTheme('tumbach')">Tumbach</a></li>
-			<!--<li><a onclick="setTheme('tumbachLight')">Tumbach Light</a></li>-->
-			<li><a onclick="setTheme('proton')">Proton</a></li>
-			<li><a onclick="setTheme('futaba')">Futaba</a></li>
-			<li><a onclick="setTheme('myata')">Myata</a></li>
-			<li><a onclick="setTheme('brchan')">Brchan</a></li>
-			<li><a onclick="applyColor(); toggleWidget('themeEditor'); setTheme('custom')">Своя тема</a></li>
-		</ul>
-		<ul>
-			<li><input type="checkbox">Закругленные края</li>
+			<li><a onclick="setTheme('tumbachLight')">Tumbach Light</a></li>
+			<li><a onclick="setTheme('canvas')">Canvas</a></li>
+			<!--<li><a onclick="applyColor(); toggleWidget('themeEditor'); setTheme('custom')">Своя тема</a></li>-->
 		</ul>
 	</div>
 	<div class="boxButtons">
@@ -19,7 +13,7 @@
 	</div>
 </div>
 
-<div class="widget box" id="themeEditor">
+<!--<div class="widget box" id="themeEditor">
 	<div class="boxHandle">Редактирование темы<i class="actionIcon close" onclick="toggleWidget('themeEditor')"></i></div>
 	<div class="boxContent">
 		<div class="row">
@@ -51,7 +45,7 @@
 	<div class="boxButtons">
 		<button type="button" onclick="applyColor(); toggleWidget('themeEditor')">Принять</button>
 	</div>
-</div>
+</div>-->
 
 <div class="widget box" id="autoSpoil">
 	<div class="boxHandle">Автоскрытие<i class="actionIcon close" onclick="toggleWidget('autoSpoil')"></i></div>
@@ -63,6 +57,4 @@
 	</div>
 </div>
 
-<div class="widget fullscreen" id="imageViewer">
-
-</div>
+<div class="widget fullscreen" id="imageViewer"></div>
