@@ -15,6 +15,7 @@ const BOARD_DEPENDENCIES = `
   'themes.css',
   'theming.js',
   'posts.js',
+  'time.js',
   'floatingPosts.js',
   'truncate.js',
   'draggabilly.pkgd.min.js',
@@ -22,8 +23,7 @@ const BOARD_DEPENDENCIES = `
   'widgets.js',
   'posting.js',
   'notifications.css',
-  'notifications.js',
-  'time.js'
+  'notifications.js'
 `;
 
 router.paths = async function () {
@@ -97,7 +97,8 @@ async function renderPage(boardName, pageNumber) {
   for (let a = 0; a < page.threads.length; a++) {
     let thread = page.threads[a];
     for (let b = 0; b < thread.lastPosts.length; b++) {
-      thread.lastPosts[b].created_at = parseDate(thread.lastPosts[b].created_at);
+      thread.lastPosts[b].created_at = new Date(thread.lastPosts[b].created_at);
+      thread.lastPosts[b].formatted_date = parseDate(thread.lastPosts[b].created_at);
       //thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']); //TODO: Transfer markup to Foxtan
     }
   }
@@ -129,7 +130,8 @@ async function renderThread(boardName, threadNumber) {
     }
     let posts = thread.thread.posts;
     for (let i = 0; i < posts.length; i++) {
-      posts[i].created_at = parseDate(posts[i].created_at);
+      posts[i].created_at = new Date(posts[i].created_at);
+      posts[i].formatted_date = parseDate(posts[i].created_at);
       //posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
     }
     thread.board = board;
