@@ -111,14 +111,24 @@ a {
 
 /* Блок ссылок в правом верхнем углу */
 #rightTopCorner {
-	top: 10px;
-	right: 10px;
+	top: 0;
+	right: 0;
 	display: flex;
 	position: fixed;
 	text-align: right;
+	padding: 10px;
 	flex-direction: column;
 	@include user-select(none);
+	background-color: var(--foreground-color);
 	transition: opacity var(--animation-duration);
+	&:after{
+		left: 0px;
+		bottom: 0px;
+		border-bottom: 25px solid var(--background-color);
+		border-right: 25px solid transparent;
+		content: '';
+		position: absolute;
+	}
 }
 
 /* Кастомные чекбоксы */
