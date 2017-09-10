@@ -16,7 +16,6 @@ const BOARD_DEPENDENCIES = `
   'time.js',
   'floatingPosts.js',
   'truncate.js',
-  'draggabilly.pkgd.min.js',
   'widgets.css',
   'widgets.js',
   'posting.js',

@@ -29,9 +29,12 @@
 		background-color: var(--foreground-color);
 		background-image: var(--foreground-image);
 		border: 1px solid var(--background-color);
-		&#settings, &#autoSpoil, &#themeEditor{
+		&:not(#replyForm){
 			width: 600px;
 			height: 400px;
+			.boxContent{
+				justify-content: space-around;
+			}
 		}
 		& > *{
 			width: 100%;
@@ -70,8 +73,30 @@
 			border-bottom-right-radius: var(--border-radius);
 			button{
 				margin: 5px;
+				font-size: 1rem;
 				width: 100px;
 				cursor: pointer;
+			}
+		}
+	}
+}
+
+// Tabs
+input[type="radio"]:not(:checked) + .boxContent{
+	display: none !important;
+}
+
+.widget.box{
+	.tabs{
+		justify-content: center;
+		display: flex;
+		& > *{
+			padding: 5px;
+			cursor: pointer;
+			color: var(--link-color);
+			&:hover{
+				text-decoration: underline;
+				color: var(--link-hover-color);
 			}
 		}
 	}

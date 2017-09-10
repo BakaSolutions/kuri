@@ -132,10 +132,17 @@ a {
 }
 
 /* Кастомные чекбоксы */
+input:checked + .iconCheckbox.checkbox:before{
+	content: "\f14a";
+}
+
 .iconCheckbox{
-	opacity: .5;
 	cursor: pointer;
+	color: var(--text-color);
 	@include user-select(none);
+	&:not(.checkbox){
+		opacity: 0.5;
+	}
 	&:before{
 		font: normal normal normal 14px/1 FontAwesome;
 	}
@@ -154,14 +161,6 @@ a {
 	&.sage:before{
 		content: "\f165"
 	}
-}
-
-input:checked + .iconCheckbox, .checkbox, .menu{
-	opacity: 1;
-}
-
-input:checked + .iconCheckbox.checkbox:before{
-	content: "\f14a";
 }
 
 .actionIcon{

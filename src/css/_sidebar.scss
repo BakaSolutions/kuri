@@ -108,10 +108,3 @@ input[type="checkbox"]:checked + #sidebar{
 	position: fixed;
 	content: "\f054";
 }
-
-.themeName{
-	color: var(--link-color);
-	&:after{
-		content: ' ' var(--theme-name);
-	}
-}

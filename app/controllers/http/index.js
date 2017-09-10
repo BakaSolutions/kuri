@@ -13,7 +13,6 @@ router.render = async function () {
     dependencies: `
       'master.js',
       'theming.js',
-      'draggabilly.pkgd.min.js',
       'widgets.css',
       'widgets.js',
       'notifications.css',

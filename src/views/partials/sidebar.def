@@ -7,7 +7,7 @@
 	</div>
 	<a href="/{{!it.site.pathPrefix}}" id="tumbach">
 		<div class="name">
-			Ту<!--дери.ту-->мба.ч
+			Тумба.ч
 		</div>
 		<div class="desc">
 			технологичный и удобный имиджборд
@@ -32,7 +32,6 @@
 		</noscript>
 		<a onclick="toggleWidget('settings')" class="jsOnly">Настройки</a>
 		<a onclick="toggleWidget('autoSpoil')" class="jsOnly">Автоскрытие</a>
-		<a class="themeName">Тема:</a>
 		<label for="sfwCheckbox"><a onclick="void(0)">Мамка в комнате!</a></label>
 	</div>
 </div>
