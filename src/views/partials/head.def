@@ -1,26 +1,22 @@
 <head>
-  <meta charset='utf-8'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{!it.title}}</title>
-  <link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
-  <link rel="stylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.mainStylesheet}}">
-  <script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
-  {{? it.dependencies}}
-    <script type="text/javascript">
-      const DEPENDENCIES = [{{=it.dependencies}}];
-
-      window.onload = () => (new RSQ(DEPENDENCIES)).run();
-    </script>
-  {{?}}
-  <noscript>
-  	<style>
-  		.jsOnly{
-  			display: none !important
-  		}
-  		#replyForm input[type="file"] {
-  	  	display: block !important;
-  		}
-  	</style>
-  </noscript>
-  <style media="screen" id="theme"></style>
+	<meta charset='utf-8'>
+	<title>{{!it.title}}</title>
+	<link rel='shortcut icon' href='/{{!it.site.pathPrefix}}favicon.ico'>
+	<link rel="stylesheet" id="mainStylesheet" href="/{{!it.site.pathPrefix}}css/{{!it.mainStylesheet}}">
+	<noscript>
+		<style>
+			.jsOnly{
+				display: none !important
+			}
+			#replyForm input[type="file"] {
+				display: block !important;
+			}
+		</style>
+	</noscript>
+	<script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
+	<script type="text/javascript" id="resquer">
+		let d = ['master.js', 'theming.js', 'posts.js', 'time.js', 'floatingPosts.js', 'truncate.js', 'widgets.css', 'widgets.js', 'posting.js',	'notifications.css', 'notifications.js'];
+		window.onload = () => (new RSQ(d)).run();
+	</script>
+	<style media="screen" id="theme"></style>	
 </head>

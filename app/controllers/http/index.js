@@ -9,15 +9,7 @@ router.paths = ['/', 'index.html'];
 router.render = async function () {
   let pageContent = Renderer.render('pages/home', {
     title: 'Home &mdash; Kuri',
-    mainStylesheet: 'home.css',
-    dependencies: `
-      'master.js',
-      'theming.js',
-      'widgets.css',
-      'widgets.js',
-      'notifications.css',
-      'notifications.js'
-    `
+    mainStylesheet: 'home.css'
   });
   await FS.writeFile('public/index.html', pageContent);
 };

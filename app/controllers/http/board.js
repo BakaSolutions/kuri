@@ -9,20 +9,6 @@ const SyncData = require('../../models/json/sync');
 
 let router = module.exports = express.Router();
 
-const BOARD_DEPENDENCIES = `
-  'master.js',
-  'theming.js',
-  'posts.js',
-  'time.js',
-  'floatingPosts.js',
-  'truncate.js',
-  'widgets.css',
-  'widgets.js',
-  'posting.js',
-  'notifications.css',
-  'notifications.js'
-`;
-
 router.paths = async function () {
   let SD = new SyncData('.tmp/syncData.json');
   let data = await SD.get('threadCounts');
@@ -109,7 +95,6 @@ async function renderPage(boardName, pageNumber) {
     : 'index';
   page.title = '/' + board.name + '/ &mdash; ' + board.title;
   page.mainStylesheet = 'board.css';
-  page.dependencies = BOARD_DEPENDENCIES;
   page.board = board;
   await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }
@@ -133,7 +118,6 @@ async function renderThread(boardName, threadNumber) {
     }
     thread.board = board;
     thread.mainStylesheet = 'board.css';
-    thread.dependencies = BOARD_DEPENDENCIES;
     return await Renderer.renderThread(thread);
   } catch (e) {
     console.log(e.message, boardName, threadNumber);
