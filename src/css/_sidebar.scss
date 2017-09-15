@@ -1,55 +1,26 @@
-
-/* Сайдбар */
 #sidebar{
-  width: 200px;
-  z-index: 666;
+  padding: 10px;
+  width: 300px;
   height: 100vh;
-  padding: 5px;
+  
 	display: flex;
-  position: fixed;
-  min-height: 420px;
+	position: relative;
 	flex-direction: column;
 	justify-content: space-between;
+	
 	@include user-select(none);
-  transition: left var(--animation-duration);
+  
   background-color: var(--sidebar-color);
 	background-image: var(--sidebar-image);
+
+	transition: right var(--animation-duration), left var(--animation-duration);
 }
 
-/* Кнопки поиска и скрытия панели */
-#actionBar{
-  top: 0;
-  left: 0;
-  display: flex;
-  width: inherit;
-  min-width: 160px;
-  max-width: 230px;
-  position: absolute;
-  pointer-events: none;
-	justify-content: space-between;
-	& > *{
-    padding: 5px;
-		z-index: 2018;
-		pointer-events: auto;
-	}
-	#toggleSidebar:before{
-		content: "\f053";
-	}
-	#toggleSearch:before{
-		content: "\f002";
-	}
-}
-
-/* Лого */
+// Логотип
 #tumbach{
-	position: fixed;
-	left: inherit;
-	width: inherit;
-  z-index: 1000;
-  display: block;
+	display: block;
   text-align: center;
-  margin-bottom: 10px;
-	color: var(--text-color);
+  color: var(--text-color);
 	&:hover{
 	  text-decoration: none;
 	}
@@ -62,13 +33,16 @@
 	}
 }
 
-/* Список досок */
-#boards{
-	margin-top: 60px;
-}
-
+// Список досок
 #boards input[type="checkbox"]:checked + label{
 		max-height: 22px;
+}
+
+#boards{
+	top: 70px;
+	position: absolute;
+	
+	width: calc(100% - 20px);
 }
 
 #boards .group{
@@ -98,13 +72,7 @@
   justify-content: space-between;
 }
 
-/* Скрытие панели */
-input[type="checkbox"]:checked + #sidebar{
-	left: -210px;
-}
-
-#sidebarCheckbox:checked + #sidebar #actionBar #toggleSidebar:before{
-	left: 5px;
-	position: fixed;
-	content: "\f054";
+// Скрытие 
+#hideSidebarCheckbox:checked + #sidebar{
+	right: -225px;
 }

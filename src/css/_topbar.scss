@@ -5,6 +5,7 @@
 	display: flex;
 	z-index: 665;
 	position: fixed;
+	top: -25px;
 	justify-content: center;
 	@include user-select(none);
 	background-color: var(--sidebar-color);

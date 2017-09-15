@@ -3,7 +3,6 @@
 @import '_sidebar.scss';
 @import '_scrollbar.scss';
 @import '_wakabaMark.scss';
-@import '_responsive.scss';
 
 @font-face {
 	font-style: normal;
@@ -25,15 +24,14 @@ ul{
 
 body {
 	margin: 0;
-	width: 100vw;
 	display: flex;
 	min-height: 100vh;
 	overflow-x: hidden;
 	flex-direction: row;
 	color: var(--text-color);
 	@include font-smoothing();
+	justify-content: space-between;
 	font: 15px/17px Arial, sans-serif;
-	box-shadow: var(--body-box-shadow);
 	background-color: var(--background-color);
 	background-image: var(--background-image);
 }
@@ -84,8 +82,9 @@ a {
 
 /* Основная колонка */
 #mainColumn {
+  width: 100vw;
+  padding: 0 50px;
 	min-width: 200px;
-	position: absolute;
 	transition: top var(--animation-duration), width var(--animation-duration), left var(--animation-duration);
 	header{
 		display: flex;
@@ -107,28 +106,6 @@ a {
 	margin-top: 10px;
 	font-weight: bold;
 	user-select: none;
-}
-
-/* Блок ссылок в правом верхнем углу */
-#rightTopCorner {
-	top: 0;
-	right: 0;
-	display: flex;
-	position: fixed;
-	text-align: right;
-	padding: 10px;
-	flex-direction: column;
-	@include user-select(none);
-	background-color: var(--foreground-color);
-	transition: opacity var(--animation-duration);
-	&:after{
-		left: 0px;
-		bottom: 0px;
-		border-bottom: 25px solid var(--background-color);
-		border-right: 25px solid transparent;
-		content: '';
-		position: absolute;
-	}
 }
 
 /* Кастомные чекбоксы */

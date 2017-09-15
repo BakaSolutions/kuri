@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
-  {{#def["partials/head"]}}
+	{{#def["partials/head"]}}
 	<body>
-    {{#def["partials/sidebar"]}}
-    {{#def["partials/topbar"]}}
-    <div id="mainColumn">
+		<div id="mainColumn">
 			<header>
-        <a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
-          /{{!it.board.name}}/ &mdash; {{!it.board.title}}
-        </a>
+				<a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
+					/{{!it.board.name}}/ &mdash; {{!it.board.title}}
+				</a>
 				{{#def["partials/replyForm"]}}
 			</header>
 			{{? !it.threads.length}}
-				<strong>Здесь ничего нет, но ты можешь всё исправить!</strong>
+				<div>Здесь нет никого, кроме нас, цыплят!</div>
 			{{?}}
+			<a name="top"></a>
 			{{~it.threads :thread}}
 				<div id="threadFlow">
-          <a name="top"></a>
 					<div class="thread">
 						{{~[thread.lastPosts.shift()] :post}}
 						{{#def['partials/post']}}
@@ -28,15 +26,12 @@
 						{{#def['partials/post']}}
 						{{~}}
 					</div>
-          <a name="bottom"></a>
 				</div>
 			{{~}}
+			<a name="bottom"></a>
 		</div>
-    <div id="rightTopCorner">
-      <a href="#">Галерея</a>
-      <a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html">Каталог</a>
-      <a href="#">Архив</a>
-    </div>
-    {{#def["partials/widgets"]}}
+		{{#def["partials/sidebar"]}}
+		{{#def["partials/topbar"]}}
+		{{#def["partials/widgets"]}}
 	</body>
 </html>

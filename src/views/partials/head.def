@@ -15,7 +15,7 @@
 	</noscript>
 	<script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>
 	<script type="text/javascript" id="resquer">
-		let d = ['master.js', 'theming.js', 'posts.js', 'time.js', 'floatingPosts.js', 'truncate.js', 'widgets.css', 'widgets.js', 'posting.js',	'notifications.css', 'notifications.js'];
+		let d = ['master.js', 'theming.js', 'settings.js', 'posts.js', 'time.js', 'floatingPosts.js', 'truncate.js', 'widgets.css', 'widgets.js', 'posting.js',	'notifications.css', 'notifications.js'];
 		window.onload = () => (new RSQ(d)).run();
 	</script>
 	<style media="screen" id="theme"></style>	

@@ -2,8 +2,6 @@
 <html lang='{{!it.site.locale}}'>
   {{#def['partials/head']}}
 	<body data-theme="tumbach">
-		{{#def['partials/sidebar']}}
-    {{#def['partials/topbar']}}
 		<div id="mainColumn">
 			<img id="meguka" src="/{{!it.site.pathPrefix}}images/meguka.gif" alt="">
 			<div>
@@ -13,6 +11,8 @@
 				Тут будет главная.
 			</div>
 		</div>
+	  {{#def["partials/sidebar"]}}
+	  {{#def["partials/topbar"]}}
     {{#def['partials/widgets']}}
 	</body>
 </html>

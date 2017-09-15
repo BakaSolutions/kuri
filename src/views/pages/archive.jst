@@ -2,8 +2,6 @@
 <html lang='{{!it.site.locale}}'>
 {{#def['partials/head']}}
 <body>
-  {{#def['partials/sidebar']}}
-  {{#def['partials/nav']}}
   <a id='top'></a>
   <main>
     {{#def['custom/content/0'] || ''}}
@@ -32,5 +30,7 @@
     {{#def['partials/footer']}}
   </main>
   <a id='bottom'></a>
+  {{#def['partials/sidebar']}}
+  {{#def['partials/nav']}}
 </body>
 </html>

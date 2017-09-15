@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html>
 {{#def["partials/head"]}}
-<body data-theme="tumbach">
-{{#def["partials/sidebar"]}}
-{{#def["partials/topbar"]}}
-<div id="mainColumn">
-  <header>
-    <a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
-      {{? it.thread.posts[0].subject}}
-        {{!it.thread.posts[0].subject}}
-      {{??}}
-        /{{!it.board.name}}/ &mdash; {{!it.thread.thread_id}}
-      {{?}}
-    </a>
-    {{#def["partials/replyForm"]}}
-  </header>
-  {{~[it.thread] :thread}}
-    <div id="threadFlow">
-      <a name="top"></a>
-      <div class="thread">
-        {{~thread.posts :post}}
-          {{#def['partials/post']}}
-        {{~}}
+<body>
+  <div id="mainColumn">
+    <header>
+      <a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
+        {{? it.thread.posts[0].subject}}
+          {{!it.thread.posts[0].subject}}
+        {{??}}
+          /{{!it.board.name}}/ &mdash; {{!it.thread.thread_id}}
+        {{?}}
+      </a>
+      {{#def["partials/replyForm"]}}
+    </header>
+    <a name="top"></a>
+    {{~[it.thread] :thread}}
+      <div id="threadFlow">
+        <div class="thread">
+          {{~thread.posts :post}}
+            {{#def['partials/post']}}
+          {{~}}
+        </div>
       </div>
-      <a name="bottom"></a>
-    </div>
-  {{~}}
-</div>
-<!--<div id="rightTopCorner">
-  <a href="#">Галерея</a>
-  <a href="/{{!it.site.pathPrefix}}{{!it.board.name}}/catalog.html">Каталог</a>
-  <a href="#">Архив</a>
-</div>-->
-{{#def["partials/widgets"]}}
-</body>
+    {{~}}
+    <a name="bottom"></a>
+  </div>
+  {{#def["partials/sidebar"]}}
+  {{#def["partials/topbar"]}}
+  {{#def["partials/widgets"]}}
+  </body>
 </html>

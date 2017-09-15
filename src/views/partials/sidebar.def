@@ -1,37 +1,33 @@
-<input type="checkbox" id="sfwCheckbox" class="hidden">
-<input type="checkbox" id="sidebarCheckbox" class="hidden">
+<input type="checkbox" id="hideImagesCheckbox" class="hidden">
+<input type="checkbox" id="hideSidebarCheckbox" class="hidden">
 <div id="sidebar">
-	<div id="actionBar">
-		<a onclick="void(0)"><i class="actionIcon" id="toggleSearch" aria-hidden="true"></i></a>
-		<label for="sidebarCheckbox" class="actionIcon" id="toggleSidebar" aria-hidden="true"></label>
-	</div>
-	<a href="/{{!it.site.pathPrefix}}" id="tumbach">
-		<div class="name">
-			Тумба.ч
+		<a href="/{{!it.site.pathPrefix}}" id="tumbach">
+			<div class="name">
+				Тумба.ч
+			</div>
+			<div class="desc">
+				технологичный и удобный имиджборд
+			</div>
+		</a>
+		<div id="boards">
+			{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
+				<input type="checkbox" id="{{!group.name}}-group" class="hidden">
+				<label for="{{!group.name}}-group" class="group">
+					<div class="header">{{!group.title}}</div>
+					{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
+						<a href="/{{!it.site.pathPrefix}}{{!board.name}}/" {{? it.board && board.name == it.board.name}}class="selected"{{?}}>
+							/{{!board.name}}/ — {{!board.title}}
+						</a>
+					{{~}}
+				</label>
+			{{~}}
 		</div>
-		<div class="desc">
-			технологичный и удобный имиджборд
+		<label for="hideSidebarCheckbox"><a onclick="void(0)">Hide Sidebar</a></label>
+		<div id="config">
+			<noscript>
+				JS отключен.
+			</noscript>
+			<label for="hideImagesCheckbox"><a onclick="void(0)">SFW</a></label>
+			<a onclick="toggleWidget('settings')" class="jsOnly">Настройки</a>
 		</div>
-	</a>
-	<div id="boards">
-		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
-			<input type="checkbox" id="{{!group.name}}-group" class="hidden">
-			<label for="{{!group.name}}-group" class="group">
-				<div class="header">{{!group.title}}</div>
-				{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
-					<a href="/{{!it.site.pathPrefix}}{{!board.name}}/" {{? it.board && board.name == it.board.name}}class="selected"{{?}}>
-						/{{!board.name}}/ &mdash; {{!board.title}}
-					</a>
-				{{~}}
-			</label>
-		{{~}}
 	</div>
-	<div id="config">
-		<noscript>
-			JS отключен.
-		</noscript>
-		<a onclick="toggleWidget('settings')" class="jsOnly">Настройки</a>
-		<a onclick="toggleWidget('autoSpoil')" class="jsOnly">Автоскрытие</a>
-		<label for="sfwCheckbox"><a onclick="void(0)">Мамка в комнате!</a></label>
-	</div>
-</div>
