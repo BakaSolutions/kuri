@@ -1,13 +1,12 @@
 function createNewFileInput() {
-	// Skip function fulfillment if input max count is already reached
+	// Skip function execution if input maximum count is already reached
 	if (fileInputCounter >= config.fileUpload.maxFiles) return false;
 
-	fileInputCounter++
-	// Used for generating new unique file inputs
+	// Used in enerating new unique file inputs
 	const TIMESTAMP = (+new Date).toString().slice(-5);
 
-	// Generation
-	const DIV = createElement('div', {
+	// New file input generation
+	let row = createElement('div', {
 		className: 'row',
 		id: `fileInput${TIMESTAMP}`,
 		innerHTML: `
@@ -21,34 +20,40 @@ function createNewFileInput() {
 			<label class="iconCheckbox nsfw" for="file${TIMESTAMP}Rating"></label>
 		`
 	});
-	DIV.addEventListener("change", handleFiles);
-
+	
+	document.querySelector('#replyForm .column:nth-child(2)').appendChild(row);
+	row.onchange = handleFiles;
+	
+	fileInputCounter++
 	lastFileInput = TIMESTAMP;
-	document.querySelector('#replyForm .column:nth-child(2)').appendChild(DIV);
 }
 
 function removeFileInput(timestamp) {
-	const NOT_EMPTY = document.querySelector(`#file${timestamp}`).files[0] || document.querySelector(`#encodedFile${lastFileInput}`).value;
-	if (!NOT_EMPTY) return false;
+	// Ignore attempts to delete empty file input
+	let notEmpty = document.querySelector(`#file${timestamp}`).files[0] || document.querySelector(`#encodedFile${timestamp}`).value;
+	if (!notEmpty) return false;
 
+	// Remove
 	document.querySelector(`#fileInput${timestamp}`).outerHTML = '';
 	fileInputCounter--;
 	fullFileInputCounter--;
 
+	// If there're no epty imputs, create a new one
 	if (fileInputCounter == fullFileInputCounter) createNewFileInput();
 }
 
 function createThread(e, boardName){
-	// Ignore link for non-js browsers
+	// Ignore link made for schizos with no js
 	e.preventDefault();
 
 	// Show reply form
 	document.querySelector("#replyFormShow").checked = true;
 
+	// Change widget title
 	document.querySelector('#replyForm .boxHandle').innerHTML = 'Новый тред<label for="replyFormShow" class="actionIcon close"></label>';
-	if (document.querySelector('input#threadNumber')) {
-		document.querySelector('input#threadNumber').outerHTML = '';
-	}
+
+	// Remove treadNumber input
+	if (document.querySelector('input#threadNumber')) document.querySelector('input#threadNumber').outerHTML = '';
 };
 
 function quickReply(postNumber, threadNumber) {
