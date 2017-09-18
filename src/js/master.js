@@ -31,23 +31,20 @@ function createElement (tagName, attr = {}){
 // Ajax page loading
 function loadPage(URL) {
 	const XHR = new XMLHttpRequest();
-	XHR.onload = insertPage(XHR.response, URL);
+	XHR.onload = () => {
+		let mainColumn = /<div id="mainColumn">([\s\S]*)<input type="checkbox" id="hideImagesCheckbox"/.exec(XHR.response);
+		document.querySelector('#mainColumn').innerHTML = mainColumn[1];
+
+		let masterCSS = /<link rel="stylesheet" id="mainStylesheet" href="(.+)">/.exec(XHR.response);
+		document.querySelector('#mainStylesheet').href = masterCSS[1];
+
+		let title = /<title>(.+)<\/title>/.exec(XHR.response);
+		document.querySelector('title').innerHTML = title[1];
+		
+		history.pushState({}, title, URL);
+	};
 	XHR.open("GET", URL);
 	XHR.send(null);
-}
-
-// Insert asynchronously loaded page
-function insertPage(page, url) {
-	let mainColumn = /<div id="mainColumn">([\s\S]*)<input type="checkbox" id="hideImagesCheckbox"/.exec(page);
-	document.querySelector('#mainColumn').innerHTML = mainColumn[1];
-
-	let masterCSS = /<link rel="stylesheet" id="mainStylesheet" href="(.+)">/.exec(page);
-	document.querySelector('#mainStylesheet').href = masterCSS[1];
-
-	let title = /<title>(.+)<\/title>/.exec(page);
-	document.querySelector('title').innerHTML = title[1];
-	
-	history.pushState({}, title, url);
 }
 
 // Bind ajax page loading to all link clicks

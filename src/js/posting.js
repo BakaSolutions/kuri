@@ -184,37 +184,38 @@ function init() {
 
 }
 (() => {
-	// Replace non-js file inputs with cool ones
-	const INPUTS_TO_REMOVE = document.querySelectorAll('.row.removeMe');
-	while (document.querySelector('.row.removeMe')) document.querySelector('.row.removeMe').outerHTML = '';
-	createNewFileInput();
-
-	// Init drop zone
-	document.addEventListener('dragenter', () => {
-		if (counter++ === 0) DROPZONE.classList.add('shown');
-	});
-
-	document.addEventListener('dragleave', () => {
-	  if (--counter === 0) DROPZONE.classList.remove('shown');
-	});
-
 	const DROPZONE = document.querySelector('#dropZone');
+	if (DROPZONE) {
+		// Replace non-js file inputs with cool ones
+		let inputsToRemove = document.querySelectorAll('.row.removeMe');
+		for (let i = 0; i < inputsToRemove.length; i++) inputsToRemove[i].outerHTML = '';
+		createNewFileInput();
+		
+		// Init drop zone
+		document.addEventListener('dragenter', () => {
+			if (counter++ === 0) DROPZONE.classList.add('shown');
+		});
 
-	DROPZONE.addEventListener('dragover', e => {
-		e.preventDefault();
-		e.stopPropagation();
-		e.dataTransfer.dropEffect = 'copy';
-	});
+		document.addEventListener('dragleave', () => {
+		  if (--counter === 0) DROPZONE.classList.remove('shown');
+		});	
 
-	DROPZONE.addEventListener('drop', e => {
-		counter = 0;
-		DROPZONE.classList.remove('shown');
-		handleFiles(e);
-	});
+		DROPZONE.addEventListener('dragover', e => {
+			e.preventDefault();
+			e.stopPropagation();
+			e.dataTransfer.dropEffect = 'copy';
+		});
 
-	// Replace form sending with an async function
-	document.querySelector('#replyForm button').onclick = (e) => {
-		e.preventDefault();
-		sendPost();
+		DROPZONE.addEventListener('drop', e => {
+			counter = 0;
+			DROPZONE.classList.remove('shown');
+			handleFiles(e);
+		});
+
+		// Replace form sending with an async function
+		document.querySelector('#replyForm button').onclick = (e) => {
+			e.preventDefault();
+			sendPost();
+		}
 	}
 })();

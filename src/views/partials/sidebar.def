@@ -1,14 +1,14 @@
 <input type="checkbox" id="hideImagesCheckbox" class="hidden">
 <input type="checkbox" id="hideSidebarCheckbox" class="hidden">
 <div id="sidebar">
-		<a href="/{{!it.site.pathPrefix}}" id="tumbach">
-			<div class="name">
+		<div id="tumbach">
+			<a href="/{{!it.site.pathPrefix}}" class="name">
 				Тумба.ч
-			</div>
-			<div class="desc">
+			</a>
+			<a href="/{{!it.site.pathPrefix}}" class="desc">
 				технологичный и удобный имиджборд
-			</div>
-		</a>
+			</a>
+		</div>
 		<div id="boards">
 			{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 				<input type="checkbox" id="{{!group.name}}-group" class="hidden">
