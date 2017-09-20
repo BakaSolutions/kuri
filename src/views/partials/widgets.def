@@ -23,10 +23,10 @@
 				<input type="checkbox" class="hidden" id="showNSFW"></input><label for="showNSFW" class="iconCheckbox checkbox"> Показывать NSFW-картинки</label>
 			</div>
 			<div class="row">
-				<a onclick="moveSidebar('row-reverse')">Cайдбар слева</a>
+				<a onclick="moveSidebar('row')">Сайдбар слева</a>
 			</div>
 			<div class="row">
-				<a onclick="moveSidebar('row')">Сайдбар справа</a>
+				<a onclick="moveSidebar('row-reverse')">Cайдбар справа</a>
 			</div>
 		</div>
 		<div class="column">

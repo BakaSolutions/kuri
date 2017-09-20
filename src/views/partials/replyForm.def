@@ -27,7 +27,9 @@
 			<div class="row">
 				<input name="name" placeholder="Имя">
 			</div>
-			<input name="subject" placeholder="Тема">
+			<div class="row">
+				<input name="subject" placeholder="Тема">
+			</div>
 			<div class="row removeMe">
 				<input type="file" name="file0" id="file0">
 				<input type="checkbox" class="hidden" name="file1Rating" id="file0Rating">

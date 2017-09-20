@@ -24,7 +24,7 @@ const config = {
 // document.createElement wrapper to add attributes immidiately
 function createElement (tagName, attr = {}){
 	let element = document.createElement(tagName);
-	for (let i = 0; i < attr.length; i++) element[i] = attr[i];
+	for (let i in attr) element[i] = attr[i];
 	return element
 }
 

@@ -11,6 +11,12 @@
 			#replyForm input[type="file"] {
 				display: block !important;
 			}
+			#hideSidebarCheckbox:checked + #sidebar{
+				margin-right: -280px;
+			}
+			.actionIcon.spoilSidebar{
+				margin-left: 3px;
+			}
 		</style>
 	</noscript>
 	<script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.min.js"></script>

@@ -1,5 +1,5 @@
 #sidebar{
-	padding: 10px;
+	padding: 15px;
 	width: 300px;
 	height: 100vh;
 	
@@ -13,7 +13,7 @@
 	background-color: var(--sidebar-color);
 	background-image: var(--sidebar-image);
 
-	transition: right var(--animation-duration), left var(--animation-duration);
+	transition: margin-right var(--animation-duration), margin-left var(--animation-duration);
 }
 
 // Логотип
@@ -42,7 +42,7 @@
 	top: 70px;
 	position: absolute;
 	
-	width: calc(100% - 20px);
+	width: calc(100% - 30px);
 }
 
 #boards .group{
@@ -72,7 +72,14 @@
 	justify-content: space-between;
 }
 
-// Скрытие 
-#hideSidebarCheckbox:checked + #sidebar{
-	right: -225px;
+.actionIcon.spoilSidebar{
+	position: absolute;
+	top: 3px;
+	&:before{
+		content: "\f068"
+	}
+}
+
+#hideSidebarCheckbox:checked + #sidebar .actionIcon.spoilSidebar:before{ 
+	content: "\f067";
 }

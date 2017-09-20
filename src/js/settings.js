@@ -12,9 +12,9 @@ function moveSidebar(direction) {
 	// Compose stylesheet
 	let style = 'body{flex-direction:';
 	if (localStorage.bodyFlexDirection == 'row') {
-		style += 'row-reverse } #hideSidebarCheckbox:checked + #sidebar{ left: -225px } #sidebar{ left: 0px }';
+		style += 'row-reverse } #hideSidebarCheckbox:checked + #sidebar{ margin-left: -280px } #sidebar{ left: 0px } .actionIcon.spoilSidebar{ right: 3px }';
 	} else{
-		style += 'row } #hideSidebarCheckbox:checked + #sidebar{ right: -225px } #sidebar{ right: 0px }';
+		style += 'row } #hideSidebarCheckbox:checked + #sidebar{ margin-right: -280px } #sidebar{ right: 0px } .actionIcon.spoilSidebar{ left: 3px }';
 	}
 
 	// Insert

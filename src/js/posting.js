@@ -23,7 +23,6 @@ function createNewFileInput() {
 	
 	document.querySelector('#replyForm .column:nth-child(2)').appendChild(row);
 	row.onchange = handleFiles;
-	
 	fileInputCounter++
 	lastFileInput = TIMESTAMP;
 }
@@ -180,42 +179,42 @@ function sendPost(){
 };
 
 // Init
-function init() {
-
-}
-(() => {
+function initReplyForm() {
 	const DROPZONE = document.querySelector('#dropZone');
-	if (DROPZONE) {
-		// Replace non-js file inputs with cool ones
-		let inputsToRemove = document.querySelectorAll('.row.removeMe');
-		for (let i = 0; i < inputsToRemove.length; i++) inputsToRemove[i].outerHTML = '';
-		createNewFileInput();
-		
-		// Init drop zone
-		document.addEventListener('dragenter', () => {
-			if (counter++ === 0) DROPZONE.classList.add('shown');
-		});
+	
+	// Replace non-js file inputs with cool ones
+	let inputsToRemove = document.querySelectorAll('.row.removeMe');
+	for (let i = 0; i < inputsToRemove.length; i++) inputsToRemove[i].outerHTML = '';
+	createNewFileInput();
+	
+	// Init drop zone
+	document.addEventListener('dragenter', () => {
+		if (counter++ === 0) DROPZONE.classList.add('shown');
+	});
 
-		document.addEventListener('dragleave', () => {
-		  if (--counter === 0) DROPZONE.classList.remove('shown');
-		});	
+	document.addEventListener('dragleave', () => {
+	  if (--counter === 0) DROPZONE.classList.remove('shown');
+	});	
 
-		DROPZONE.addEventListener('dragover', e => {
-			e.preventDefault();
-			e.stopPropagation();
-			e.dataTransfer.dropEffect = 'copy';
-		});
+	DROPZONE.addEventListener('dragover', e => {
+		e.preventDefault();
+		e.stopPropagation();
+		e.dataTransfer.dropEffect = 'copy';
+	});
 
-		DROPZONE.addEventListener('drop', e => {
-			counter = 0;
-			DROPZONE.classList.remove('shown');
-			handleFiles(e);
-		});
+	DROPZONE.addEventListener('drop', e => {
+		counter = 0;
+		DROPZONE.classList.remove('shown');
+		handleFiles(e);
+	});
 
-		// Replace form sending with an async function
-		document.querySelector('#replyForm button').onclick = (e) => {
-			e.preventDefault();
-			sendPost();
-		}
+	// Replace form sending with an async function
+	document.querySelector('#replyForm button').onclick = (e) => {
+		e.preventDefault();
+		sendPost();
 	}
-})();
+}
+
+if (document.querySelector('#replyForm')) {
+	initReplyForm()
+}
