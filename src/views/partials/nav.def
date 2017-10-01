@@ -1,8 +1,0 @@
-<div class="actions nav">
-  <a class="button_nav" href="#top">
-    <i class='fa fa-chevron-circle-up'></i>
-  </a><br>
-  <a class="button_nav" href="#bottom">
-    <i class='fa fa-chevron-circle-down'></i>
-  </a>
-</div>

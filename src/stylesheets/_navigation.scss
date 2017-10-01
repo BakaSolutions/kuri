@@ -1,0 +1,117 @@
+@media screen and (max-device-width: 414px) { // Mobile
+	#sidebar{
+		display: none;
+	}	
+}
+
+@media screen and (min-device-width: 415px) { // Desktop or tablet
+	main{
+		margin-right: 256px;
+	}
+
+	#sidebar{
+		width: 256px;
+		height: 100%;
+		display: flex;
+		padding: 10px 20px;
+		flex-direction: column;
+		
+		position: fixed;
+
+		background-color: var(--bg_secondary)
+	}
+
+	#sidebar #config{
+		bottom: 0;
+		position: fixed;
+	}
+
+	#sidebar #logo{
+		text-align: center;
+		margin: 5px 0;
+
+		color: var(--text_primary);
+
+		&:hover{
+			text-decoration: none;
+		}
+
+		:first-child{
+			font-size: 2em;
+			line-height: 1em;
+		}
+	}
+
+	#sidebar #boards{
+		display: flex;
+		flex-direction: column;
+
+		.group{
+			display: flex;
+			max-height: 100px; 
+			flex-direction: column;
+			transition: max-height .3s;
+		}
+
+		input[type="checkbox"]:checked + .groupSpoil + .group{
+			max-height: 0px;
+			overflow: hidden;
+		}
+
+		.groupSpoil{
+			cursor: pointer;
+			@include user-select(none);
+		}
+	}
+}
+
+#topbar{
+	top: 0;
+	position: fixed;
+
+	width: 100%;
+	height: 25px;
+	padding: 3px;
+	display: flex;
+	justify-content: space-around;
+
+	background-color: var(--bg_secondary);
+}
+
+
+// Navbar
+#navbar{
+	display: flex;
+	flex-direction: column;
+	background-color: var(--bg_secondary);
+
+	bottom: 30px;
+	right: 0;
+	position: fixed;
+
+	border: 1px solid var(--border_primary);
+
+	*{
+		width: 40px;
+		height: 40px;
+		box-sizing: border-box;
+
+		font-size: 1.5em;
+
+		margin: 3px;
+	}
+
+	.icon{
+		&.up::before{
+			content: '\f106';
+		}
+
+		&.down::before{
+			content: '\f107';
+		}
+
+		&.replyFormShow::before{
+			content: '\f0e5';
+		}
+	}
+}

@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang='{{!it.site.locale}}'>
-  {{#def['partials/head']}}
-	<body data-theme="tumbach">
-		<div id="mainColumn">
-			<img id="meguka" src="/{{!it.site.pathPrefix}}images/meguka.gif" alt="">
-			<div>
-				Это страница простая, но не пустая!
+<html>
+	{{#def["particles/head"]}}
+	<body>
+		{{#def["particles/navigation"]}}
+		<header>
+			<div>Тумба.ч</div>
+			<div>технологичный и удобный имиджборд</div>
+		</header>
+		<main>
+			<div id="boardList">
+				{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}		
+				<div class="group">
+					<div class="groupTitle">{{!group.title}}</div>
+					{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
+						<a href="/{{!it.site.pathPrefix}}{{!board.name}}/">
+							/{{!board.name}}/ — {{!board.title}}
+						</a>
+					{{~ }}
+				</div>
+			{{~ }}
 			</div>
-			<div>
-				Тут будет главная.
-			</div>
-		</div>
-	  {{#def["partials/sidebar"]}}
-	  {{#def["partials/topbar"]}}
-    {{#def['partials/widgets']}}
+		</main>
 	</body>
 </html>

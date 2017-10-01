@@ -57,15 +57,17 @@ async function renderPages(boardName) {
 }
 
 function parseDate(d){
+  let months = ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Мая', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.']
+  
   if (!(d instanceof Date)) {
     d = new Date(d);
   }
-  let date = d.getDate().toString().padStart(2, 0);
-  let month = d.getMonth().toString().padStart(2, 0);
+  let date = d.getDate();
+  let month = months[d.getMonth()];
   let year = d.getFullYear();
   let hours = d.getHours().toString().padStart(2, 0);
   let minutes = d.getMinutes().toString().padStart(2, 0);
-  return `${date}.${month}.${year} ${hours}:${minutes}`;
+  return `${date} ${month} ${year} ${hours}:${minutes}`;
 }
 
 async function renderPage(boardName, pageNumber) {
@@ -93,8 +95,7 @@ async function renderPage(boardName, pageNumber) {
   let pageID = pageNumber > 0
     ? pageNumber
     : 'index';
-  page.title = '/' + board.name + '/ &mdash; ' + board.title;
-  page.mainStylesheet = 'board.css';
+  page.title = '/' + board.name + '/ — ' + board.title;
   page.board = board;
   await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
 }
@@ -116,8 +117,8 @@ async function renderThread(boardName, threadNumber) {
       posts[i].formatted_date = parseDate(posts[i].created_at);
       //posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
     }
+    thread.title = '/' + board.name + '/ — ' + board.title;
     thread.board = board;
-    thread.mainStylesheet = 'board.css';
     return await Renderer.renderThread(thread);
   } catch (e) {
     console.log(e.message, boardName, threadNumber);

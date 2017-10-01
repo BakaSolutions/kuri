@@ -1,32 +1,23 @@
 <!DOCTYPE html>
 <html>
-{{#def["partials/head"]}}
-<body>
-  <div id="mainColumn">
-    <header>
-      <a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
-        {{? it.thread.posts[0].subject}}
-          {{!it.thread.posts[0].subject}}
-        {{??}}
-          /{{!it.board.name}}/ &mdash; {{!it.thread.thread_id}}
-        {{?}}
-      </a>
-      {{#def["partials/replyForm"]}}
-    </header>
-    <a name="top"></a>
-    {{~[it.thread] :thread}}
-      <div id="threadFlow">
-        <div class="thread">
-          {{~thread.posts :post}}
-            {{#def['partials/post']}}
-          {{~}}
-        </div>
-      </div>
-    {{~}}
-    <a name="bottom"></a>
-  </div>
-  {{#def["partials/sidebar"]}}
-  {{#def["partials/topbar"]}}
-  {{#def["partials/widgets"]}}
-  </body>
+	{{#def["particles/head"]}}
+	<body>
+		{{#def["particles/navigation"]}}
+		<header>
+			<a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
+				/{{!it.board.name}}/ — {{!it.board.title}}
+			</a>
+		</header>
+		<a name="top"></a>
+		<main>
+			<div class="thread">
+				{{~it.thread.posts :post}}
+					{{#def['particles/post']}}
+				{{~ }}
+			</div>
+		</main>
+		<a name="bottom"></a>
+
+		{{#def['particles/replyForm']}}
+	</body>
 </html>

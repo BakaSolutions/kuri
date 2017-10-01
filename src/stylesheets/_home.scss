@@ -1,0 +1,28 @@
+header{
+	margin: 10px 0;
+
+	:first-child{
+		font-size: 2em;
+		line-height: 1.3em;
+	}
+}
+
+#boardList{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+
+  background: var(--bg_secondary);
+  border: 1px solid var(--border_primary);
+
+  .group{
+  	display: flex;
+  	flex-direction: column;
+  }
+}
+
+@media screen and (max-device-width: 414px) { // Mobile
+	#boardList{
+		width: calc(100vw - 20px);
+	}
+}

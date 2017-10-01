@@ -1,0 +1,109 @@
+#replyForm{
+	opacity: 0;
+	transition: opacity .3s;
+
+	bottom: 0;
+	position: fixed;
+	pointer-events: none;
+
+	background-color: var(--bg_secondary);
+
+	z-index: 100;
+
+	.widgetContent > *{
+		width: 100vw;
+
+		border: none;
+		margin: 3px 0;
+	}
+
+	[name="subject"]{
+		min-height: 20px;
+		text-align: center;
+	}
+
+	[type="file"]{
+		width: calc(100vw - 30px);
+		background-color: var(--btn_secondary);
+	}
+
+	textarea{
+		min-height: 100px;
+	}
+
+	.caution{
+    right: 0;
+		position: absolute;
+	}
+
+	.icon{
+		&::before{
+			margin-right: 5px;
+		}
+
+		&.op::before{
+			content: '\f2c0'
+		}
+
+		&.sage::before{
+			content: '\f088'
+		}
+
+		&.help::before{
+			content: '\f128'
+		}
+
+		&.send::before{
+			content: '\f1d9'
+		}
+
+		&.caution::before{
+			content: '\f228'
+		}
+	}
+
+	#submit{
+		right: 0;
+		position: absolute;
+	}
+}
+
+#replyFormShow:checked ~ #replyForm{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.widgetHandle{
+	height: 30px;
+	padding: 5px;
+
+	text-align: center;
+	position: relative;
+
+	.icon.close{
+		top: 0;
+		right: 0;
+		position: absolute;
+		
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.icon.close::before{
+		content: '\f00d';
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (max-device-width: 414px) { // Mobile
+	#replyForm{
+		width: 100vw;
+	}	
+}
+
+.row{
+  display: flex;
+}

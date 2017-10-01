@@ -1,0 +1,100 @@
+<input type="checkbox" id="replyFormShow" class="hidden">
+
+<div id="replyForm" class="widget">
+	<div class="widgetHandle">
+		{{? it.thread}}Ответ в тред #{{=it.thread.id}}{{?? }}Создание треда{{? }}
+		<label for="replyFormShow" class="icon close"></label>
+	</div>
+
+	<form action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/post.create" method="post" class="widgetContent">
+		<input type="hidden" name="boardName" value="{{!it.board.name}}">
+		<input type="hidden" name="redirect" class="hidden" value="{{=it.board.name}}{{? it.thread}}/res/{{=it.thread.id}}.html#bottom{{?? }}#top{{? }}">
+		<input type="hidden" name="password">
+		{{? it.thread}}<input type="hidden" id="threadNumber" name="threadNumber" value="{{=it.thread.thread_id}}">{{? }}
+
+		<input name="subject" type="text" placeholder="Тема">
+		
+		<div class="row">
+			<input type="file" name="file0" id="file0">
+
+			<input type="checkbox" class="hidden" name="file0Rating" id="file0Rating">
+			<label class="icon caution" for="file0Rating"></label>
+		</div>
+		
+		<textarea name="text"></textarea>
+
+		<div class="row">
+			<img src="/static/captcha.gif" height="76" width="302" style="margin: auto">
+		</div>
+		<div class="row">
+			<input type="checkbox" name="OP" id="opCheckbox" class="hidden">
+			<label for="opCheckbox" class="btn icon op"> OP</label>
+			
+			<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
+			<label for="sageCheckbox" class="btn icon sage"> Sage</label>
+			
+			<input type="checkbox" id="markupHelp" class="hidden">
+			<label for="markupHelp" class="btn icon help"> Help</label>
+					
+			<button class="btn icon send" id="submit">Отправить</button>
+		</div>
+	</form>
+</div>
+<!--/replyForm-->
+
+<!--<input type="checkbox" id="replyFormExpand" class="hidden">
+<input type="checkbox" id="replyFormShow" class="hidden">
+
+<div id="replyForm" class="widget">
+	<div class="widgetHandle">
+		{{? it.thread}}Ответ в тред #{{=it.thread.id}}{{?? }}Создание треда{{? }}
+		<label for="replyFormShow" class="icon close"></label>
+	</div>
+
+	<form action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/post.create" method="post" class="widgetContent">
+		<input type="hidden" name="boardName" value="{{!it.board.name}}">
+		<input type="hidden" name="redirect" class="hidden" value="{{=it.board.name}}{{? it.thread}}/res/{{=it.thread.id}}.html#bottom{{?? }}#top{{? }}">
+		<input type="hidden" name="password">
+		{{? it.thread}}
+			<input type="hidden" id="threadNumber" name="threadNumber" value="{{=it.thread.thread_id}}">
+		{{? }}
+
+		<div class="column">
+			<div class="row">
+				<textarea name="text" placeholder="Выскажи свое мнение!"></textarea>
+			</div>
+			<div class="row">
+				<input type="checkbox" name="OP" id="opCheckbox" class="hidden">
+				<label for="opCheckbox" class="icon op"> OP</label>
+				
+				<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
+				<label for="sageCheckbox" class="icon sage"> Sage</label>
+				
+				<input type="checkbox" id="markupHelp" class="hidden">
+				<label for="markupHelp" class="icon help"> Help</label>
+				
+				<button id="submit">Отправить</button>
+			</div>
+		</div>
+		<div class="column">
+			<div class="row">
+				<input name="name" placeholder="Имя">
+			</div>
+			<div class="row">
+				<input name="subject" placeholder="Тема">
+			</div>
+			<div class="row">
+				<input type="file" name="file0" id="file0">
+
+				<input type="checkbox" class="hidden" name="file0Rating" id="file0Rating">
+				<label class="icon caution" for="file0Rating"></label>
+			</div>
+		</div>
+		<label for="replyFormExpand" class="column">
+			<div class="row">
+				<div class="icon arrow"></div>
+			</div>
+		</label>
+		<div id="dropZone"></div>
+	</form>
+</div>-->

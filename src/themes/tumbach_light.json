@@ -1,0 +1,15 @@
+{
+	"text_primary": "#000",
+	"text_secondary": "#000",
+	
+	"link_primary": "#08F",
+	"link_secondary": "#038",
+	
+	"btn_primary": "#b2e2ee",
+	"btn_secondary": "#ccecf4",
+
+	"bg_primary": "#fff",
+	"bg_secondary": "#ccecf4",
+
+	"border_primary": "#000"
+}

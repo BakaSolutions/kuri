@@ -1,0 +1,44 @@
+<input type="checkbox" id="hideImagesCheckbox" class="hidden">
+
+<div id="sidebar">
+	<a href="/{{!it.site.pathPrefix}}" id="logo">
+		<div>Тумба.ч</div>
+		<div>технологичный и удобный имиджборд</div>
+	</a>
+
+	<div id="boards">
+		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
+			<input type="checkbox" id="{{!group.name}}GroupSpoilCheckbox" class="hidden">
+			<label for="{{!group.name}}GroupSpoilCheckbox" class="groupSpoil">{{!group.title}}</label>
+			
+			<div class="group">
+				{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
+					<a href="/{{!it.site.pathPrefix}}{{!board.name}}/" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
+						/{{!board.name}}/ — {{!board.title}}
+					</a>
+				{{~ }}
+			</div>
+		{{~ }}
+	</div>
+
+	<div id="config">
+		<noscript>JavaScript отключен.</noscript>
+		<label for="hideImagesCheckbox" class="pseudoLink">SFW</label>
+		<a class="jsOnly">Настройки</a>
+	</div>
+</div>
+
+<div id="topbar">	
+	<a href="/{{!it.site.pathPrefix}}">Тумба.ч</a>
+	<a href="#">Каталог</a>
+	<label class="pseudoLink">Настройки</label>
+	<label for="hideImagesCheckbox" class="pseudoLink">SFW</label>
+	
+	<!--<div id="progressBar"></div>-->
+</div>
+
+<div id="navbar">
+	<a id="toTop" class="btn icon up" href="#top"></a>
+	<label for="replyFormShow" id="replyFormButton" class="btn icon replyFormShow"></label>
+	<a id="toBot" class="btn icon down" href="#bottom"></a>
+</div>

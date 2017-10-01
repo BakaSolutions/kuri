@@ -1,95 +1,65 @@
 const gulp = require('gulp');
-const cached = require('gulp-cached');
-const remember = require('gulp-remember');
 const cleanCSS = require('gulp-clean-css');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const minify = require("gulp-babel-minify");
 const Templating = require('./app/core/templating');
-const concat = require('gulp-concat');
-
-const isDev = process.env.NODE_ENV !== 'production';
-
-let tasks = {
-  development: ['dot', 'js', 'sass', 'images', 'favicon', 'fonts', 'watch'],
-  production: ['dot', 'js', 'sass', 'images', 'favicon', 'fonts']
-};
 
 let input = {
-  dot:  ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
-  js:   ['src/js/**/*.js', 'custom/src/js/**/*.js',
-         '!src/js/**/*.min.js', '!custom/src/js/**/*.min.js'],
-  minjs: ['src/js/**/*.min.js', 'custom/src/js/**/*.min.js'],
-  sass: ['src/css/**/*.?(s)css', 'custom/src/css/**/*.?(s)css'],
-	images: ['src/images/*', '!src/images/*.ico'],
-  favicon: ['src/images/*.ico'],
-  fonts: ['src/fonts/*']
+	dot: ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
+	js: ['src/scripts/**/*.js', 'custom/src/scripts/**/*.js', '!src/scripts/**/*.min.js', '!custom/src/scripts/**/*.min.js'],
+	minjs: ['src/scripts/**/*.min.js', 'custom/src/scripts/**/*.min.js'],
+	sass: ['src/stylesheets/**/*.?(s)css', 'custom/src/stylesheets/**/*.?(s)css'],
+	staticFiles: ['src/static/*'],
+	themes: ['src/themes/**/*.json']
 };
 
 let output = {
-  js:  'public/js',
-  sass: 'public/css',
-	images: 'public/images',
-  fonts: 'public/fonts',
-  favicon: 'public'
+	js: 'public/js',
+	sass: 'public/css',
+	staticFiles: 'public/static',
+	themes: 'public/themes'
 };
 
-gulp.task('dot', buildDot.bind(null));
-gulp.task('js', buildJS.bind(null));
-gulp.task('sass', buildSass.bind(null));
-gulp.task('images', copyImages.bind(null));
-gulp.task('favicon', copyFavicon.bind(null));
-gulp.task('fonts', copyFonts.bind(null));
-gulp.task('watch', watchTask.bind(null));
-gulp.task('default', tasks[process.env.NODE_ENV || 'development']);
+gulp.task('staticFiles', (() => {
+	return gulp.src(input.staticFiles)
+		.pipe(gulp.dest(output.staticFiles))
+}));
 
-function copyImages() {
-	console.log('Copying pictures from /src to /public');
-	return gulp.src(input.images)
-		.pipe(gulp.dest(output.images))
-}
+gulp.task('dot', (() => {
+	Templating.reloadTemplates();
+	return Templating.compileTemplates();
+}));
 
-function copyFonts() {
-	console.log('Copying fonts from /src to /public');
-	return gulp.src(input.fonts)
-		.pipe(gulp.dest(output.fonts))
-}
-
-function copyFavicon() {
-	console.log('Copying favicon from /src to /public');
-	return gulp.src(input.favicon)
-		.pipe(gulp.dest(output.favicon))
-}
-
-function buildDot() {
-  Templating.reloadTemplates();
-  return Templating.compileTemplates();
-}
-
-function buildJS() {
-  gulp.src(input.minjs)
+gulp.task('js', (() => {
+	gulp.src(input.minjs)
 		.pipe(gulp.dest(output.js))
 
-  return gulp.src(input.js)
-    .pipe(cached('js'))
-    .pipe(minify())
-    .pipe(remember('js'))
-    .pipe(gulp.dest(output.js));
-}
+	return gulp.src(input.js)
+		.pipe(minify())
+		.pipe(gulp.dest(output.js));
+}));
 
-function buildSass() {
-  return gulp.src(input.sass)
-    .pipe(cached('sass'))
-    .pipe(sass().on('error', sass.logError))
-    .pipe(cleanCSS({debug: isDev}, function(details) {
-      console.log(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize);
-    }))
-    .pipe(remember('sass'))
-    .pipe(gulp.dest(output.sass));
-}
+gulp.task('themes', (() => {
+	return gulp.src(input.themes)
+		.pipe(gulp.dest(output.themes));
+}));
 
-function watchTask() {
-  watch(input.dot, () => gulp.start('dot'));
-  watch(input.js, () => gulp.start('js'));
-  watch(input.sass, () => gulp.start('sass'));
-}
+gulp.task('sass', (() => {
+	return gulp.src(input.sass)
+		.pipe(sass().on('error', sass.logError))
+		.pipe(cleanCSS({debug: 'development'}, function(details) {
+			console.log(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize);
+		}))
+		.pipe(gulp.dest(output.sass));
+}));
+
+gulp.task('watch', (() => {
+	watch(input.dot, () => gulp.start('dot'));
+	watch(input.js, () => gulp.start('js'));
+	watch(input.sass, () => gulp.start('sass'));
+	watch(input.themes, () => gulp.start('themes'));
+}));
+
+gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);
+

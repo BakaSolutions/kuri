@@ -1,0 +1,106 @@
+@media screen and (max-device-width: 414px) { // Mobile
+	.postAttachments .preview{
+		max-height: 100px;
+		max-width: 100px;
+	}
+
+	.post:not(:first-child){
+		border-width: 1px 0;
+	}
+}
+
+@media screen and (min-device-width: 415px) { // Desktop or tablet
+	.imgInfo{
+		opacity: 0;
+		transition: opacity .3s;
+	}
+
+	.postAttachments a:hover .imgInfo{
+		opacity: 1;
+	}
+
+	.imgInfo{
+		background: var(--bg_secondary);
+
+		bottom: 0;
+		position: absolute;
+	}	
+
+	.post:not(:first-child){
+		border-width: 1px;
+	}
+}
+
+.post{
+	padding: 5px;
+
+	&:not(:first-child){
+    border-style: solid;
+		border-color: var(--border_primary);
+		background-color: var(--bg_secondary);
+	}
+}
+
+.postDetails{
+	display: flex;
+	font-size: .95em;
+	position: relative;
+	color: var(--text_secondary);
+
+	*{
+		margin-right: 4px
+	}
+
+	.sage::before{
+		content: '\f01a';
+	}
+
+	.reply::before{
+		content: '\f112';
+	}
+
+	.spoil::before{
+		content: '\f070';
+	}
+
+	.menu::before{
+		content: '\f0c9';
+	}
+}
+
+
+.postAttachments{
+	a{
+		position: relative;
+		display: inline-block;
+	}
+
+	.preview{
+		vertical-align: bottom;
+		transition: opacity .3s;
+	}
+
+	.imgInfo{
+		font-size: .8em;
+
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+	}
+}
+
+
+// SFW image hiding
+body{
+	#hideImagesCheckbox:checked ~ main .preview{
+		opacity: .3;
+	}
+
+	.postAttachments a:hover .preview{
+		opacity: 1 !important;
+	}
+}
+
+.spoiled{
+	max-height: 20px;
+}
