@@ -10,7 +10,7 @@
 			<span class="icon reply jsonly"></span> <!-- onclick="quickReply({{!post.id}}, {{!post.thread}})" -->
 			<!--<span class="icon edit jsOnly"></span>-->
 			<!--<span class="icon delete jsOnly"></span>-->
-			<span class="icon spoil jsOnly"></span> <!-- onclick="spoilPost(this, {{? post.id == post.thread}}1{{? }})" -->
+			<span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.id == post.thread}}1{{? }})"></span>
 			<span class="icon menu jsOnly"></span>
 			<!-- <span class="icon source jsOnly"></span> -->
 		</aside>
@@ -18,12 +18,10 @@
 	<div class="postBody">
 		<div class="postAttachments">
 			{{? post.id == post.thread}} <!-- Bootleg -->
-				<a href="/static/nopic.png" target="_blank">
-					<img class="preview" src="/static/nopic.png">
-					<div class="imgInfo">
-						<span>nopic.png</span><span>0.1mb</span>
-					</div>
-				</a>
+				<div class="thumb">
+					<a href="/static/nopic.png" target="_blank"><img src="/static/nopic.png"></a>
+					<a href="/static/nopic.png" download><span>nopic.png</span> <span>0.1mb</span></a>
+				</div>
 			{{? }}
 		</div>
 		<div class="postText">

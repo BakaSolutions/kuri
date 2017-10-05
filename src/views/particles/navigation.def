@@ -1,15 +1,15 @@
 <input type="checkbox" id="hideImagesCheckbox" class="hidden">
 
 <div id="sidebar">
-	<a href="/{{!it.site.pathPrefix}}" id="logo">
-		<div>Тумба.ч</div>
-		<div>технологичный и удобный имиджборд</div>
-	</a>
+	<div id="logo">
+		<a href="/{{!it.site.pathPrefix}}">Тумба.ч</a>
+		<a href="/{{!it.site.pathPrefix}}">технологичный и удобный имиджборд</a>
+	</div>
 
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 			<input type="checkbox" id="{{!group.name}}GroupSpoilCheckbox" class="hidden">
-			<label for="{{!group.name}}GroupSpoilCheckbox" class="groupSpoil">{{!group.title}}</label>
+			<label for="{{!group.name}}GroupSpoilCheckbox" class="icon groupSpoil">{{!group.title}}</label>
 			
 			<div class="group">
 				{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}

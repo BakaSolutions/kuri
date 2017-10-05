@@ -1,16 +1,18 @@
 <head>
-	<meta charset='utf-8'>
+	<meta charset='utf-8'> 
+	<meta name="referrer" content="no-referrer">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
+	<link rel='shortcut icon' href='/{{!it.site.pathPrefix}}static/favicon.ico'>
 	<link rel="stylesheet" id="mainStylesheet" href="/{{!it.site.pathPrefix}}css/master.css">
-	<script id="script" type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.js"></script>
+	<script type="text/javascript" src="/{{!it.site.pathPrefix}}js/resquer.js"></script>
+	<noscript>
+		<style>
+			.jsOnly{
+				display: none !important
+			}
+		</style>
+	</noscript>	
 	
 	<title>{{!it.title}}</title>
-	<link rel='shortcut icon' href='/{{!it.site.pathPrefix}}static/favicon.ico'>
-	
-	<noscript><style>
-		.jsOnly{
-			display: none !important
-		}
-	</style></noscript>	
 </head>

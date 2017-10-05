@@ -47,7 +47,7 @@ function asyncLoadPage(uri) {
 		let cur = document.location,
 				uri = e.target.href;
 
-		if(uri && !uri.indexOf(cur.origin) && uri.split('#')[0] != cur.href.split('#')[0]){
+		if(uri && !uri.indexOf(cur.origin)){
 			e.preventDefault();
 			asyncLoadPage(uri);
 		}

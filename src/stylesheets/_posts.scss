@@ -1,8 +1,14 @@
 @media screen and (max-device-width: 414px) { // Mobile
-	.postAttachments .preview{
-		max-height: 100px;
-		max-width: 100px;
-	}
+	.postAttachments .thumb{
+		a:first-child img{
+			max-height: 100px;
+			max-width: 100px;
+		}
+
+		a:last-child{
+			width: 100px;	
+		}
+	} 
 
 	.post:not(:first-child){
 		border-width: 1px 0;
@@ -10,29 +16,57 @@
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
-	.imgInfo{
-		opacity: 0;
-		transition: opacity .3s;
+	.postAttachments{
+		margin-right: 5px;
+
+		.thumb a:last-child{
+			opacity: 0;
+			width: 200px;
+
+			transition: opacity .3s;
+			background: var(--bg_secondary);
+
+			bottom: 0;
+			position: absolute;
+		}
+
+		.thumb:hover a:last-child{
+			opacity: 1;
+		}
 	}
-
-	.postAttachments a:hover .imgInfo{
-		opacity: 1;
-	}
-
-	.imgInfo{
-		background: var(--bg_secondary);
-
-		bottom: 0;
-		position: absolute;
-	}	
 
 	.post:not(:first-child){
 		border-width: 1px;
+		margin-left: 30px;
+	}
+
+	.postBody{
+		display: flex;
+	}
+}
+
+.thread{
+	width: 100%;
+	overflow: hidden;
+
+	max-height: 500px;
+	transition: max-height .3s;
+
+	&.spoiled{
+		max-height: 22px;
 	}
 }
 
 .post{
 	padding: 5px;
+	overflow: hidden;
+
+	max-height: 300px;
+	transition: max-height .3s;
+
+	&.spoiled{
+		max-height: 15px;
+	}
 
 	&:not(:first-child){
     border-style: solid;
@@ -43,8 +77,10 @@
 
 .postDetails{
 	display: flex;
+	cursor: default;
 	font-size: .95em;
 	position: relative;
+	@include user-select(none);
 	color: var(--text_secondary);
 
 	*{
@@ -69,38 +105,31 @@
 }
 
 
-.postAttachments{
-	a{
-		position: relative;
-		display: inline-block;
-	}
+.thumb{
+	position: relative;
+	transition: opacity .3s;
 
-	.preview{
+	img{
 		vertical-align: bottom;
-		transition: opacity .3s;
 	}
 
-	.imgInfo{
+	a:last-child{
 		font-size: .8em;
 
 		width: 100%;
 		display: flex;
 		justify-content: space-around;
 	}
-}
+} 
 
 
 // SFW image hiding
 body{
-	#hideImagesCheckbox:checked ~ main .preview{
+	#hideImagesCheckbox:checked ~ main .thumb{
 		opacity: .3;
 	}
 
-	.postAttachments a:hover .preview{
+	.postAttachments .thumb:hover{
 		opacity: 1 !important;
 	}
-}
-
-.spoiled{
-	max-height: 20px;
 }

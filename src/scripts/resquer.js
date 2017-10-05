@@ -35,4 +35,4 @@
 		request(path);
 	}
 
-})('masterLib.js', 'AJAXNavigation.js')
+})('masterLib.js', 'AJAXNavigation.js', 'userInterface.js')

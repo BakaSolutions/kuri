@@ -1,4 +1,6 @@
 function spoilPost(button, thread) {
-	let target = thread ? button.parentNode.parentNode.parentNode : button.parentNode.parentNode;
-	target.className.indexOf('spoiled') > -1 ? target.classList.remove('spoiled') : target.classList.add('spoiled');
+	let target = button.parentNode.parentNode.parentNode;
+	if (thread) target = target.parentNode;
+
+	target.classList.toggle('spoiled');
 };
