@@ -31,3 +31,10 @@ String.prototype.padStart = function padStart(targetLength, padString) {
 		return padString.slice(0, targetLength) + String(this);
 	}
 }
+
+function sel(selector){
+	let e = document.querySelectorAll(selector);
+
+	if (e.length === 1) return e[0]
+	else return e
+}

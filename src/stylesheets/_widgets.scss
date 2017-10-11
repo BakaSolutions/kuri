@@ -1,44 +1,83 @@
+@media screen and (max-device-width: 414px) { // Mobile
+	#replyForm{
+		bottom: 0;
+	}
+}
+
+@media screen and (min-device-width: 415px) { // Desktop
+	#replyForm{
+		left: calc(50vw - 250px);
+		top: 60vh;
+	}
+}
+
 #replyForm{
 	opacity: 0;
-	transition: opacity .3s;
-
-	bottom: 0;
-	position: fixed;
 	pointer-events: none;
-
+	transition: opacity .3s;
 	background-color: var(--bg_secondary);
 
 	z-index: 100;
+	position: fixed;
 
-	.widgetContent > *{
-		width: 100vw;
+	border: 1px solid var(--border_primary);
 
-		border: none;
-		margin: 3px 0;
+	*{
+		outline: none !important;
 	}
 
 	[name="subject"]{
-		min-height: 20px;
 		text-align: center;
+		width: 100%;
 	}
 
-	[type="file"]{
-		width: calc(100vw - 30px);
-		background-color: var(--btn_secondary);
+	.btn{
+		margin: 2px 0px 2px 2px;
 	}
 
 	textarea{
+		border: 1px solid var(--border_primary);
+		
+		resize: none;
+		width: 500px;
 		min-height: 100px;
+		
 	}
 
-	.caution{
-    right: 0;
-		position: absolute;
+	input, textarea{
+		transition: background-color .3s;
+		background-color: var(--btn_primary);
+		&:hover, &:focus{
+			background-color: var(--btn_secondary);
+		}
+	}
+
+	input{
+		margin: 2px 0;
+		border: 1px solid var(--border_primary);
+		
+		&:not([type="password"]){
+			width: 100%;
+		}
+	}
+
+	#fileInputs{
+		max-height: 0px;
+		transition: max-height .3s;
+		overflow: hidden;
+	}
+
+	#fileInputsCheckbox:checked + label + #fileInputs{
+		max-height: 100px;
+	}
+
+	#fileInputsCheckbox:checked + label::before{
+		content: '\f077';
 	}
 
 	.icon{
 		&::before{
-			margin-right: 5px;
+			margin-right: 3px;
 		}
 
 		&.op::before{
@@ -60,50 +99,49 @@
 		&.caution::before{
 			content: '\f228'
 		}
-	}
 
-	#submit{
-		right: 0;
-		position: absolute;
+		&.more::before{
+			margin: 0 auto;
+			content: '\f078';
+		}
 	}
 }
 
+// Show
 #replyFormShow:checked ~ #replyForm{
 	opacity: 1;
 	pointer-events: auto;
 }
 
 .widgetHandle{
-	height: 30px;
-	padding: 5px;
+	@include user-select(none);
+	cursor: default;
+
+	height: 20px;
+	padding: 2px;
 
 	text-align: center;
 	position: relative;
+
+	&:active{
+		cursor: move;
+	}
 
 	.icon.close{
 		top: 0;
 		right: 0;
 		position: absolute;
 		
-		width: 30px;
-		height: 30px;
+		width: 20px;
+		height: 20px;
 		display: flex;
-		justify-content: center;
+		cursor: pointer;
 		align-items: center;
+		justify-content: center;
+
+		&::before{
+			content: '\f00d';
+			font-size: 1.2em;
+		}
 	}
-
-	.icon.close::before{
-		content: '\f00d';
-		font-size: 1.5em;
-	}
-}
-
-@media screen and (max-device-width: 414px) { // Mobile
-	#replyForm{
-		width: 100vw;
-	}	
-}
-
-.row{
-  display: flex;
 }

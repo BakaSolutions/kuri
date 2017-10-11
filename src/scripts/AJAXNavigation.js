@@ -31,7 +31,9 @@ function asyncLoadPage(uri) {
 					'className': 'widget',
 					'innerHTML': replyForm[1]
 				})
-			)			
+			);
+
+			initDraggableReplyForm();			
 		};
 
 		log('Asynchronously navigated to', uri.split('#')[0]);

@@ -57,16 +57,15 @@ async function renderPages(boardName) {
 }
 
 function parseDate(d){
-  let months = ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Мая', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.']
-  
-  if (!(d instanceof Date)) {
-    d = new Date(d);
-  }
-  let date = d.getDate();
-  let month = months[d.getMonth()];
-  let year = d.getFullYear();
-  let hours = d.getHours().toString().padStart(2, 0);
-  let minutes = d.getMinutes().toString().padStart(2, 0);
+  let months = ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Мая', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.'];
+  if (!(d instanceof Date)) d = new Date(d);
+
+  let date = d.getDate(),
+      month = months[d.getMonth()],
+      year = d.getFullYear(),
+      hours = d.getHours().toString().padStart(2, 0),
+      minutes = d.getMinutes().toString().padStart(2, 0);
+      
   return `${date} ${month} ${year} ${hours}:${minutes}`;
 }
 

@@ -4,3 +4,10 @@ function spoilPost(button, thread) {
 
 	target.classList.toggle('spoiled');
 };
+
+function initDraggableReplyForm() {
+	new Draggabilly('#replyForm', {
+		containment: 'body',
+		handle: '#replyForm .widgetHandle'
+	});
+}
