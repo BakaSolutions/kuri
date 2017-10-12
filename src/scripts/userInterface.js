@@ -6,8 +6,10 @@ function spoilPost(button, thread) {
 };
 
 function initDraggableReplyForm() {
-	new Draggabilly('#replyForm', {
-		containment: 'body',
-		handle: '#replyForm .widgetHandle'
-	});
+	if (document.querySelector('#replyForm') && screen.width > 414) {
+		new Draggabilly('#replyForm', {
+			containment: 'body',
+			handle: '#replyForm .widgetHandle'
+		});
+	}
 }
