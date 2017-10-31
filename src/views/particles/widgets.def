@@ -1,0 +1,65 @@
+<div id="widgetsWrapper">
+	<div id="preferences" class="widget hidden">
+		<div class="widgetHandle">Настройки<label onClick="toggleWidget('preferences')" class="icon close"></label></div>
+
+		<div class="widgetContent">
+			<div class="tabs">
+				<label for="basicTab">Общее</label>
+				<label for="themesTab">Темы</label>
+				<label for="postingTab">Постинг</label>
+				<label for="spoilingTab">Скрытие</label>
+				<label for="securityTab">Безопасность</label>
+			</div>
+
+			<input type="radio" name="tabs" class="hidden" id="basicTab" checked>
+			<div class="column">
+				<div class="row">
+					<input type="checkbox" class="hidden visibleCheckbox" id="localTime" checked>
+					<label for="localTime">Местное время постов время постов</label>
+					<input type="checkbox" class="hidden visibleCheckbox" id="relativeTime" checked>
+					<label for="relativeTime">Относительное время постов</label>
+				</div>
+				<div class="row">
+					<input type="checkbox" class="hidden visibleCheckbox" id="doNotHideNSFW">
+					<label for="doNotHideNSFW">Не скрывать NSFW</label>
+					<input type="checkbox" class="hidden visibleCheckbox" id="ajaxNavigation" checked>
+					<label for="ajaxNavigation">Использовать AJAX-навигацию</label>
+				</div>
+			</div>
+
+			<input type="radio" name="tabs" class="hidden" id="themesTab">
+			<div class="column">
+				<a class="row" onclick="setTheme('Tumbach')">Tumbach</a>
+				<a class="row" onclick="setTheme('Tumbach Light')">Tumbach Light</a>
+				<a class="row" onclick="setTheme('Myata')">Myata</a>
+			</div>
+
+			<input type="radio" name="tabs" class="hidden" id="postingTab">
+			<div class="column">
+
+			</div>
+
+			<input type="radio" name="tabs" class="hidden" id="spoilingTab">
+			<div class="column">
+				<textarea name="autospoiling" rows="8" cols="80">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
+			</div>
+
+			<input type="radio" name="tabs" class="hidden" id="securityTab">
+			<div class="column">
+				Использовать следующий пароль:
+				<input type="password" name="" value="password">
+			</div>
+		</div>
+	</div>
+
+	<div id="search" class="widget hidden">
+		<div class="widgetHandle">Поиск<label onClick="toggleWidget('search')" class="icon close"></label></div>
+
+		<div class="widgetContent">
+			<div class="row">
+				<input type="text" placeholder="Тумбач: найдется кое-что">
+				<button type="button" name="button" class="btn icon search"></button>
+			</div>
+		</div>
+	</div>
+</div>

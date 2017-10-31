@@ -1,7 +1,7 @@
 @media screen and (max-device-width: 414px) { // Mobile
 	#sidebar{
 		display: none;
-	}	
+	}
 
 	#topbar{
 		top: 0;
@@ -12,8 +12,18 @@
 		padding: 3px;
 		display: flex;
 		justify-content: space-around;
+		z-index: 999;
 
 		background-color: var(--bg_secondary);
+	}
+
+	#navbar{
+		top: 25px;
+		height: calc(100vh - 25px);
+
+		.btn.wide, .btn.hide{
+			display: none;
+		}
 	}
 }
 
@@ -26,23 +36,10 @@
 		@include user-select(none);
 
 		width: 256px;
-		height: 100%;
-		display: flex;
 		padding: 10px 20px;
 		flex-direction: column;
 
-		top: 0;
 		position: fixed;
-
-		background-color: var(--bg_secondary)
-	}
-
-	#sidebar #config{
-		bottom: 10px;
-		position: fixed;
-		
-		display: flex;
-		flex-direction: column;
 	}
 
 	#sidebar #logo{
@@ -50,6 +47,7 @@
 		margin: 5px 0;
 
 		a{
+			display: block;
 			color: var(--text_primary) !important;
 		}
 
@@ -71,14 +69,14 @@
 			display: flex;
 			max-height: 100px;
 			flex-direction: column;
-			 
+
 			margin-left: 13px;
-			
+
 			transition: max-height .3s;
-		} 
+		}
 
 		.groupSpoil{
-			cursor: pointer;	
+			cursor: pointer;
 			padding: 2px 3px;
 
 			&::before{
@@ -98,41 +96,72 @@
 			}
 		}
 	}
+
+	// Sidebar hiding
+	#hideSidebarCheckbox:checked ~ main {
+		margin-left: 5px;
+		width: calc(100vw - 5px - 70px);
+	}
+
+	#navbar{
+		height: 100vh;
+	}
 }
 
 // Navbar
 #navbar{
+	padding: 5px 0;
+	right: 5px;
+	z-index: 900;
+	position: fixed;
 	display: flex;
 	flex-direction: column;
-	background-color: var(--bg_secondary);
+	justify-content: space-between;
 
-	bottom: 30px;
-	right: 0;
-	position: fixed;
+	:first-child .btn{
+		margin-bottom: 5px;
+	}
 
-	border: 1px solid var(--border_primary);
+	:last-child .btn{
+		margin-top: 5px;
+	}
 
-	*{
-		width: 40px;
-		height: 40px;
+	.btn{
+		width: 45px;
+		height: 45px;
 		box-sizing: border-box;
 
 		font-size: 1.5em;
 
-		margin: 3px;
+		box-shadow: 0 0 15px -5px var(--border_secondary);
 	}
 
 	.icon{
 		&.up::before{
 			content: '\f106';
+			font-size: 1.3em;
 		}
 
 		&.down::before{
 			content: '\f107';
+			font-size: 1.3em;
 		}
 
 		&.replyFormShow::before{
 			content: '\f0e5';
+		}
+
+		&.hide::before{
+			content: '\f070';
+		}
+
+		&.preferences::before{
+			content: '\f085';
+		}
+
+		&.wide::before{
+			content: '\f07e';
+			font-size: .8em;
 		}
 	}
 }

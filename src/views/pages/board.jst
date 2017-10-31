@@ -3,15 +3,19 @@
 	{{#def["particles/head"]}}
 	<body>
 		{{#def["particles/navigation"]}}
-		<header>
-			<a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
-				/{{!it.board.name}}/ — {{!it.board.title}}
-			</a>
-		</header>
 		<a name="top"></a>
 		<main>
+			<header>
+				<a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
+					/{{!it.board.name}}/ — {{!it.board.title}}
+				</a>
+				<div class="row">
+					<a href="#" class="icon catalogueLink">Каталог</a>
+					<a href="#" class="icon archiveLink">Архив</a>
+				</div>
+			</header>
 			{{? !it.threads.length}}
-				<div class="noThreads">Здесь нет никого, кроме нас, цыплят!</div>
+				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
 			{{?? }}
 				{{~it.threads :thread}}
 					<div class="thread">
@@ -22,7 +26,7 @@
 						{{? thread.omittedPosts}}
 							<div class="omittedPosts">Пропущено постов: {{!thread.omittedPosts}}</div>
 						{{? }}
-						
+
 						{{~thread.lastPosts :post}}
 							{{#def['particles/post']}}
 						{{~ }}
@@ -33,5 +37,6 @@
 		<a name="bottom"></a>
 
 		{{#def['particles/replyForm']}}
+		{{#def["particles/widgets"]}}
 	</body>
 </html>

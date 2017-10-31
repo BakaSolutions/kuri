@@ -1,4 +1,5 @@
 function asyncLoadPage(uri) {
+	// document.querySelector('main').classList.add('refreshing');
 	let xhr = new XMLHttpRequest();
 
 	xhr.onload = async () => {
@@ -7,16 +8,13 @@ function asyncLoadPage(uri) {
 		let main = /<main>([\s\S]*)<\/main>/.exec(content);
 		document.querySelector('main').innerHTML = main[1];
 
-		let header = /<header>([\s\S]*)<\/header>/.exec(content);
-		document.querySelector('header').innerHTML = header[1];
-
 		let title = /<title>(.+)<\/title>/.exec(content);
-		// document.querySelector('title').innerHTML = title[1];
-		history.pushState({}, title, uri);	
+		document.querySelector('title').innerHTML = title[1];
+		history.pushState({}, title, uri);
 
 		if (!document.querySelector('#replyForm') && /id="replyForm"/.test(content)) {
 			let replyForm = /<div id="replyForm" class="widget">([\s\S]*)<!--\/replyForm-->/.exec(content);
-			
+
 			document.querySelector('body').appendChild(
 				await createElement('input', {
 					'type': 'checkbox',
@@ -33,9 +31,10 @@ function asyncLoadPage(uri) {
 				})
 			);
 
-			initDraggableReplyForm();			
+			initDraggableReplyForm();
 		};
 
+		// document.querySelector('main').classList.remove('refreshing');
 		log('Asynchronously navigated to', uri.split('#')[0]);
 	};
 
@@ -44,19 +43,19 @@ function asyncLoadPage(uri) {
 }
 
 // Bind
-(async() => {
+(async () => {
 	document.querySelector('body').onclick = e => {
 		let cur = document.location,
-				uri = e.target.href;
+				uri = e.target.getAttribute('href');
 
-		if(uri && !uri.indexOf(cur.origin)){
+		if(uri && !uri.indexOf('/')){
 			e.preventDefault();
 			asyncLoadPage(uri);
 		}
 	}
 
 	document.onkeydown = (e) => {
-		if (e.which == 116 && e.ctrlKey - 1) {	
+		if (e.which == 116 && !e.ctrlKey) {
 			e.preventDefault();
 			asyncLoadPage(document.location.href);
 		}

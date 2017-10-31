@@ -14,6 +14,25 @@ let defaultTheme = {
 	"border_primary": "#e1efff"
 }
 
+
+// :root{
+// 	--text_primary: #37474f;
+// 	--text_secondary: #666;
+	
+// 	--link_primary: #d7535c;
+// 	--link_secondary: #096be8;
+	
+// 	--btn_primary: #f5f5f5;
+// 	--btn_secondary: #fefefe;
+
+// 	--bg_primary: #ededed;
+// 	--bg_secondary: #e6e6e6;
+
+// 	--border_primary: #ddd;
+// 	--border_secondary: #777;
+// }
+
+
 /*function setTheme(name) {
 	let stylesheet = '';
 

@@ -3,10 +3,12 @@
 	{{#def["particles/head"]}}
 	<body>
 		{{#def["particles/navigation"]}}
-		<header></header>
 		<main>
-			<div>{{!it.errorCode}}</div>
-			<div>{{!it.errorDescription}}</div>
+			<header>
+				<div>{{!it.errorCode}}</div>
+				<div>{{!it.errorDescription}}</div>
+			</header>
 		</main>
+		{{#def["particles/widgets"]}}
 	</body>
 </html>

@@ -29,12 +29,12 @@
 	}
 
 	for (let i = 0; i < arg.length; i++) {
-		arg[i] instanceof Object 
-		? request(`/${arg[i][0].split('.').pop()}/${arg[i][0]}`, arg[i][1]) 
+		arg[i] instanceof Object
+		? request(`/${arg[i][0].split('.').pop()}/${arg[i][0]}`, arg[i][1])
 		: request(`/${arg[i].split('.').pop()}/${arg[i]}`)
 	}
 
-})('masterLib.js', 
-	'AJAXNavigation.js', 
-	'userInterface.js', 
-	['draggabilly.js', '(() => {if (sel("#replyForm")) initDraggableReplyForm()})()'])
+})('masterLib.js',
+	'AJAXNavigation.js',
+	'userInterface.js',
+	['draggabilly.js', '(() => {if (sel("#replyForm")) initDraggableReplyForm(); initDraggables()})()'])

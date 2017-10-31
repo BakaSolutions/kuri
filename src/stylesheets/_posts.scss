@@ -6,9 +6,9 @@
 		}
 
 		a:last-child{
-			width: 100px;	
+			width: 100px;
 		}
-	} 
+	}
 
 	.post:not(:first-child){
 		border-width: 1px 0;
@@ -16,6 +16,22 @@
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
+	.post:not(:first-child){
+		border-left: 25px solid var(--bg_primary);
+
+		&::before{
+			content: '';
+	    position: absolute;
+	    width: 0;
+	    top: 0px;
+	    left: -15px;
+	    border-top: 15px solid var(--bg_secondary);
+	    border-left: 15px solid var(--bg_primary);
+			// border-color: var(--bg_secondary);
+			// background-color: transparent;
+		}
+	}
+
 	.postAttachments{
 		margin-right: 5px;
 
@@ -33,11 +49,6 @@
 		.thumb:hover a:last-child{
 			opacity: 1;
 		}
-	}
-
-	.post:not(:first-child){
-		border-width: 1px;
-		margin-left: 30px;
 	}
 
 	.postBody{
@@ -59,18 +70,22 @@
 
 .post{
 	padding: 5px;
-	overflow: hidden;
+	position: relative;
 
 	max-height: 300px;
 	transition: max-height .3s;
 
 	&.spoiled{
+		overflow: hidden;
 		max-height: 15px;
 	}
 
+	.postText{
+    padding: 10px 0;
+	}
+
 	&:not(:first-child){
-    border-style: solid;
-		border-color: var(--border_primary);
+		margin-bottom: 5px;
 		background-color: var(--bg_secondary);
 	}
 }
@@ -120,7 +135,7 @@
 		display: flex;
 		justify-content: space-around;
 	}
-} 
+}
 
 
 // SFW image hiding
@@ -132,4 +147,10 @@ body{
 	.postAttachments .thumb:hover{
 		opacity: 1 !important;
 	}
+}
+
+.noThreads{
+	margin: 50px;
+	font-size: 1.1em;
+	text-align: center;
 }

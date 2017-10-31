@@ -1,0 +1,12 @@
+::-webkit-scrollbar {
+  width: 15px;
+  padding-left: 10px;
+  position: fixed;
+  background-color: var(--bg_secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--bg_primary);
+  border: 1px solid var(--border_primary);
+  box-shadow: 0 0 15px -5px var(--border_secondary);
+}

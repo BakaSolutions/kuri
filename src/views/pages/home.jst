@@ -3,13 +3,13 @@
 	{{#def["particles/head"]}}
 	<body>
 		{{#def["particles/navigation"]}}
-		<header>
-			<div>Тумба.ч</div>
-			<div>технологичный и удобный имиджборд</div>
-		</header>
 		<main>
+			<header id="mainPageLogo">
+				<div>Тумба.ч</div>
+				<div>технологичный и удобный имиджборд</div>
+			</header>
 			<div id="boardList">
-				{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}		
+				{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 				<div class="group">
 					<div class="groupTitle">{{!group.title}}</div>
 					{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
@@ -20,6 +20,23 @@
 				</div>
 			{{~ }}
 			</div>
+
+			<div class="tabs">
+				<label for="rulesTab">Правила</label>
+				<label for="faqTab">ЧаВО</label>
+			</div>
+
+			<input type="radio" name="homeTabs" class="hidden" id="rulesTab" checked>
+			<div class="column">
+				{{#def["particles/rules"]}}
+			</div>
+
+			<input type="radio" name="homeTabs" class="hidden" id="faqTab">
+			<div class="column">
+				{{#def["particles/faq"]}}
+			</div>
+
 		</main>
+		{{#def["particles/widgets"]}}
 	</body>
 </html>

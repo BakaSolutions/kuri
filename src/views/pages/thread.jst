@@ -3,13 +3,13 @@
 	{{#def["particles/head"]}}
 	<body>
 		{{#def["particles/navigation"]}}
-		<header>
-			<a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
-				/{{!it.board.name}}/ — {{!it.board.title}}
-			</a>
-		</header>
 		<a name="top"></a>
 		<main>
+			<header>
+				<a id="banner" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/">
+					/{{!it.board.name}}/ — {{!it.board.title}}
+				</a>
+			</header>
 			<div class="thread">
 				{{~it.thread.posts :post}}
 					{{#def['particles/post']}}
@@ -19,5 +19,6 @@
 		<a name="bottom"></a>
 
 		{{#def['particles/replyForm']}}
+		{{#def["particles/widgets"]}}
 	</body>
 </html>

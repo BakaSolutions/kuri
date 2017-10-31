@@ -17,19 +17,21 @@
 @import '_widgets.scss';
 @import '_posts.scss';
 @import '_home.scss';
+@import '_scrollbar.scss';
 
 body{
 	color: var(--text_primary);
-	background-color: var(--bg_primary);
+	background-color: var(--bg_secondary);
 
 	margin: 0;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	min-height: 100vh;
+	overflow-y: scroll;
 
 	font: 15px/17px Arial, sans-serif;
 
-	div{
+	div, main{
 		box-sizing: border-box;
 	}
 
@@ -41,7 +43,10 @@ body{
 
 // Board banner
 header{
+	margin: 10px 0;
+	cursor: default;
 	text-align: center;
+	@include user-select(none);
 
 	#banner {
 		font-size: 1.3em;
@@ -55,10 +60,18 @@ header{
 
 		color: var(--text_primary);
 	}
+
+	.row{
+		justify-content: center;
+
+		*{
+			margin: 0 5px;
+		}
+	}
 }
 
 // Links
-a, .pseudoLink{
+a, .pseudoLink, .tabs label{
 	cursor: pointer;
 	text-decoration: none;
 	color: var(--link_primary);
@@ -70,26 +83,28 @@ a, .pseudoLink{
 
 // Theme bootleg
 :root{
-	--text_primary: #37474f;
-	--text_secondary: #666;
-	
-	--link_primary: #d7535c;
-	--link_secondary: #096be8;
-	
-	--btn_primary: #f5f5f5;
-	--btn_secondary: #fefefe;
+	--text_primary: #e1efff;
+	--text_secondary: #c1cedd;
 
-	--bg_primary: #ededed;
-	--bg_secondary: #e6e6e6;
+	--link_primary: #79bde2;
+	--link_secondary: #5496b9;
 
-	--border_primary: #ddd;
+	--btn_primary: #141e27;
+	--btn_secondary: #18252f;
+
+	--bg_primary: #141e27;
+	--bg_secondary: #10161f;
+
+	--border_primary: #0e1a22;
+	--border_secondary: #000;
 }
 
-// Main column
 main{
+	z-index: 500;
 	display: flex;
-	align-items: center;
 	flex-direction: column;
+	background-color: var(--bg_primary);
+	box-shadow: 0 0 15px -5px var(--border_secondary);
 }
 
 // Icons
@@ -98,6 +113,21 @@ main{
 
 	&::before{
 		font-family: 'FontAwesome';
+	}
+
+	&.catalogueLink::before{
+		content: '\f0ce';
+		padding-right: 5px;
+	}
+
+	&.archiveLink::before{
+		content: '\f187';
+		padding-right: 5px;
+	}
+
+	&.search::before{
+		content: '\f002';
+		font-size: .8em;
 	}
 }
 
@@ -113,10 +143,10 @@ main{
 	transition: background-color .3s;
 	background-color: var(--btn_primary);
 	border: 1px solid var(--border_primary);
-	
+
 	cursor: pointer;
 	@include user-select(none);
-	
+
 	&:hover{
 		background-color: var(--btn_secondary);
 	}
@@ -127,23 +157,77 @@ main{
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
-	main, header{
-		width: calc(100vw - 276px);
-		margin-left: 266px;
+	main{
+		margin-left: 256px;
+
+		width: calc(100vw - 256px - 70px);
+		padding: 15px;
+
+		transition: margin-left .3s, width .3s;
 	}
 }
 
 @media screen and (max-device-width: 414px) { // Mobile
-	body{
-		margin-top: 0;
-	}
-
-	header{
-		margin: 30px 0 10px 0;
+	main{
+		padding: 15px 0;
 	}
 }
 
 .row{
 	display: flex;
 	justify-content: space-between;
+}
+
+.column{
+	display: flex;
+	flex-direction: column;
+}
+
+.visibleCheckbox{
+	& + label{
+		@include user-select(none);
+		cursor: pointer;
+	}
+
+	& + label::before{
+		font-family: 'FontAwesome';
+		padding-right: 5px;
+
+		content: '\f096';
+	}
+
+	&:checked + label::before{
+		content: '\f046';
+	}
+}
+
+input{
+	border: 1px solid var(--border_primary);
+	color: var(--font_primary)
+}
+
+button, input{
+	outline: none !important;
+}
+
+
+.tabs{
+	@include user-select(none);
+
+	display: flex;
+	justify-content: space-around;
+	background-color: var(--bg_secondary);
+
+	label{
+		padding: 5px 20px;
+		background-color: var(--bg_primary);
+	}
+
+	& ~ [type="radio"] + div {
+		display: none;
+	}
+
+	& ~ [type="radio"]:checked + div {
+		display: flex;
+	}
 }

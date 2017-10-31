@@ -1,20 +1,16 @@
-header{
-	margin: 10px 0;
-
-	:first-child{
-		font-size: 2em;
-		line-height: 1.3em;
-	}
-}
-
 #boardList{
+	@include user-select(none);
+
+	width: 100%;
   padding: 10px;
   display: flex;
+	margin: 20px 0;
   justify-content: center;
-  width: calc(100% - 400px);
 
+	cursor: default;
   background: var(--bg_secondary);
   border: 1px solid var(--border_primary);
+	box-shadow: inset 0 0 15px -5px var(--border_secondary);
 
   .group{
   	display: flex;
@@ -24,6 +20,16 @@ header{
 
 @media screen and (max-device-width: 414px) { // Mobile
 	#boardList{
-		width: calc(100vw - 20px);
+		width: calc(100% - 20px);
+		margin: auto;
+	}
+}
+
+#mainPageLogo{
+	margin: 0;
+
+	:first-child{
+		font-size: 2em;
+		line-height: 1.2em;
 	}
 }

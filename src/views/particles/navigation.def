@@ -1,3 +1,4 @@
+<input type="checkbox" id="hideSidebarCheckbox" class="hidden">
 <input type="checkbox" id="hideImagesCheckbox" class="hidden">
 
 <div id="sidebar">
@@ -10,7 +11,7 @@
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 			<input type="checkbox" id="{{!group.name}}GroupSpoilCheckbox" class="hidden">
 			<label for="{{!group.name}}GroupSpoilCheckbox" class="icon groupSpoil">{{!group.title}}</label>
-			
+
 			<div class="group">
 				{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
 					<a href="/{{!it.site.pathPrefix}}{{!board.name}}/" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
@@ -21,24 +22,31 @@
 		{{~ }}
 	</div>
 
-	<div id="config">
-		<noscript>JavaScript отключен.</noscript>
-		<label for="hideImagesCheckbox" class="pseudoLink">SFW</label>
-		<a class="jsOnly">Настройки</a>
-	</div>
+	<noscript>JavaScript отключен.</noscript>
 </div>
 
-<div id="topbar">	
+<div id="topbar">
 	<a href="/{{!it.site.pathPrefix}}">Тумба.ч</a>
-	<a href="#">Каталог</a>
-	<label class="pseudoLink">Настройки</label>
-	<label for="hideImagesCheckbox" class="pseudoLink">SFW</label>
-	
+
+	{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
+		{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
+			<a href="/{{!it.site.pathPrefix}}{{!board.name}}/">/{{!board.name}}/</a>
+		{{~ }}
+	{{~ }}
+
 	<!--<div id="progressBar"></div>-->
 </div>
 
 <div id="navbar">
-	<a id="toTop" class="btn icon up" href="#top"></a>
-	<label for="replyFormShow" id="replyFormButton" class="btn icon replyFormShow"></label>
-	<a id="toBot" class="btn icon down" href="#bottom"></a>
+	<div class="column">
+		<a id="toTop" class="btn icon up" href="#top"></a>
+		<a onclick="toggleWidget('search')" class="btn icon search jsOnly"></a>
+		<a onclick="toggleWidget('preferences')" class="btn icon preferences jsOnly"></a>
+		<label for="hideSidebarCheckbox" class="btn icon wide pseudoLink"></label>
+	</div>
+	<div class="column">
+		<label for="hideImagesCheckbox" class="btn icon hide pseudoLink"></label>
+		<label for="replyFormShow" id="replyFormButton" class="btn icon replyFormShow pseudoLink"></label>
+		<a id="toBot" class="btn icon down" href="#bottom"></a>
+	</div>
 </div>

@@ -19,7 +19,7 @@ let config = {
     }
   },
   server: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 8080,
     output: 'port', // port | socket
     socket: '/tmp/sock',
