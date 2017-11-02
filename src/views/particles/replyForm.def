@@ -19,9 +19,6 @@
 
 			<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
 			<label for="sageCheckbox" class="btn icon sage"> Sage</label>
-
-			<input type="checkbox" id="markupHelp" class="hidden">
-			<label for="markupHelp" class="btn icon help"> Help</label>
 		</div>
 
 		<div class="row">
@@ -49,7 +46,7 @@
 		</div>
 
 		<div class="row">
-			<input type="password" name="password" value="password">
+			<span></span>
 			<button class="btn icon send" id="submit">Отправить</button>
 		</div>
 	</form>

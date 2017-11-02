@@ -3,8 +3,6 @@
 }
 
 .widget{
-	top: calc(50vh - 200px);
-	left: calc(50vw - 300px);
 	position: fixed;
 
 	width: 600px;
@@ -61,11 +59,17 @@
 
 @media screen and (max-device-width: 414px) { // Mobile
 	#replyForm{
+		left: 0;
 		bottom: 0;
 	}
 }
 
 @media screen and (min-device-width: 415px) { // Desktop
+	.widget{
+		top: calc(50vh - 200px);
+		left: calc(50vw - 300px);
+	}
+
 	#replyForm{
 		left: calc(50vw - 250px);
 		top: 60vh;
@@ -143,10 +147,6 @@
 
 		&.sage::before{
 			content: '\f088'
-		}
-
-		&.help::before{
-			content: '\f128'
 		}
 
 		&.send::before{
