@@ -15,11 +15,17 @@
 	input, textarea{
 		transition: background-color .3s;
 		background-color: var(--btn_primary);
+		color: var(--text_primary);
 		&:hover, &:focus{
 			background-color: var(--btn_secondary);
 		}
 	}
 
+	&.is-pointer-down{
+		.widgetHandle, .pseudoLink{
+			cursor: move;
+		}
+	}
 	.widgetHandle{
 		@include user-select(none);
 		cursor: default;
@@ -31,10 +37,6 @@
 		position: relative;
 
 		background-color: var(--bg_secondary);
-
-		&:active{
-			cursor: move;
-		}
 
 		.icon.close{
 			top: 5px;
@@ -94,7 +96,6 @@
 
 	*{
 		outline: none !important;
-		color: var(--text_primary)
 	}
 
 	[name="subject"]{
