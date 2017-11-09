@@ -6,7 +6,7 @@
  */
 
 /**
- * Bridget makes jQuery widgets
+ * Bridget makes jqueryFree widgets
  * v2.0.0
  * MIT license
  */
@@ -14,29 +14,29 @@
 /* jshint browser: true, strict: true, undef: true, unused: true */
 
 ( function( window, factory ) {
-  
+
   /* globals define: false, module: false, require: false */
 
   if ( typeof define == 'function' && define.amd ) {
     // AMD
-    define( 'jquery-bridget/jquery-bridget',[ 'jquery' ], function( jQuery ) {
-      factory( window, jQuery );
+    define( 'jqueryFree-bridget/jqueryFree-bridget',[ 'jqueryFree' ], function( jqueryFree ) {
+      factory( window, jqueryFree );
     });
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory(
       window,
-      require('jquery')
+      require('jqueryFree')
     );
   } else {
     // browser global
-    window.jQueryBridget = factory(
+    window.jqueryFreeBridget = factory(
       window,
-      window.jQuery
+      window.jqueryFree
     );
   }
 
-}( window, function factory( window, jQuery ) {
+}( window, function factory( window, jqueryFree ) {
 
 
 // ----- utils ----- //
@@ -44,54 +44,54 @@
 var arraySlice = Array.prototype.slice;
 
 // helper function for logging errors
-// $.error breaks jQuery chaining
+// jqueryFree.error breaks jqueryFree chaining
 var console = window.console;
 var logError = typeof console == 'undefined' ? function() {} :
   function( message ) {
     console.error( message );
   };
 
-// ----- jQueryBridget ----- //
+// ----- jqueryFreeBridget ----- //
 
-function jQueryBridget( namespace, PluginClass, $ ) {
-  $ = $ || jQuery || window.jQuery;
-  if ( !$ ) {
+function jqueryFreeBridget( namespace, PluginClass, jqueryFree ) {
+  jqueryFree = jqueryFree || jqueryFree || window.jqueryFree;
+  if ( !jqueryFree ) {
     return;
   }
 
-  // add option method -> $().plugin('option', {...})
+  // add option method -> jqueryFree().plugin('option', {...})
   if ( !PluginClass.prototype.option ) {
     // option setter
     PluginClass.prototype.option = function( opts ) {
       // bail out if not an object
-      if ( !$.isPlainObject( opts ) ){
+      if ( !jqueryFree.isPlainObject( opts ) ){
         return;
       }
-      this.options = $.extend( true, this.options, opts );
+      this.options = jqueryFree.extend( true, this.options, opts );
     };
   }
 
-  // make jQuery plugin
-  $.fn[ namespace ] = function( arg0 /*, arg1 */ ) {
+  // make jqueryFree plugin
+  jqueryFree.fn[ namespace ] = function( arg0 /*, arg1 */ ) {
     if ( typeof arg0 == 'string' ) {
-      // method call $().plugin( 'methodName', { options } )
+      // method call jqueryFree().plugin( 'methodName', { options } )
       // shift arguments by 1
       var args = arraySlice.call( arguments, 1 );
       return methodCall( this, arg0, args );
     }
-    // just $().plugin({ options })
+    // just jqueryFree().plugin({ options })
     plainCall( this, arg0 );
     return this;
   };
 
-  // $().plugin('methodName')
-  function methodCall( $elems, methodName, args ) {
+  // jqueryFree().plugin('methodName')
+  function methodCall( jqueryFreeelems, methodName, args ) {
     var returnValue;
-    var pluginMethodStr = '$().' + namespace + '("' + methodName + '")';
+    var pluginMethodStr = 'jqueryFree().' + namespace + '("' + methodName + '")';
 
-    $elems.each( function( i, elem ) {
+    jqueryFreeelems.each( function( i, elem ) {
       // get instance
-      var instance = $.data( elem, namespace );
+      var instance = jqueryFree.data( elem, namespace );
       if ( !instance ) {
         logError( namespace + ' not initialized. Cannot call methods, i.e. ' +
           pluginMethodStr );
@@ -110,12 +110,12 @@ function jQueryBridget( namespace, PluginClass, $ ) {
       returnValue = returnValue === undefined ? value : returnValue;
     });
 
-    return returnValue !== undefined ? returnValue : $elems;
+    return returnValue !== undefined ? returnValue : jqueryFreeelems;
   }
 
-  function plainCall( $elems, options ) {
-    $elems.each( function( i, elem ) {
-      var instance = $.data( elem, namespace );
+  function plainCall( jqueryFreeelems, options ) {
+    jqueryFreeelems.each( function( i, elem ) {
+      var instance = jqueryFree.data( elem, namespace );
       if ( instance ) {
         // set options & init
         instance.option( options );
@@ -123,30 +123,30 @@ function jQueryBridget( namespace, PluginClass, $ ) {
       } else {
         // initialize new instance
         instance = new PluginClass( elem, options );
-        $.data( elem, namespace, instance );
+        jqueryFree.data( elem, namespace, instance );
       }
     });
   }
 
-  updateJQuery( $ );
+  updatejqueryFree( jqueryFree );
 
 }
 
-// ----- updateJQuery ----- //
+// ----- updatejqueryFree ----- //
 
-// set $.bridget for v1 backwards compatibility
-function updateJQuery( $ ) {
-  if ( !$ || ( $ && $.bridget ) ) {
+// set jqueryFree.bridget for v1 backwards compatibility
+function updatejqueryFree( jqueryFree ) {
+  if ( !jqueryFree || ( jqueryFree && jqueryFree.bridget ) ) {
     return;
   }
-  $.bridget = jQueryBridget;
+  jqueryFree.bridget = jqueryFreeBridget;
 }
 
-updateJQuery( jQuery || window.jQuery );
+updatejqueryFree( jqueryFree || window.jqueryFree );
 
 // -----  ----- //
 
-return jQueryBridget;
+return jqueryFreeBridget;
 
 }));
 
@@ -160,7 +160,7 @@ return jQueryBridget;
 /*global define: false, module: false, console: false */
 
 ( function( window, factory ) {
-  
+
 
   if ( typeof define == 'function' && define.amd ) {
     // AMD
@@ -1143,7 +1143,7 @@ var docElem = document.documentElement;
 var transformProperty = typeof docElem.style.transform == 'string' ?
   'transform' : 'WebkitTransform';
 
-var jQuery = window.jQuery;
+var jqueryFree = window.jqueryFree;
 
 // --------------------------  -------------------------- //
 
@@ -1152,8 +1152,8 @@ function Draggabilly( element, options ) {
   this.element = typeof element == 'string' ?
     document.querySelector( element ) : element;
 
-  if ( jQuery ) {
-    this.$element = jQuery( this.element );
+  if ( jqueryFree ) {
+    this.jqueryFreeelement = jqueryFree( this.element );
   }
 
   // options
@@ -1217,7 +1217,7 @@ proto.setHandles = function() {
 };
 
 /**
- * emits events via EvEmitter and jQuery events
+ * emits events via EvEmitter and jqueryFree events
  * @param {String} type - name of event
  * @param {Event} event - original event
  * @param {Array} args - extra arguments
@@ -1225,17 +1225,17 @@ proto.setHandles = function() {
 proto.dispatchEvent = function( type, event, args ) {
   var emitArgs = [ event ].concat( args );
   this.emitEvent( type, emitArgs );
-  var jQuery = window.jQuery;
-  // trigger jQuery event
-  if ( jQuery && this.$element ) {
+  var jqueryFree = window.jqueryFree;
+  // trigger jqueryFree event
+  if ( jqueryFree && this.jqueryFreeelement ) {
     if ( event ) {
-      // create jQuery event
-      var $event = jQuery.Event( event );
-      $event.type = type;
-      this.$element.trigger( $event, args );
+      // create jqueryFree event
+      var jqueryFreeevent = jqueryFree.Event( event );
+      jqueryFreeevent.type = type;
+      this.jqueryFreeelement.trigger( jqueryFreeevent, args );
     } else {
       // just trigger with type if no event available
-      this.$element.trigger( type, args );
+      this.jqueryFreeelement.trigger( type, args );
     }
   }
 };
@@ -1515,19 +1515,19 @@ proto.destroy = function() {
   this.element.style.position = '';
   // unbind handles
   this.unbindHandles();
-  // remove jQuery data
-  if ( this.$element ) {
-    this.$element.removeData('draggabilly');
+  // remove jqueryFree data
+  if ( this.jqueryFreeelement ) {
+    this.jqueryFreeelement.removeData('draggabilly');
   }
 };
 
-// ----- jQuery bridget ----- //
+// ----- jqueryFree bridget ----- //
 
-// required for jQuery bridget
+// required for jqueryFree bridget
 proto._init = noop;
 
-if ( jQuery && jQuery.bridget ) {
-  jQuery.bridget( 'draggabilly', Draggabilly );
+if ( jqueryFree && jqueryFree.bridget ) {
+  jqueryFree.bridget( 'draggabilly', Draggabilly );
 }
 
 // -----  ----- //

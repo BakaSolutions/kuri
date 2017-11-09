@@ -28,10 +28,12 @@
 			</div>
 
 			<input type="radio" name="tabs" class="hidden" id="themesTab">
-			<div class="column">
-				<a class="row" onclick="setTheme('Tumbach')">Tumbach</a>
-				<a class="row" onclick="setTheme('Tumbach Light')">Tumbach Light</a>
-				<a class="row" onclick="setTheme('Myata')">Myata</a>
+			<div class="row">
+				<div class="column">
+					<a class="row" onclick="setTheme(THEMES['Tumbach'])">Tumbach</a>
+					<a class="row" onclick="setTheme(THEMES['Tumbach Light'])">Tumbach Light</a>
+				</div>
+				<textarea id="themeEditor"></textarea>
 			</div>
 
 			<input type="radio" name="tabs" class="hidden" id="postingTab">
@@ -41,13 +43,13 @@
 
 			<input type="radio" name="tabs" class="hidden" id="spoilingTab">
 			<div class="column">
-				<textarea name="autospoiling" rows="8" cols="80">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
+				<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
 			</div>
 
 			<input type="radio" name="tabs" class="hidden" id="securityTab">
 			<div class="column">
 				Использовать следующий пароль:
-				<input type="password" name="" value="password">
+				<input type="password" value="password">
 			</div>
 		</div>
 	</div>

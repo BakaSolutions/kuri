@@ -8,9 +8,9 @@
   justify-content: center;
 
 	cursor: default;
-  background: var(--bg_secondary);
-  border: 1px solid var(--border_primary);
-	box-shadow: inset 0 0 15px -5px var(--border_secondary);
+  background: var(--bgcolor);
+  border: 1px solid var(--bordercolor);
+	box-shadow: inset 0 0 15px -5px var(--shadowcolor);
 
   .group{
   	display: flex;

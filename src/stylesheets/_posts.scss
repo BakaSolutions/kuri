@@ -17,7 +17,7 @@
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
 	.post:not(:first-child){
-		border-left: 25px solid var(--bg_primary);
+		border-left: 25px solid var(--bgcolor_card);
 
 		&::before{
 			content: '';
@@ -25,9 +25,9 @@
 	    width: 0;
 	    top: 0px;
 	    left: -15px;
-	    border-top: 15px solid var(--bg_secondary);
-	    border-left: 15px solid var(--bg_primary);
-			// border-color: var(--bg_secondary);
+	    border-top: 15px solid var(--bgcolor);
+	    border-left: 15px solid var(--bgcolor_card);
+			// border-color: var(--bgcolor);
 			// background-color: transparent;
 		}
 	}
@@ -40,7 +40,7 @@
 			width: 200px;
 
 			transition: opacity .3s;
-			background: var(--bg_secondary);
+			background: var(--bgcolor);
 
 			bottom: 0;
 			position: absolute;
@@ -86,7 +86,7 @@
 
 	&:not(:first-child){
 		margin-bottom: 5px;
-		background-color: var(--bg_secondary);
+		background-color: var(--bgcolor);
 	}
 }
 
@@ -96,7 +96,7 @@
 	font-size: .95em;
 	position: relative;
 	@include user-select(none);
-	color: var(--text_secondary);
+	color: var(--textcolor_secondary);
 
 	*{
 		margin-right: 4px

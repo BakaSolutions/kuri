@@ -1,13 +1,10 @@
+let log = async (...text) => document.location.hostname == 'localhost' ? console.log(...text) : 0;
+
 async function createElement(nodeName, params) {
 	let node = document.createElement(nodeName);
 	for (let i in params) node[i] = params[i];
 
 	return node
-}
-
-function log(...text) {
-	let h = document.location.hostname;
-	if (h == "127.0.0.1" || h == 'localhost') console.log(text.join(' '))
 }
 
 function truncate(fullStr, strLen) {
@@ -27,7 +24,7 @@ String.prototype.padStart = function padStart(targetLength, padString) {
 	else {
 		targetLength = targetLength - this.length;
 		if (targetLength > padString.length) padString += padString.repeat(targetLength/padString.length);
-		
+
 		return padString.slice(0, targetLength) + String(this);
 	}
 }
@@ -35,6 +32,8 @@ String.prototype.padStart = function padStart(targetLength, padString) {
 function sel(selector){
 	let e = document.querySelectorAll(selector);
 
-	if (e.length === 1) return e[0]
-	else return e
+	if (e.length){
+		if (e.length < 2) return e[0]
+		else return e
+	}
 }

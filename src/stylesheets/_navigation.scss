@@ -14,7 +14,7 @@
 		justify-content: space-around;
 		z-index: 999;
 
-		background-color: var(--bg_secondary);
+		background-color: var(--bgcolor);
 	}
 
 	#navbar{
@@ -48,7 +48,7 @@
 
 		a{
 			display: block;
-			color: var(--text_primary) !important;
+			color: var(--textcolor) !important;
 		}
 
 		&:hover{
@@ -133,7 +133,7 @@
 
 		font-size: 1.5em;
 
-		box-shadow: 0 0 15px -5px var(--border_secondary);
+		box-shadow: 0 0 15px -5px var(--shadowcolor);
 	}
 
 	.icon{

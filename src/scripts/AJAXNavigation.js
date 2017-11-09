@@ -2,7 +2,7 @@ function asyncLoadPage(uri) {
 	// document.querySelector('main').classList.add('refreshing');
 	let xhr = new XMLHttpRequest();
 
-	xhr.onload = async () => {
+	xhr.onload = () => {
 		let content = xhr.response;
 
 		let main = /<main>([\s\S]*)<\/main>/.exec(content);
@@ -13,23 +13,20 @@ function asyncLoadPage(uri) {
 		history.pushState({}, title, uri);
 
 		if (!document.querySelector('#replyForm') && /id="replyForm"/.test(content)) {
+			let BODY = sel('body');
 			let replyForm = /<div id="replyForm" class="widget">([\s\S]*)<!--\/replyForm-->/.exec(content);
 
-			document.querySelector('body').appendChild(
-				await createElement('input', {
-					'type': 'checkbox',
-					'id': 'replyFormShow',
-					'className': 'hidden'
-				})
-			);
+			createElement('input', {
+				'type': 'checkbox',
+				'id': 'replyFormShow',
+				'className': 'hidden'
+			}).then(el => BODY.appendChild(el));
 
-			document.querySelector('body').appendChild(
-				await createElement('div', {
-					'id': 'replyForm',
-					'className': 'widget',
-					'innerHTML': replyForm[1]
-				})
-			);
+			createElement('div', {
+				'id': 'replyForm',
+				'className': 'widget',
+				'innerHTML': replyForm[1]
+			}).then(el => BODY.appendChild(el));
 
 			initDraggableReplyForm();
 		};

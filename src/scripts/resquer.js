@@ -35,6 +35,7 @@
 	}
 
 })('masterLib.js',
+	['themes.js', 'initThemes()'],
 	'AJAXNavigation.js',
 	'userInterface.js',
-	['draggabilly.js', '(() => {if (sel("#replyForm")) initDraggableReplyForm(); initDraggables()})()'])
+	['draggabilly.js', 'if (sel("#replyForm")){initDraggableReplyForm(); initDraggables()}'])

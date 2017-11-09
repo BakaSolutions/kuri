@@ -1,54 +1,72 @@
-let defaultTheme = {
-	"text_primary": "#e1efff",
-	"text_secondary": "#e1efff",
-	
-	"link_primary": "#79bde2",
-	"link_secondary": "#5496b9",
-	
-	"btn_primary": "#141e27",
-	"btn_secondary": "#18252f",
+const THEMES = {
+	"Tumbach": {
+		"textcolor": "#e1efff",
+		"textcolor_secondary": "#c1cedd",
+		"linkcolor": "#79bde2",
+		"linkcolor_hover": "#5496b9",
+		"btncolor": "#141e27",
+		"btncolor_hover": "#18252f",
+		"bgcolor": "#10161f",
+		"bgcolor_card": "#141e27",
+		"bordercolor": "#0e1a22",
+		"shadowcolor": "#000"
+	},
 
-	"bg_primary": "#10161f",
-	"bg_secondary": "#141e27",
-
-	"border_primary": "#e1efff"
+	"Tumbach Light": {
+		"textcolor": "#000",
+		"textcolor_secondary": "#000",
+		"linkcolor": "#08F",
+		"linkcolor_hover": "#038",
+		"btncolor": "#b2e2ee",
+		"btncolor_hover": "#b2e2ee",
+		"bgcolor": "#fff",
+		"bgcolor_card": "#ccecf4",
+		"bordercolor": "#0e1a22",
+		"shadowcolor": "#000"
+	}
 }
 
+const EDITOR = document.querySelector('#themeEditor');
 
-// :root{
-// 	--text_primary: #37474f;
-// 	--text_secondary: #666;
-	
-// 	--link_primary: #d7535c;
-// 	--link_secondary: #096be8;
-	
-// 	--btn_primary: #f5f5f5;
-// 	--btn_secondary: #fefefe;
+let initThemes = () => setTheme(JSON.parse(localStorage.theme || "false") || THEMES["Tumbach"]);
 
-// 	--bg_primary: #ededed;
-// 	--bg_secondary: #e6e6e6;
+async function setTheme(cssObj) {
+	log('Applied theme:', cssObj);
 
-// 	--border_primary: #ddd;
-// 	--border_secondary: #777;
-// }
+	(async () => {
+		localStorage.theme = JSON.stringify(cssObj);
+		EDITOR.value = (() => {
+			let styleString = '';
+			for (let key in cssObj) styleString += `${key}: ${cssObj[key]}\n`;
+			return styleString;
+		})();
 
+		return cssObj
+	})().then(cssObj => {
+		let css = ':root{';
+		for (let key in cssObj) css += `--${key}:${cssObj[key]};`;
+		css += '}';
 
-/*function setTheme(name) {
-	let stylesheet = '';
+		let node = sel('#theme');
+		if (node) node.innerHTML = css
+		else{
+			createElement('style', {
+				'type': 'text/css',
+				'innerHTML': css,
+				'id': 'theme'
+			}).then(el => sel('head').appendChild(el))
+		}
+	})
+}
 
-	for (let key in themes[name]) {
-		stylesheet += `--${key}:${themes[name][key]};`;
-	}
+EDITOR.onchange = async () => {
+	let cssObj = {};
+	for (str of EDITOR.value.split('\n')) {
+		if (str) {
+			let splited = str.split(': ');
+			cssObj[splited[0]] = splited[1];
+		}
+	};
 
-	stylesheet += '';
-
-	document.querySelector('style#theme').innerHTML = `:root{${stylesheet}}`;
-	document.querySelector('#themeEditor').value = stylesheet.replace(/:/g, ': ').replace(/;/g, ';\n');
-	localStorage.theme = stylesheet;
+	setTheme(cssObj);
 };
-
-// Recover theme from local storage on load
-localStorage.theme ? (() => {
-	document.querySelector('style#theme').innerHTML = `:root{${localStorage.theme}}`;
-	document.querySelector('#themeEditor').value = localStorage.theme.replace(/:/g, ': ').replace(/;/g, ';\n');
-})() : setTheme('Tumbach');*/
