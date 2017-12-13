@@ -1,8 +1,8 @@
-const config = require('../../helpers/config');
-const API = require('../foxtan/' + config('foxtan.use') + '/api');
-const Tools = require('../../helpers/tools');
-const Templating = require('../../core/templating');
-const SyncData = require('../../models/json/sync');
+const config = require('../helpers/config');
+const API = require('./foxtan/' + config('foxtan.use'));
+const Tools = require('../helpers/tools');
+const RenderUpdate = require('../render/update');
+const SD = require('../models/foxtan/sync')();
 
 let Board = module.exports = {};
 
@@ -20,16 +20,15 @@ Board.sync = async function () {
     return false;
   }
 
-  let SD = SyncData('.tmp/syncData.json');
-  let localData = await SD.get();
+  let localData = SD.get();
 
-  if (JSON.stringify(syncData) !== JSON.stringify(localData)) {
-
+  let {add, rem} = Tools.diffObject(localData, syncData);
+  if (Object.keys(Object.assign(rem, add)).length) {
     console.log('Syncing...');
     let {add, rem} = Tools.diffObjectPlain(localData, syncData);
     let diff = [...rem, ...add];
 
-    await SD.set(Tools.diffObjectSum(localData, syncData));
+    SD.set(syncData);
 
     for (let i in diff) {
       let key = Object.keys(diff[i])[0];
@@ -40,19 +39,19 @@ Board.sync = async function () {
     async function sync(action, board, thread) {
       switch (action) {
         case 'lastPostNumbers':
-          await Templating.rerender('/' + board);
+          await RenderUpdate.update(board);
           break;
         case 'threadCounts':
           if (Tools.isNumber(+thread)) {
-            await Templating.rerender('/' + board + '/res/' + thread);
+            await RenderUpdate.update(board, thread);
           } else {
-            await Templating.rerender('/' + board);
+            await RenderUpdate.update(board);
           }
           break;
       }
     }
 
-    await Templating.rerender('/'); // TODO: Убрать при создании админ-панели
+    await RenderUpdate.update(); // TODO: Убрать при создании админ-панели
     console.log('Synced!');
   }
   return true;
@@ -89,7 +88,7 @@ Board.getPageCount = async function (board) {
 
 Board.getPage = async function (board, page) {
   if (!Tools.isNumber(page)) {
-    console.log('Trying to get something unexpectable!');
+    console.log(Tools.prettifyError(new Error('Trying to get something unexpectable!')));
     return false;
   }
   return await API.getPage(board, page);

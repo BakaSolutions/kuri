@@ -1,5 +1,5 @@
-const config = require('../../helpers/config');
-const Board = require('../../core/kuri/board');
+const config = require('../helpers/config');
+const Board = require('./board');
 
 module.exports = {
   site: {

@@ -13,7 +13,7 @@ const defaultOptions = {
 let Request = module.exports = {};
 
 Request.get = async function (url, options) {
-  console.log('get', url);
+  console.log(`FXTN GET: ${url}`);
   return await defaultRequest('get', url, options);
 };
 
@@ -30,8 +30,7 @@ Request.post = async function (url, body, options) {
 function defaultRequest(type, url, options) {
   options = Tools.merge(defaultOptions, options);
 
-  return request[type](url, options)
-    .then(function(response){
+  return request[type](url, options).then(function(response){
       if (/application\/json/.test(response.headers['content-type'])) {
         try {
           response.body = JSON.parse(response.body);
@@ -41,7 +40,7 @@ function defaultRequest(type, url, options) {
       }
       return response;
     })
-    .catch(function(error) {
+    .catch(error => {
       //
     });
 }

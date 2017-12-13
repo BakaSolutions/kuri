@@ -1,22 +1,20 @@
-const express = require('express');
-const Renderer = require('../../core/templating');
+const router = require('koa-router')();
+const Render = require('../../render');
 const config = require('../../helpers/config');
-const API = require('../../core/foxtan/' + config('foxtan.use') + '/api');
+const API = require('../../models/foxtan/' + config('foxtan.use'));
 const Tools = require('../../helpers/tools');
-const Board = require('../../core/kuri/board');
+const Board = require('../../models/board');
 const FS = require('../../helpers/fs');
-const SyncData = require('../../models/json/sync');
+const SD = require('../../models/foxtan/sync')();
 
-let router = module.exports = express.Router();
-let SD = SyncData('.tmp/syncData.json');
+module.exports = router;
 
 router.paths = async function () {
-  let data = await SD.get('threadCounts');
-  let out = [];
+  let data = SD.get('threadCounts');
   let boards = Board.get();
-  let boardName;
+  let out = [];
   for (let i = 0; i < boards.length; i++) {
-    boardName = boards[i].name;
+    let boardName = boards[i].name;
     out.push(
       '/' + boardName
     //'/' + boardName + '/catalog'
@@ -56,19 +54,6 @@ async function renderPages(boardName) {
   }
 }
 
-function parseDate(d){
-  let months = ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Мая', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.'];
-  if (!(d instanceof Date)) d = new Date(d);
-
-  let date = d.getDate(),
-      month = months[d.getMonth()],
-      year = d.getFullYear(),
-      hours = d.getHours().toString().padStart(2, 0),
-      minutes = d.getMinutes().toString().padStart(2, 0);
-      
-  return `${date} ${month} ${year} ${hours}:${minutes}`;
-}
-
 async function renderPage(boardName, pageNumber) {
   let board = Board.getOne(boardName);
   if (!board) {
@@ -92,7 +77,7 @@ async function renderPage(boardName, pageNumber) {
     : 'index';
   page.title = '/' + board.name + '/ — ' + board.title;
   page.board = board;
-  await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Renderer.render('pages/board', page));
+  await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Render.renderPage('pages/board', page));
 }
 
 async function renderThread(boardName, threadNumber) {
@@ -108,17 +93,29 @@ async function renderThread(boardName, threadNumber) {
     }
     let posts = thread.thread.posts;
     let pattern = ['threadCounts', boardName, thread.thread.number];
-    if (await SD.get(pattern) !== posts.length) {
-      await SD.set(pattern, posts.length);
-    }
+    SD.set(pattern, posts.length);
     for (let i = 0; i < posts.length; i++) {
       posts[i].createdAt = new Date(posts[i].createdAt);
       posts[i].formatted_date = parseDate(posts[i].createdAt);
     }
     thread.title = '/' + board.name + '/ — ' + board.title;
     thread.board = board;
-    return await Renderer.renderThread(thread);
+    await FS.writeFile('public/' + thread.board.name + '/res/' + thread.thread.number + '.html', Render.renderPage('pages/thread', thread));
   } catch (e) {
-    console.log(e/*.message*/, boardName, threadNumber);
+    console.log(Tools.prettifyError(e));
   }
+}
+
+
+function parseDate(d){
+  let months = ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Мая', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.'];
+  if (!(d instanceof Date)) d = new Date(d);
+
+  let date = d.getDate(),
+      month = months[d.getMonth()],
+      year = d.getFullYear(),
+      hours = d.getHours().toString().padStart(2, 0),
+      minutes = d.getMinutes().toString().padStart(2, 0);
+
+  return `${date} ${month} ${year} ${hours}:${minutes}`;
 }

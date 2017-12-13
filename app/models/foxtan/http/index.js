@@ -1,6 +1,11 @@
 const Request = require('./request');
 const config = require('../../../helpers/config');
 
+const Foxtan = config('foxtan.http.protocol') + '://' +
+    config('foxtan.http.host') + ':' +
+    config('foxtan.http.port') + '/' +
+    config('foxtan.http.suffix');
+
 let API = module.exports = {};
 
 let paths = {
@@ -16,10 +21,6 @@ let paths = {
   getPost: 'api/v1/post.read?board=$1&post=$2'
 };
 
-const Foxtan = config('foxtan.http.protocol') + '://' +
-    config('foxtan.http.host') + ':' +
-    config('foxtan.http.port') + '/' +
-    config('foxtan.http.suffix');
 for (let path in paths) {
   API[path] = APIPlaceholder(paths[path]);
 }
@@ -33,7 +34,14 @@ function APIPlaceholder(url) {
     }
     let out = await Request.get(Foxtan + link);
     return out
-      ? out.body
-      : [];
+        ? out.body
+        : [];
   };
 }
+
+/**
+ * Custom functions should be placed below, for example:
+ *
+ * API[<path>] = (url) => {}; // please, refer to the line 25
+ *
+ */

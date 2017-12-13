@@ -1,8 +1,5 @@
 const WebSocket = require('ws');
-const Templating = require('../../templating');
-const SyncData = require('../../../models/json/sync');
-
-let SD = SyncData('.tmp/syncData.json');
+const RenderUpdate = require('../../../render/update');
 
 class WSClient {
 
@@ -98,7 +95,7 @@ class WSClient {
     this.reconnects = 0;
     console.log("OPENED");
     if (status === 1) {
-      const Board = require('../../kuri/board');
+      const Board = require('../../../models/board');
       await Board.sync();
     }
   }
@@ -112,15 +109,12 @@ class WSClient {
     message = probe.shift();
 
     if (command === 'RNDR') {
-      let [ board, thread, id ] = JSON.parse(message);
-      let pattern = `/${board}`;
-      let arr = [ pattern ];
-      if (thread) {
-        arr.push(`${pattern}/res/${thread}`);
+      try {
+        let [board, thread, id] = JSON.parse(message);
+        await RenderUpdate.update(board, thread, id);
+      } catch (e) {
+        //
       }
-      await SD.set(['threadCounts', board, thread], -1);
-      await SD.set(['lastPostNumbers', board], id || thread);
-      await Templating.rerender(arr);
     }
   }
 

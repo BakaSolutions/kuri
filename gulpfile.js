@@ -3,7 +3,7 @@ const cleanCSS = require('gulp-clean-css');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const minify = require("gulp-babel-minify");
-const Templating = require('./app/core/templating');
+const Render = require('./app/render');
 
 let input = {
 	dot: ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
@@ -27,13 +27,13 @@ gulp.task('staticFiles', (() => {
 }));
 
 gulp.task('dot', (() => {
-	Templating.reloadTemplates();
-	return Templating.compileTemplates();
+	Render.reloadTemplates();
+	return Render.compileTemplates();
 }));
 
 gulp.task('js', (() => {
 	gulp.src(input.minjs)
-		.pipe(gulp.dest(output.js))
+		.pipe(gulp.dest(output.js));
 
 	return gulp.src(input.js)
 		.pipe(minify())
@@ -62,4 +62,3 @@ gulp.task('watch', (() => {
 }));
 
 gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);
-

@@ -1,7 +1,10 @@
-const http = require('http');
+const Koa = require('koa');
+let app = new Koa();
 const config = require('./helpers/config');
-const controllers = require('./controllers');
-const Board = require('./core/kuri/board');
+const routes = require('./routes');
+const server = require('http').createServer();
+const Board = require('./models/board');
+const Render = require('./render');
 
 process.on('uncaughtException', function (err) {
   console.error('uncaughtException: ', err.message);
@@ -10,23 +13,32 @@ process.on('uncaughtException', function (err) {
 });
 
 async function initMaster() {
-  controllers.initialize();
+  app = await routes.initHTTP(app);
+  await Render.compileTemplates();
+  await Render.reloadTemplates();
   let sync = await Board.sync();
   if (!sync) {
-    console.log('Foxtan is unreachable. Start Foxtan or come later.');
+    console.log('Foxtan is unreachable. Start Foxtan and sync manually a bit later.');
   }
 }
 
 async function initWorker() {
-  let server = http.createServer(controllers);
+  server.on('request', app.callback());
+
+  let listen = [];
   if (config('server.output') === 'socket') {
-    server.listen(config('server.socket'), onListening(config('server.socket')));
+    listen.push(config('server.socket'), ready.bind(this, config('server.socket')));
   } else {
-    server.listen(config('server.port'), config('server.host'), onListening(`http://${config('server.host')}:${config('server.port')}`));
+    listen.push(
+        config('server.port'),
+        config('server.host'),
+        ready.bind(this, `http://${config('server.host')}:${config('server.port')}`)
+    );
   }
+  server.listen(...listen);
 }
 
-function onListening(address) {
+function ready(address) {
   console.log('Catching requests on ' +address + '!');
 }
 

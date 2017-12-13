@@ -1,42 +1,44 @@
 {
-	"name": "kuri",
-	"version": "0.0.1",
-	"description": "The Foxtan web-client.",
-	"main": "app/kuri.js",
-	"scripts": {
-		"build": "gulp",
-		"watch": "gulp watch",
-		"start": "node app/kuri.js",
-		"start:dev": "NODE_ENV=development node app/kuri.js",
-		"test": "mocha tests --check-leaks --reporter nyan"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/tumbach/kuri.git"
-	},
-	"keywords": [
-		"imageboard"
-	],
-	"author": "rngnrs",
-	"license": "MIT",
-	"homepage": "https://github.com/tumbach/kuri",
-	"dependencies": {
-		"dot": "^1.1.2",
-		"express": "^4.15.4",
-		"figurecon": "github:rngnrs/figurecon",
-		"merge": "^1.2.0",
-		"minimal-request-promise": "^1.4.0",
-		"ws": "^3.1.0"
-	},
-	"devDependencies": {
-		"gulp": "^3.9.1",
-		"gulp-babel-minify": "^0.2.0",
-		"gulp-clean-css": "^3.7.0",
-		"gulp-sass": "^3.1.0",
-		"gulp-watch": "^4.3.11",
-		"mocha": "^3.5.0"
-	},
-	"engines": {
-		"node": ">= 7.6.0"
-	}
+  "name": "kuri",
+  "version": "0.1.0",
+  "description": "The Foxtan web-client.",
+  "main": "app/kuri.js",
+  "scripts": {
+    "build": "gulp",
+    "watch": "gulp watch",
+    "start": "NODE_ENV=production node app/kuri.js",
+    "start:dev": "NODE_ENV=development node app/kuri.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tumbach/kuri.git"
+  },
+  "keywords": [
+    "imageboard"
+  ],
+  "author": "rngnrs",
+  "license": "MIT",
+  "homepage": "https://github.com/tumbach/kuri",
+  "dependencies": {
+    "dot": "^1.1.2",
+    "figurecon": "github:rngnrs/figurecon",
+    "koa": "^2.3.0",
+    "koa-router": "^7.3.0",
+    "merge": "^1.2.0",
+    "minimal-request-promise": "^1.5.0",
+    "ws": "^3.3.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel-minify": "^0.2.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch": "^4.3.11"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "optionalDependencies": {
+    "koa-static": "^4.0.2"
+  }
 }

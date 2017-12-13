@@ -1,5 +1,4 @@
 const Figurecon = require('figurecon');
-const path = require('path');
 const packageJSON = require('../../package.json');
 
 let config = {
@@ -36,4 +35,4 @@ let config = {
   }
 };
 
-module.exports = new Figurecon(path.join(__dirname, "/../../config.js"), config);
+module.exports = new Figurecon(__dirname + "/../../config.js", config);

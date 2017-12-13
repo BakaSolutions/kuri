@@ -1,13 +1,13 @@
-const express = require('express');
-const Renderer = require('../../core/templating');
+const router = require('koa-router')();
+const Render = require('../../render');
 const FS = require('../../helpers/fs');
 
-let router = module.exports = express.Router();
+module.exports = router;
 
 router.paths = ['/', 'index.html'];
 
 router.render = async function () {
-  let pageContent = Renderer.render('pages/home', {
+  let pageContent = Render.renderPage('pages/home', {
     title: 'Home &mdash; Kuri',
     mainStylesheet: 'home.css'
   });

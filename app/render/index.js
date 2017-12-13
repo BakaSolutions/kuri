@@ -1,9 +1,9 @@
 const doT = require('dot');
-const FS = require('../../helpers/fs');
+const FS = require('../helpers/fs');
 const Path = require('path');
-const Tools = require('../../helpers/tools');
+const Tools = require('../helpers/tools');
 
-let Templating = module.exports = {};
+let Render = module.exports = {};
 let includes = {};
 let templates = {};
 
@@ -16,7 +16,7 @@ const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 let templateFolder = 'src/views';
 let destinationFolder = '.tmp/views';
 
-Templating.reloadTemplates = function () {
+Render.reloadTemplates = function () {
   try {
     let templatePaths = FS.readdirSync(destinationFolder, true);
     templatePaths.forEach(function (templatePath) {
@@ -24,9 +24,9 @@ Templating.reloadTemplates = function () {
         return false;
       }
       let templateName = templatePath
-        .replace(Path.join(__dirname, '../../../', destinationFolder, Path.sep), '')
-        .split('.')
-        .shift();
+          .replace(Path.join(__dirname, '../../', destinationFolder, Path.sep), '')
+          .split('.')
+          .shift();
       if (require.cache[templatePath]) {
         delete require.cache[templatePath];
       }
@@ -43,27 +43,27 @@ Templating.reloadTemplates = function () {
  * First and the main reason: it doesn't ignore subdirectories.
  * @returns {Object} -- object with template functions
  */
-Templating.compileTemplates = async function () {
+Render.compileTemplates = async function () {
   console.log("Compiling templates...");
 
   let sources = FS.readdirSync(templateFolder, true).map(function (source) {
-    return source.replace(Path.join(__dirname, '../../../', templateFolder, Path.sep), '');
+    return source.replace(Path.join(__dirname, '../../', templateFolder, Path.sep), '');
   });
 
   let k;
   let l = sources.length;
   let name;
 
-  for(k = 0; k < l; k++) {
+  for (k = 0; k < l; k++) {
     name = sources[k];
     if (/\.def(\.dot|\.jst)?$/.test(name)) {
-      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(Path.join(__dirname, '../../../', templateFolder, name));
+      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(Path.join(__dirname, '../../', templateFolder, name));
     }
   }
 
-  for(k = 0; k < l; k++) {
+  for (k = 0; k < l; k++) {
     name = sources[k];
-    let realPath = Path.join(__dirname, '../../../', templateFolder, name);
+    let realPath = Path.join(__dirname, '../../', templateFolder, name);
     if (/\.jst(\.dot|\.def)?$/.test(name)) {
       let template = FS.readSync(realPath);
       await this.compileToFile(Path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
@@ -72,41 +72,36 @@ Templating.compileTemplates = async function () {
 };
 
 
-Templating.compileToFile = async function(filePath, template) {
+Render.compileToFile = async function(filePath, template) {
   let moduleName = filePath.split('.').shift().replace(ILLEGAL_CHARACTERS_REGEXP, '_');
   let precompiled = doT.template(template, settings, includes)
-    .toString()
-    .replace('anonymous', moduleName);
+      .toString()
+      .replace('anonymous', moduleName);
   let compiled = '(function(){' + precompiled + 'module.exports=' + moduleName + ';})()';
-  await FS.writeFile(Path.join(__dirname, '../../../', destinationFolder, filePath), compiled);
+  await FS.writeFile(Path.join(__dirname, '../../', destinationFolder, filePath), compiled);
 };
 
-Templating.render = function (templateName, model) {
-  let template = templates[templateName];
-  if(!template) {
-    console.log('Ni-paa~! This template doesn\'t exist: ' + templateName);
-    return '';
-  }
-  let baseModel = require('../../models/json/base');
-  model = Tools.merge(model, baseModel) || baseModel;
+Render.renderPage = function (templateName, model) {
   try {
+    let template = templates[templateName];
+    if (!template) {
+      return new Error('Ni-paa~! This template doesn\'t exist: ' + templateName);
+    }
+    let baseModel = require('../models/base');
+    model = Tools.merge(model, baseModel) || baseModel;
     return template(model);
-  } catch (err) {
-    console.log('Ni-paa~! ', err);
-    return '';
+  } catch (e) {
+    console.log(Tools.prettifyError(e));
+    return 'Ni-paa~! Please, recompile templates.';
   }
 };
 
-Templating.renderThread = async function (thread) {
-  await FS.writeFile('public/' + thread.board.name + '/res/' + thread.thread.number + '.html', Templating.render('pages/thread', thread));
-};
-
-Templating.rerender = async function (what) {
-  let controllers = Tools.requireWrapper(require('../../controllers'));
-  for (let router of controllers.routers) {
+Render.rerender = async function (what) {
+  let routes = Tools.requireWrapper(require('../routes'));
+  for (let router of routes.routers) {
     let paths = typeof router.paths === 'function'
-      ? await router.paths()
-      : router.paths;
+        ? await router.paths()
+        : router.paths;
     if (!Array.isArray(paths)) {
       paths = [ paths ];
     }
@@ -118,7 +113,7 @@ Templating.rerender = async function (what) {
     }
     for (let i = 0; i < paths.length; i++) {
       let path = paths[i];
-      console.log('Rendering ' + path + '...');
+      console.log(`Rendering ${path}...`);
       let result = await router.render(path);
       if (result) {
         await FS.writeFile(Path.join('public', path), result);

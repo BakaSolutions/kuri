@@ -3,7 +3,17 @@ const path = require('path');
 const merge = require('merge');
 
 let tools = module.exports = {},
-  toString = Object.prototype.toString;
+    toString = Object.prototype.toString;
+
+tools.moduleAvailable = function (name) {
+  try {
+    require.resolve(name);
+    return true;
+  } catch(e) {
+    //
+  }
+  return false;
+};
 
 /**
  * Requires all files in a defined directory
@@ -49,7 +59,11 @@ function requireAll(mask, files, filePath) {
       return false;
     }
     delete require.cache[require.resolve(path.join(filePath, file))];
-    o[o.length] = tools.requireWrapper(require(path.join(filePath, file)));
+    try {
+      o[o.length] = tools.requireWrapper(require(path.join(filePath, file)));
+    } catch (e) {
+      console.log(this.prettifyError(e));
+    }
   });
   return o;
 }
@@ -57,7 +71,7 @@ function requireAll(mask, files, filePath) {
 /**
  * Wraps file into a pluggable module
  * @param m
- * @returns {*|default}
+ * @returns {*}
  */
 tools.requireWrapper = function (m) {
   return (m && m.default) || m;
@@ -93,10 +107,10 @@ tools.isNumber = function(n) {
 
 /**
  * "Flattens" an array (moves all elements to the root of an array)
- * @param {Array} obj
- * @returns {boolean}
+ * @param {Array} a
+ * @returns {Array}
  */
-/*tools.flattenArray = function(a) {
+tools.flattenArray = function(a) {
   let out = [];
   for(let i = 0; i < a.length; i++) {
     if(Array.isArray(a[i])) {
@@ -106,7 +120,7 @@ tools.isNumber = function(n) {
     }
   }
   return out;
-};*/
+};
 
 /**
  * Merges two or more objects into one
@@ -131,8 +145,8 @@ tools.merge = function (target, ...theArgs) {
           target = {};
         }
         target[prop] = tools.isObject(source[prop])
-          ? tools.merge(target[prop], source[prop])
-          : source[prop];
+            ? tools.merge(target[prop], source[prop])
+            : source[prop];
       }
     }
   });
@@ -231,4 +245,12 @@ tools.diffObjectPlain = function (a1, a2) {
     }
   }
   return out;
+};
+
+tools.prettifyError = function (e) {
+  let stack = e.stack.split('\n');
+  let title = stack.shift();
+  return `\x1b[36mNi-paa~!\x1b[0m\n` +
+    `\x1b[30m${title}\x1b[0m\n` +
+    stack.join('\n');
 };

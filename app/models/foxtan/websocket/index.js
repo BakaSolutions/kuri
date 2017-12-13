@@ -1,12 +1,17 @@
-const WS = require('./index');
+const WS = require('./request');
 const config = require('../../../helpers/config');
+
+const Foxtan = config('foxtan.websocket.protocol') + '://' +
+    config('foxtan.websocket.host') + ':' +
+    config('foxtan.websocket.port') + '/' +
+    config('foxtan.websocket.suffix');
 
 let API = module.exports = {};
 
 let commands = {
   sync: 'SYNC',
   getBoards: 'GET BOARDS',
-  getCounters: 'GET LPN',
+  getCounters: 'GET LPN', //
   getBoard: 'BOARD $1 INFO',
   getPage: 'BOARD $1 $2',
   getPageCount: 'BOARD $1 COUNT',
@@ -16,10 +21,6 @@ let commands = {
   getPost: 'POST $1:$2'
 };
 
-const Foxtan = config('foxtan.websocket.protocol') + '://' +
-    config('foxtan.websocket.host') + ':' +
-    config('foxtan.websocket.port') + '/' +
-    config('foxtan.websocket.suffix');
 let Request = new WS(Foxtan);
 
 for (let cmd in commands) {
