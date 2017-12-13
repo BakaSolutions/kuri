@@ -27,11 +27,11 @@ let config = {
     version: packageJSON['version']
   },
   site: {
-    protocol: 'https',
-    domain: 'tuderi.tumba.ch',
+    protocol: 'http',
+    domain: '0.0.0.0:8080', // 'tuderi.tumba.ch',
     pathPrefix: '',
     locale: 'ru',
-    dateFormat: 'DD.MM.YYYY HH:mm:ss',
+    dateFormat: 'DD.MM.YYYY HH:mm',
     timeOffset: 180
   }
 };

@@ -19,7 +19,7 @@
 			{{?? }}
 				{{~it.threads :thread}}
 					<div class="thread">
-						{{~[thread.lastPosts.shift()] :post}}
+						{{~[thread.posts.shift()] :post}}
 							{{#def['particles/post']}}
 						{{~ }}
 
@@ -27,7 +27,7 @@
 							<div class="omittedPosts">Пропущено постов: {{!thread.omittedPosts}}</div>
 						{{? }}
 
-						{{~thread.lastPosts :post}}
+						{{~thread.posts :post}}
 							{{#def['particles/post']}}
 						{{~ }}
 					</div>

@@ -98,7 +98,7 @@ Templating.render = function (templateName, model) {
 };
 
 Templating.renderThread = async function (thread) {
-  await FS.writeFile('public/' + thread.board.name + '/res/' + thread.thread.thread_id + '.html', Templating.render('pages/thread', thread));
+  await FS.writeFile('public/' + thread.board.name + '/res/' + thread.thread.number + '.html', Templating.render('pages/thread', thread));
 };
 
 Templating.rerender = async function (what) {
@@ -114,13 +114,10 @@ Templating.rerender = async function (what) {
       if (!Array.isArray(what)) {
         what = [ what ];
       }
-      paths = what.filter(function(el) {
-        return paths.indexOf(el) >= 0;
-      });
+      paths = what.filter(el => ~paths.indexOf(el));
     }
-    let path;
     for (let i = 0; i < paths.length; i++) {
-      path = paths[i];
+      let path = paths[i];
       console.log('Rendering ' + path + '...');
       let result = await router.render(path);
       if (result) {

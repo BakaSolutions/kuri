@@ -2,20 +2,21 @@ const WebSocket = require('ws');
 const Templating = require('../../templating');
 const SyncData = require('../../../models/json/sync');
 
-let SD = new SyncData('.tmp/syncData.json');
+let SD = SyncData('.tmp/syncData.json');
 
 class WSClient {
+
   constructor (url) {
     this.reconnects = 0;
     this.autoReconnectInterval = 0;
     this.url = url;
   }
 
-  async open () {
+  async open (status) {
     return new Promise((resolve, reject) => {
       this.instance = new WebSocket(this.url);
-      this.instance.on('open', () => {
-        this.onOpen();
+      this.instance.on('open', async () => {
+        await this.onOpen(status);
         resolve(1);
       });
       this.instance.on('message', async (data) => {
@@ -66,7 +67,7 @@ class WSClient {
         if (!open) return reject('FAIL 504');
       }
       this.instance.send(data + id);
-      console.log('>> ' + data + id);
+      //console.log('>> ' + data + id);
 
       let promiseWrapper = (data) => {
         this.instance.removeEventListener('message', promiseWrapper);
@@ -89,13 +90,17 @@ class WSClient {
     console.log(`WebSocketClient: retry in ${this.autoReconnectInterval} ms`, e);
     setTimeout(async () => {
       console.log("WebSocketClient: reconnecting...");
-      await this.open(this.url);
+      await this.open(1);
     }, this.autoReconnectInterval);
   }
 
-  onOpen () {
+  async onOpen (status) {
     this.reconnects = 0;
     console.log("OPENED");
+    if (status === 1) {
+      const Board = require('../../kuri/board');
+      await Board.sync();
+    }
   }
 
   async onMessage (message) {
@@ -106,19 +111,18 @@ class WSClient {
     let command = probe.shift();
     message = probe.shift();
 
-    switch (command) {
-      case 'LPN':
-        let [ board, thread, id ] = message.split(':');
-        let pattern = [ `/${board}` ];
-        if (thread) pattern.push(`${pattern[0]}/res/${thread}`);
-        SD.set(['lastPostNumbers', board], id || thread);
-        await Templating.rerender(pattern);
-        return true;
-      default:
-        return false;
+    if (command === 'RNDR') {
+      let [ board, thread, id ] = JSON.parse(message);
+      let pattern = `/${board}`;
+      let arr = [ pattern ];
+      if (thread) {
+        arr.push(`${pattern}/res/${thread}`);
+      }
+      await SD.set(['threadCounts', board, thread], -1);
+      await SD.set(['lastPostNumbers', board], id || thread);
+      await Templating.rerender(arr);
     }
   }
-
 
   onError (e) {
     console.log("ER", e);

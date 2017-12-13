@@ -21,7 +21,6 @@
 	"license": "MIT",
 	"homepage": "https://github.com/tumbach/kuri",
 	"dependencies": {
-		"deep-diff": "latest",
 		"dot": "^1.1.2",
 		"express": "^4.15.4",
 		"figurecon": "github:rngnrs/figurecon",

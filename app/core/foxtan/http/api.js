@@ -4,16 +4,16 @@ const config = require('../../../helpers/config');
 let API = module.exports = {};
 
 let paths = {
-  sync: 'syncData.json',
+  sync: 'api/v1/sync.data',
   getBoards: 'boards.json',
   getCounters: 'lastPostNumbers.json',
   getBoard: '$1/board.json',
   getPage: '$1/$2.json',
   getPageCount: '$1/pageCount.json',
-  getFeed: '$1/feed.json',
-  getCatalog: '$1/catalog.json',
+  getFeed: '$1/feed/$2.json',
+  getCatalog: '$1/catalog/recent/$3.json',
   getThread: '$1/res/$2.json',
-  getPost: 'api/post.get?boardName=$1&postNumber=$2'
+  getPost: 'api/v1/post.read?board=$1&post=$2'
 };
 
 const Foxtan = config('foxtan.http.protocol') + '://' +

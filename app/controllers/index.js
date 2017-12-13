@@ -11,15 +11,7 @@ app.routers = [];
 function initialize() {
   console.log('Initializing controllers...');
 
-  router.use(async function (req, res, next) {
-    const start = new Date();
-    await next();
-    const ms = new Date() - start;
-    console.log(ms, req.url);
-    res.header('X-Response-Time', ms + 'ms');
-  });
-
-  let controllers = Tools.requireAllSync('./controllers/http', /\.js$/);
+  let controllers = Tools.requireAllSync('controllers/http', /\.js$/);
   controllers.forEach(function (controller) {
     router.use('/', controller);
     app.routers.push(controller);
@@ -31,14 +23,14 @@ function initialize() {
 
   app.use(router);
 
-  /*app.use('*', (req, res, next) => {
+  app.use('*', (req, res, next) => {
     next((function create404Error(baseUrl) {
       let err = new Error();
       err.status = 404;
       err.path = baseUrl;
       return err;
     })(req.baseUrl));
-  });*/
+  });
 
 }
 

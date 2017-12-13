@@ -8,9 +8,9 @@ const FS = require('../../helpers/fs');
 const SyncData = require('../../models/json/sync');
 
 let router = module.exports = express.Router();
+let SD = SyncData('.tmp/syncData.json');
 
 router.paths = async function () {
-  let SD = new SyncData('.tmp/syncData.json');
   let data = await SD.get('threadCounts');
   let out = [];
   let boards = Board.get();
@@ -76,20 +76,16 @@ async function renderPage(boardName, pageNumber) {
   }
   let page = await Board.getPage(boardName, pageNumber);
   if (!Tools.isObject(page)) {
-    page = { threads:[] };
+     throw new Error('Foxtan problem!');
   }
   for (let a = 0; a < page.threads.length; a++) {
     let thread = page.threads[a];
-    for (let b = 0; b < thread.lastPosts.length; b++) {
-      thread.lastPosts[b].created_at = new Date(thread.lastPosts[b].created_at);
-      thread.lastPosts[b].formatted_date = parseDate(thread.lastPosts[b].created_at);
+    for (let b = 0; b < thread.posts.length; b++) {
+      thread.posts[b].createdAt = new Date(thread.posts[b].createdAt);
+      thread.posts[b].formatted_date = parseDate(thread.posts[b].createdAt);
       //thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']); //TODO: Transfer markup to Foxtan
     }
   }
-  for (let thread of page.threads) {
-    await renderThread(thread['board_name'], thread['thread_id']);
-  }
-
 
   let pageID = pageNumber > 0
     ? pageNumber
@@ -111,15 +107,18 @@ async function renderThread(boardName, threadNumber) {
       throw new Error('Foxtan problem! Can\'t get thread!');
     }
     let posts = thread.thread.posts;
+    let pattern = ['threadCounts', boardName, thread.thread.number];
+    if (await SD.get(pattern) !== posts.length) {
+      await SD.set(pattern, posts.length);
+    }
     for (let i = 0; i < posts.length; i++) {
-      posts[i].created_at = new Date(posts[i].created_at);
-      posts[i].formatted_date = parseDate(posts[i].created_at);
-      //posts[i].body = await Markup.process(posts[i].body, boardName, threadNumber);
+      posts[i].createdAt = new Date(posts[i].createdAt);
+      posts[i].formatted_date = parseDate(posts[i].createdAt);
     }
     thread.title = '/' + board.name + '/ — ' + board.title;
     thread.board = board;
     return await Renderer.renderThread(thread);
   } catch (e) {
-    console.log(e.message, boardName, threadNumber);
+    console.log(e/*.message*/, boardName, threadNumber);
   }
 }

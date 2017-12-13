@@ -1,7 +1,6 @@
 const config = require('../../helpers/config');
 const API = require('../foxtan/' + config('foxtan.use') + '/api');
 const Tools = require('../../helpers/tools');
-const Diff = require('deep-diff').diff;
 const Templating = require('../../core/templating');
 const SyncData = require('../../models/json/sync');
 
@@ -21,36 +20,24 @@ Board.sync = async function () {
     return false;
   }
 
-  let SD = new SyncData('.tmp/syncData.json');
+  let SD = SyncData('.tmp/syncData.json');
   let localData = await SD.get();
 
   if (JSON.stringify(syncData) !== JSON.stringify(localData)) {
-    await Templating.compileTemplates();
-    await Templating.reloadTemplates();
 
     console.log('Syncing...');
+    let {add, rem} = Tools.diffObjectPlain(localData, syncData);
+    let diff = [...rem, ...add];
 
-    let diff = Diff(localData, syncData);
-    for (let i = 0; i < diff.length; i++) {
-      let d = diff[i];
-      let board;
-      let thread;
+    await SD.set(Tools.diffObjectSum(localData, syncData));
 
-      switch (d.kind) {
-        case 'N':
-          board = Object.keys(d.rhs)[0];
-          break;
-        case 'E':
-          board = d.path[1];
-          thread = d.path[2];
-          break;
-      }
-
-      await syncing(d.path[0], board, thread);
-      SD.set(d.path, d.rhs);
+    for (let i in diff) {
+      let key = Object.keys(diff[i])[0];
+      let [action, board, thread] = key.split('.');
+      await sync(action, board, thread);
     }
 
-    async function syncing(action, board, thread) {
+    async function sync(action, board, thread) {
       switch (action) {
         case 'lastPostNumbers':
           await Templating.rerender('/' + board);
@@ -64,7 +51,8 @@ Board.sync = async function () {
           break;
       }
     }
-    await Templating.rerender('/');
+
+    await Templating.rerender('/'); // TODO: Убрать при создании админ-панели
     console.log('Synced!');
   }
   return true;

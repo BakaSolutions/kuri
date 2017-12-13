@@ -18,9 +18,8 @@ async function initMaster() {
 }
 
 async function initWorker() {
-  //await Renderer.reloadTemplates();
   let server = http.createServer(controllers);
-  if (config('server.output') === 'unix') {
+  if (config('server.output') === 'socket') {
     server.listen(config('server.socket'), onListening(config('server.socket')));
   } else {
     server.listen(config('server.port'), config('server.host'), onListening(`http://${config('server.host')}:${config('server.port')}`));

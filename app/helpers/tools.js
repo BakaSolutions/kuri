@@ -147,3 +147,88 @@ tools.clone = function (value) {
   }
   return value;
 };
+
+tools.diffArray = function (a1, a2) {
+  let a2Set = new Set(a2);
+  return a1.filter(function(x) { return !a2Set.has(x); });
+};
+
+tools.diffArraySymmetric = function (a1, a2) {
+  return this.diffArray(a1, a2).concat(tools.diffArray(a2, a1));
+};
+
+tools.diffObject = function (a1, a2, i = 0) {
+  let add = {};
+  let rem = {};
+  for (let key in a1) {
+    if (typeof a1[key] === 'object') {
+      if (typeof a2[key] !== 'object') {
+        a2[key] = {};
+      }
+      let krdf = this.diffObject(a1[key], a2[key], i + 1);
+      if (Object.keys(krdf.rem).length) {
+        rem[key] = krdf.rem;
+      }
+    } else {
+      if (typeof a2 === 'undefined' || typeof a2[key] === 'undefined' || a1[key] !== a2[key]) {
+        rem[key] = a1[key];
+      }
+    }
+  }
+  if (!i) {
+    add = this.diffObject(a2, a1, -1).rem;
+  }
+  return {add, rem};
+};
+
+function recurseDiffObject(out = {}, item) {
+  for (let key in item) {
+    if (typeof item[key] === 'object') {
+      if (Object.keys(item[key]).length) {
+        out[key] = recurseDiffObject(out[key], item[key]);
+      }
+    } else {
+      out[key] = item[key];
+    }
+  }
+  return out;
+}
+
+function transformObjectPath(out = [], item, i = '') {
+  for (let key in item) {
+    let j = i ? i + '.' + key : key;
+    if (typeof item[key] === 'object') {
+      if (Object.keys(item[key]).length) {
+        out.push(...transformObjectPath(out[key], item[key], j));
+      }
+    } else {
+      let obj = {};
+      obj[j] = item[key];
+      out.push(obj);
+    }
+  }
+  return out;
+}
+
+tools.diffObjectSum = function (a1, a2) {
+  let {rem, add} = this.diffObject(a1, a2);
+  let out = {};
+  [rem, add].forEach(item => recurseDiffObject(out, item));
+  return out;
+};
+
+tools.diffObjectPlain = function (a1, a2) {
+  let {rem, add} = this.diffObject(a1, a2);
+  let out = {};
+  out.rem = transformObjectPath([], rem);
+  out.add = transformObjectPath([], add);
+  for (let i in out.add) {
+    for (let j in out.rem) {
+      let key = Object.keys(out.add[i])[0];
+      if (typeof out.rem[j][key] !== 'undefined') {
+        out.rem.splice(j, 1);
+      }
+    }
+  }
+  return out;
+};
