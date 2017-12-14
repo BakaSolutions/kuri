@@ -88,7 +88,7 @@ async function renderThread(boardName, threadNumber) {
     }
     let thread = {};
     thread.thread = await API.getThread(boardName, threadNumber);
-    if (Array.isArray(thread.thread) && !thread.thread.length) {
+    if (!Tools.isObject(thread.thread)) {
       throw new Error('Foxtan problem! Can\'t get thread!');
     }
     let posts = thread.thread.posts;
