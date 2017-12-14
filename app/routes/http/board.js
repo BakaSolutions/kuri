@@ -108,7 +108,7 @@ async function renderThread(boardName, threadNumber) {
 
 
 function parseDate(d){
-  let months = ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Мая', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.'];
+  let months = ['Янв', 'Фев', 'Мар', 'Апр', 'Мая', 'Июня', 'Июля', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
   if (!(d instanceof Date)) d = new Date(d);
 
   let date = d.getDate(),

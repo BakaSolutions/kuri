@@ -16,22 +16,6 @@
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
-	.post:not(:first-child){
-		border-left: 25px solid var(--bgcolor_card);
-
-		&::before{
-			content: '';
-	    position: absolute;
-	    width: 0;
-	    top: 0px;
-	    left: -15px;
-	    border-top: 15px solid var(--bgcolor);
-	    border-left: 15px solid var(--bgcolor_card);
-			// border-color: var(--bgcolor);
-			// background-color: transparent;
-		}
-	}
-
 	.postAttachments{
 		margin-right: 5px;
 
@@ -53,12 +37,35 @@
 
 	.postBody{
 		display: flex;
+		padding: 5px;
+	}
+
+	.post:not(:first-child){
+		border-left: 25px solid var(--bgcolor_card);
+
+		&::before{
+			content: '';
+	    position: absolute;
+	    width: 0;
+	    top: 0px;
+	    left: -15px;
+	    border-top: 15px solid var(--bgcolor);
+	    border-left: 15px solid var(--bgcolor_card);
+			// border-color: var(--bgcolor);
+			// background-color: transparent;
+		}
+
+		.postBody{
+			padding: 10px;
+		}
 	}
 }
 
 .thread{
 	width: 100%;
 	overflow: hidden;
+	border-top: 5px dashed var(--bgcolor);
+	padding-bottom: 20px;
 
 	/*max-height: 500px;*/
 	transition: max-height .3s;
@@ -72,16 +79,12 @@
 	padding: 5px;
 	position: relative;
 
-	max-height: 300px;
-	transition: max-height .3s;
+	// max-height: 300px;
+	// transition: max-height .3s;
 
 	&.spoiled{
 		overflow: hidden;
 		max-height: 15px;
-	}
-
-	.postText{
-    padding: 10px 0;
 	}
 
 	&:not(:first-child){
@@ -96,10 +99,23 @@
 	font-size: .95em;
 	position: relative;
 	@include user-select(none);
+	justify-content: space-between;
 	color: var(--textcolor_secondary);
 
-	*{
-		margin-right: 4px
+	.topic{
+		color: var(--linkcolor);
+	}
+
+	:first-child{
+		display: flex;
+
+		aside{
+			display: flex;
+		}
+
+		*{
+			margin-right: 4px
+		}
 	}
 
 	.sage::before{
@@ -153,4 +169,8 @@ body{
 	margin: 50px;
 	font-size: 1.1em;
 	text-align: center;
+}
+
+.omittedPosts{
+	padding-bottom: 5px;
 }
