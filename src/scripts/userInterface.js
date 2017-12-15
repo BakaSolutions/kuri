@@ -1,11 +1,11 @@
 const toggleWidget = id => sel('.widget#' + id).classList.toggle('hidden');
 
 function spoilPost(button, thread) {
-	let target = button.parentNode.parentNode.parentNode;
+	let target = button.parentNode.parentNode.parentNode.parentNode;
 	if (thread) target = target.parentNode;
 
 	target.classList.toggle('spoiled');
-};
+}
 
 function initDraggableReplyForm() {
 	if (document.querySelector('#replyForm') && screen.width > 414) {

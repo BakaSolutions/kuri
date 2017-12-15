@@ -66,24 +66,27 @@
 	overflow: hidden;
 	border-top: 5px dashed var(--bgcolor);
 	padding-bottom: 20px;
-
-	/*max-height: 500px;*/
+	// TODO: Set max-height by JS
 	transition: max-height .3s;
 
 	&.spoiled{
 		max-height: 22px;
+
+		.post:first-child {
+			overflow-y: hidden;
+		}
 	}
 }
 
 .post{
 	padding: 5px;
 	position: relative;
-
-	// max-height: 300px;
-	// transition: max-height .3s;
+	max-height: 300px;
+	transition: max-height .3s;
+	overflow-y: auto;
 
 	&.spoiled{
-		overflow: hidden;
+		overflow-y: hidden;
 		max-height: 15px;
 	}
 

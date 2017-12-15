@@ -9,7 +9,7 @@
 				<span class="icon reply jsonly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})"></span>
 				<!--<span class="icon edit jsOnly"></span>-->
 				<!--<span class="icon delete jsOnly"></span>-->
-				<span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number == post.threadNumber}}1{{? }})"></span>
+				<span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number === post.threadNumber}}1{{? }})"></span>
 				<span class="icon menu jsOnly"></span>
 				<!-- <span class="icon source jsOnly"></span> -->
 			</aside>
