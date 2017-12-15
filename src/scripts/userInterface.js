@@ -31,6 +31,7 @@ function initDraggables() {
 
 function quickReply(postNumber, threadNumber) {
 	document.querySelector("#replyFormShow").checked = true;
+	document.querySelector('#replyForm [name="subject"]').placeholder = 'Имя';
 	document.querySelector('#replyForm .widgetHandle').innerHTML = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><label for="replyFormShow" class="icon close"></label>`;
 
 	document.querySelector('input#threadNumber').value = threadNumber;

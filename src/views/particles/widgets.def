@@ -1,5 +1,5 @@
 <div id="widgetsWrapper">
-	<div id="preferences" class="widget hidden">
+	<div id="preferences" class="widget" hidden>
 		<div class="widgetHandle">Настройки<label onClick="toggleWidget('preferences')" class="icon close"></label></div>
 
 		<div class="widgetContent">
@@ -11,23 +11,23 @@
 				<label for="securityTab">Безопасность</label>
 			</div>
 
-			<input type="radio" name="tabs" class="hidden" id="basicTab" checked>
+			<input type="radio" name="tabs" hidden id="basicTab" checked>
 			<div class="column">
 				<div class="row">
-					<input type="checkbox" class="hidden visibleCheckbox" id="localTime" checked>
+					<input type="checkbox" hidden class="visibleCheckbox" id="localTime" checked>
 					<label for="localTime">Местное время постов время постов</label>
-					<input type="checkbox" class="hidden visibleCheckbox" id="relativeTime" checked>
+					<input type="checkbox" hidden class="visibleCheckbox" id="relativeTime" checked>
 					<label for="relativeTime">Относительное время постов</label>
 				</div>
 				<div class="row">
-					<input type="checkbox" class="hidden visibleCheckbox" id="doNotHideNSFW">
+					<input type="checkbox" hidden class="visibleCheckbox" id="doNotHideNSFW">
 					<label for="doNotHideNSFW">Не скрывать NSFW</label>
-					<input type="checkbox" class="hidden visibleCheckbox" id="ajaxNavigation" checked>
+					<input type="checkbox" hidden class="visibleCheckbox" id="ajaxNavigation" checked>
 					<label for="ajaxNavigation">Использовать AJAX-навигацию</label>
 				</div>
 			</div>
 
-			<input type="radio" name="tabs" class="hidden" id="themesTab">
+			<input type="radio" name="tabs" hidden id="themesTab">
 			<div class="row">
 				<div class="column">
 					<a class="row" onclick="setTheme(THEMES['Tumbach'])">Tumbach</a>
@@ -36,17 +36,17 @@
 				<textarea id="themeEditor"></textarea>
 			</div>
 
-			<input type="radio" name="tabs" class="hidden" id="postingTab">
+			<input type="radio" name="tabs" hidden id="postingTab">
 			<div class="column">
 
 			</div>
 
-			<input type="radio" name="tabs" class="hidden" id="spoilingTab">
+			<input type="radio" name="tabs" hidden id="spoilingTab">
 			<div class="column">
 				<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
 			</div>
 
-			<input type="radio" name="tabs" class="hidden" id="securityTab">
+			<input type="radio" name="tabs" hidden id="securityTab">
 			<div class="column">
 				Использовать следующий пароль:
 				<input type="password" value="password">
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 
-	<div id="search" class="widget hidden">
+	<div id="search" class="widget" hidden>
 		<div class="widgetHandle">Поиск<label onClick="toggleWidget('search')" class="icon close"></label></div>
 
 		<div class="widgetContent">

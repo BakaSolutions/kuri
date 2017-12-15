@@ -12,7 +12,7 @@
 				{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 				<div class="group">
 					<div class="groupTitle">{{!group.title}}</div>
-					{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
+					{{~group.boards.filter((board) => !board.hidden) :board}}
 						<a href="/{{!it.site.pathPrefix}}{{!board.name}}/">
 							/{{!board.name}}/ — {{!board.title}}
 						</a>
@@ -26,12 +26,12 @@
 				<label for="faqTab">ЧаВО</label>
 			</div>
 
-			<input type="radio" name="homeTabs" class="hidden" id="rulesTab" checked>
+			<input type="radio" name="homeTabs" hidden id="rulesTab" checked>
 			<div class="column">
 				{{#def["particles/rules"]}}
 			</div>
 
-			<input type="radio" name="homeTabs" class="hidden" id="faqTab">
+			<input type="radio" name="homeTabs" hidden id="faqTab">
 			<div class="column">
 				{{#def["particles/faq"]}}
 			</div>

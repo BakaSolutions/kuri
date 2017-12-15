@@ -1,5 +1,5 @@
-<input type="checkbox" id="hideSidebarCheckbox" class="hidden">
-<input type="checkbox" id="hideImagesCheckbox" class="hidden">
+<input type="checkbox" id="hideSidebarCheckbox" hidden>
+<input type="checkbox" id="hideImagesCheckbox" hidden>
 
 <div id="sidebar">
 	<div id="logo">
@@ -9,7 +9,7 @@
 
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
-			<input type="checkbox" id="{{!group.name}}GroupSpoilCheckbox" class="hidden">
+			<input type="checkbox" id="{{!group.name}}GroupSpoilCheckbox" hidden>
 			<label for="{{!group.name}}GroupSpoilCheckbox" class="icon groupSpoil">{{!group.title}}</label>
 
 			<div class="group">

@@ -1,4 +1,4 @@
-<input type="checkbox" id="replyFormShow" class="hidden">
+<input type="checkbox" id="replyFormShow" hidden>
 
 <div id="replyForm" class="widget">
 	<div class="widgetHandle">
@@ -12,12 +12,12 @@
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
 
 		<div class="row">
-			<input name="subject" type="text" placeholder="Тема">
+			<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
 
-			<input type="checkbox" name="OP" id="opCheckbox" class="hidden">
+			<input type="checkbox" name="OP" id="opCheckbox" hidden>
 			<label for="opCheckbox" class="btn icon op"> OP</label>
 
-			<input type="checkbox" name="sageru" id="sageCheckbox" class="hidden">
+			<input type="checkbox" name="sageru" id="sageCheckbox" hidden>
 			<label for="sageCheckbox" class="btn icon sage"> Sage</label>
 		</div>
 
@@ -25,22 +25,22 @@
 			<textarea name="text" required></textarea>
 		</div>
 
-		<input type="checkbox" id="fileInputsCheckbox" class="hidden">
+		<input type="checkbox" id="fileInputsCheckbox" hidden>
 
-		<label class="row icon more hidden" for="fileInputsCheckbox"></label>
+		<label class="row icon more" hidden for="fileInputsCheckbox"></label>
 
 		<div id="fileInputs">
 			<div class="row">
 				<input type="file" name="file0" id="file0">
 
-				<input type="checkbox" class="hidden" name="file0Rating" id="file0Rating">
+				<input type="checkbox" hidden name="file0Rating" id="file0Rating">
 				<label class="btn icon caution" for="file0Rating"></label>
 			</div>
 
 			<div class="row">
 				<input type="file" name="file1" id="file1">
 
-				<input type="checkbox" class="hidden" name="file1Rating" id="file1Rating">
+				<input type="checkbox" hidden name="file1Rating" id="file1Rating">
 				<label class="btn icon caution" for="file1Rating"></label>
 			</div>
 		</div>
