@@ -31,8 +31,13 @@ function asyncLoadPage(uri) {
 			initDraggableReplyForm();
 		};
 
+		if (~uri.indexOf('#')){
+			document.getElementsByName(uri.split('#')[1])[0].scrollIntoView();
+			history.replaceState(null, null, uri.split('#')[0]);
+		}
+
 		// document.querySelector('main').classList.remove('refreshing');
-		log('Asynchronously navigated to', uri.split('#')[0]);
+		log('Asynchronously navigated to', uri);
 	};
 
 	xhr.open("GET", uri);
