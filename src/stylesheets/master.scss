@@ -14,6 +14,8 @@
 	--bordercolor: #0e1a22;
 
 	--shadowcolor: #000;
+
+	--quotationcolor: #789922;
 }
 
 @mixin user-select($value){
@@ -230,4 +232,10 @@ button, input, textarea{
 	& ~ [type="radio"]:checked + div {
 		display: flex;
 	}
+}
+
+
+// Markup
+span.quotation{
+	color: var(--quotationcolor);
 }
