@@ -40,8 +40,8 @@
 <div id="navbar">
 	<div class="column">
 		<a id="toTop" class="btn icon up" href="#top"></a>
-		<a onclick="toggleWidget('search')" class="btn icon search jsOnly"></a>
-		<a onclick="toggleWidget('preferences')" class="btn icon preferences jsOnly"></a>
+		<a onclick="switchAttribute(sel('.widget#search'), 'hidden')" class="btn icon search jsOnly"></a>
+		<a onclick="switchAttribute(sel('.widget#preferences'), 'hidden')" class="btn icon preferences jsOnly"></a>
 		<label for="hideSidebarCheckbox" class="btn icon wide pseudoLink"></label>
 	</div>
 	<div class="column">

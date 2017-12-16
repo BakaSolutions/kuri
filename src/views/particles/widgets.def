@@ -1,6 +1,6 @@
 <div id="widgetsWrapper">
 	<div id="preferences" class="widget" hidden>
-		<div class="widgetHandle">Настройки<label onClick="toggleWidget('preferences')" class="icon close"></label></div>
+		<div class="widgetHandle">Настройки<label onclick="switchAttribute(sel('.widget#preferences'), 'hidden')" class="icon close"></label></div>
 
 		<div class="widgetContent">
 			<div class="tabs">
@@ -55,7 +55,7 @@
 	</div>
 
 	<div id="search" class="widget" hidden>
-		<div class="widgetHandle">Поиск<label onClick="toggleWidget('search')" class="icon close"></label></div>
+		<div class="widgetHandle">Поиск<label onclick="switchAttribute(sel('.widget#search'), 'hidden')" class="icon close"></label></div>
 
 		<div class="widgetContent">
 			<div class="row">

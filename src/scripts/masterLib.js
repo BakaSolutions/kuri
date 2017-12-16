@@ -1,4 +1,5 @@
 let log = async (...text) => document.location.hostname == 'localhost' ? console.log(...text) : 0;
+let switchAttribute = (el, attr) => el.getAttribute(attr) != null ? el.removeAttribute(attr) : el.setAttribute(attr, true);
 
 async function createElement(nodeName, params) {
 	let node = document.createElement(nodeName);
