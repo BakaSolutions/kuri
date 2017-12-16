@@ -65,7 +65,6 @@ class SyncData {
 
   write () {
     this.dataString = JSON.stringify(this.data);
-    console.log('write');
     this.debounce(this.filePath, this.dataString);
   }
 }

@@ -1,12 +1,13 @@
 const config = require('./config');
-let Tools;
-setTimeout(() => {
-  Tools = require('./tools');
-}, 0);
+let Tools = require('./tools');
 
 class Logger {
 
   constructor(output = console.log) {
+    if (!Object.keys(Tools).length) {
+      Tools = require('./tools');
+    }
+
     this.output = output;
 
     this.symbols = {
