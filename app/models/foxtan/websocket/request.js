@@ -11,11 +11,11 @@ class WSClient {
     this.url = url;
   }
 
-  async open (status) {
+  async open () {
     return new Pledge((resolve, reject) => {
       this.instance = new WebSocket(this.url);
       this.instance.on('open', async () => {
-        await this.onOpen(status);
+        await this.onOpen();
         resolve(1);
       });
       this.instance.on('message', async (data) => {
@@ -32,25 +32,7 @@ class WSClient {
         }
         this.onClose(e);
       });
-      this.instance.on('error', (e) => {
-        if (!(e instanceof Error)) {
-          let message = e.split(' ');
-          let command = message.shift();
-          message = message.join('');
-
-          if (command === 'FAIL') {
-            switch (+message) {
-              case 404:
-                message = 'Not found!';
-                break;
-              case 504:
-                message = 'Timeout!';
-                break;
-            }
-            return this.onError(message);
-          }
-        }
-      });
+      this.instance.on('error', (e) => this.onError(e));
     }).catch(e => this.onError(e));
   }
 
@@ -65,18 +47,22 @@ class WSClient {
 
       let promiseWrapper = (data) => {
         this.instance.removeEventListener('message', promiseWrapper);
-        if (data.indexOf(id) >= 0) {
+        if (~data.indexOf(id)) {
           data = data.replace(id, '');
           return resolve(data);
         }
-        reject(data);
       };
       this.instance.on('message', promiseWrapper);
 
       setTimeout(function () {
         reject('FAIL 504')
       }, 5000);
-    }).catch(e => this.onError(e));
+    }, true).catch(e => {
+      if (e instanceof Error) {
+        this.send(data);
+      }
+      this.onError(e);
+    });
   }
 
   reconnect (e) {
@@ -88,10 +74,10 @@ class WSClient {
     }, this.autoReconnectInterval);
   }
 
-  async onOpen (status) {
+  async onOpen (sync) {
     this.reconnects = 0;
     Logger.success(`[WS] Connection to ${this.url} is opened.`);
-    if (status === 1) {
+    if (sync) {
       const Board = require('../../../models/board');
       await Board.sync();
     }
@@ -101,6 +87,7 @@ class WSClient {
     if (typeof message === 'undefined') {
       return false;
     }
+    message = message.replace(/@\d+$/, '');
     let probe = message.split(' ');
     let command = probe.shift();
     message = probe.shift();
@@ -116,6 +103,23 @@ class WSClient {
   }
 
   onError (e) {
+    if (!(e instanceof Error)) {
+      let message = e.split(' ');
+      let command = message.shift();
+      message = message.join(' ');
+
+      if (command === 'FAIL') {
+        switch (+message) {
+          case 404:
+            message = 'Not found!';
+            break;
+          case 504:
+            message = 'Timeout!';
+            break;
+        }
+      }
+      e = message;
+    }
     Logger.error(e);
   }
 
@@ -123,7 +127,7 @@ class WSClient {
     Logger.info(`[WS] Connection to ${this.url} is closed with ${code} code.`);
   }
 
-  generateID (length = 8) {
+  generateID (length = 4) {
     let text = " @";
     const possible = "0123456789abcdef";
     for(let i = 0; i < length; i++)  {

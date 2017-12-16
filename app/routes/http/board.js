@@ -56,29 +56,32 @@ async function renderPages(boardName) {
 }
 
 async function renderPage(boardName, pageNumber) {
-  let board = Board.getOne(boardName);
-  if (!board) {
-    throw new Error('Invalid board');
-  }
-  let page = await Board.getPage(boardName, pageNumber);
-  if (!Tools.isObject(page)) {
-     throw new Error('Foxtan problem!');
-  }
-  for (let a = 0; a < page.threads.length; a++) {
-    let thread = page.threads[a];
-    for (let b = 0; b < thread.posts.length; b++) {
-      thread.posts[b].createdAt = new Date(thread.posts[b].createdAt);
-      thread.posts[b].formatted_date = parseDate(thread.posts[b].createdAt);
-      //thread.lastPosts[b].body = await Markup.process(thread.lastPosts[b].body, boardName, thread['thread_id']); //TODO: Transfer markup to Foxtan
+  try {
+    let board = Board.getOne(boardName);
+    if (!board) {
+      throw new Error('Invalid board');
     }
-  }
+    let page = await Board.getPage(boardName, pageNumber);
+    if (!Tools.isObject(page)) {
+      throw new Error('Foxtan problem! Can\'t get a page!');
+    }
+    for (let a = 0; a < page.threads.length; a++) {
+      let thread = page.threads[a];
+      for (let b = 0; b < thread.posts.length; b++) {
+        thread.posts[b].createdAt = new Date(thread.posts[b].createdAt);
+        thread.posts[b].formatted_date = parseDate(thread.posts[b].createdAt);
+      }
+    }
 
-  let pageID = pageNumber > 0
-    ? pageNumber
-    : 'index';
-  page.title = '/' + board.name + '/ — ' + board.title;
-  page.board = board;
-  await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Render.renderPage('pages/board', page));
+    let pageID = pageNumber > 0
+        ? pageNumber
+        : 'index';
+    page.title = '/' + board.name + '/ — ' + board.title;
+    page.board = board;
+    await FS.writeFile('public/' + boardName + '/' + pageID + '.html', Render.renderPage('pages/board', page));
+  } catch (e) {
+    Logger.error(e);
+  }
 }
 
 async function renderThread(boardName, threadNumber) {

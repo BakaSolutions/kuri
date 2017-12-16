@@ -2,8 +2,11 @@ let logger = require('./logger');
 
 module.exports = class Pledge {
 
-  constructor(executor) {
-    this.promise = new Promise(executor).then(this.defaultResolve, this.defaultReject);
+  constructor(executor, silent = false) {
+    this.promise = new Promise(executor);
+    if (!silent) {
+      this.promise.then(this.defaultResolve, this.defaultReject);
+    }
   }
 
   then(onResolve, onReject) {
