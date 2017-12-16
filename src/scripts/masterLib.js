@@ -1,6 +1,33 @@
 let log = async (...text) => document.location.hostname == 'localhost' ? console.log(...text) : 0;
 let switchAttribute = (el, attr) => el.getAttribute(attr) != null ? el.removeAttribute(attr) : el.setAttribute(attr, true);
 
+let scrollTo = (name) => {
+	if (!JSON.parse(localStorage.smoothScrolling)){
+		document.getElementsByName(name)[0].scrollIntoView();
+		log('Scrolling to', '#' + name);
+		return;
+	}
+
+	log('Scrolling smoothly to', '#' + name);
+
+	let elementY = window.pageYOffset + document.getElementsByName(name)[0].getBoundingClientRect().top,
+			startingY = window.pageYOffset,
+			diff = elementY - startingY,
+			start,
+			duration = Math.abs(diff / 3);
+
+  window.requestAnimationFrame(function step(timestamp) {
+    start = start || timestamp;
+
+    let time = timestamp - start,
+				percent = Math.min(time / duration, 1)
+
+    window.scrollTo(0, startingY + diff * percent);
+
+    if (time < duration) window.requestAnimationFrame(step);
+  })
+}
+
 async function createElement(nodeName, params) {
 	let node = document.createElement(nodeName);
 	for (let i in params) node[i] = params[i];

@@ -2,7 +2,7 @@
 	<div class="postDetails">
 		<div>
 			{{? post.sageru}}<span class="sage icon"></span>{{? }}
-			<a class="refLink" name="{{!post.number}}" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html#{{!post.number}}">{{? post.number != post.threadNumber}}{{? post.subject}}{{!post.subject}}{{?? }}Неизвестный{{? }}{{? }} #{{!post.number}}</a>
+			<a class="refLink" name="{{!post.number}}" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{? post.subject}}{{!post.subject}}{{?? }}Неизвестный{{? }}{{?? }}">{{? }} #{{!post.number}}</a>
 
 			<aside class="postMenu">
 				<span class="icon reply jsonly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})"></span>
@@ -14,7 +14,7 @@
 			</aside>
 		</div>
 
-		{{? post.number == post.threadNumber}}<a class="refLink" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html#{{!post.number}}">{{? post.subject}}{{!post.subject}}{{?? }}Без темы{{? }}</a>{{? }}
+		{{? post.number == post.threadNumber}}<a class="refLink" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html">{{? post.subject}}{{!post.subject}}{{?? }}Без темы{{? }}</a>{{? }}
 
 		<time data-creationdate="{{!post.createdAt}}">{{!post.formatted_date}}</time>
 	</div>

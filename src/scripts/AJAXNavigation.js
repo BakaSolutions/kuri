@@ -31,15 +31,10 @@ function asyncLoadPage(uri) {
 			initDraggableReplyForm();
 		};
 
-		if (~uri.indexOf('#')){
-			document.getElementsByName(uri.split('#')[1])[0].scrollIntoView();
-			history.replaceState(null, null, uri.split('#')[0]);
-		} else{
-			document.getElementsByName('top')[0].scrollIntoView();
-		}
-
-		// document.querySelector('main').classList.remove('refreshing');
 		log('Asynchronously navigated to', uri);
+		// document.querySelector('main').classList.remove('refreshing');
+
+		scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top');
 	};
 
 	xhr.open("GET", uri);
@@ -47,19 +42,21 @@ function asyncLoadPage(uri) {
 }
 
 // Bind
-(async () => {
+(() => {
 	document.querySelector('body').onclick = e => {
-		let cur = document.location,
-				uri = e.target.getAttribute('href');
+		let uri = e.target.getAttribute('href');
 
-		if(uri && !uri.indexOf('/')){
+		if(uri && /^\/|^#/.test(uri)){ // Check if target is a link and if it is internal or hash-only
 			e.preventDefault();
-			asyncLoadPage(uri);
+
+			if (uri == window.location.pathname) return
+			else if (!uri.indexOf('#') || (~uri.indexOf('#') && uri.split('#')[0] == window.location.pathname)) scrollTo(uri.split('#')[1]) // For hash-only link
+			else if (!uri.indexOf('/')) asyncLoadPage(uri); // For internal link
 		}
 	}
 
 	document.onkeydown = (e) => {
-		if (e.which == 116 && !e.ctrlKey) {
+		if (e.which == 116 && !e.ctrlKey) { // Async reloading
 			e.preventDefault();
 			asyncLoadPage(document.location.href);
 		}
