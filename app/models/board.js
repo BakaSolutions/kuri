@@ -3,6 +3,7 @@ const API = require('./foxtan/' + config('foxtan.use'));
 const Tools = require('../helpers/tools');
 const RenderUpdate = require('../render/update');
 const SD = require('../models/foxtan/sync')();
+const Logger = require('../helpers/logger');
 
 let Board = module.exports = {};
 
@@ -21,10 +22,10 @@ Board.sync = async function () {
   }
 
   let localData = SD.get();
-
   let {add, rem} = Tools.diffObject(localData, syncData);
+
   if (Object.keys(Object.assign(rem, add)).length) {
-    console.log('Syncing...');
+    Logger.info('[Sync] Syncing-syncing...');
     let {add, rem} = Tools.diffObjectPlain(localData, syncData);
     let diff = [...rem, ...add];
 
@@ -43,7 +44,7 @@ Board.sync = async function () {
           break;
         case 'threadCounts':
           if (Tools.isNumber(+thread)) {
-            await RenderUpdate.update(board, thread);
+            await RenderUpdate.update(board, thread, null, false);
           } else {
             await RenderUpdate.update(board);
           }
@@ -52,7 +53,9 @@ Board.sync = async function () {
     }
 
     await RenderUpdate.update(); // TODO: Убрать при создании админ-панели
-    console.log('Synced!');
+    Logger.info('[Sync] Synced!');
+  } else {
+    Logger.info('[Sync] Sync is not needed!');
   }
   return true;
 };
@@ -88,7 +91,7 @@ Board.getPageCount = async function (board) {
 
 Board.getPage = async function (board, page) {
   if (!Tools.isNumber(page)) {
-    console.log(Tools.prettifyError(new Error('Trying to get something unexpectable!')));
+    Logger.error(new Error('Trying to get something unexpectable!'));
     return false;
   }
   return await API.getPage(board, page);

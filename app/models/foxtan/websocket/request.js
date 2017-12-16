@@ -1,5 +1,7 @@
 const WebSocket = require('ws');
 const RenderUpdate = require('../../../render/update');
+const Logger = require('../../../helpers/logger');
+const Pledge = require('../../../helpers/promise');
 
 class WSClient {
 
@@ -10,7 +12,7 @@ class WSClient {
   }
 
   async open (status) {
-    return new Promise((resolve, reject) => {
+    return new Pledge((resolve, reject) => {
       this.instance = new WebSocket(this.url);
       this.instance.on('open', async () => {
         await this.onOpen(status);
@@ -29,7 +31,6 @@ class WSClient {
             break;
         }
         this.onClose(e);
-        reject(e);
       });
       this.instance.on('error', (e) => {
         if (!(e instanceof Error)) {
@@ -39,9 +40,6 @@ class WSClient {
 
           if (command === 'FAIL') {
             switch (+message) {
-              case 'ECONNREFUSED':
-                this.reconnect(e);
-                break;
               case 404:
                 message = 'Not found!';
                 break;
@@ -53,18 +51,17 @@ class WSClient {
           }
         }
       });
-    }).catch((e) => this.instance.emit('error', e));
+    }).catch(e => this.onError(e));
   }
 
   async send (data) {
-    return new Promise(async (resolve, reject) => {
+    return new Pledge(async (resolve, reject) => {
       let id = this.generateID();
       if (!this.instance || this.instance.readyState !== WebSocket.OPEN) {
         let open = await this.open();
         if (!open) return reject('FAIL 504');
       }
       this.instance.send(data + id);
-      //console.log('>> ' + data + id);
 
       let promiseWrapper = (data) => {
         this.instance.removeEventListener('message', promiseWrapper);
@@ -79,21 +76,21 @@ class WSClient {
       setTimeout(function () {
         reject('FAIL 504')
       }, 5000);
-    }).catch((e) => this.instance.emit('error', e));
+    }).catch(e => this.onError(e));
   }
 
   reconnect (e) {
     this.autoReconnectInterval = 5 * 1000 * (++this.reconnects);
-    console.log(`WebSocketClient: retry in ${this.autoReconnectInterval} ms`, e);
+    Logger.info(`[WS] Code ${e}, retry in ${this.autoReconnectInterval} ms`);
     setTimeout(async () => {
-      console.log("WebSocketClient: reconnecting...");
+      Logger.info("[WS] Reconnecting...");
       await this.open(1);
     }, this.autoReconnectInterval);
   }
 
   async onOpen (status) {
     this.reconnects = 0;
-    console.log("OPENED");
+    Logger.success(`[WS] Connection to ${this.url} is opened.`);
     if (status === 1) {
       const Board = require('../../../models/board');
       await Board.sync();
@@ -119,11 +116,11 @@ class WSClient {
   }
 
   onError (e) {
-    console.log("ER", e);
+    Logger.error(e);
   }
 
   onClose (code) {
-    console.log("CLOSED", code);
+    Logger.info(`[WS] Connection to ${this.url} is closed with ${code} code.`);
   }
 
   generateID (length = 8) {

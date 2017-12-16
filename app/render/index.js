@@ -2,6 +2,7 @@ const doT = require('dot');
 const FS = require('../helpers/fs');
 const Path = require('path');
 const Tools = require('../helpers/tools');
+const Logger = require('../helpers/logger');
 
 let Render = module.exports = {};
 let includes = {};
@@ -44,7 +45,7 @@ Render.reloadTemplates = function () {
  * @returns {Object} -- object with template functions
  */
 Render.compileTemplates = async function () {
-  console.log("Compiling templates...");
+  Logger.info('[Rndr] Compiling templates...');
 
   let sources = FS.readdirSync(templateFolder, true).map(function (source) {
     return source.replace(Path.join(__dirname, '../../', templateFolder, Path.sep), '');
@@ -85,13 +86,13 @@ Render.renderPage = function (templateName, model) {
   try {
     let template = templates[templateName];
     if (!template) {
-      return new Error('Ni-paa~! This template doesn\'t exist: ' + templateName);
+      return new Error('This template doesn\'t exist: ' + templateName);
     }
     let baseModel = require('../models/base');
     model = Tools.merge(model, baseModel) || baseModel;
     return template(model);
   } catch (e) {
-    console.log(Tools.prettifyError(e));
+    Logger.error(e);
     return 'Ni-paa~! Please, recompile templates.';
   }
 };
@@ -113,7 +114,7 @@ Render.rerender = async function (what) {
     }
     for (let i = 0; i < paths.length; i++) {
       let path = paths[i];
-      console.log(`Rendering ${path}...`);
+      Logger.info(`[Rndr] Rendering ${path}...`);
       let result = await router.render(path);
       if (result) {
         await FS.writeFile(Path.join('public', path), result);

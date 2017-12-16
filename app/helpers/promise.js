@@ -1,0 +1,29 @@
+let logger = require('./logger');
+
+module.exports = class Pledge {
+
+  constructor(executor) {
+    this.promise = new Promise(executor).then(this.defaultResolve, this.defaultReject);
+  }
+
+  then(onResolve, onReject) {
+    this.promise = this.promise.then(onResolve, onReject);
+    if (typeof onReject !== 'function') {
+      this.promise = this.promise.catch(this.defaultReject);
+    }
+    return this.promise;
+  }
+
+  catch(onReject) {
+    return this.promise.catch(onReject);
+  }
+
+  defaultResolve(args) {
+    return args;
+  }
+
+  defaultReject(e) {
+    logger.error('[Caught!] Ni-paa~!', e);
+    return e;
+  }
+};

@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const config = require('./config');
+const Pledge = require('./promise');
 
 let FS = module.exports = {};
 const ROOT = path.join(__dirname, '/../../');
@@ -164,7 +164,7 @@ FS.readFileStream = function (source, res) {
 };
 
 FS.copyFile = function (source, target) {
-  return new Promise(function(resolve, reject) {
+  return new Pledge(function(resolve, reject) {
     source = FS.normalize(source);
     if(!this.check(source)) {
       reject(new Error('Forbidden'));
@@ -184,20 +184,20 @@ FS.copyFile = function (source, target) {
 };
 
 FS.readFile = async function (filePath) {
-  return new Promise((resolve, reject) => {
+  return new Pledge((resolve, reject) => {
     filePath = FS.normalize(filePath);
     if (!this.check(filePath)) {
       return reject('Forbidden');
     }
     fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) return reject(err);
+      if (err && err.code !== 'ENOENT') return reject(err);
       resolve(data);
     });
   });
 };
 
 FS.writeFile = function (filePath, content) {
-  return new Promise((resolve, reject) => {
+  return new Pledge((resolve, reject) => {
     filePath = FS.normalize(filePath);
     if (!this.check(filePath)) {
       return false;

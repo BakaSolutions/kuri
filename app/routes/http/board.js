@@ -6,6 +6,7 @@ const Tools = require('../../helpers/tools');
 const Board = require('../../models/board');
 const FS = require('../../helpers/fs');
 const SD = require('../../models/foxtan/sync')();
+const Logger = require('../../helpers/logger');
 
 module.exports = router;
 
@@ -102,7 +103,7 @@ async function renderThread(boardName, threadNumber) {
     thread.board = board;
     await FS.writeFile('public/' + thread.board.name + '/res/' + thread.thread.number + '.html', Render.renderPage('pages/thread', thread));
   } catch (e) {
-    console.log(Tools.prettifyError(e));
+    Logger.error(e);
   }
 }
 

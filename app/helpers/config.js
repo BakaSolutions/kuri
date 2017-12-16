@@ -23,7 +23,8 @@ let config = {
     output: 'port', // port | socket
     socket: '/tmp/sock',
     enableStatic: true,
-    version: packageJSON['version']
+    version: packageJSON['version'],
+    logger: console.log
   },
   site: {
     protocol: 'http',

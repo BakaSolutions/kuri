@@ -5,6 +5,7 @@ const routes = require('./routes');
 const server = require('http').createServer();
 const Board = require('./models/board');
 const Render = require('./render');
+const Logger = require('./helpers/logger');
 
 process.on('uncaughtException', function (err) {
   console.error('uncaughtException: ', err.message);
@@ -18,7 +19,7 @@ async function initMaster() {
   await Render.reloadTemplates();
   let sync = await Board.sync();
   if (!sync) {
-    console.log('Foxtan is unreachable. Start Foxtan and sync manually a bit later.');
+    Logger.warn('Foxtan is unreachable. Start Foxtan and sync manually a bit later.');
   }
 }
 
@@ -39,7 +40,7 @@ async function initWorker() {
 }
 
 function ready(address) {
-  console.log('Catching requests on ' +address + '!');
+  Logger.success('[HTTP] Catching requests on ' +address + '!');
 }
 
 (async function () {

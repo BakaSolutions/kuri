@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const merge = require('merge');
+const Pledge = require('./promise');
 
 let tools = module.exports = {},
     toString = Object.prototype.toString;
@@ -23,8 +24,11 @@ tools.moduleAvailable = function (name) {
  */
 tools.requireAll = async function (src, mask) {
   let filePath = path.join(__dirname, '/../', src);
-  return new Promise(function(resolve, reject) {
-    fs.readdir(filePath, function(err, files) {
+  return new Pledge((resolve, reject) => {
+    fs.readdir(filePath, (err, files) => {
+      if (err) {
+        return reject(err);
+      }
       resolve(requireAll(mask, files, filePath));
     });
   });
@@ -62,7 +66,8 @@ function requireAll(mask, files, filePath) {
     try {
       o[o.length] = tools.requireWrapper(require(path.join(filePath, file)));
     } catch (e) {
-      console.log(this.prettifyError(e));
+      /*const Logger = require('./logger');
+      Logger.error(e);*/
     }
   });
   return o;
@@ -247,10 +252,19 @@ tools.diffObjectPlain = function (a1, a2) {
   return out;
 };
 
-tools.prettifyError = function (e) {
-  let stack = e.stack.split('\n');
-  let title = stack.shift();
-  return `\x1b[36mNi-paa~!\x1b[0m\n` +
-    `\x1b[30m${title}\x1b[0m\n` +
-    stack.join('\n');
+tools.debounce = function DebounceInstance(f, ms, context = this) {
+  let timer = null;
+
+  return function (...args) {
+    const onComplete = () => {
+      f.apply(context, args);
+      timer = null;
+    };
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(onComplete, ms);
+  };
 };

@@ -4,7 +4,7 @@ const Tools = require('../../helpers/tools');
 class SyncData {
   constructor(filePath) {
     this.filePath = filePath || '.tmp/syncData.json';
-    this.timeout = null;
+    this.debounce = Tools.debounce(FS.writeFile, 10 * 1e3, FS);
     this.dataString = '{}';
     this.data = {};
     (async () => {
@@ -25,7 +25,7 @@ class SyncData {
 
   set (key, value) {
     if (Tools.isObject(key) && arguments.length === 1) {
-      this.data = Object.assign(this.data, key);
+      this.data = key;
       return this.write();
     }
     let split = this.split(key, value);
@@ -65,14 +65,8 @@ class SyncData {
 
   write () {
     this.dataString = JSON.stringify(this.data);
-    if (this.timeout) {
-      return false;
-    }
-    this.timeout = setTimeout(() => {
-      FS.writeFile(this.filePath, this.dataString);
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    }, 24 * 1e3);
+    console.log('write');
+    this.debounce(this.filePath, this.dataString);
   }
 }
 
@@ -84,5 +78,3 @@ module.exports = (filePath) => {
   }
   return instance;
 };
-
-module.exports.class = SyncData;
