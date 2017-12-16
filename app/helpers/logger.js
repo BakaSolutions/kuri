@@ -1,13 +1,8 @@
 const config = require('./config');
-let Tools = require('./tools');
 
 class Logger {
 
   constructor(output = console.log) {
-    if (!Object.keys(Tools).length) {
-      Tools = require('./tools');
-    }
-
     this.output = output;
 
     this.symbols = {
@@ -57,7 +52,7 @@ class Logger {
   prettify(msg, type) {
     if (msg instanceof Error) {
       msg = Logger.prettifyError(msg);
-    } else if (Tools.isObject(msg)) {
+    } else if ({}.toString.call(msg) === '[object Object]') {
       msg = JSON.stringify(msg, '\n', ' ');
     }
     return (typeof type !== 'undefined')
