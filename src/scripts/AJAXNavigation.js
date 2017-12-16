@@ -34,6 +34,8 @@ function asyncLoadPage(uri) {
 		if (~uri.indexOf('#')){
 			document.getElementsByName(uri.split('#')[1])[0].scrollIntoView();
 			history.replaceState(null, null, uri.split('#')[0]);
+		} else{
+			document.getElementsByName('top')[0].scrollIntoView();
 		}
 
 		// document.querySelector('main').classList.remove('refreshing');
