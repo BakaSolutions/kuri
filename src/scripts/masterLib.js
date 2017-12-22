@@ -1,13 +1,13 @@
-let log = async (...text) => document.location.hostname == 'localhost' ? console.log(...text) : 0;
+let log = async (...text) => settingsManager.get('logging') ? console.log(...text) : 0;
 let switchAttribute = (el, attr) => el.getAttribute(attr) != null ? el.removeAttribute(attr) : el.setAttribute(attr, true);
 
-// Settings manager
 let settingsManager = {
 	defaultSettings: {
 		// Basic
 		AJAXNavigation: 1,
 		smoothScrolling: 0,
 		showJumpButtons: 1,
+		logging: 0,
 
 		// Posts
 		showNSFW: 0,
@@ -50,11 +50,10 @@ let settingsManager = {
 
 
 let scrollTo = (name) => {
+	log('Scrolling to', name);
+
 	if (!settingsManager.get('smoothScrolling')){
 		document.getElementsByName(name)[0].scrollIntoView();
-		log('Scrolling to', '#' + name);
-
-		return;
 	} else{
 		let elementY = window.pageYOffset + document.getElementsByName(name)[0].getBoundingClientRect().top,
 				startingY = window.pageYOffset,
@@ -72,8 +71,6 @@ let scrollTo = (name) => {
 
 	    if (time < duration) window.requestAnimationFrame(step);
 	  })
-
-		log('Scrolling smoothly to', '#' + name);
 	}
 }
 

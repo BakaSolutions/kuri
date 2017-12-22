@@ -1,4 +1,4 @@
-function asyncLoadPage(uri) {
+function asyncLoadPage(uri, noScrolling = 0) {
 	// document.querySelector('main').classList.add('refreshing');
 	let xhr = new XMLHttpRequest();
 
@@ -34,7 +34,8 @@ function asyncLoadPage(uri) {
 		log('Asynchronously navigated to', uri);
 		// document.querySelector('main').classList.remove('refreshing');
 
-		scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top'); // Scroll to top if hash not specified
+
+		if (!noScrolling) scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top'); // Scroll to top if hash not specified
 	};
 
 	xhr.open("GET", uri);
@@ -58,7 +59,7 @@ function asyncLoadPage(uri) {
 	document.onkeydown = (e) => {
 		if (e.which == 116 && !e.ctrlKey) { // Async reloading
 			e.preventDefault();
-			asyncLoadPage(document.location.href);
+			asyncLoadPage(document.location.href, 1);
 		}
 	}
 })()
