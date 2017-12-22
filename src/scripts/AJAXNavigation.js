@@ -34,7 +34,7 @@ function asyncLoadPage(uri) {
 		log('Asynchronously navigated to', uri);
 		// document.querySelector('main').classList.remove('refreshing');
 
-		scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top');
+		scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top'); // Scroll to top if hash not specified
 	};
 
 	xhr.open("GET", uri);
