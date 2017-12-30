@@ -64,4 +64,10 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="delete" class="widget" hidden>
+		<form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete">
+			<button>Удалить!</button>
+		</form>
+	</div>
 </div>
