@@ -109,7 +109,7 @@
 		color: var(--linkcolor);
 	}
 
-	:first-child{
+	& > :first-child{
 		display: flex;
 
 		aside{
@@ -176,4 +176,16 @@ body{
 
 .omittedPosts{
 	padding-bottom: 5px;
+}
+
+.postMenu{
+	input[type="checkbox"]{
+		& + .icon.delete{
+			opacity: .3;
+		}
+
+		&:checked + .icon.delete{
+			opacity: 1;
+		}
+	}
 }

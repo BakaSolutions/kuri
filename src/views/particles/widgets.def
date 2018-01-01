@@ -66,8 +66,12 @@
 	</div>
 
 	<div id="delete" class="widget" hidden>
-		<form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete">
-			<button>Удалить!</button>
-		</form>
+		<div class="widgetHandle">Удалить выбранные посты<label onclick="switchAttribute(sel('.widget#delete'), 'hidden')" class="icon close"></label></div>
+
+		<div class="widgetContent">
+			<form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete">
+				<button>Фтопку!</button>
+			</form>
+		</div>
 	</div>
 </div>

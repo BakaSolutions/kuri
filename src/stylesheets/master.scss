@@ -131,6 +131,11 @@ main{
 		content: '\f002';
 		font-size: .8em;
 	}
+
+	&.delete::before{
+		content: '\f1f8';
+		padding-right: 5px;
+	}
 }
 
 // Buttons

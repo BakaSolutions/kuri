@@ -1,5 +1,3 @@
-const toggleWidget = id => sel('.widget#' + id).classList.toggle('hidden');
-
 function spoilPost(button, thread) {
 	let target = button.parentNode.parentNode.parentNode.parentNode;
 	if (thread) target = target.parentNode;
