@@ -1,77 +1,82 @@
-<div id="widgetsWrapper">
-	<div id="preferences" class="widget" hidden>
-		<div class="widgetHandle">Настройки<label onclick="switchAttribute(sel('.widget#preferences'), 'hidden')" class="icon close"></label></div>
+<div class="widget" id="preferences" hidden>
+	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#preferences'), 'hidden')"></div>
+	<div class="widgetBox">
+		<h2>
+			Настройки
+		</h2>
 
-		<div class="widgetContent">
-			<div class="tabs">
-				<label for="basicTab">Общее</label>
-				<label for="themesTab">Темы</label>
-				<label for="postingTab">Постинг</label>
-				<label for="spoilingTab">Скрытие</label>
-				<label for="securityTab">Безопасность</label>
-			</div>
-
-			<input type="radio" name="tabs" hidden id="basicTab" checked>
-			<div class="column">
-				<div class="row">
-					<input type="checkbox" hidden class="visibleCheckbox" id="localTime" checked>
-					<label for="localTime">Местное время постов время постов</label>
-					<input type="checkbox" hidden class="visibleCheckbox" id="relativeTime" checked>
-					<label for="relativeTime">Относительное время постов</label>
-				</div>
-				<div class="row">
-					<input type="checkbox" hidden class="visibleCheckbox" id="doNotHideNSFW">
-					<label for="doNotHideNSFW">Не скрывать NSFW</label>
-					<input type="checkbox" hidden class="visibleCheckbox" id="ajaxNavigation" checked>
-					<label for="ajaxNavigation">Использовать AJAX-навигацию</label>
-				</div>
-			</div>
-
-			<input type="radio" name="tabs" hidden id="themesTab">
-			<div class="row">
-				<div class="column">
-					<a class="row" onclick="setTheme(THEMES['Tumbach'])">Tumbach</a>
-					<a class="row" onclick="setTheme(THEMES['Tumbach Light'])">Tumbach Light</a>
-				</div>
-				<textarea id="themeEditor"></textarea>
-			</div>
-
-			<input type="radio" name="tabs" hidden id="postingTab">
-			<div class="column">
-
-			</div>
-
-			<input type="radio" name="tabs" hidden id="spoilingTab">
-			<div class="column">
-				<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
-			</div>
-
-			<input type="radio" name="tabs" hidden id="securityTab">
-			<div class="column">
-				Использовать следующий пароль:
-				<input type="password" value="password">
-			</div>
+		<div class="tabs">
+			<label for="basicSettingsTab">Общее</label>
+			<label for="postingSettingsTab">Постинг</label>
+			<label for="themesSettingsTab">Темы</label>
+			<label for="spoilingSettingsTab">Скрытие</label>
+			<label for="securitySettingsTab">Безопасность</label>
 		</div>
-	</div>
 
-	<div id="search" class="widget" hidden>
-		<div class="widgetHandle">Поиск<label onclick="switchAttribute(sel('.widget#search'), 'hidden')" class="icon close"></label></div>
+		<input type="radio" id="basicSettingsTab" checked hidden name="settingsTabs">
+		<div class="tab">
+			<input type="checkbox" id="localTime" hidden class="icon visibleCheckbox">
+			<label for="localTime">
+				Отображать местное время
+			</label>
 
-		<div class="widgetContent">
-			<div class="row">
-				<input type="text" placeholder="Тумбач: найдется кое-что">
-				<button type="button" name="button" class="btn icon search"></button>
-			</div>
+			<input type="checkbox" id="relativeTime" hidden class="icon visibleCheckbox">
+			<label for="relativeTime">
+				Отображать относительное время
+			</label>
+
+			<input type="checkbox" id="AJAXNavigation" hidden class="icon visibleCheckbox">
+			<label for="AJAXNavigation">
+				AJAX-навигация
+			</label>
 		</div>
-	</div>
 
-	<div id="delete" class="widget" hidden>
-		<div class="widgetHandle">Удалить выбранные посты<label onclick="switchAttribute(sel('.widget#delete'), 'hidden')" class="icon close"></label></div>
+		<input type="radio" id="postingSettingsTab" hidden name="settingsTabs">
+		<div class="tab">
+			<input type="checkbox" id="AJAXPosting" hidden class="icon visibleCheckbox">
+			<label for="AJAXPosting">
+				AJAX-постинг
+			</label>
+		</div>
 
-		<div class="widgetContent">
-			<form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete">
-				<button>Фтопку!</button>
-			</form>
+		<input type="radio" id="themesSettingsTab" hidden name="settingsTabs">
+		<div class="tab">
+			<a class="row" onclick="setTheme(THEMES['Tumbach'])">Tumbach</a>
+			<a class="row" onclick="setTheme(THEMES['Tumbach Light'])">Tumbach Light</a>
+		</div>
+
+		<input type="radio" id="spoilingSettingsTab" hidden name="settingsTabs">
+		<div class="column">
+			<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
+		</div>
+
+		<input type="radio" id="securitySettingsTab" hidden name="settingsTabs">
+		<div class="column">
+			Использовать следующий пароль:
+			<input type="password" placeholder="Пароль для удаления">
 		</div>
 	</div>
 </div>
+
+<div class="widget" id="search" hidden>
+	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#search'), 'hidden')"></div>
+	<div class="widgetBox">
+		<h2>Поиск</h2>
+
+		<form id="searchForm">
+			<input type="text" placeholder="Тумбач: найдется кое-что">
+			<button type="button" class="btn icon search"></button>
+		</form>
+	</div>
+</div>
+
+<form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete" hidden>
+	<div>
+		Удалить выбранные посты?
+		<div>
+			<a onclick="sel('#deletePosts').submit()">Фтопку!</a>
+			<a onclick="deselectAllPosts()">Отмена.</a>
+		</div>
+	</div>
+	<input type="password" name="password" placeholder="Пароль" required>
+</form>

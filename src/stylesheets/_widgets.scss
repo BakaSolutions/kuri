@@ -1,211 +1,132 @@
-#widgetsWrapper{
-	z-index: 999;
-}
-
-.widget{
-	position: fixed;
-
-	width: 600px;
-	height: 400px;
-
-	background-color: var(--bgcolor_card);
-	border: 1px solid var(--bordercolor);
-	box-shadow: 0 0 15px -5px var(--shadowcolor);
-
-	input, textarea{
-		transition: background-color .3s;
-		background-color: var(--btncolor);
-		color: var(--textcolor);
-		&:hover, &:focus{
-			background-color: var(--btncolor_hover);
-		}
-	}
-
-	&.is-pointer-down{
-		.widgetHandle, .pseudoLink{
-			cursor: move;
-		}
-	}
-	.widgetHandle{
-		@include user-select(none);
-		cursor: default;
-
-		height: 30px;
-		padding: 5px;
-
-		text-align: center;
-		position: relative;
-
-		background-color: var(--bgcolor);
-
-		.icon.close{
-			top: 5px;
-			right: 5px;
-			position: absolute;
-
-			width: 20px;
-			height: 20px;
-			display: flex;
-			cursor: pointer;
-			align-items: center;
-			justify-content: center;
-
-			&::before{
-				content: '\f00d';
-				font-size: 1.2em;
-			}
-		}
-	}
-}
-
-
-@media screen and (max-device-width: 414px) { // Mobile
-	#replyForm{
-		left: 0;
-		bottom: 0;
-	}
-}
-
-@media screen and (min-device-width: 415px) { // Desktop
-	.widget{
-		top: calc(50vh - 200px);
-		left: calc(50vw - 300px);
-	}
-
-	#replyForm{
-		left: calc(50vw - 250px);
-		top: 60vh;
-	}
+#replyFormShow:not(:checked) + #replyForm{
+	display: none;
 }
 
 #replyForm{
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity .3s;
+	position: fixed;
+	top: calc(100vh - 220px);
+	left: calc(50vw - 250px);
+	width: 500px;
+	z-index: 2000;
+	background-color: var(--bgcolor_card);
+	border: 2px solid var(--bordercolor);
+	border-radius: 3px;
 
-	z-index: 1000;
-	width: auto;
-	height: auto;
-	max-width: 100vw;
+	.widgetHandle{
+		display: flex;
+		justify-content: center;
 
-	border: 1px solid var(--bordercolor);
-
-	label{
-		padding: 2px !important;
+		& > span{
+			margin-left: 5px;
+		}
 	}
 
-	*{
-		outline: none !important;
-	}
-
-	[name="subject"]{
-		text-align: center;
+	input, textarea{
 		width: 100%;
 	}
 
-	.btn{
-		margin: 2px 0px 2px 2px;
-	}
-
 	textarea{
-		border: 1px solid var(--bordercolor);
-
-		resize: none;
-		width: 500px;
-		min-height: 100px;
-	}
-
-	input{
-		margin: 2px 0;
-
-		&:not([type="password"]){
-			width: 100%;
-		}
-	}
-
-	#fileInputs{
-		max-height: 0px;
-		transition: max-height .3s;
-		overflow: hidden;
-	}
-
-	#fileInputsCheckbox:checked + label + #fileInputs{
-		max-height: 100px;
-	}
-
-	#fileInputsCheckbox:checked + label::before{
-		content: '\f077';
-	}
-
-	.icon{
-		&::before{
-			margin-right: 3px;
-		}
-
-		&.op::before{
-			content: '\f2c0'
-		}
-
-		&.sage::before{
-			content: '\f088'
-		}
-
-		&.send::before{
-			content: '\f1d9'
-		}
-
-		&.caution::before{
-			content: '\f228'
-		}
-
-		&.more::before{
-			margin: 0 auto;
-			content: '\f078';
-		}
+		height: 75px;
 	}
 }
 
-// Show
-#replyFormShow:checked ~ #replyForm{
-	opacity: 1;
-	pointer-events: auto;
-}
+.widget{
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
 
-.widgetContent{
-	.column{
-		padding: 0 20px;
+	align-items: center;
+	justify-content: center;
+
+	&:not([hidden]){
+		display: flex;
+		z-index: 1000
 	}
 
-	label{
-		padding: 5px;
+	.widgetBgLayer{
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 100vw;
+		position: absolute;
+		background-color: rgba(0, 0, 0, .5)
 	}
-}
 
+	.tabs{
+		margin-bottom: 5px;
+	}
 
-#search{
-	.btn{
+	.widgetBox{
+		@include user-select(none);
 		padding: 10px;
-		height: 40px;
-		width: 40px;
-    font-size: 1.5em;
+		height: 90vh;
+		width: 400px;
+		border-radius: 3px;
+		position: relative;
+		background-color: var(--bgcolor_card);
+
+		h2{
+			margin: 10px;
+			text-align: center;
+			cursor: default;
+		}
+	}
+
+	.row{
+		display: flex;
 	}
 
 	input{
-		padding: 0 10px;
-		width: 100%;
-		border-right: none;
+		&:checked + .tab{
+			display: flex;
+			flex-direction: column;
+		}
+
+		& + .tab{
+			display: none;
+		}
 	}
 }
 
-#themesTab + .row{
-	:first-child{
-		width: 200px;
+#deletePosts{
+	bottom: 0;
+	z-index: 1000;
+	width: 100vw;
+	height: 40px;
+	display: flex;
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	transition: opacity .3s;
+	background-color: var(--bgcolor_card);
+	border-top: 2px solid var(--bordercolor);
+
+	&[hidden]{
+		opacity: 0;
+		pointer-events: none;
 	}
-	
-	textarea{
+
+	& > *{
+		margin: 0 10px;
+	}
+
+	div > div{
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+#searchForm{
+	display: flex;
+
+	input{
 		width: 100%;
-		height: 325px;
-		resize: none;
-		margin: 5px;
+		margin-right: 5px;
+	}
+
+	button{
+		width: 30px;
 	}
 }

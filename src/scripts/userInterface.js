@@ -14,19 +14,6 @@ function initDraggableReplyForm() {
 	}
 }
 
-function initDraggables() {
-	if (screen.width > 414) {
-		let ids = ['preferences', 'search'];
-
-		for (var id of ids) {
-			new Draggabilly('#' + id, {
-				containment: 'html',
-				handle: `#${id} .widgetHandle`
-			});
-		}
-	}
-};
-
 function quickReply(postNumber, threadNumber) {
 	document.querySelector("#replyFormShow").checked = true;
 	document.querySelector('#replyForm [name="subject"]').placeholder = 'Имя';
@@ -35,3 +22,21 @@ function quickReply(postNumber, threadNumber) {
 	document.querySelector('input#threadNumber').value = threadNumber;
 	document.querySelector('#replyForm textarea').innerHTML += `>>${postNumber}\n`;
 };
+
+function activatePostRemovalWidget(){
+	setTimeout(() => {
+		if(sel('[form="deletePosts"]:checked')){
+			sel('#deletePosts').removeAttribute('hidden');
+		} else{
+			sel('#deletePosts').setAttribute('hidden', '');
+		}
+	}, 1)
+}
+
+function deselectAllPosts() {
+	for (checkbox of document.querySelectorAll('[form="deletePosts"]:checked')) {
+		checkbox.checked = false;
+	}
+
+	activatePostRemovalWidget();
+}

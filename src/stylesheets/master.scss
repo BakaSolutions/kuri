@@ -109,7 +109,7 @@ main{
 	box-shadow: 0 0 15px -5px var(--shadowcolor);
 }
 
-// Icons
+// s
 .icon{
 	cursor: pointer;
 
@@ -210,7 +210,12 @@ main{
 
 input, textarea{
 	border: 1px solid var(--bordercolor);
-	color: var(--font_primary)
+	color: var(--font_primary);
+	text-align: center;
+
+	&[type="text"], &[type="password"], &textarea{
+		color: var(--bgcolor);
+	}
 }
 
 button, input, textarea{
@@ -226,7 +231,7 @@ button, input, textarea{
 	background-color: var(--bgcolor);
 
 	label{
-		padding: 5px 20px;
+		padding: 5px 10px;
 		background-color: var(--bgcolor_card);
 	}
 

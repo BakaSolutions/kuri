@@ -3,7 +3,7 @@
 		<div>
 			<aside class="postMenu">
 				<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>
-				<label for="delete-{{!it.board.name}}:{{!post.number}}" class="icon delete jsOnly" onclick="sel('.widget#delete').removeAttribute('hidden')"></label>
+				<label for="delete-{{!it.board.name}}:{{!post.number}}" class="icon delete jsOnly" onclick="activatePostRemovalWidget()"></label>
 
 				<span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number === post.threadNumber}}1{{? }})"></span>
 				<!--<span class="icon edit jsOnly"></span>-->

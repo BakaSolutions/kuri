@@ -1,12 +1,11 @@
 <input type="checkbox" id="replyFormShow" hidden>
 
-<div id="replyForm" class="widget">
+<div id="replyForm">
 	<div class="widgetHandle">
 		{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}
-		<label for="replyFormShow" class="icon close"></label>
 	</div>
 
-	<form action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.create" method="post" class="widgetContent">
+	<form id="postForm" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.create" method="post" class="widgetContent">
 		<input type="hidden" name="boardName" value="{{!it.board.name}}">
 		<input type="hidden" name="redirect" value="{{!it.site.protocol}}://{{!it.site.domain}}/{{? it.thread}}{{=it.board.name}}/res/{{=it.thread.number}}.html#bottom{{?? }}:board/res/:thread.html#:post{{? }}">
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
