@@ -56,6 +56,9 @@ function showImage(e, url) {
 			img.style.width = (imgSmallerThanViewport ? img.naturalWidth : window.innerWidth) + 'px';
 			img.style.height = (imgSmallerThanViewport ? img.naturalHeight : window.innerHeight) + 'px';
 			widget.innerHTML = '';
+
+			sel('.widget#imageViewer .widgetBox').style.left = '0';
+			sel('.widget#imageViewer .widgetBox').style.top = '0';
 			widget.appendChild(img);
 
 			new Draggabilly('.widget#imageViewer .widgetBox');
