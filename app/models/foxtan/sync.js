@@ -20,7 +20,7 @@ class SyncData {
   }
 
   get (key) {
-    return this.split(key);
+    return this.split(key, undefined, true);
   }
 
   set (key, value) {
@@ -35,7 +35,7 @@ class SyncData {
     return split;
   }
 
-  split (key, value) {
+  split (key, value, readonly) {
     if (typeof key === 'undefined') {
       if (typeof value !== 'undefined') {
         this.data = value;
@@ -59,6 +59,9 @@ class SyncData {
         return;
       }
       o[key[j]] = value;
+    } else if (!readonly) {
+      delete o[key[j]];
+      return true;
     }
     return o[key[j]];
   }

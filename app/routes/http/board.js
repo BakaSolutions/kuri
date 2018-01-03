@@ -92,11 +92,14 @@ async function renderThread(boardName, threadNumber) {
     }
     let thread = {};
     thread.thread = await API.getThread(boardName, threadNumber);
+    let pattern = ['threadCounts', boardName, thread.thread.number];
+    if (thread.thread.deleted) {
+      return;
+    }
     if (!Tools.isObject(thread.thread)) {
       throw new Error('Foxtan problem! Can\'t get thread!');
     }
     let posts = thread.thread.posts;
-    let pattern = ['threadCounts', boardName, thread.thread.number];
     SD.set(pattern, posts.length);
     for (let i = 0; i < posts.length; i++) {
       posts[i].createdAt = new Date(posts[i].createdAt);

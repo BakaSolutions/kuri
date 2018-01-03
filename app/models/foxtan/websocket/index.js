@@ -1,5 +1,6 @@
 const WS = require('./request');
 const config = require('../../../helpers/config');
+const RenderUpdate = require('../../../render/update');
 
 const Foxtan = config('foxtan.websocket.protocol') + '://' +
     config('foxtan.websocket.host') + ':' +
@@ -45,3 +46,16 @@ function APIPlaceholder(url) {
       : [];
   };
 }
+
+API.getThread = (boardName, threadNumber) => {
+  return APIPlaceholder(commands['getThread'])(boardName, threadNumber)
+    .then((thread) => {
+      if (typeof thread === 'string' && thread.indexOf('410') > -1) {
+        throw [boardName, threadNumber];
+      }
+      return thread;
+    })
+    .catch(
+      out => RenderUpdate.delete(...out, threadNumber)
+    );
+};

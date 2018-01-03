@@ -92,13 +92,20 @@ class WSClient {
     let command = probe.shift();
     message = probe.shift();
 
-    if (command === 'RNDR') {
-      try {
-        let [board, thread, id] = JSON.parse(message);
+    let board, thread, id;
+    try {
+      [board, thread, id] = JSON.parse(message);
+    } catch (e) {
+      return;
+    }
+
+    switch (command) {
+      case 'RNDR':
         await RenderUpdate.update(board, thread, id);
-      } catch (e) {
-        //
-      }
+        break;
+      case 'REM':
+        await RenderUpdate.delete(board, thread, id);
+        break;
     }
   }
 
@@ -112,6 +119,9 @@ class WSClient {
         switch (+message) {
           case 404:
             message = 'Not found!';
+            break;
+          case 410:
+            message = 'Gone!';
             break;
           case 504:
             message = 'Timeout!';
