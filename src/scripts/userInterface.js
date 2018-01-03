@@ -40,3 +40,22 @@ function deselectAllPosts() {
 
 	activatePostRemovalWidget();
 }
+
+/* Оверлей с картинкой */
+function showImage(e, url) {
+	if (!e.ctrlKey) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		const OVRL = document.querySelector('#imageViewer .widgetBox'),
+					IMG = new Image();
+
+		IMG.onload = () => {
+			OVRL.innerHTML = '';
+			OVRL.appendChild(IMG);
+			switchAttribute(sel('.widget#imageViewer'), 'hidden')
+		}
+
+		IMG.src = url;
+	}
+};

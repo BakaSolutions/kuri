@@ -24,7 +24,7 @@
 		<div class="postAttachments">
 			{{? post.number == post.threadNumber}} <!-- Bootleg -->
 				<div class="thumb">
-					<a href="/static/nopic.png" target="_blank"><img src="/static/nopic.png"></a>
+					<a href="/static/nopic.png" target="_blank" onclick="showImage(event, '/static/nopic.png')"><img src="/static/nopic.png"></a>
 					<a href="/static/nopic.png" download><span>nopic.png</span> <span>0.1mb</span></a>
 				</div>
 			{{? }}

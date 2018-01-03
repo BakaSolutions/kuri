@@ -70,6 +70,13 @@
 	</div>
 </div>
 
+<div class="widget" id="imageViewer" hidden>
+	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#imageViewer'), 'hidden')"></div>
+	<div class="widgetBox">
+
+	</div>
+</div>
+
 <form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete" hidden>
 	<div>
 		Удалить выбранные посты?
