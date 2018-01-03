@@ -113,25 +113,31 @@ function sel(selector){
 
 settingsManager.init();
 
+function zoomImage(img, multiplier){
+	const MAX_SIZE = 5e3,
+				MIN_SIZE = 100;
+
+	let newHeight = multiplier * img.style.height.replace('px', ''),
+	 		newWidth = multiplier * img.style.width.replace('px', '');
+
+	if (newHeight < MAX_SIZE && newWidth < MAX_SIZE && newHeight > MIN_SIZE && newWidth > MIN_SIZE) {
+		img.style.width = newWidth + 'px';
+		img.style.height = newHeight + 'px';
+	}
+}
 
 // Hotkeys
 (() => {
 	document.onkeydown = (e) => {
 		// log("Button pushed: ", e);
-		let imageViewerVisible = !sel('.widget#imageViewer').hasAttribute('hidden');
+		let img = sel('#imageViewer .widgetBox img')
 
 		switch (e.which) {
 			case 187: // Plus
-				if (e.shiftKey && imageViewerVisible && sel('#imageViewer .widgetBox img').style.zoom < 3) {
-					sel('#imageViewer .widgetBox img').style.zoom -= -0.2;
-					log("Image zoomed to ", sel('#imageViewer .widgetBox img').style.zoom);
-				}
+				if (e.shiftKey && img) zoomImage(img, 1.2);
 				break;
 			case 189: // Minus
-				if (!e.shiftKey && imageViewerVisible && sel('#imageViewer .widgetBox img').style.zoom > 0.2) {
-					sel('#imageViewer .widgetBox img').style.zoom -= 0.2;
-					log("Image zoomed to ", sel('#imageViewer .widgetBox img').style.zoom);
-				}
+				if (!e.shiftKey && img) zoomImage(img, 0.8);
 				break;
 			case 116: // f5
 				if (!e.ctrlKey) {

@@ -134,5 +134,13 @@
 #imageViewer .widgetBox{
 	height: auto;
 	width: auto;
-	background: none;
+	padding: 0;
+
+	&:active{
+		cursor: move;
+	}
+
+	*{
+		vertical-align: middle;
+	}
 }

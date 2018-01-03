@@ -47,16 +47,21 @@ function showImage(e, url) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		const OVRL = sel('#imageViewer .widgetBox'),
-					IMG = new Image();
+		let widget = sel('#imageViewer .widgetBox'),
+				img = new Image();
 
-		IMG.onload = () => {
-			IMG.style.zoom = 1;
-			OVRL.innerHTML = '';
-			OVRL.appendChild(IMG);
-			switchAttribute(sel('.widget#imageViewer'), 'hidden')
+		img.onload = () => {
+			let imgSmallerThanViewport = img.naturalWidth < window.innerWidth && img.naturalHeight < window.innerHeight;
+
+			img.style.width = (imgSmallerThanViewport ? img.naturalWidth : window.innerWidth) + 'px';
+			img.style.height = (imgSmallerThanViewport ? img.naturalHeight : window.innerHeight) + 'px';
+			widget.innerHTML = '';
+			widget.appendChild(img);
+
+			new Draggabilly('.widget#imageViewer .widgetBox');
+			sel('.widget#imageViewer').removeAttribute('hidden');
 		}
 
-		IMG.src = url;
+		img.src = url;
 	}
 };
