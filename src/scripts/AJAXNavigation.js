@@ -55,11 +55,4 @@ function asyncLoadPage(uri, noScrolling = 0) {
 			else if (!uri.indexOf('/')) asyncLoadPage(uri); // For internal link
 		}
 	}
-
-	document.onkeydown = (e) => {
-		if (e.which == 116 && !e.ctrlKey) { // Async reloading
-			e.preventDefault();
-			asyncLoadPage(document.location.href, 1);
-		}
-	}
 })()

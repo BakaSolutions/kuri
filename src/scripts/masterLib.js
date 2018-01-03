@@ -112,3 +112,33 @@ function sel(selector){
 }
 
 settingsManager.init();
+
+
+// Hotkeys
+(() => {
+	document.onkeydown = (e) => {
+		// log("Button pushed: ", e);
+		let imageViewerVisible = !sel('.widget#imageViewer').hasAttribute('hidden');
+
+		switch (e.which) {
+			case 187: // Plus
+				if (e.shiftKey && imageViewerVisible && sel('#imageViewer .widgetBox img').style.zoom < 3) {
+					sel('#imageViewer .widgetBox img').style.zoom -= -0.2;
+					log("Image zoomed to ", sel('#imageViewer .widgetBox img').style.zoom);
+				}
+				break;
+			case 189: // Minus
+				if (!e.shiftKey && imageViewerVisible && sel('#imageViewer .widgetBox img').style.zoom > 0.2) {
+					sel('#imageViewer .widgetBox img').style.zoom -= 0.2;
+					log("Image zoomed to ", sel('#imageViewer .widgetBox img').style.zoom);
+				}
+				break;
+			case 116: // f5
+				if (!e.ctrlKey) {
+					e.preventDefault();
+					asyncLoadPage(document.location.href, 1);
+				}
+				break;
+		}
+	}
+})()

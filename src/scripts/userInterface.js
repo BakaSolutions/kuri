@@ -47,10 +47,11 @@ function showImage(e, url) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		const OVRL = document.querySelector('#imageViewer .widgetBox'),
+		const OVRL = sel('#imageViewer .widgetBox'),
 					IMG = new Image();
 
 		IMG.onload = () => {
+			IMG.style.zoom = 1;
 			OVRL.innerHTML = '';
 			OVRL.appendChild(IMG);
 			switchAttribute(sel('.widget#imageViewer'), 'hidden')
