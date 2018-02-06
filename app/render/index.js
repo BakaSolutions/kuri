@@ -45,7 +45,7 @@ Render.reloadTemplates = function () {
  * @returns {Object} -- object with template functions
  */
 Render.compileTemplates = async function () {
-  Logger.info('[Rndr] Compiling templates...');
+  Logger.info('[Render] Compiling templates...');
 
   let sources = FS.readdirSync(templateFolder, true).map(function (source) {
     return source.replace(Path.join(__dirname, '../../', templateFolder, Path.sep), '');

@@ -29,14 +29,13 @@
 	font-style: normal;
 	font-weight: normal;
 	font-family: 'FontAwesome';
-	src: url('../static/fontawesome-webfont.eot');
-	src: url('../static/fontawesome-webfont.eot') format('embedded-opentype'), url('../static/fontawesome-webfont.woff2') format('woff2'), url('../static/fontawesome-webfont.woff') format('woff'), url('../static/fontawesome-webfont.ttf') format('truetype'), url('../static/fontawesome-webfont.svg') format('svg');
+	src: url('../static/fonts/fontawesome-webfont.eot');
+	src: url('../static/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../static/fonts/fontawesome-webfont.woff2') format('woff2'), url('../static/fonts/fontawesome-webfont.woff') format('woff'), url('../static/fonts/fontawesome-webfont.ttf') format('truetype'), url('../static/fonts/fontawesome-webfont.svg') format('svg');
 }
 
 @import '_navigation.scss';
 @import '_widgets.scss';
 @import '_posts.scss';
-@import '_home.scss';
 @import '_scrollbar.scss';
 
 body{

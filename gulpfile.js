@@ -10,7 +10,7 @@ let input = {
 	js: ['src/scripts/**/*.js', 'custom/src/scripts/**/*.js', '!src/scripts/**/*.min.js', '!custom/src/scripts/**/*.min.js'],
 	minjs: ['src/scripts/**/*.min.js', 'custom/src/scripts/**/*.min.js'],
 	sass: ['src/stylesheets/**/*.?(s)css', 'custom/src/stylesheets/**/*.?(s)css'],
-	staticFiles: ['src/static/*'],
+	staticFiles: ['src/static/**/*'],
 	themes: ['src/themes/**/*.json']
 };
 

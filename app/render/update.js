@@ -31,7 +31,7 @@ RenderUpdate.update = async (board, thread, id, renderThreadLists = true) => {
 };
 
 RenderUpdate.delete = async (board, thread, id, renderThreadLists = true) => {
-  Logger.info(`[Rndr] Deleting /${board}/res/${id || thread}...`);
+  Logger.info(`[Render] Deleting /${board}/res/${id || thread}...`);
 
   let arr = [];
   let pattern = `/${board}`;

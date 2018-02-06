@@ -7,7 +7,7 @@
     "build": "gulp",
     "watch": "gulp watch",
     "start": "NODE_ENV=production node app/kuri.js",
-    "start:dev": "NODE_ENV=development node app/kuri.js"
+    "start:dev": "rm ./.tmp/sync* && NODE_ENV=development node app/kuri.js"
   },
   "repository": {
     "type": "git",

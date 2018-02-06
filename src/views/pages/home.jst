@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html>
-	{{#def["particles/head"]}}
+	<head>
+		<title>Тумба.ч</title>
+		<link rel="stylesheet" href="/css/home.css">
+		<script defer src="/js/home.js"></script>
+	</head>
 	<body>
-		{{#def["particles/navigation"]}}
-		<a name="top"></a>
-		<main>
-			<header id="mainPageLogo">
-				<div>Тумба.ч</div>
-				<div>технологичный и удобный имиджборд</div>
-			</header>
-			<div id="boardList">
-				{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
-				<div class="group">
-					<div class="groupTitle">{{!group.title}}</div>
-					{{~group.boards.filter((board) => !board.hidden) :board}}
-						<a href="/{{!it.site.pathPrefix}}{{!board.name}}/">
-							/{{!board.name}}/ — {{!board.title}}
-						</a>
-					{{~ }}
-				</div>
-			{{~ }}
+		<div class="screen">
+			<div id="player">
+				<div id="playButton"></div>
+				<input type="file" name="file" id="file" accept="audio/*">
 			</div>
 
-			<div class="tabs">
-				<label for="rulesTab">Правила</label>
-				<label for="faqTab">ЧаВО</label>
-			</div>
+			{{#def["particles/news"]}}
+		</div>
 
-			<input type="radio" name="homeTabs" hidden id="rulesTab" checked>
-			<div class="column">
-				{{#def["particles/rules"]}}
-			</div>
+		<div class="screen">
+			{{#def["particles/faq"]}}
+		</div>
 
-			<input type="radio" name="homeTabs" hidden id="faqTab">
-			<div class="column">
-				{{#def["particles/faq"]}}
-			</div>
+		<div id="links">
+		  <a href="javascript:void(0)">/a/</a>
+		  <a href="javascript:void(0)">/art/</a>
+		  <a href="/test/">/b/</a>
+		  <a href="javascript:void(0)">/mu/</a>
+		  <a href="javascript:void(0)">/vg/</a>
+		</div>
 
-		</main>
-		<a name="bottom"></a>
-		{{#def["particles/widgets"]}}
+		<div id="scrollIndicator" class="firstScreen"></div>
 	</body>
 </html>
