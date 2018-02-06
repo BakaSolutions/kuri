@@ -16,20 +16,28 @@
 body{
 	margin: 0;
 	overflow: hidden;
+
+	font-size: 2vh;
 	font-family: 'Noto Sans';
 	color: rgba(255,255,255,.7);
-	font-size: 2vh;
+
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-image: url('/static/background/foxy.jpg');
 }
 
 .screen{
 	background: rgba(0, 0, 0, .7);
-	// width: calc(100vw - 15px);
-	width: 100vw;
-	height: 100vh;
 	display: flex;
 	box-sizing: border-box;
-	padding-bottom: 60px;
 	align-items: center;
+	min-height: 50vh;
+}
+
+body.jsAvailable .screen{
+	height: 100vh;
+	padding-bottom: 60px;
 }
 
 #player{
@@ -52,7 +60,7 @@ body{
 
 #news{
 	margin-left: 100px;
-	
+
 	article{
 		position: relative;
 		padding: 10px;
@@ -137,6 +145,10 @@ body{
 			background: rgba(255, 255, 255, .2)
 		}
 	}
+}
+
+body:not(.jsAvailable) #scrollIndicator{
+	display: none;
 }
 
 #scrollIndicator{

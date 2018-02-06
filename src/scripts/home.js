@@ -29,9 +29,7 @@ let scrollToScreen = (number) => {
 (() => {
 	// Get BG
 	let url = `/static/background/${Math.floor(Math.random() * 10)}.jpg`;
-	document.querySelector('body').style.background = `url("${url}")`;
-	document.querySelector('body').style.backgroundSize = `cover`;
-	document.querySelector('body').style.backgroundAttachment = `fixed`;
+	document.querySelector('body').style.backgroundImage = `url("${url}")`;
 
 	// Get splash
 	let xhr = new XMLHttpRequest();
@@ -42,6 +40,8 @@ let scrollToScreen = (number) => {
 	xhr.open('GET', '/static/splashes.json');
 	xhr.send(0);
 
+	// ...
+	document.querySelector('body').classList.add('jsAvailable');
 
 	// Hotkeys
 	document.onkeydown = (e) => {
