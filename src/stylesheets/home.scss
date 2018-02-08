@@ -15,7 +15,6 @@
 
 body{
 	margin: 0;
-	overflow: hidden;
 
 	font-size: 2vh;
 	font-family: 'Noto Sans';
@@ -59,8 +58,6 @@ body.jsAvailable .screen{
 }
 
 #news{
-	margin-left: 100px;
-
 	article{
 		position: relative;
 		padding: 10px;
@@ -83,7 +80,7 @@ body.jsAvailable .screen{
 
 		h3{
 			display: inline;
-			padding-left: 30px;
+			padding-left: 2em;
 		}
 
 		time{
@@ -93,7 +90,7 @@ body.jsAvailable .screen{
 
 		p{
 			margin: 0;
-			padding-left: 30px;
+			padding-left: 2.5em;
 		}
 	}
 }
@@ -106,7 +103,7 @@ body.jsAvailable .screen{
 	}
 
 	li:nth-child(even){
-		margin-bottom: 15px;
+		margin-bottom: 2em;
 
 		&::before {
 			content: "A: ";
@@ -134,7 +131,7 @@ body.jsAvailable .screen{
 		padding: 10px 0;
 		text-align: center;
 
-		font-size: 30px;
+		font-size: 2.3em;
 		color: inherit;
 		text-decoration: none;
 
@@ -147,15 +144,12 @@ body.jsAvailable .screen{
 	}
 }
 
-body:not(.jsAvailable) #scrollIndicator{
-	display: none;
-}
-
 #scrollIndicator{
 	right: 10px;
+	display: none;
 	position: fixed;
-	top: calc(50vh - 40px);
 	font-size: 30px;
+	top: calc(50vh - 40px);
 
 	&::before, &::after{
 		content: "•";
@@ -175,6 +169,45 @@ body:not(.jsAvailable) #scrollIndicator{
 	&.secondScreen{
 		&::before{
 			opacity: .5;
+		}
+	}
+}
+
+@media screen and (min-device-width: 415px) { // PC
+	#news{
+		margin-left: 100px;
+	}
+
+	body.jsAvailable{
+		overflow: hidden;
+
+		#scrollIndicator{
+			display: block;
+		}
+	}
+}
+
+@media screen and (max-device-width: 414px) { // Mobile
+	body{
+		font-size: 3vw;
+	}
+
+	.screen{
+		flex-direction: column;
+
+		&:not(:first-child){
+				height: auto !important;
+				font-size: .5em;
+		}
+	}
+
+	#player{
+		margin: 10vh;
+
+		#playButton{
+			height: 540px;
+			width: 540px;
+			background-size: cover;
 		}
 	}
 }

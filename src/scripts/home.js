@@ -11,7 +11,7 @@ let scrollToScreen = (number) => {
 			startingY = window.pageYOffset,
 			diff = elementY - startingY,
 			start,
-			duration = Math.abs(diff);
+			duration = Math.abs(diff / 4);
 
   window.requestAnimationFrame(function step(timestamp) {
     start = start || timestamp;
