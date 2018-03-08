@@ -3,7 +3,7 @@ const cleanCSS = require('gulp-clean-css');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const minify = require("gulp-babel-minify");
-const Render = require('./app/render');
+const Render = require('./app/helpers/render');
 
 let input = {
 	dot: ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
@@ -27,7 +27,6 @@ gulp.task('staticFiles', (() => {
 }));
 
 gulp.task('dot', (() => {
-	Render.reloadTemplates();
 	return Render.compileTemplates();
 }));
 
@@ -48,7 +47,7 @@ gulp.task('themes', (() => {
 gulp.task('sass', (() => {
 	return gulp.src(input.sass)
 		.pipe(sass().on('error', sass.logError))
-		.pipe(cleanCSS({debug: 'development'}, function(details) {
+		.pipe(cleanCSS({debug: 'development'}, details => {
 			console.log(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize);
 		}))
 		.pipe(gulp.dest(output.sass));
@@ -61,4 +60,4 @@ gulp.task('watch', (() => {
 	watch(input.themes, () => gulp.start('themes'));
 }));
 
-gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);
+gulp.task('default', gulp.parallel('dot', 'js', 'sass', 'staticFiles', 'themes'));

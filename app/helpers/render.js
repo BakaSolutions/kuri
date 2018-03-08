@@ -1,8 +1,8 @@
 const doT = require('dot');
+const path = require('path');
 const FS = require('../helpers/fs');
-const Path = require('path');
-const Tools = require('../helpers/tools');
 const Logger = require('../helpers/logger');
+const Tools = require('../helpers/tools');
 
 let Render = module.exports = {};
 let includes = {};
@@ -14,27 +14,28 @@ const settings = {
 };
 const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 
-let templateFolder = 'src/views';
-let destinationFolder = '.tmp/views';
+const TEMPL = 'src/views';
+const DESTI = '.tmp/views';
+const TEMPL_FOLDER = path.join(__dirname, '../../', TEMPL, path.sep);
+const DESTI_FOLDER = path.join(__dirname, '../../', DESTI, path.sep);
 
-Render.reloadTemplates = function () {
+
+Render.loadTemplates = async () => {
   try {
-    let templatePaths = FS.readdirSync(destinationFolder, true);
-    templatePaths.forEach(function (templatePath) {
-      if (Path.parse(templatePath).ext !== '.js') {
+    let templatePaths = await FS.readdir(DESTI_FOLDER);
+    templatePaths.forEach(templatePath => {
+      if (!templatePath.match(/\.js$/i)) {
         return false;
       }
-      let templateName = templatePath
-          .replace(Path.join(__dirname, '../../', destinationFolder, Path.sep), '')
-          .split('.')
-          .shift();
+      let templateName = templatePath.replace(DESTI_FOLDER, '').split('.').shift();
+      templatePath = path.resolve(DESTI_FOLDER, templatePath);
       if (require.cache[templatePath]) {
         delete require.cache[templatePath];
       }
       templates[templateName] = require(templatePath);
     });
   } catch (err) {
-    console.log(err.stack || err);
+    Logger.error(err.stack || err);
   }
 };
 
@@ -44,12 +45,9 @@ Render.reloadTemplates = function () {
  * First and the main reason: it doesn't ignore subdirectories.
  * @returns {Object} -- object with template functions
  */
-Render.compileTemplates = async function () {
-  Logger.info('[Render] Compiling templates...');
-
-  let sources = FS.readdirSync(templateFolder, true).map(function (source) {
-    return source.replace(Path.join(__dirname, '../../', templateFolder, Path.sep), '');
-  });
+Render.compileTemplates = async () => {
+  Logger.info('[Rndr] Compiling templates...');
+  let sources = (await FS.readdir(TEMPL_FOLDER)).map(source => source.replace(TEMPL_FOLDER, ''));
 
   let k;
   let l = sources.length;
@@ -58,38 +56,35 @@ Render.compileTemplates = async function () {
   for (k = 0; k < l; k++) {
     name = sources[k];
     if (/\.def(\.dot|\.jst)?$/.test(name)) {
-      includes[name.substring(0, name.indexOf('.'))] = FS.readSync(Path.join(__dirname, '../../', templateFolder, name));
+      includes[name.substring(0, name.indexOf('.'))] = await FS.readFile(path.join(TEMPL_FOLDER, name));
     }
   }
 
   for (k = 0; k < l; k++) {
     name = sources[k];
-    let realPath = Path.join(__dirname, '../../', templateFolder, name);
+    let realPath = path.join(TEMPL_FOLDER, name);
     if (/\.jst(\.dot|\.def)?$/.test(name)) {
-      let template = FS.readSync(realPath);
-      await this.compileToFile(Path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
+      let template = await FS.readFile(realPath);
+      await Render.compileToFile(path.join(name.substring(0, name.indexOf('.')) + '.js'), template);
     }
   }
 };
 
-
-Render.compileToFile = async function(filePath, template) {
+Render.compileToFile = async (filePath, template) => {
   let moduleName = filePath.split('.').shift().replace(ILLEGAL_CHARACTERS_REGEXP, '_');
-  let precompiled = doT.template(template, settings, includes)
-      .toString()
-      .replace('anonymous', moduleName);
-  let compiled = '(function(){' + precompiled + 'module.exports=' + moduleName + ';})()';
-  await FS.writeFile(Path.join(__dirname, '../../', destinationFolder, filePath), compiled);
+  let precompiled = doT.template(template, settings, includes).toString().replace('anonymous', moduleName);
+  let compiled = '(()=>{' + precompiled + 'module.exports=' + moduleName + ';})()';
+  await FS.writeFile(path.join(DESTI_FOLDER, filePath), compiled);
 };
 
-Render.renderPage = function (templateName, model) {
+Render.renderPage = (templateName, model) => {
   try {
     let template = templates[templateName];
     if (!template) {
       return new Error('This template doesn\'t exist: ' + templateName);
     }
-    let baseModel = require('../models/base');
-    model = Tools.merge(model, baseModel) || baseModel;
+    let baseModel = require('../models').models.base || {};
+    model = Object.assign(baseModel, model); //model = Tools.merge(model, baseModel) || baseModel;
     return template(model);
   } catch (e) {
     Logger.error(e);
@@ -97,12 +92,12 @@ Render.renderPage = function (templateName, model) {
   }
 };
 
-Render.rerender = async function (what) {
+Render.rerender = async what => {
   let routes = Tools.requireWrapper(require('../routes'));
   for (let router of routes.routers) {
     let paths = typeof router.paths === 'function'
-        ? await router.paths()
-        : router.paths;
+      ? await router.paths()
+      : router.paths;
     if (!Array.isArray(paths)) {
       paths = [ paths ];
     }
@@ -117,7 +112,7 @@ Render.rerender = async function (what) {
       Logger.info(`[Rndr] Rendering ${path}...`);
       let result = await router.render(path);
       if (result) {
-        await FS.writeFile(Path.join('public', path), result);
+        await FS.writeFile(path.join('public', path), result);
       }
     }
   }

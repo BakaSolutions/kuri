@@ -1,6 +1,6 @@
 const WS = require('./request');
 const config = require('../../../helpers/config');
-const RenderUpdate = require('../../../render/update');
+const Logger = require('../../../helpers/logger');
 
 const Foxtan = config('foxtan.websocket.protocol') + '://' +
     config('foxtan.websocket.host') + ':' +
@@ -35,7 +35,9 @@ function APIPlaceholder(url) {
     for (let i = 0; i < args.length; i++) {
       link = link.replace('$' + (i + 1), args[i]);
     }
+    Logger.debug(`[WS] Receiving ${link}...`);
     let out = await Request.send(link);
+    Logger.debug(`[WS] Received: ${out}`);
     try {
       out = JSON.parse(out);
     } catch (e) {
@@ -49,13 +51,10 @@ function APIPlaceholder(url) {
 
 API.getThread = (boardName, threadNumber) => {
   return APIPlaceholder(commands['getThread'])(boardName, threadNumber)
-    .then((thread) => {
+    .then(thread => {
       if (typeof thread === 'string' && thread.indexOf('410') > -1) {
         throw [boardName, threadNumber];
       }
       return thread;
     })
-    .catch(
-      out => RenderUpdate.delete(...out, threadNumber)
-    );
 };

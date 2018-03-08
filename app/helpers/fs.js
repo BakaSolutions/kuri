@@ -1,5 +1,13 @@
 const path = require('path');
 const fs = require('fs');
+const { promisify } = require('util');
+
+const stat = promisify(fs.stat);
+const readdir = promisify(fs.readdir);
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+
+
 const Pledge = require('./promise');
 
 let FS = module.exports = {};
@@ -10,7 +18,7 @@ const ROOT = path.join(__dirname, '/../../');
  * @param {String} filePath
  * @returns {String}
  */
-FS.normalize = function(filePath) {
+FS.normalize = filePath => {
   let rooted = filePath.indexOf(ROOT) === 0;
   return path.normalize(rooted
     ? filePath
@@ -22,22 +30,23 @@ FS.normalize = function(filePath) {
  * @param {String} filePath
  * @returns {boolean}
  */
-FS.check = function (filePath) {
+FS.check = filePath => {
   return filePath.indexOf(path.normalize(ROOT)) === 0;
 };
 
 /**
  * Read file synchronously with checking the filePath
  * @param {String} filePath
+ * @param {String} [encoding]
  * @returns {*}
  */
-FS.readSync = function (filePath) {
+FS.readSync = (filePath, encoding = 'utf8') => {
   filePath = FS.normalize(filePath);
-  if (!this.check(filePath)) {
+  if (!FS.check(filePath)) {
     return false;
   }
   try {
-    return fs.readFileSync(filePath, 'utf8');
+    return fs.readFileSync(filePath, encoding);
   } catch (e) {
     return false;
   }
@@ -48,9 +57,9 @@ FS.readSync = function (filePath) {
  * @param {String} filePath
  * @returns {boolean}
  */
-FS.unlinkSync = function (filePath) {
+FS.unlinkSync = filePath => {
   filePath = FS.normalize(filePath);
-  if (!this.check(filePath)) {
+  if (!FS.check(filePath)) {
     return false;
   }
 
@@ -67,19 +76,18 @@ FS.unlinkSync = function (filePath) {
  * @param {String, Buffer} content
  * @returns {boolean}
  */
-FS.writeFileSync = function (filePath, content) {
+FS.writeFileSync = (filePath, content) => {
   filePath = FS.normalize(filePath);
-  if (!this.check(filePath)) {
+  if (!FS.check(filePath)) {
     return false;
   }
 
   let dir = path.parse(filePath).dir + path.sep;
-  if (!this.existsSync(dir)) {
-    this.mkdirSync(dir);
+  if (!FS.existsSync(dir)) {
+    FS.mkdirSync(dir);
   }
 
-  content = content || '';
-  fs.writeFileSync(filePath, content);
+  fs.writeFileSync(filePath, content || '');
   return true;
 };
 
@@ -88,7 +96,7 @@ FS.writeFileSync = function (filePath, content) {
  * @param {String} filePath
  * @returns {boolean}
  */
-FS.existsSync = function (filePath) {
+FS.existsSync = filePath => {
   filePath = FS.normalize(filePath);
   let out;
   try {
@@ -105,11 +113,11 @@ FS.existsSync = function (filePath) {
  * @param {String|Array} dir
  * @returns {boolean}
  */
-FS.mkdirSync = function (dir) {
+FS.mkdirSync = dir => {
   if (!Array.isArray(dir)) {
     dir = [ dir ];
   }
-  if (this.existsSync(dir[0]) || dir.length < 1) {
+  if (FS.existsSync(dir[0]) || dir.length < 1) {
     return true;
   }
 
@@ -120,24 +128,24 @@ FS.mkdirSync = function (dir) {
     parent.pop();
     parent = parent.join('/');
     dir[dir.length] = parent;
-    return this.mkdirSync(dir);
+    return FS.mkdirSync(dir);
   }
   dir.pop();
   if (dir.length < 1) {
     return true;
   }
-  return this.mkdirSync(dir);
+  return FS.mkdirSync(dir);
 };
 
-FS.readdirSync = function(dir, recursive) {
+FS.readdirSync = (dir, recursive = true) => {
   dir = FS.normalize(dir);
-  if(!this.check(dir)) {
+  if(!FS.check(dir)) {
     return false;
   }
 
   let results = [];
   let list = fs.readdirSync(dir);
-  list.forEach(function(file) {
+  list.forEach(file => {
     file = path.join(dir, file);
     let stat = fs.statSync(file);
     if (recursive && stat && stat.isDirectory()) {
@@ -149,25 +157,11 @@ FS.readdirSync = function(dir, recursive) {
   return results;
 };
 
-FS.readFileStream = function (source, res) {
-  source = FS.normalize(source);
-  if(!this.check(source)) {
-    res.statusCode = 403;
-    return res.end('Forbidden');
-  }
-  source = fs.createReadStream(source, {encoding: 'utf8'});
-  source.pipe(res);
-  source.on('error', function(err) {
-    res.statusCode = 500;
-    res.end('Server Error');
-  });
-};
-
-FS.copyFile = function (source, target) {
-  return new Pledge(function(resolve, reject) {
+FS.copyFile = (source, target) => {
+  return new Pledge((resolve, reject) => {
     source = FS.normalize(source);
-    if(!this.check(source)) {
-      reject(new Error('Forbidden'));
+    if(!FS.check(source)) {
+      return reject('Forbidden');
     }
     let rd = fs.createReadStream(source);
     rd.on('error', rejectCleanup);
@@ -183,35 +177,50 @@ FS.copyFile = function (source, target) {
   });
 };
 
-FS.readFile = async function (filePath) {
-  return new Pledge((resolve, reject) => {
-    filePath = FS.normalize(filePath);
-    if (!this.check(filePath)) {
+
+FS.readdir = async (dir, recursive = true) => {
+  return new Pledge(async (resolve, reject) => {
+    dir = FS.normalize(dir);
+    if (!FS.check(dir)) {
       return reject('Forbidden');
     }
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err && err.code !== 'ENOENT') return reject(err);
-      resolve(data);
-    });
+    let list = await readdir(dir);
+    let files = await Promise.all(list.map(async subdir => {
+      let res = path.resolve(dir, subdir);
+      return ((await stat(res)).isDirectory() && recursive)
+        ? FS.readdir(res)
+        : res;
+    }));
+    let out = files.reduce((a, f) => a.concat(f), []);
+    resolve(out);
   });
 };
 
-FS.writeFile = function (filePath, content) {
-  return new Pledge((resolve, reject) => {
+
+FS.readFile = async (filePath, encoding = 'utf8') => {
+  return new Pledge(async (resolve, reject) => {
     filePath = FS.normalize(filePath);
-    if (!this.check(filePath)) {
-      return false;
+    if (!FS.check(filePath)) {
+      return reject('Forbidden');
+    }
+    let out = await readFile(filePath, encoding);
+    resolve(out);
+  });
+};
+
+FS.writeFile = (filePath, content) => {
+  return new Pledge(async (resolve, reject) => {
+    filePath = FS.normalize(filePath);
+    if (!FS.check(filePath)) {
+      return reject('Forbidden');
     }
 
     let dir = path.parse(filePath).dir + path.sep;
-    if (!this.existsSync(dir)) {
-      this.mkdirSync(dir);
+    if (!FS.existsSync(dir)) {
+      FS.mkdirSync(dir);
     }
 
-    content = content || '';
-    fs.writeFile(filePath, content, (err, data) => {
-      if (err) return reject(err);
-      resolve(data);
-    });
+    let out = await writeFile(filePath, content || '');
+    resolve(out);
   });
 };

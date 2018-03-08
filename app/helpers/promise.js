@@ -1,4 +1,4 @@
-let logger = require('./logger');
+const Logger = require('./logger');
 
 module.exports = class Pledge {
 
@@ -26,7 +26,7 @@ module.exports = class Pledge {
   }
 
   defaultReject(e) {
-    logger.error('[Caught!] Ni-paa~!', e);
+    Logger.error('[Caught!] Ni-paa~!', e);
     return e;
   }
 };

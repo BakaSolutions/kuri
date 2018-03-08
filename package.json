@@ -1,13 +1,13 @@
 {
   "name": "kuri",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The Foxtan web-client.",
-  "main": "app/kuri.js",
+  "main": "app/index.js",
   "scripts": {
     "build": "gulp",
     "watch": "gulp watch",
-    "start": "NODE_ENV=production node app/kuri.js",
-    "start:dev": "rm ./.tmp/sync* && NODE_ENV=development node app/kuri.js"
+    "start": "NODE_ENV=production node app",
+    "start:dev": "NODE_ENV=development node app"
   },
   "repository": {
     "type": "git",
@@ -21,19 +21,18 @@
   "homepage": "https://github.com/tumbach/kuri",
   "dependencies": {
     "dot": "^1.1.2",
-    "figurecon": "github:rngnrs/figurecon",
+    "figurecon": "rngnrs/figurecon",
     "koa": "^2.3.0",
     "koa-router": "^7.3.0",
-    "merge": "^1.2.0",
-    "minimal-request-promise": "^1.5.0",
-    "ws": "^3.3.1"
+    "rfc6902": "^2.2.2",
+    "ws": "^5.0.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-babel-minify": "^0.2.0",
-    "gulp-clean-css": "^3.9.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-watch": "^4.3.11"
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-babel-minify": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-sass": "latest",
+    "gulp-watch": "latest"
   },
   "engines": {
     "node": ">= 8.0.0"

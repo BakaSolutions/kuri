@@ -1,16 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const merge = require('merge');
 const Pledge = require('./promise');
+const Logger = require('./logger');
 
-let tools = module.exports = {},
-    toString = Object.prototype.toString;
+let tools = module.exports = {};
+let toString = {}.toString;
 
-tools.moduleAvailable = function (name) {
+tools.moduleAvailable = name => {
   try {
     require.resolve(name);
     return true;
-  } catch(e) {
+  } catch (e) {
     //
   }
   return false;
@@ -22,7 +22,7 @@ tools.moduleAvailable = function (name) {
  * @param [mask]
  * @returns {Promise}
  */
-tools.requireAll = async function (src, mask) {
+tools.requireAll = async (src, mask) => {
   let filePath = path.join(__dirname, '/../', src);
   return new Pledge((resolve, reject) => {
     fs.readdir(filePath, (err, files) => {
@@ -40,9 +40,9 @@ tools.requireAll = async function (src, mask) {
  * @param [mask]
  * @returns {*}
  */
-tools.requireAllSync = function (src, mask) {
-  let filePath = path.join(__dirname, '/../', src),
-      files = fs.readdirSync(filePath);
+tools.requireAllSync = (src, mask) => {
+  let filePath = path.join(__dirname, '/../', src);
+  let files = fs.readdirSync(filePath);
   return requireAll(mask, files, filePath);
 };
 
@@ -58,7 +58,7 @@ function requireAll(mask, files, filePath) {
   if (typeof files === 'undefined') {
     return o;
   }
-  files.forEach(function (file) {
+  files.forEach(file => {
     if(mask && !mask.test(file)) {
       return false;
     }
@@ -66,8 +66,7 @@ function requireAll(mask, files, filePath) {
     try {
       o[o.length] = tools.requireWrapper(require(path.join(filePath, file)));
     } catch (e) {
-      /*const Logger = require('./logger');
-      Logger.error(e);*/
+      Logger.error(e);
     }
   });
   return o;
@@ -78,47 +77,39 @@ function requireAll(mask, files, filePath) {
  * @param m
  * @returns {*}
  */
-tools.requireWrapper = function (m) {
-  return (m && m.default) || m;
-};
+tools.requireWrapper = m => ((m && m.default) || m);
 
 /**
  * Check if a variable is an object but not a mop
  * @param obj
  * @returns {boolean}
  */
-tools.isObject = function(obj) {
-  return toString.call(obj) === '[object Object]';
-};
+tools.isObject = obj => toString.call(obj) === '[object Object]';
 
 /**
  * Check if a variable is a map
  * @param obj
  * @returns {boolean}
  */
-tools.isMap = function(obj) {
-  return toString.call(obj) === '[object Map]';
-};
+tools.isMap = obj => toString.call(obj) === '[object Map]';
 
 /**
  * Check if a variable is a number
  * @param n
  * @returns {boolean}
  */
-tools.isNumber = function(n) {
-  return +n === n;
+tools.isNumber = n => +n === n;
   //return !isNaN(parseFloat(n)) && isFinite(n);
-};
 
 /**
  * "Flattens" an array (moves all elements to the root of an array)
  * @param {Array} a
  * @returns {Array}
  */
-tools.flattenArray = function(a) {
+tools.flattenArray = a => {
   let out = [];
-  for(let i = 0; i < a.length; i++) {
-    if(Array.isArray(a[i])) {
+  for (let i = 0; i < a.length; i++) {
+    if (Array.isArray(a[i])) {
       out = out.concat(this.flattenArray(a[i]));
     } else {
       out.push(a[i]);
@@ -133,19 +124,19 @@ tools.flattenArray = function(a) {
  * @param {Object|Map} theArgs
  * @return {Object|Map} target
  */
-tools.merge = function (target, ...theArgs) {
-  target = tools.clone(target);
-  if(tools.isMap(target)) {
+tools.merge = (target, ...theArgs) => {
+  target = Object.assign({}, target);
+  if (tools.isMap(target)) {
     let out = [...target];
-    theArgs.forEach(function(arg) {
+    theArgs.forEach(arg => {
       out.push(...arg);
     });
     return new Map(out);
   }
-  let sources = Array.prototype.slice.call(arguments, 1);
-  sources.forEach(function (source) {
+  let sources = theArgs;
+  sources.forEach(source => {
     for (let prop in source) {
-      if(source.hasOwnProperty(prop)) {
+      if (source.hasOwnProperty(prop)) {
         if (typeof target === 'undefined') {
           target = {};
         }
@@ -158,104 +149,10 @@ tools.merge = function (target, ...theArgs) {
   return target;
 };
 
-tools.clone = function (value) {
-  if (Array.isArray(value)) {
-    return value.slice(0).map(val => tools.clone(val));
-  } else if (tools.isObject(value)) {
-    return merge.recursive(true, value);
-  }
-  return value;
-};
-
-tools.diffArray = function (a1, a2) {
-  let a2Set = new Set(a2);
-  return a1.filter(function(x) { return !a2Set.has(x); });
-};
-
-tools.diffArraySymmetric = function (a1, a2) {
-  return this.diffArray(a1, a2).concat(tools.diffArray(a2, a1));
-};
-
-tools.diffObject = function (a1, a2, i = 0) {
-  let add = {};
-  let rem = {};
-  for (let key in a1) {
-    if (typeof a1[key] === 'object') {
-      if (typeof a2[key] !== 'object') {
-        a2[key] = {};
-      }
-      let krdf = this.diffObject(a1[key], a2[key], i + 1);
-      if (Object.keys(krdf.rem).length) {
-        rem[key] = krdf.rem;
-      }
-    } else {
-      if (typeof a2 === 'undefined' || typeof a2[key] === 'undefined' || a1[key] !== a2[key]) {
-        rem[key] = a1[key];
-      }
-    }
-  }
-  if (!i) {
-    add = this.diffObject(a2, a1, -1).rem;
-  }
-  return {add, rem};
-};
-
-function recurseDiffObject(out = {}, item) {
-  for (let key in item) {
-    if (typeof item[key] === 'object') {
-      if (Object.keys(item[key]).length) {
-        out[key] = recurseDiffObject(out[key], item[key]);
-      }
-    } else {
-      out[key] = item[key];
-    }
-  }
-  return out;
-}
-
-function transformObjectPath(out = [], item, i = '') {
-  for (let key in item) {
-    let j = i ? i + '.' + key : key;
-    if (typeof item[key] === 'object') {
-      if (Object.keys(item[key]).length) {
-        out.push(...transformObjectPath(out[key], item[key], j));
-      }
-    } else {
-      let obj = {};
-      obj[j] = item[key];
-      out.push(obj);
-    }
-  }
-  return out;
-}
-
-tools.diffObjectSum = function (a1, a2) {
-  let {rem, add} = this.diffObject(a1, a2);
-  let out = {};
-  [rem, add].forEach(item => recurseDiffObject(out, item));
-  return out;
-};
-
-tools.diffObjectPlain = function (a1, a2) {
-  let {rem, add} = this.diffObject(a1, a2);
-  let out = {};
-  out.rem = transformObjectPath([], rem);
-  out.add = transformObjectPath([], add);
-  for (let i in out.add) {
-    for (let j in out.rem) {
-      let key = Object.keys(out.add[i])[0];
-      if (typeof out.rem[j][key] !== 'undefined') {
-        out.rem.splice(j, 1);
-      }
-    }
-  }
-  return out;
-};
-
 tools.debounce = function DebounceInstance(f, ms, context = this) {
   let timer = null;
 
-  return function (...args) {
+  return (...args) => {
     const onComplete = () => {
       f.apply(context, args);
       timer = null;
@@ -267,4 +164,22 @@ tools.debounce = function DebounceInstance(f, ms, context = this) {
 
     timer = setTimeout(onComplete, ms);
   };
+};
+
+tools.deepSet = (obj, path, value) => {
+  let a = Array.isArray(path)
+      ? path
+      : path.split('.');
+  let o = obj;
+  for (let i = 0; i < a.length - 1; i++) {
+    let n = a[i];
+    if (n in o) {
+      o = o[n];
+    } else {
+      o[n] = {};
+      o = o[n];
+    }
+  }
+  o[a[a.length - 1]] = value;
+  return obj;
 };

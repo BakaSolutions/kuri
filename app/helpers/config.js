@@ -2,8 +2,13 @@ const Figurecon = require('figurecon');
 const packageJSON = require('../../package.json');
 
 let config = {
+  debug: {
+    enable: false,
+    log: {
+      requests: false
+    }
+  },
   foxtan: {
-    use: 'websocket', // http | websocket
     http: {
       host: 'tuderi.tumba.ch',
       port: 48596,
@@ -22,16 +27,16 @@ let config = {
     port: 8080,
     output: 'port', // port | socket
     socket: '/tmp/sock',
-    enableStatic: true,
-    version: packageJSON['version'],
+    static: {
+      generate: false,
+      external: false // turn on to use nginx
+    },
+    version: packageJSON.version,
     logger: console.log
   },
   site: {
     protocol: 'http',
-    domain: '0.0.0.0:8080', // 'tuderi.tumba.ch',
-    pathPrefix: '',
-    locale: 'ru',
-    dateFormat: 'DD.MM.YYYY HH:mm',
+    domain: '0.0.0.0:8080',
     timeOffset: 180
   }
 };
