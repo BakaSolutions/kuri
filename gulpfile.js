@@ -60,4 +60,7 @@ gulp.task('watch', (() => {
 	watch(input.themes, () => gulp.start('themes'));
 }));
 
-gulp.task('default', gulp.parallel('dot', 'js', 'sass', 'staticFiles', 'themes'));
+// Бесполезные обновления только ломают то, что работает
+// Особенно если обновляешь инструменты, которыми пользуешься не ты, а кто-то другой
+// gulp.task('default', gulp.parallel('dot', 'js', 'sass', 'staticFiles', 'themes'));
+gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);

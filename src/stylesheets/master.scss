@@ -25,14 +25,8 @@
 	-webkit-user-select: $value;
 }
 
-@font-face {
-	font-style: normal;
-	font-weight: normal;
-	font-family: 'FontAwesome';
-	src: url('../static/fonts/fontawesome-webfont.eot');
-	src: url('../static/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../static/fonts/fontawesome-webfont.woff2') format('woff2'), url('../static/fonts/fontawesome-webfont.woff') format('woff'), url('../static/fonts/fontawesome-webfont.ttf') format('truetype'), url('../static/fonts/fontawesome-webfont.svg') format('svg');
-}
 
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import '_navigation.scss';
 @import '_widgets.scss';
 @import '_posts.scss';

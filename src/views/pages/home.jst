@@ -5,30 +5,51 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="/css/home.css">
 		<script defer src="/js/home.js"></script>
+		<script defer src="/js/veeze.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0">
 	</head>
 	<body>
 		<div class="screen">
-			<div id="player">
-				<div id="playButton"></div>
-				<input type="file" name="file" id="file" accept="audio/*">
-			</div>
+			<div id="center">
+				<div id="logo">
+					<span>TUMBA</span>
+					<div id="slogan">
+						<div>
+							You Just Keep on Trying
+						</div>
+						<div>
+							'till You Run Out of Cake
+						</div>
+					</div>
+				</div>
 
-			{{#def["particles/news"]}}
+				<div id="player">
+					<span>Tumba.ch radio: The Prodigy - The Day Is My Enemy</span>
+					<a href="javascript:void(0)">switch channel</a>
+				</div>
+			</div>
 		</div>
 
 		<div class="screen">
 			{{#def["particles/faq"]}}
 		</div>
 
-		<div id="links">
-		  <a href="javascript:void(0)">/a/</a>
-		  <a href="javascript:void(0)">/art/</a>
-		  <a href="/test/">/b/</a>
-		  <a href="javascript:void(0)">/mu/</a>
-		  <a href="javascript:void(0)">/vg/</a>
-		</div>
-
 		<div id="scrollIndicator" class="firstScreen"></div>
+
+		<div id="hexes">
+			<img src="./static/hex.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex.svg">
+			<img src="./static/hex_hollow.svg">
+			<img src="./static/hex.svg">
+			<img src="./static/hex_hollow.svg">
+		</div>
 	</body>
 </html>

@@ -1,29 +1,27 @@
-@font-face {
-	font-family: 'Noto Sans';
-	font-style: normal;
-	font-weight: 500;
-	src: local('Noto Sans'), local('NotoSans'), url('/static/fonts/NotoSans.woff2') format('woff2');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+:root{
+	--primary_color: #62becb;
 }
 
-@font-face {
-	font-style: normal;
-	font-weight: normal;
-	font-family: 'FontAwesome';
-	src: url('../static/fonts/fontawesome-webfont.eot');
-	src: url('../static/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../static/fonts/fontawesome-webfont.woff2') format('woff2'), url('../static/fonts/fontawesome-webfont.woff') format('woff'), url('../static/fonts/fontawesome-webfont.ttf') format('truetype'), url('../static/fonts/fontawesome-webfont.svg') format('svg');
+*{
+	outline: none !important;
 }
 
 body{
 	margin: 0;
 
 	font-size: 2vh;
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans', sans-serif;
 	color: rgba(255,255,255,.7);
 
 	background-size: cover;
-	background-position: center;
+	background-position: top;
 	background-attachment: fixed;
-	background-image: url('/static/background/foxy.jpg');
+	background-image: url('/static/background/9.jpg');
+
+	user-select: none;
+	-moz-user-select: none;
 }
 
 .screen{
@@ -31,68 +29,13 @@ body{
 	display: flex;
 	box-sizing: border-box;
 	align-items: center;
+	justify-content: center;
 	min-height: 50vh;
 }
 
 body.jsAvailable .screen{
 	height: 100vh;
 	padding-bottom: 60px;
-}
-
-#player{
-	width: 40vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	#playButton{
-		width: 270px;
-		height: 270px;
-		background: url('/static/logo/spruce_big.gif');
-	}
-
-	input{
-		display: none;
-	}
-}
-
-#news{
-	article{
-		position: relative;
-		padding: 10px;
-
-		&::before{
-			top: 24px;
-			display: block;
-			position: absolute;
-			font-family: 'FontAwesome';
-			font-size: 1.1em;
-		}
-
-		&.basic::before{
-			content: "\f1ea";
-		}
-
-		&.technical::before{
-			content: "\f0ad";
-		}
-
-		h3{
-			display: inline;
-			padding-left: 2em;
-		}
-
-		time{
-			opacity: .8;
-			font-size: .9em;
-		}
-
-		p{
-			margin: 0;
-			padding-left: 2.5em;
-		}
-	}
 }
 
 #faq{
@@ -117,30 +60,6 @@ body.jsAvailable .screen{
 
 	a{
 		color: inherit;
-	}
-}
-
-#links{
-	bottom: 0;
-	display: flex;
-	position: fixed;
-
-	a{
-		width: 20vw;
-		display: block;
-		padding: 10px 0;
-		text-align: center;
-
-		font-size: 2.3em;
-		color: inherit;
-		text-decoration: none;
-
-		transition: background .2s;
-		background: rgba(255, 255, 255, 0);
-
-		&:hover{
-			background: rgba(255, 255, 255, .2)
-		}
 	}
 }
 
@@ -174,10 +93,6 @@ body.jsAvailable .screen{
 }
 
 @media screen and (min-device-width: 415px) { // PC
-	#news{
-		margin-left: 100px;
-	}
-
 	body.jsAvailable{
 		overflow: hidden;
 
@@ -200,14 +115,108 @@ body.jsAvailable .screen{
 				font-size: .5em;
 		}
 	}
+}
 
-	#player{
-		margin: 10vh;
+// New homescreen
+#center{
+	padding-bottom: 15vh;
+}
 
-		#playButton{
-			height: 540px;
-			width: 540px;
-			background-size: cover;
+#player{
+	color: #c8c8c8;
+	margin-left: 10px;
+	font: 13px sans-serif;
+	margin-top: -15px;
+	display: flex;
+	justify-content: space-between;
+
+	a{
+		color: inherit;
+		text-decoration: none;
+
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+}
+
+#logo{
+	display: flex;
+	align-items: center;
+
+	span{
+		color: var(--primary_color);
+		font-size: 75px;
+		font-weight: bold;
+		font-family: "Serif"
+	}
+
+	#slogan div{
+		padding: 2px;
+		padding-left: 5px;
+		padding-right: 10px;
+		position: relative;
+		background-color: var(--primary_color);
+		color: #000;
+
+		&:last-child{
+			margin-left: 13px;
+			margin-top: 5px;
+		}
+
+		&::before {
+			content: '';
+
+			position: absolute;
+			left: -11px;
+			top: 0;
+
+			border-right: 11px solid var(--primary_color);
+			border-bottom: 24px solid transparent;
+		}
+	}
+}
+
+// Beware of the HEXAGONS
+#hexes{
+	top: -80px;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+
+	display: grid;
+	grid-auto-rows: 122px;
+	grid-auto-columns: 140px;
+
+	img{
+		width: 150px;
+		height: 150px;
+		transform: scale(1);
+
+		margin: 2px;
+		cursor: pointer;
+		transition-duration: .1s;
+
+		&:hover{
+			transform: scale(1.05);
+		}
+
+		&:nth-child(1), &:nth-child(2), &:nth-child(3){
+			grid-row: 1;
+		}
+
+		&:nth-child(4){
+			grid-row: 2;
+			margin-left: 70px;
+		}
+
+		&:nth-child(5), &:nth-child(6), &:nth-child(7){
+			grid-row: 6;
+		}
+
+		&:nth-child(8), &:nth-child(9), &:nth-child(10), &:nth-child(11), &:nth-child(12), &:nth-child(13){
+			grid-row: 7;
+			margin-left: 70px;
 		}
 	}
 }
