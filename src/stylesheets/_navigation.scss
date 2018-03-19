@@ -62,39 +62,7 @@
 	}
 
 	#sidebar #boards{
-		display: flex;
-		flex-direction: column;
-
-		.group{
-			display: flex;
-			max-height: 100px;
-			flex-direction: column;
-
-			margin-left: 13px;
-
-			transition: max-height .3s;
-		}
-
-		.groupSpoil{
-			cursor: pointer;
-			padding: 2px 3px;
-
-			&::before{
-				content: '\f0d7';
-				margin-right: 3px;
-			}
-		}
-
-		input[type="checkbox"]:checked + .groupSpoil{
-			&::before{
-				content: '\f0da';
-			}
-
-			& + .group{
-				max-height: 0px;
-				overflow: hidden;
-			}
-		}
+		margin-top: 20px;
 	}
 
 	// Sidebar hiding

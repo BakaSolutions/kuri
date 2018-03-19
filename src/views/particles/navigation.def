@@ -9,16 +9,11 @@
 
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
-			<input type="checkbox" id="{{!group.name}}GroupSpoilCheckbox" hidden>
-			<label for="{{!group.name}}GroupSpoilCheckbox" class="icon groupSpoil">{{!group.title}}</label>
-
-			<div class="group">
-				{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
-					<a href="/{{!it.site.pathPrefix}}{{!board.name}}" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
-						/{{!board.name}}/ — {{!board.title}}
-					</a>
-				{{~ }}
-			</div>
+			{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
+				<a href="/{{!it.site.pathPrefix}}{{!board.name}}" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
+					/{{!board.name}}/ — {{!board.title}}
+				</a>
+			{{~ }}
 		{{~ }}
 	</div>
 
