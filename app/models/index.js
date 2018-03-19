@@ -75,3 +75,12 @@ Event.on('sync.diff', diff => {
     }
   }
 });
+
+Event.on(`websocket.cmd.RNDR`, ([board, thread, id]) => {
+  const BoardModel = require('../models/board');
+  let threadCounts = Model.models.sync.threadCounts;
+  if (!BoardModel.exists(board) || !threadCounts) {
+    return false;
+  }
+  threadCounts[board][thread] = id;
+});

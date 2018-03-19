@@ -18,6 +18,7 @@ router.render = async path => {
     board: BoardModel.getOne(board),
     thread: await ThreadModel.getOne(board, threadNumber)
   };
+  model.title =`/${model.board.name}/${model.thread.number}: ${model.thread.posts[0].subject || model.thread.posts[0].text.slice(0, 32)}`;
   return Render.renderPage('pages/thread', model);
 };
 

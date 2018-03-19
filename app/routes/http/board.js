@@ -13,8 +13,11 @@ router.render = async path => {
   // /test/0.html [ '', 'test', '0.html' ]
   let [board, pageNumber] = path.replace('.html', '').split('/').slice(1);
 
+  let boardModel = BoardModel.getOne(board);
+
   let model = {
-    board: BoardModel.getOne(board),
+    board: boardModel,
+    title: `/${boardModel.name}/ &mdash; ${boardModel.title}`,
     threads: []
   };
   let page = await BoardModel.getPage(board, +pageNumber || 0);

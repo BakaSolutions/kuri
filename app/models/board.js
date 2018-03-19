@@ -1,4 +1,3 @@
-const config = require('../helpers/config');
 const Logger = require('../helpers/logger');
 const Tools = require('../helpers/tools');
 const API = require('./foxtan/websocket');
@@ -18,9 +17,9 @@ Board.sync = async () => {
   Model.add({base: {boards: Board.get()}});
 };
 
-Board.exists = board => {
-  return !!Board.boards[board];
-};
+Board.exists = board => !!Board.boards[board];
+
+Board.getOne = board => Board.boards[board] || new Error(`There's no board called ${board}`);
 
 Board.get = (asObject = false, param, value) => {
   if (!Object.keys(Board.boards).length) {
@@ -35,17 +34,13 @@ Board.get = (asObject = false, param, value) => {
 
   let keys = Object.keys(Board.boards);
   let out = [];
-  for (let i = 0; i < keys.length; i++){
+  for (let i = 0; i < keys.length; i++) {
     if (Board.boards[keys[i]][param] === value) {
       Board.boards[keys[i]].name = keys[i];
       out.push(Board.boards[keys[i]]);
     }
   }
   return out;
-};
-
-Board.getOne = board => {
-  return Board.boards[board] || new Error(`There's no board called ${board}`);
 };
 
 Board.getPageCount = async board => {

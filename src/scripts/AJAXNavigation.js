@@ -6,10 +6,13 @@ function asyncLoadPage(uri, noScrolling = 0) {
 		let content = xhr.response;
 
 		let main = /<main>([\s\S]*)<\/main>/.exec(content);
+		if (!main) {
+			return location.href = uri;
+		}
 		document.querySelector('main').innerHTML = main[1];
 
 		let title = /<title>(.+)<\/title>/.exec(content);
-		document.querySelector('title').innerHTML = title[1];
+		document.querySelector('title').innerHTML = title[1] || '';
 		history.pushState({}, title, uri);
 
 		if (!document.querySelector('#replyForm') && /id="replyForm"/.test(content)) {

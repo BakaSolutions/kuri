@@ -183,3 +183,16 @@ tools.deepSet = (obj, path, value) => {
   o[a[a.length - 1]] = value;
   return obj;
 };
+
+tools.parseDate = d => {
+  let months = ['Янв', 'Фев', 'Мар', 'Апр', 'Мая', 'Июня', 'Июля', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  if (!(d instanceof Date)) d = new Date(d);
+
+  let date = d.getDate(),
+      month = months[d.getMonth()],
+      year = d.getFullYear(),
+      hours = d.getHours().toString().padStart(2, 0),
+      minutes = d.getMinutes().toString().padStart(2, 0);
+
+  return `${date} ${month} ${year} ${hours}:${minutes}`;
+};

@@ -99,10 +99,9 @@ class WSClient {
   }
 
   async onMessage (message) {
-    if (typeof message === 'undefined') {
+    if (typeof message === 'undefined' || message.match(/@[0-9a-f]+$/)) {
       return false;
     }
-    message = message.replace(/@[0-9a-f]+$/, '');
     let probe = message.split(' ');
     let command = probe.shift();
     message = probe.shift();
@@ -111,6 +110,7 @@ class WSClient {
     try {
       [board, thread, id] = JSON.parse(message);
       Event.emit('websocket.messageFormatted', [command, board, thread, id]);
+      Event.emit(`websocket.cmd.${command}`, [board, thread, id]);
     } catch (e) {
       //
     }
