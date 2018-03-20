@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 12px;
   padding-left: 10px;
   position: fixed;
   background-color: var(--bgcolor);
@@ -8,5 +8,5 @@
 ::-webkit-scrollbar-thumb {
   background-color: var(--bgcolor_card);
   border: 1px solid var(--bordercolor);
-  box-shadow: 0 0 15px -5px var(--shadowcolor);
+  box-shadow: var(--boxShadow);
 }

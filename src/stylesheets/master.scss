@@ -1,19 +1,19 @@
 :root{
-	--textcolor: #e1efff;
-	--textcolor_secondary: #c1cedd;
+	--textcolor: #ccc;
+	--textcolor_secondary: #999;
 
 	--linkcolor: #79bde2;
 	--linkcolor_hover: #5496b9;
 
-	--btncolor: #141e27;
-	--btncolor_hover: #18252f;
+	--btncolor: #13161a;
+	--btncolor_hover: #191d21;
 
-	--bgcolor: #10161f;
-	--bgcolor_card: #141e27;
+	--bgcolor: #0c0f12;
+	--bgcolor_card: #13161a;
 
 	--bordercolor: #0e1a22;
 
-	--shadowcolor: #000;
+	--boxShadow: 0 0 15px -10px #000;
 
 	--quotationcolor: #789922;
 }
@@ -25,7 +25,7 @@
 	-webkit-user-select: $value;
 }
 
-
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import '_navigation.scss';
 @import '_widgets.scss';
@@ -42,7 +42,8 @@ body{
 	min-height: 100vh;
 	overflow-y: scroll;
 
-	font: 15px/17px Arial, sans-serif;
+	font: 15px/16px 'Noto Sans', sans-serif;
+	// font: 15px/17px Arial, sans-serif;
 
 	div, main{
 		box-sizing: border-box;
@@ -106,12 +107,13 @@ main{
 	display: flex;
 	flex-direction: column;
 	background-color: var(--bgcolor_card);
-	box-shadow: 0 0 15px -5px var(--shadowcolor);
+	box-shadow: var(--boxShadow);
 }
 
 // s
 .icon{
 	cursor: pointer;
+	font-size: .9rem;
 
 	&::before{
 		font-family: 'FontAwesome';
@@ -144,8 +146,8 @@ main{
 	justify-content: center;
 
 	padding: 5px;
-	font: inherit;
-	color: var(--textcolor);
+	// font: inherit;
+	color: var(--textcolor) !important;
 	transition: background-color .3s;
 	background-color: var(--btncolor);
 	border: 1px solid var(--bordercolor);
@@ -166,7 +168,7 @@ main{
 	main{
 		margin-left: 256px;
 
-		width: calc(100vw - 256px - 70px);
+		width: calc(100vw - 256px - 67px);
 		padding: 15px;
 
 		transition: margin-left .3s, width .3s;

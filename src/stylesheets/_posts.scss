@@ -37,16 +37,17 @@
 
 	.postBody{
 		display: flex;
-		padding: 5px;
+		padding-top: 3px;
 	}
 
 	.post:not(:first-child){
-		border-left: 25px solid var(--bgcolor_card);
+		// border-left: 25px solid var(--bgcolor_card);
+		margin-left: 25px;
 
 		&::before{
 			content: '';
 	    position: absolute;
-	    width: 0;
+	    // width: 0;
 	    top: 0px;
 	    left: -15px;
 	    border-top: 15px solid var(--bgcolor);
@@ -56,7 +57,7 @@
 		}
 
 		.postBody{
-			padding: 10px;
+			padding: 5px;
 		}
 	}
 }
@@ -100,11 +101,11 @@
 	cursor: default;
 	font-size: .9em;
 	@include user-select(none);
-	color: var(--textcolor_secondary);
+	color: var(--textcolor);
 
 	time{
-		opacity: .9;
-		font-size: .95em;
+		font-size: .98em;
+		color: var(--textcolor_secondary);
 	}
 
 	input{
@@ -125,7 +126,7 @@
 
 	input[type="checkbox"]{
 		& + .icon.delete{
-			opacity: .3;
+			opacity: .5;
 		}
 
 		&:checked + .icon.delete{
