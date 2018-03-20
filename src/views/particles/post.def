@@ -1,24 +1,31 @@
 <article class="post" id="{{!post.number}}">
 	<div class="postDetails">
-		<div>
-			<aside class="postMenu">
-				<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>
-				<label for="delete-{{!it.board.name}}:{{!post.number}}" class="icon delete jsOnly" onclick="activatePostRemovalWidget()"></label>
+		<!-- Удаление поста -->
+		<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>
+		<label for="delete-{{!it.board.name}}:{{!post.number}}" class="icon delete jsOnly" onclick="activatePostRemovalWidget()"></label>
 
-				<span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number === post.threadNumber}}1{{? }})"></span>
-				<!--<span class="icon edit jsOnly"></span>-->
-				<span class="icon menu jsOnly"></span>
-				<span class="icon reply jsonly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})"></span>
-				<!-- <span class="icon source jsOnly"></span> -->
-			</aside>
+		<!-- Сажа -->
+		{{? post.sageru}}
+			<span class="sage icon"></span>
+		{{? }}
 
-			{{? post.sageru}}<span class="sage icon"></span>{{? }}
-			<a class="refLink" name="{{!post.number}}" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{? post.subject}}{{!post.subject}}{{?? }}Неизвестный{{? }}{{?? }}">{{? }} #{{!post.number}}</a>
-		</div>
+		<!-- Рефлинк -->
+		<a class="refLink" name="{{!post.number}}" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
+			{{? post.subject}}{{!post.subject}}{{? }} #{{!post.number}}
+		</a>
 
-		{{? post.number == post.threadNumber}}<a class="refLink" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html">{{? post.subject}}{{!post.subject}}{{?? }}Без темы{{? }}</a>{{? }}
-
+		<!-- Дата -->
 		<time data-creationdate="{{!post.createdAt}}">{{!post.formatted_date}}</time>
+
+
+		<!-- Скрытие -->
+		<!-- <span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number === post.threadNumber}}1{{? }})"></span> -->
+
+		<!-- Меню -->
+		<span class="icon menu jsOnly"></span>
+
+		<!-- Быстрый ответ -->
+		<span class="icon reply jsonly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})"></span>
 	</div>
 	<div class="postBody">
 		<div class="postAttachments">

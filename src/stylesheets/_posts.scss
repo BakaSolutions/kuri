@@ -97,28 +97,18 @@
 }
 
 .postDetails{
-	display: flex;
 	cursor: default;
-	font-size: .95em;
-	position: relative;
+	font-size: .9em;
 	@include user-select(none);
-	justify-content: space-between;
 	color: var(--textcolor_secondary);
 
-	.topic{
-		color: var(--linkcolor);
+	time{
+		opacity: .9;
+		font-size: .95em;
 	}
 
-	& > :first-child{
-		display: flex;
-
-		aside{
-			display: flex;
-		}
-
-		*{
-			margin-right: 4px
-		}
+	input{
+		display: none;
 	}
 
 	.sage::before{
@@ -129,12 +119,18 @@
 		content: '\f112';
 	}
 
-	.spoil::before{
-		content: '\f070';
-	}
-
 	.menu::before{
 		content: '\f0c9';
+	}
+
+	input[type="checkbox"]{
+		& + .icon.delete{
+			opacity: .3;
+		}
+
+		&:checked + .icon.delete{
+			opacity: 1;
+		}
 	}
 }
 
@@ -176,16 +172,4 @@ body{
 
 .omittedPosts{
 	padding-bottom: 5px;
-}
-
-.postMenu{
-	input[type="checkbox"]{
-		& + .icon.delete{
-			opacity: .3;
-		}
-
-		&:checked + .icon.delete{
-			opacity: 1;
-		}
-	}
 }

@@ -86,11 +86,18 @@ header{
 // Links
 a, .pseudoLink, .tabs label{
 	cursor: pointer;
-	text-decoration: none;
 	color: var(--linkcolor);
+}
+
+a{
+	text-decoration: none;
 
 	&:hover{
 		color: var(--linkcolor_hover)
+	}
+
+	&:focus{
+		outline: none;
 	}
 }
 
@@ -127,7 +134,6 @@ main{
 
 	&.delete::before{
 		content: '\f1f8';
-		padding-right: 5px;
 	}
 }
 
