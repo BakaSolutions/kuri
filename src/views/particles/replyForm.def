@@ -46,7 +46,7 @@
 
 		<div class="row">
 			<span></span>
-			<button class="btn icon send" id="submit">Отправить</button>
+			<button class="btn icon send" id="submit" onclick="sendPost(event)">Отправить</button>
 		</div>
 	</form>
 </div>

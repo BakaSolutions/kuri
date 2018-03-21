@@ -38,4 +38,5 @@
 	['themes.js', 'initThemes()'],
 	'AJAXNavigation.js',
 	'userInterface.js',
-	['draggabilly.js', 'if (sel("#replyForm")){initDraggableReplyForm()}'])
+	'posting.js',
+	['draggabilly.js', 'if (sel("#postForm")){initDraggableReplyForm()}'])
