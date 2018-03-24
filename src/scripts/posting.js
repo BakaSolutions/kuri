@@ -12,8 +12,16 @@ function sendPost(e){
 
 	// Асинхронная отправка
 	let xhr = new XMLHttpRequest();
-	xhr.onload = () => console.log(xhr.responseText);
+	xhr.onload = () => {
+		console.log(xhr.responseText);
+		try {
+      let r = JSON.parse(xhr.responseText);
+      asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`);
+    } catch (e) {
+			//
+		}
+  };
   xhr.open("POST", uri);
 	xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   xhr.send(formData);
-};
+}
