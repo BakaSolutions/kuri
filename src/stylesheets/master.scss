@@ -209,14 +209,11 @@ main{
 	}
 }
 
-input, textarea{
+input:not([type=file]), textarea{
 	border: 1px solid var(--bordercolor);
-	color: var(--font_primary);
 	text-align: center;
-
-	&[type="text"], &[type="password"], &textarea{
-		color: var(--bgcolor);
-	}
+	background: var(--bgcolor);
+	color: var(--textcolor);
 }
 
 button, input, textarea{
