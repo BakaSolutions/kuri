@@ -1,5 +1,6 @@
 const router = require('koa-router')();
 const Controller = require('../index');
+const Event = require('../../helpers/event');
 const Logger = require('../../helpers/logger');
 const Render = require('../../helpers/render');
 const Model = require('../../models');
@@ -22,8 +23,8 @@ router.render = async path => {
   return Render.renderPage('pages/thread', model);
 };
 
-router.init = async () => {
-  let threadNumbers = Model.models.sync.threadCounts;
+router.init = () => {
+  let threadNumbers = Model.getThreadNumbers();
   if (!threadNumbers) {
     return;
   }
@@ -31,10 +32,10 @@ router.init = async () => {
   let boards = Object.keys(threadNumbers);
 
   for (let i = 0; i < boards.length; i++) {
-    let threads = Object.keys(threadNumbers[boards[i]]);
+    let threads = threadNumbers[boards[i]];
     Logger.debug(`Threads on ${boards[i]}: `, threads);
     for (let j = 0; j < threads.length; j++) {
-      await router.add({
+      router.add({
         board: boards[i],
         thread: threads[j]
       });
@@ -53,3 +54,10 @@ router.add = ({board, thread} = {}) => {
     Controller.success(ctx, await router.render(ctx.originalUrl));
   });
 };
+
+Event.on(`websocket.cmd.RNDR`, async ([boardName, threadNumber]) => {
+  router.add({
+    board: boardName,
+    thread: threadNumber
+  });
+});

@@ -15,8 +15,7 @@ let Model = module.exports = {
         host: config('foxtan.http.host'),
         port: config('foxtan.http.port'),
         protocol: config('foxtan.http.protocol')
-      },
-      // board: Board.get()
+      }
     },
     sync: {}
   }
@@ -42,6 +41,49 @@ Model.sync = async () => {
   Event.emit('sync.diff', diff);
 
   return true;
+};
+
+Model.getThreadNumbers = board => {
+  let threadNumbers = Model.models.sync.threadCounts;
+  if (!threadNumbers) {
+    return false;
+  }
+
+  if (board) {
+    return Object.keys(threadNumbers[board]);
+  }
+
+  let boards = Object.keys(threadNumbers);
+  let out = {};
+
+  for (let i = 0; i < boards.length; i++) {
+    out[boards[i]] = [];
+
+    let threads = Object.keys(threadNumbers[boards[i]]);
+    for (let j = 0; j < threads.length; j++) {
+      out[boards[i]].push(threads[j]);
+    }
+  }
+  return out;
+};
+
+Model.getLastPostNumbers = board => {
+  let lastPostNumbers = Model.models.sync.lastPostNumbers;
+  if (!lastPostNumbers) {
+    return false;
+  }
+
+  if (board) {
+    return lastPostNumbers[board];
+  }
+
+  let boards = Object.keys(lastPostNumbers);
+  let out = {};
+
+  for (let i = 0; i < boards.length; i++) {
+    out[boards[i]] = lastPostNumbers[boards[i]];
+  }
+  return out;
 };
 
 Event.on('websocket.open', async () => {
@@ -76,11 +118,16 @@ Event.on('sync.diff', diff => {
   }
 });
 
-Event.on(`websocket.cmd.RNDR`, ([board, thread, id]) => {
+Event.on(`websocket.cmd.RNDR`, async ([boardName, threadNumber, postId]) => {
   const BoardModel = require('../models/board');
-  let threadCounts = Model.models.sync.threadCounts;
-  if (!BoardModel.exists(board) || !threadCounts) {
+  const ThreadModel = require('../models/thread');
+  let { threadCounts, lastPostNumbers } = Model.models.sync;
+  if (!BoardModel.exists(boardName) || !threadCounts) {
     return false;
   }
-  threadCounts[board][thread] = id;
+  let thread = await ThreadModel.getOne(boardName, threadNumber);
+  if (Tools.isObject(thread)) {
+    threadCounts[boardName][threadNumber] = thread.posts.length;
+  }
+  lastPostNumbers[boardName] = postId;
 });
