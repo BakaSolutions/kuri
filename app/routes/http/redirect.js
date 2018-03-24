@@ -21,18 +21,18 @@ router.render = async (path, model) => {
 router.init = () => {
   Logger.debug(`[HTTP] Add ${router.paths.join(', ')} to routes...`);
   router.get(router.paths, async ctx => {
-    let [boardName, postNumber] = ctx.originalUrl.replace('/redirect?i=', '').split('/');
+    let [boardName, postNumber] = ctx.request.query.i ? ctx.request.query.i.split('/') : [];
     let refresh = 0;
 
-    const LPN = Model.getLastPostNumbers(boardName);
-    if (!LPN) {
+    let LPN = Model.getLastPostNumbers(boardName);
+    if (!LPN || !boardName) {
       return Controller.fail(ctx, {
         status: 400
       });
     }
 
     if (LPN < +postNumber) {
-      refresh = ctx.params.r++ || 1;
+      refresh = ++ctx.request.query.r || 1;
     } else {
       let post = await PostModel.getOne(boardName, postNumber);
 
