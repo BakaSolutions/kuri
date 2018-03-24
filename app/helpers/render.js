@@ -84,7 +84,7 @@ Render.renderPage = (templateName, model) => {
       return new Error('This template doesn\'t exist: ' + templateName);
     }
     let baseModel = require('../models').models.base || {};
-    model = Object.assign(baseModel, model); //model = Tools.merge(model, baseModel) || baseModel;
+    model = Object.assign({}, baseModel, model); //model = Tools.merge(model, baseModel) || baseModel;
     return template(model);
   } catch (e) {
     Logger.error(e);

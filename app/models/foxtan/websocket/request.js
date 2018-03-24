@@ -109,7 +109,7 @@ class WSClient {
     let board, thread, id;
     try {
       [board, thread, id] = JSON.parse(message);
-      Event.emit('websocket.messageFormatted', [command, board, thread, id]);
+      Logger.debug(`Command from Foxtan: ${command} ${[board, thread, id]}`);
       Event.emit(`websocket.cmd.${command}`, [board, thread, id]);
     } catch (e) {
       //

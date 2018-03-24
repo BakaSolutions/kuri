@@ -22,18 +22,18 @@ router.render = async path => {
   };
   let page = await BoardModel.getPage(board, +pageNumber || 0);
   if (Tools.isObject(page)) {
-    model = Object.assign(model, page);
+    model = Object.assign({}, model, page);
   }
   return Render.renderPage('pages/board', model);
 };
 
-router.init = async () => {
+router.init = () => {
   let boards = BoardModel.get(true);
   boards = Object.keys(boards);
   Logger.debug('Boards: ', boards);
 
   for (let i = 0; i < boards.length; i++) {
-    await router.add({
+    router.add({
       board: boards[i]
     });
   }

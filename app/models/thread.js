@@ -1,6 +1,3 @@
-const config = require('../helpers/config');
-const Logger = require('../helpers/logger');
-const Tools = require('../helpers/tools');
 const API = require('./foxtan/websocket');
 
 const Board = require('./board');

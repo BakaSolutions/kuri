@@ -6,9 +6,6 @@ const Logger = require('../helpers/logger');
 
 const Model = require('../models');
 
-const ThreadRouter = require('../routes/http/thread');
-const BoardRouter = require('../routes/http/board');
-
 /**
  * Inits controllers: requires all .js from /controllers/http/ and sets routers
  * @param app
@@ -31,6 +28,10 @@ Controllers.initHTTP = async app => {
   // handle errors
   app.use(async (ctx, next) => {
     try {
+      if (!config('server.static.external')) {
+        ctx.set('Access-Control-Allow-Origin', '*');
+        ctx.set('Access-Control-Allow-Headers', 'X-Requested-With');
+      }
       await next();
       const status = ctx.status || 404;
       if (status === 404) {

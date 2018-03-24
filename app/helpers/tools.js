@@ -107,33 +107,29 @@ tools.isNumber = n => +n === n;
  * @returns {Array}
  */
 tools.flattenArray = a => {
-  let out = [];
-  for (let i = 0; i < a.length; i++) {
-    if (Array.isArray(a[i])) {
-      out = out.concat(this.flattenArray(a[i]));
-    } else {
-      out.push(a[i]);
+  return a.reduce((result, current) => {
+    if (Array.isArray(current)) {
+      current = tools.flattenArray(current);
     }
-  }
-  return out;
+    return result.concat(current);
+  }, []);
 };
 
 /**
  * Merges two or more objects into one
  * @param {Object|Map} target
- * @param {Object|Map} theArgs
+ * @param {Object|Map} sources
  * @return {Object|Map} target
  */
-tools.merge = (target, ...theArgs) => {
+tools.merge = (target, ...sources) => {
   target = Object.assign({}, target);
   if (tools.isMap(target)) {
     let out = [...target];
-    theArgs.forEach(arg => {
+    sources.forEach(arg => {
       out.push(...arg);
     });
     return new Map(out);
   }
-  let sources = theArgs;
   sources.forEach(source => {
     for (let prop in source) {
       if (source.hasOwnProperty(prop)) {
