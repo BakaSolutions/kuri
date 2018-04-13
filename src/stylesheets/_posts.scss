@@ -42,19 +42,7 @@
 
 	.post:not(:first-child){
 		// border-left: 25px solid var(--bgcolor_card);
-		margin-left: 25px;
-
-		&::before{
-			content: '';
-	    position: absolute;
-	    // width: 0;
-	    top: 0px;
-	    left: -15px;
-	    border-top: 15px solid var(--bgcolor);
-	    border-left: 15px solid var(--bgcolor_card);
-			// border-color: var(--bgcolor);
-			// background-color: transparent;
-		}
+		margin-left: 20px;
 
 		.postBody{
 			padding: 5px;
@@ -65,8 +53,8 @@
 .thread{
 	width: 100%;
 	overflow: hidden;
-	border-top: 5px dashed var(--bgcolor);
-	padding-bottom: 20px;
+	// border-top: 5px dashed var(--bgcolor);
+	padding-bottom: 5px;
 	// TODO: Set max-height by JS
 	transition: max-height .3s;
 
@@ -176,5 +164,8 @@ body{
 }
 
 .omittedPosts{
-	padding-bottom: 5px;
+	font-size: .88em;
+	margin-bottom: 5px;
+	margin-left: 20px;
+	color: var(--textcolor_secondary);
 }
