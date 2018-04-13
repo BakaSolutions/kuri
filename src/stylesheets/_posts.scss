@@ -160,6 +160,10 @@ body{
 		opacity: .3;
 	}
 
+	#hideImagesCheckbox:checked ~ #navbar [for="hideImagesCheckbox"]{
+		background-color: var(--btncolor_hover);
+	}
+
 	.postAttachments .thumb:hover{
 		opacity: 1 !important;
 	}
