@@ -145,12 +145,12 @@ main{
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
 	main{
-		margin-left: 256px;
-
-		width: calc(100vw - 256px - 67px);
+		transition: left .3s;
+		position: absolute;
+		right: 55px;
+		left: 256px;
+		
 		padding: 15px;
-
-		transition: margin-left .3s, width .3s;
 	}
 }
 
@@ -215,7 +215,6 @@ input:not([type=file]){
 button, input, textarea{
 	outline: none !important;
 }
-
 
 .tabs{
 	@include user-select(none);
