@@ -39,4 +39,5 @@
 	'AJAXNavigation.js',
 	'userInterface.js',
 	'posting.js',
+	'musicPlayer.js',
 	['draggabilly.js', 'if (sel("#postForm")){initDraggableReplyForm()}'])

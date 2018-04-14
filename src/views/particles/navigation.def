@@ -17,6 +17,17 @@
 		{{~ }}
 	</div>
 
+	<div id="musicPlayer">
+		<div id="cover" style="background-image: url(https://i.redd.it/3nougoqaj0cx.png)"></div>
+		<div id="title">Penpals — Tell Me Why</div>
+		<div id="controls">
+			<a class="btn material-icons" id="previousTrack">skip_previous</a>
+			<a class="btn material-icons" id="pause">play_arrow</a>
+			<a class="btn material-icons" id="nextTrack">skip_next</a>
+		</div>
+		<input id="progress" type="range" min="0" max="100">
+	</div>
+
 	<noscript>JavaScript отключен.</noscript>
 </div>
 
