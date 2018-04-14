@@ -1,12 +1,25 @@
 @media screen and (max-device-width: 414px) { // Mobile
+	.postAttachments{
+		margin-bottom: 1rem;
+	}
+
 	.postAttachments .thumb{
-		a:first-child img{
+		&, img{
 			max-height: 100px;
 			max-width: 100px;
 		}
 
-		a:last-child{
-			width: 100px;
+		.dlLink{
+			display: none;
+		}
+
+		.info{
+			bottom: -1.1rem;
+			position: absolute;
+			height: calc(100% + 1.1rem);
+			align-items: flex-end;
+			font-size: .8em;
+			justify-content: space-between;
 		}
 	}
 
@@ -19,19 +32,39 @@
 	.postAttachments{
 		margin-right: 5px;
 
-		.thumb a:last-child{
-			opacity: 0;
-			width: 200px;
+		.info, .dlLink{
+			flex-direction: column;
+			transition: color .3s;
+			color: transparent;
 
-			transition: opacity .3s;
-			background: var(--bgcolor);
-
-			bottom: 0;
 			position: absolute;
 		}
 
-		.thumb:hover a:last-child{
-			opacity: 1;
+		.info{
+			top: 0;
+			cursor: zoom-in;
+		}
+
+		.dlLink{
+			padding: 5px 0;
+			bottom: 0;
+
+			text-align: center;
+			width: 100%;
+
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+
+		.thumb:hover{
+			.info, .dlLink{
+				color: inherit;
+			}
+
+			img{
+				opacity: .1
+			}
 		}
 	}
 
@@ -129,15 +162,17 @@
 	transition: opacity .3s;
 
 	img{
+		transition: opacity .3s;
 		vertical-align: bottom;
 	}
 
-	a:last-child{
-		font-size: .8em;
-
-		width: 100%;
+	.info{
+		justify-content: center;
+		align-items: center;
+		
 		display: flex;
-		justify-content: space-around;
+		height: 100%;
+		width: 100%;
 	}
 }
 

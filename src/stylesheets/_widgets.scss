@@ -88,6 +88,15 @@
 			display: none;
 		}
 	}
+
+	&#preferences{
+		textarea{
+			height: calc(90vh - 85px);
+			width: 100%;
+			
+			resize: none;
+		}
+	}
 }
 
 #deletePosts{

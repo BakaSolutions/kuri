@@ -29,21 +29,26 @@
 	</div>
 	<div class="postBody">
 		<div class="postAttachments">
-			{{? post.number == post.threadNumber}} <!-- Bootleg -->
+			<!-- Костыль с фальшивым прикреплением файлов -->
+			{{? post.number == post.threadNumber}} 
 				<div class="thumb">
-					<a href="/static/nopic.png" target="_blank" onclick="showImage(event, '/static/nopic.png')"><img src="/static/nopic.png"></a>
-					<a href="/static/nopic.png" download><span>nopic.png</span> <span>0.1mb</span></a>
+					<img src="/static/nopic.png">
+					
+					<a class="info" href="/static/nopic.png" target="_blank" onclick="showImage(event, '/static/nopic.png')">
+						<span>nopic.png</span> 
+						<span>0.1mb</span>
+					</a>
+
+					<a class="dlLink" href="/static/nopic.png" download="nopic.png">сохранить</a>
 				</div>
 			{{? }}
 		</div>
 		<div class="postText">
 			{{=post.text}}
 
-      {{? post.replies }}
-        <div class="postReplies">
-          Ответы: {{!post.replies}}
-        </div>
-      {{? }}
+			{{? post.replies }}
+				<div class="postReplies">Ответы: {{!post.replies}}</div>
+			{{? }}
 		</div>
 	</div>
 </article>

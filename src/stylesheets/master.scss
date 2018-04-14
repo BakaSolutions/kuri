@@ -42,8 +42,7 @@ body{
 	min-height: 100vh;
 	overflow-y: scroll;
 
-	font: 15px/16px 'Noto Sans', sans-serif;
-	// font: 15px/17px Arial, sans-serif;
+	font: 15px/19px 'Noto Sans', sans-serif;
 
 	div, main{
 		box-sizing: border-box;
@@ -78,10 +77,17 @@ header{
 	.row{
 		justify-content: center;
 
-		*{
-			margin: 0 5px;
+		a{
+			margin: 5px 15px;
+			font-size: 0.9em;
+			color: var(--textcolor_secondary);
+
+			&:hover{
+				opacity: 0.8
+			}
 		}
 	}
+
 }
 
 // Links
@@ -110,23 +116,12 @@ main{
 	box-shadow: var(--boxShadow);
 }
 
-// s
 .icon{
 	cursor: pointer;
 	font-size: .9rem;
 
 	&::before{
 		font-family: 'FontAwesome';
-	}
-
-	&.catalogueLink::before{
-		content: '\f0ce';
-		padding-right: 5px;
-	}
-
-	&.archiveLink::before{
-		content: '\f187';
-		padding-right: 5px;
 	}
 
 	&.search::before{
@@ -182,13 +177,15 @@ main{
 	}
 }
 
-.row{
+.row, .column{
 	display: flex;
+}
+
+.row{
 	justify-content: space-between;
 }
 
 .column{
-	display: flex;
 	flex-direction: column;
 }
 
@@ -200,27 +197,34 @@ main{
 
 	& + label::before{
 		font-family: 'FontAwesome';
-		padding-right: 5px;
+		padding-right: 6px;
 
 		content: '\f096';
 	}
 
 	&:checked + label::before{
+		padding-right: 4px;
 		content: '\f046';
 	}
 }
 
 input:not([type=file]), textarea{
-	/*border: 1px solid var(--bordercolor);*/
-	border: none;
-
-	text-align: center;
 	background: var(--bgcolor);
 	color: var(--textcolor);
 
+	border: none;
+
+	// Фикс для Фаерфокса, который убирает плейсхолдер  
+	// при фокусировке на поле ввода
 	&:focus::-moz-placeholder {
-		color:transparent!important
+		color: transparent !important
 	}
+}
+
+// Центрированный текст в текстовых полях
+input:not([type=file]){
+	text-align: center;
+	height: 23px;
 }
 
 button, input, textarea{
@@ -230,10 +234,6 @@ button, input, textarea{
 
 .tabs{
 	@include user-select(none);
-
-	display: flex;
-	justify-content: space-around;
-	background-color: var(--bgcolor);
 
 	label{
 		padding: 5px 10px;
