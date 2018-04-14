@@ -104,33 +104,4 @@
 
 		box-shadow: var(--boxShadow);
 	}
-
-	.icon{
-		&.up::before{
-			content: '\f106';
-			font-size: 1.3em;
-		}
-
-		&.down::before{
-			content: '\f107';
-			font-size: 1.3em;
-		}
-
-		&.replyFormShow::before{
-			content: '\f0e5';
-		}
-
-		&.hide::before{
-			content: '\f070';
-		}
-
-		&.preferences::before{
-			content: '\f085';
-		}
-
-		&.wide::before{
-			content: '\f07e';
-			font-size: .8em;
-		}
-	}
 }

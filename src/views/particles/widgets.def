@@ -12,22 +12,22 @@
 
 		<input type="radio" id="basicSettingsTab" checked hidden name="settingsTabs">
 		<div class="tab">
-			<input type="checkbox" id="localTime" hidden class="icon visibleCheckbox">
+			<input type="checkbox" id="localTime" hidden class="visibleCheckbox material-icons">
 			<label for="localTime">Mестное время</label>
 
-			<input type="checkbox" id="relativeTime" hidden class="icon visibleCheckbox">
+			<input type="checkbox" id="relativeTime" hidden class="visibleCheckbox material-icons">
 			<label for="relativeTime">Относительное время</label>
 
-			<input type="checkbox" id="useAJAX" hidden class="icon visibleCheckbox">
+			<input type="checkbox" id="useAJAX" hidden class="visibleCheckbox material-icons">
 			<label for="useAJAX">Использовать AJAX</label>
 
-			<input type="checkbox" id="revealSpoiledText" hidden class="icon visibleCheckbox">
+			<input type="checkbox" id="revealSpoiledText" hidden class="visibleCheckbox material-icons">
 			<label for="revealSpoiledText">Раскрывать спойлеры</label>
 
-			<input type="checkbox" id="revealSpoiledImages" hidden class="icon visibleCheckbox">
+			<input type="checkbox" id="revealSpoiledImages" hidden class="visibleCheckbox material-icons">
 			<label for="revealSpoiledImages">Раскрывать картнки под спойлерами</label>
 
-			<input type="checkbox" id="showAnimations" hidden class="icon visibleCheckbox">
+			<input type="checkbox" id="showAnimations" hidden class="visibleCheckbox material-icons">
 			<label for="showAnimations">Показывать анимации</label>
 		</div>
 
@@ -57,7 +57,7 @@
 
 		<form id="searchForm">
 			<input type="text" placeholder="Тумбач: найдется кое-что">
-			<button type="button" class="btn icon search"></button>
+			<button type="button" class="btn material-icons">search</button>
 		</form>
 	</div>
 </div>

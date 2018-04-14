@@ -133,24 +133,18 @@
 		display: none;
 	}
 
-	.sage::before{
-		content: '\f01a';
+	.material-icons{
+		vertical-align: bottom;
+		font-size: 1.35em;
+		cursor: pointer;
 	}
 
-	.reply::before{
-		content: '\f112';
-	}
-
-	.menu::before{
-		content: '\f0c9';
-	}
-
-	input[type="checkbox"]{
-		& + .icon.delete{
+	input[id|="delete"]{
+		& + label{
 			opacity: .5;
 		}
 
-		&:checked + .icon.delete{
+		&:checked + label{
 			opacity: 1;
 		}
 	}

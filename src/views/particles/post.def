@@ -2,11 +2,11 @@
 	<div class="postDetails">
 		<!-- Удаление поста -->
 		<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>
-		<label for="delete-{{!it.board.name}}:{{!post.number}}" class="icon delete jsOnly" onclick="activatePostRemovalWidget()"></label>
+		<label for="delete-{{!it.board.name}}:{{!post.number}}" class="material-icons jsOnly" onclick="activatePostRemovalWidget()">delete</label>
 
 		<!-- Сажа -->
 		{{? post.sageru}}
-			<span class="sage icon"></span>
+			<span class="material-icons">details</span>
 		{{? }}
 
 		<!-- Рефлинк -->
@@ -22,10 +22,10 @@
 		<!-- <span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number === post.threadNumber}}1{{? }})"></span> -->
 
 		<!-- Меню -->
-		<span class="icon menu jsOnly"></span>
+		<span class="material-icons jsOnly">menu</span>
 
 		<!-- Быстрый ответ -->
-		<span class="icon reply jsonly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})"></span>
+		<span class="material-icons jsOnly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})">reply</span>
 	</div>
 	<div class="postBody">
 		<div class="postAttachments">

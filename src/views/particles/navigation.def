@@ -45,14 +45,14 @@
 
 <div id="navbar">
 	<div class="column">
-		<a id="toTop" class="btn icon up" href="#top"></a>
-		<a onclick="switchAttribute(sel('.widget#search'), 'hidden')" class="btn icon search jsOnly"></a>
-		<a onclick="switchAttribute(sel('.widget#preferences'), 'hidden')" class="btn icon preferences jsOnly"></a>
-		<label for="hideSidebarCheckbox" class="btn icon wide pseudoLink"></label>
+		<a id="toTop" class="btn material-icons" href="#top">arrow_upward</a>
+		<a onclick="switchAttribute(sel('.widget#search'), 'hidden')" class="btn material-icons jsOnly">search</a>
+		<a onclick="switchAttribute(sel('.widget#preferences'), 'hidden')" class="btn material-icons jsOnly">settings</a>
+		<label for="hideSidebarCheckbox" class="btn material-icons">view_quilt</label>
 	</div>
 	<div class="column">
-		<label for="hideImagesCheckbox" class="btn icon hide pseudoLink"></label>
-		<label for="replyFormShow" id="replyFormButton" class="btn icon replyFormShow pseudoLink"></label>
-		<a id="toBot" class="btn icon down" href="#bottom"></a>
+		<label for="hideImagesCheckbox" class="btn material-icons">visibility_off</label>
+		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow ">chat</label>
+		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>
 	</div>
 </div>

@@ -26,7 +26,6 @@
 }
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import '_navigation.scss';
 @import '_widgets.scss';
 @import '_posts.scss';
@@ -110,29 +109,12 @@ a{
 }
 
 main{
-	z-index: 500;
-	display: flex;
-	flex-direction: column;
 	background-color: var(--bgcolor_card);
 	box-shadow: var(--boxShadow);
-}
 
-.icon{
-	cursor: pointer;
-	font-size: .9rem;
-
-	&::before{
-		font-family: 'FontAwesome';
-	}
-
-	&.search::before{
-		content: '\f002';
-		font-size: .8em;
-	}
-
-	&.delete::before{
-		content: '\f1f8';
-	}
+	flex-direction: column;
+	display: flex;
+	z-index: 500;
 }
 
 // Buttons
@@ -191,21 +173,23 @@ main{
 }
 
 .visibleCheckbox{
+	display: none;
+
 	& + label{
 		@include user-select(none);
 		cursor: pointer;
 	}
 
 	& + label::before{
-		font-family: 'FontAwesome';
-		padding-right: 6px;
+		font-family: 'Material Icons';
+		content: 'check_box_outline_blank';
 
-		content: '\f096';
+		vertical-align: middle;
+		margin-right: 3px;
 	}
 
 	&:checked + label::before{
-		padding-right: 4px;
-		content: '\f046';
+		content: 'check_box';
 	}
 }
 
