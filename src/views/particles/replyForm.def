@@ -2,7 +2,8 @@
 
 <div id="replyForm">
 	<div class="widgetHandle">
-		{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}
+		{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>
+		{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}
 	</div>
 
 	<form id="postForm" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.create" method="post" class="widgetContent">
@@ -10,25 +11,20 @@
 		<input type="hidden" name="redirect" value="{{!it.site.protocol}}://{{!it.site.domain}}/{{? it.thread}}{{=it.board.name}}/res/{{=it.thread.number}}.html#bottom{{?? }}redirect?i=:board/:post{{? }}">
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
 
-		<div class="row">
-			<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
+		<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
 
-			<input type="checkbox" name="OP" id="opCheckbox" hidden>
-			<label for="opCheckbox" class="btn icon op"> OP</label>
+		<input type="checkbox" name="OP" id="opCheckbox" hidden>
+		<label for="opCheckbox" class="btn">OP</label>
 
-			<input type="checkbox" name="sageru" id="sageCheckbox" hidden>
-			<label for="sageCheckbox" class="btn icon sage"> Sage</label>
-		</div>
+		<input type="checkbox" name="sageru" id="sageCheckbox" hidden>
+		<label for="sageCheckbox" class="btn">Sage</label>
+		
+		<textarea name="text" required></textarea>
 
-		<div class="row">
-			<textarea name="text" required></textarea>
-		</div>
+		<!-- <input type="checkbox" id="fileInputsCheckbox" hidden>
+		<label class="row icon more" hidden for="fileInputsCheckbox"></label> -->
 
-		<input type="checkbox" id="fileInputsCheckbox" hidden>
-
-		<label class="row icon more" hidden for="fileInputsCheckbox"></label>
-
-		<div id="fileInputs">
+		<!-- <div id="fileInputs">
 			<div class="row">
 				<input type="file" name="file0" id="file0">
 
@@ -42,12 +38,9 @@
 				<input type="checkbox" hidden name="file1Rating" id="file1Rating">
 				<label class="btn icon caution" for="file1Rating"></label>
 			</div>
-		</div>
+		</div> -->
 
-		<div class="row">
-			<span></span>
-			<button class="btn icon send" id="submit" onclick="sendPost(event)">Отправить</button>
-		</div>
+		<button class="btn" id="submit" onclick="sendPost(event)">Отправить</button>	
 	</form>
 </div>
 <!--/replyForm-->
