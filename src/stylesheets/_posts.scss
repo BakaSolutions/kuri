@@ -84,57 +84,58 @@
 }
 
 .thread{
-	width: 100%;
-	overflow: hidden;
-	// border-top: 5px dashed var(--bgcolor);
-	padding-bottom: 5px;
-	// TODO: Set max-height by JS
 	transition: max-height .3s;
-
+	overflow: hidden;
+	
+	// TODO: Выставлять максимальную высоту при помощи ЖС
+	
 	&.spoiled{
-		max-height: 30px;
+		max-height: 20px;
 
 		.post:first-child {
 			overflow-y: hidden;
 		}
 	}
+
+	.omittedPosts{
+		color: var(--textcolor_secondary);
+		margin-bottom: 5px;
+		margin-left: 20px;
+		font-size: .8rem;
+	}
 }
 
 .post{
-	padding: 5px;
+	transition: max-height .3s;
 	position: relative;
 	max-height: 300px;
-	transition: max-height .3s;
 	overflow-y: auto;
+	padding: 5px;
 
 	&.spoiled{
 		overflow-y: hidden;
-		max-height: 15px;
+		max-height: 20px;
 	}
 
 	&:not(:first-child){
-		margin-bottom: 5px;
 		background-color: var(--bgcolor);
+		margin-bottom: 5px;
 	}
 }
 
 .postDetails{
-	cursor: default;
-	font-size: .9em;
 	@include user-select(none);
 	color: var(--textcolor);
+	font-size: .8rem;
+	cursor: default;
 
 	time{
-		font-size: .98em;
 		color: var(--textcolor_secondary);
-	}
-
-	input{
-		display: none;
+		font-size: .98em;
 	}
 
 	.material-icons{
-		vertical-align: bottom;
+		vertical-align: sub;
 		font-size: 1.35em;
 		cursor: pointer;
 	}
@@ -153,7 +154,6 @@
 
 .thumb{
 	position: relative;
-	transition: opacity .3s;
 
 	img{
 		transition: opacity .3s;
@@ -163,38 +163,27 @@
 	.info{
 		justify-content: center;
 		align-items: center;
-		
 		display: flex;
+		
 		height: 100%;
 		width: 100%;
 	}
 }
 
 
-// SFW image hiding
+// Мамка в комнате
 body{
-	#hideImagesCheckbox:checked ~ main .thumb{
-		opacity: .3;
+	#hideImagesCheckbox:checked ~ main .thumb img{
+		opacity: .15;
 	}
 
 	#hideImagesCheckbox:checked ~ #navbar [for="hideImagesCheckbox"]{
 		background-color: var(--btncolor_hover);
 	}
-
-	.postAttachments .thumb:hover{
-		opacity: 1 !important;
-	}
 }
 
 .noThreads{
-	margin: 50px;
-	font-size: 1.1em;
 	text-align: center;
-}
-
-.omittedPosts{
-	font-size: .88em;
-	margin-bottom: 5px;
-	margin-left: 20px;
-	color: var(--textcolor_secondary);
+	font-size: 1.1em;
+	margin: 50px;
 }

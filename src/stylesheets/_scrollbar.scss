@@ -1,8 +1,8 @@
 ::-webkit-scrollbar {
-  width: 12px;
+  background-color: var(--bgcolor);
   padding-left: 10px;
   position: fixed;
-  background-color: var(--bgcolor);
+  width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {

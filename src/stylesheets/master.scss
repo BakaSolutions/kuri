@@ -21,10 +21,10 @@
 }
 
 @mixin user-select($value){
-	user-select: $value;
-	-ms-user-select: $value;
-	-moz-user-select: $value;
 	-webkit-user-select: $value;
+	-moz-user-select: $value;
+	-ms-user-select: $value;
+	user-select: $value;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
@@ -34,62 +34,57 @@
 @import '_scrollbar.scss';
 @import '_musicPlayer.scss';
 
+*{
+	box-sizing: border-box;
+}
+
 body{
-	color: var(--textcolor);
 	background-color: var(--bgcolor);
 
-	margin: 0;
-	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
 	overflow-y: scroll;
+	min-height: 100vh;
+	display: flex;
+	margin: 0;
 
 	font: 15px/19px 'Noto Sans', sans-serif;
-
-	*{
-		box-sizing: border-box;
-	}
+	color: var(--textcolor);
 
 	.hidden{
 		display: none;
 	}
 }
 
-
-// Board banner
 header{
-	margin: 10px 0;
-	cursor: default;
-	text-align: center;
 	@include user-select(none);
+	text-align: center;
+	cursor: default;
+	margin: 10px 0;
 
 	#banner {
-		font-size: 1.3em;
-		line-height: 25px;
 		font-weight: bold;
+		line-height: 25px;
+		font-size: 1.3em;
 
-		cursor: pointer;
 		margin-top: 10px;
-
-		@include user-select(none);
+		cursor: pointer;
 
 		color: var(--textcolor);
 	}
 
-	.row{
-		justify-content: center;
+	// .row{
+	// 	justify-content: center;
 
-		a{
-			margin: 5px 15px;
-			font-size: 0.9em;
-			color: var(--textcolor_secondary);
+	// 	a{
+	// 		margin: 5px 15px;
+	// 		font-size: 0.9em;
+	// 		color: var(--textcolor_secondary);
 
-			&:hover{
-				opacity: 0.8
-			}
-		}
-	}
-
+	// 		&:hover{
+	// 			opacity: 0.8
+	// 		}
+	// 	}
+	// }
 }
 
 // Links
@@ -239,4 +234,9 @@ button, input, textarea{
 // Markup
 span.quotation{
 	color: var(--quotationcolor);
+}
+
+a[name="bottom"]{
+	position: absolute;
+	bottom: 0;
 }

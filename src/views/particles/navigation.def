@@ -17,7 +17,7 @@
 		{{~ }}
 	</div>
 
-	<div id="musicPlayer">
+	<div id="musicPlayer" class="jsOnly">
 		<div id="cover" style="background-image: url(https://i.redd.it/3nougoqaj0cx.png)"></div>
 		<div id="title">Penpals — Tell Me Why</div>
 		<div id="controls">

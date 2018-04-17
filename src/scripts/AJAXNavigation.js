@@ -34,9 +34,8 @@ function asyncLoadPage(uri, noScrolling = 0) {
 			initDraggableReplyForm();
 		};
 
-		log('Asynchronously navigated to', uri);
+		console.log('Asynchronously navigated to', uri);
 		// document.querySelector('main').classList.remove('refreshing');
-
 
 		if (!noScrolling) scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top'); // Scroll to top if hash not specified
 	};
@@ -45,17 +44,24 @@ function asyncLoadPage(uri, noScrolling = 0) {
 	xhr.send(null);
 }
 
-// Bind
+// Бинд кликов
 (() => {
 	document.querySelector('body').onclick = e => {
-		let uri = e.target.getAttribute('href');
+		if (e.target.hasAttribute('href')){
+			let uri = e.target.getAttribute('href').replace(window.location.host, "")
 
-		if(uri && /^\/|^#/.test(uri)){ // Check if target is a link and if it is internal or hash-only
-			e.preventDefault();
+			if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
+				e.preventDefault()
 
-			if (uri == window.location.pathname) return
-			else if (!uri.indexOf('#') || (~uri.indexOf('#') && uri.split('#')[0] == window.location.pathname)) scrollTo(uri.split('#')[1]) // For hash-only link
-			else if (!uri.indexOf('/')) asyncLoadPage(uri); // For internal link
+				// Внутренние ссылки
+				if (/^\//.test(uri)) asyncLoadPage(uri)
+				
+				// Ссылки на якоря
+				else if (/^\#/.test(uri)) scrollTo(uri.split('#')[1])
+			}
 		}
 	}
 })()
+
+
+
