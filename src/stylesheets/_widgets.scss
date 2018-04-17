@@ -6,8 +6,8 @@
 	--widgetWidth: 600px;
 
 	// Начальная позиция
-	top: calc(100vh - 220px);
 	left: calc(50vw - var(--widgetWidth) / 2);
+	top: calc(100vh - 220px);
 
 	background-color: var(--bgcolor_card);
 	border: 1px solid var(--bordercolor);
@@ -28,14 +28,15 @@
 	}
 
 	form{
-		$narrowLineHeight: 23px;
+		$narrowLineHeight: 26px;
 		$buttonWidth: 60px;
 		$gap: 5px;
 
 		display: grid;
 		padding: $gap;
 		
-		grid-template-rows: $narrowLineHeight 1fr $narrowLineHeight;
+		// grid-template-rows: $narrowLineHeight 1fr $narrowLineHeight;
+		grid-template-rows: $narrowLineHeight 1fr auto;
 		grid-template-columns: 1fr $buttonWidth $buttonWidth;
 
 		grid-column-gap: $gap;
@@ -67,10 +68,36 @@
 		}
 
 		button#submit{
+			height: $narrowLineHeight;
 			font-size: inherit;
 
 			grid-column: 2/4;
 			grid-row: 3;
+		}
+
+		#fileInputs{
+			grid-column: 1;
+			grid-row: 3;
+
+			& > div{
+				justify-content: space-between;
+				height: $narrowLineHeight;
+				display: flex;
+
+				&:not(:last-child){
+					margin-bottom: $gap
+				}
+
+				label{
+					background-color: inherit !important;
+					font-size: 1.3em;
+					opacity: .5
+				}
+
+				input:checked + label{
+					opacity: 1
+				}
+			}	
 		}
 
 		.btn{
@@ -156,6 +183,10 @@
 			
 			resize: none;
 		}
+
+		input{
+			height: 26px;
+		}
 	}
 }
 
@@ -189,7 +220,7 @@
 
 #searchForm{
 	display: flex;
-	$inputHeight: 23px;
+	$inputHeight: 26px;
 
 	input{
 		margin-right: 5px;

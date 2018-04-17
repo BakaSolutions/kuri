@@ -21,25 +21,18 @@
 		
 		<textarea name="text" required></textarea>
 
-		<!-- <input type="checkbox" id="fileInputsCheckbox" hidden>
-		<label class="row icon more" hidden for="fileInputsCheckbox"></label> -->
+		<!-- TODO: Лимит файлов должен браться из БД -->
+		<div id="fileInputs" data-filelimit="2">
+			{{ for(let i = 0; i < 2; i++){ }}
+				<div>
+					<input type="file" name="file{{=i}}">
 
-		<!-- <div id="fileInputs">
-			<div class="row">
-				<input type="file" name="file0" id="file0">
-
-				<input type="checkbox" hidden name="file0Rating" id="file0Rating">
-				<label class="btn icon caution" for="file0Rating"></label>
-			</div>
-
-			<div class="row">
-				<input type="file" name="file1" id="file1">
-
-				<input type="checkbox" hidden name="file1Rating" id="file1Rating">
-				<label class="btn icon caution" for="file1Rating"></label>
-			</div>
-		</div> -->
-
+					<input type="checkbox" hidden name="file{{=i}}Rating" id="file{{=i}}Rating">
+					<label class="btn material-icons" for="file{{=i}}Rating">visibility_off</label>
+				</div>
+			{{ } }}
+		</div>
+		
 		<button class="btn" id="submit" onclick="sendPost(event)">Отправить</button>	
 	</form>
 </div>

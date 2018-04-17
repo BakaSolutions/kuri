@@ -10,7 +10,7 @@ function initDraggableReplyForm() {
 		new Draggabilly('#replyForm', {
 			containment: 'html',
 			handle: '#replyForm .widgetHandle'
-		});
+		})
 	}
 }
 
