@@ -1,6 +1,7 @@
 <input type="checkbox" id="replyFormShow" hidden>
 
 <div id="replyForm">
+	<div class="container"></div>
 	<div class="widgetHandle">
 		{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>
 		{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}

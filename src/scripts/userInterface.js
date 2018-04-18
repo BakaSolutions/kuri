@@ -4,7 +4,7 @@
 	let init = () => {
 		if (screen.width > 414) {
 			new Draggabilly('#replyForm', {
-				containment: 'html',
+				containment: '#replyForm .container',
 				handle: '#replyForm .widgetHandle'
 			})
 

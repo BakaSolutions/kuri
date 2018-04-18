@@ -11,10 +11,8 @@
 	--bgcolor: #0c0f12;
 	--bgcolor_card: #13161a;
 
-	// --bordercolor: #0e1a22;
 	--bordercolor: #0c0f12;
 
-	// --boxShadow: 0 0 15px -10px #000;
 	--boxShadow: none;
 
 	--quotationcolor: #789922;
@@ -72,19 +70,15 @@ header{
 		color: var(--textcolor);
 	}
 
-	// .row{
-	// 	justify-content: center;
+	a:not(#banner){
+		color: var(--textcolor_secondary) !important;
+		margin: 5px 15px;
+		font-size: 0.9em;
 
-	// 	a{
-	// 		margin: 5px 15px;
-	// 		font-size: 0.9em;
-	// 		color: var(--textcolor_secondary);
-
-	// 		&:hover{
-	// 			opacity: 0.8
-	// 		}
-	// 	}
-	// }
+		&:hover{
+			opacity: 0.7
+		}
+	}
 }
 
 // Links
@@ -142,10 +136,9 @@ main{
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
 	main{
-		transition: left .3s;
-		position: absolute;
-		right: 55px;
-		left: 256px;
+		transition: margin .3s;
+		margin-right: 55px;
+		margin-left: 256px;
 		
 		padding: 15px;
 	}
