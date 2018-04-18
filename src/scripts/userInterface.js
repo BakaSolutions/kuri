@@ -1,17 +1,25 @@
+(() => { // Функция делает форму ответа плавающей при первом ее показе
+	let trigger = document.querySelector("#replyFormShow") 
+
+	let init = () => {
+		if (screen.width > 414) {
+			new Draggabilly('#replyForm', {
+				containment: 'html',
+				handle: '#replyForm .widgetHandle'
+			})
+
+			trigger.removeEventListener("change", init)
+		}
+	}
+
+	trigger.addEventListener("change", init)
+})()
+
 function spoilPost(button, thread) {
 	let target = button.parentNode.parentNode.parentNode.parentNode;
 	if (thread) target = target.parentNode;
 
 	target.classList.toggle('spoiled');
-}
-
-function initDraggableReplyForm() {
-	if (document.querySelector('#replyForm') && screen.width > 414) {
-		new Draggabilly('#replyForm', {
-			containment: 'html',
-			handle: '#replyForm .widgetHandle'
-		})
-	}
 }
 
 function quickReply(postNumber, threadNumber) {
