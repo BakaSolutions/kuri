@@ -1,3 +1,4 @@
+const URL = require('url');
 const Figurecon = require('figurecon');
 const packageJSON = require('../../package.json');
 
@@ -9,18 +10,8 @@ let config = {
     }
   },
   foxtan: {
-    http: {
-      host: 'tuderi.tumba.ch',
-      port: 48596,
-      protocol: 'https',
-      suffix: ''
-    },
-    websocket: {
-      host: 'tuderi.tumba.ch',
-      port: 48596,
-      protocol: 'wss',
-      suffix: 'ws'
-    }
+    http: URL.parse('https://tuderi.tumba.ch:48596/'),
+    websocket: URL.parse('wss://tuderi.tumba.ch:48596/ws'),
   },
   server: {
     host: '0.0.0.0',
@@ -35,9 +26,7 @@ let config = {
     logger: console.log
   },
   site: {
-    protocol: 'http',
-    domain: '0.0.0.0:8080',
-    timeOffset: 180
+    url: URL.parse('http://0.0.0.0:8080/')
   }
 };
 

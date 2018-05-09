@@ -12,9 +12,7 @@ let Model = module.exports = {
     base: {
       site: config('site'),
       foxtan: {
-        host: config('foxtan.http.host'),
-        port: config('foxtan.http.port'),
-        protocol: config('foxtan.http.protocol')
+        href: config('foxtan.http.href')
       }
     },
     sync: {}
@@ -23,6 +21,27 @@ let Model = module.exports = {
 
 Model.add = smth => {
   Model.models = Tools.merge(Model.models, smth);
+};
+
+Model.init = async () => {
+  Logger.info(`[Init] Get paths...`);
+
+  let data = await API.init();
+  if (!Tools.isObject(data) || !data.paths) {
+    return false;
+  }
+
+  Model.add({
+    engine: data.engine,
+    base: {
+      foxtan: {
+        public: data.paths.public,
+        upload: data.paths.upload
+      }
+    }
+  });
+
+  return true;
 };
 
 Model.sync = async () => {
@@ -88,6 +107,7 @@ Model.getLastPostNumbers = board => {
 
 Event.on('websocket.open', async () => {
   const BoardModel = require('../models/board');
+  await Model.init();
   await Model.sync();
   await BoardModel.sync();
   Event.emit('sync.synced');

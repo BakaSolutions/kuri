@@ -3,14 +3,14 @@
 
 <div id="sidebar">
 	<div id="logo">
-		<a href="/{{!it.site.pathPrefix}}">Тумба.ч</a>
-		<a href="/{{!it.site.pathPrefix}}">технологичный и удобный имиджборд</a>
+		<a href="{{=it.site.url.pathname}}">Тумба.ч</a>
+		<a href="{{=it.site.url.pathname}}">технологичный и удобный имиджборд</a>
 	</div>
 
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 			{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
-				<a href="/{{!it.site.pathPrefix}}{{!board.name}}" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
+				<a href="{{=it.site.url.pathname}}{{!board.name}}" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
 					/{{!board.name}}/ — {{!board.title}}
 				</a>
 			{{~ }}
@@ -32,11 +32,11 @@
 </div>
 
 <div id="topbar">
-	<a href="/{{!it.site.pathPrefix}}">Тумба.ч</a>
+	<a href="{{=it.site.url.pathname}}">Тумба.ч</a>
 
 	{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 		{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
-			<a href="/{{!it.site.pathPrefix}}{{!board.name}}/">/{{!board.name}}/</a>
+			<a href="{{=it.site.url.pathname}}{{!board.name}}/">/{{!board.name}}/</a>
 		{{~ }}
 	{{~ }}
 

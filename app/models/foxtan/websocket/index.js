@@ -3,14 +3,12 @@ const config = require('../../../helpers/config');
 const Logger = require('../../../helpers/logger');
 const Tools = require('../../../helpers/tools');
 
-const Foxtan = config('foxtan.websocket.protocol') + '://' +
-    config('foxtan.websocket.host') + ':' +
-    config('foxtan.websocket.port') + '/' +
-    config('foxtan.websocket.suffix');
+const Foxtan = config('foxtan.websocket.href');
 
 let API = module.exports = {};
 
 let commands = {
+  init: 'INIT',
   sync: 'SYNC',
   getBoards: 'GET BOARDS',
   getCounters: 'GET LPN', //
@@ -38,7 +36,7 @@ function APIPlaceholder(url) {
     }
     Logger.debug(`[WS] Receiving ${link}...`);
     let out = await Request.send(link);
-    Logger.debug(`[WS] Received: ${out}`);
+    Logger.debug(`[WS] Received: ${out} on "${link}"`);
     try {
       out = JSON.parse(out);
     } catch (e) {

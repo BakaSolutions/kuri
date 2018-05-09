@@ -10,7 +10,7 @@
 		{{? }}
 
 		<!-- Рефлинк -->
-		<a class="refLink" name="{{!post.number}}" href="/{{!it.site.pathPrefix}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
+		<a class="refLink" name="{{!post.number}}" href="{{=it.site.url.pathname}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
 			{{? post.subject}}{{!post.subject}}{{? }} #{{!post.number}}
 		</a>
 
@@ -28,21 +28,23 @@
 		<span class="material-icons jsOnly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})">reply</span>
 	</div>
 	<div class="postBody">
-		<div class="postAttachments">
-			<!-- Костыль с фальшивым прикреплением файлов -->
-			{{? post.number == post.threadNumber}} 
-				<div class="thumb">
-					<img src="/static/nopic.png">
-					
-					<a class="info" href="/static/nopic.png" target="_blank" onclick="showImage(event, '/static/nopic.png')">
-						<span>nopic.png</span> 
-						<span>0.1mb</span>
-					</a>
+    {{? Array.isArray(post.files) && post.files.length}}
+      <div class="postAttachments">
+        <!-- Костыль с прикреплением файлов -->
+        {{~post.files :file}}
+          <div class="thumb">
+            <img src="/static/nopic.png">
 
-					<a class="dlLink" href="/static/nopic.png" download="nopic.png">сохранить</a>
-				</div>
-			{{? }}
-		</div>
+            <a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="showImage(event, '{{=it.foxtan.upload}}{{!file.path}}')">
+              <span>{{!file.path}}</span>
+              <span>{{! (file.size / 1048576).toFixed(2) }} Mb</span>
+            </a>
+
+            <a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">сохранить</a>
+          </div>
+        {{~ }}
+      </div>
+    {{? }}
 		<div class="postText">
 			{{=post.text}}
 

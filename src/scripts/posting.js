@@ -2,13 +2,12 @@ function sendPost(e){
 	e.preventDefault();
 	// TODO: Проверка валидности всех полей
 
-	// Получаем uri для постинга и список полей ввода
-	let uri = document.querySelector('#postForm').action,
-			inputs = document.querySelectorAll("#postForm input, #postForm textarea");
+  // Получаем uri для постинга и список полей ввода
+  let form = document.querySelector("#postForm");
+	let uri = form.action;
 
 	// Записываем значения всех полей в formData
-  let formData = new FormData();
-	for(let inp of inputs) formData.append(inp.name, inp.value);
+  let formData = new FormData(form);
 
 	// Асинхронная отправка
 	let xhr = new XMLHttpRequest();
@@ -16,6 +15,9 @@ function sendPost(e){
 		console.log(xhr.responseText);
 		try {
       let r = JSON.parse(xhr.responseText);
+      if (r.error) {
+        throw r.message || r.error;
+      }
       asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`);
     } catch (e) {
 			//

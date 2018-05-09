@@ -69,7 +69,7 @@
 	</div>
 </div>
 
-<form id="deletePosts" method="POST" action="{{!it.foxtan.protocol}}://{{!it.foxtan.host}}:{{!it.foxtan.port}}/api/v1/post.delete" hidden>
+<form id="deletePosts" method="POST" action="{{!it.foxtan.href}}api/v1/post.delete" hidden>
 	<div>
 		Удалить выбранные посты?
 		<div>
