@@ -66,9 +66,9 @@ class WSClient {
       }
 
       let promiseWrapper = data => {
-        this.instance.removeEventListener('message', promiseWrapper);
         if (data.indexOf(id) > -1) {
           data = data.replace(id, '');
+          this.instance.removeEventListener('message', promiseWrapper);
           return resolve(data);
         }
       };
