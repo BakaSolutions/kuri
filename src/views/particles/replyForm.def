@@ -22,14 +22,13 @@
 		
 		<textarea name="text" required></textarea>
 
-		<!-- TODO: Лимит файлов должен браться из БД -->
-		<div id="fileInputs" data-filelimit="2">
-			{{ for(let i = 0; i < 2; i++){ }}
+		<div id="fileInputs" data-filelimit="{{!it.board.fileLimit || 0}}">
+			{{ for(let i = 0; i < it.board.fileLimit; i++){ }}
 				<div>
-					<input type="file" name="file{{=i}}">
+					<input type="file" name="file[{{=i}}]">
 
-					<input type="checkbox" hidden name="file{{=i}}Rating" id="file{{=i}}Rating">
-					<label class="btn material-icons" for="file{{=i}}Rating">visibility_off</label>
+					<input type="checkbox" hidden name="fileRating[{{=i}}]" id="fileRating{{=i}}">
+					<label class="btn material-icons" for="fileRating{{=i}}">visibility_off</label>
 				</div>
 			{{ } }}
 		</div>
