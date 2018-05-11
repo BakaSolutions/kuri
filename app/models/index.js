@@ -147,6 +147,9 @@ Event.on(`websocket.cmd.RNDR`, async ([boardName, threadNumber, postId]) => {
   }
   let thread = await ThreadModel.getOne(boardName, threadNumber);
   if (Tools.isObject(thread)) {
+    if (!threadCounts[boardName]) {
+      threadCounts[boardName] = {};
+    }
     threadCounts[boardName][threadNumber] = thread.posts.length;
   }
   lastPostNumbers[boardName] = postId;

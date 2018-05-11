@@ -63,6 +63,12 @@ API.getPage = (boardName, threadNumber) => {
   return APIPlaceholder(commands['getPage'])(boardName, threadNumber)
     .then(page => {
       let threads = page.threads;
+      if (!threads) {
+        throw {
+          status: 404,
+          message: 'No threads on page.'
+        }
+      }
       let threadsCount = threads.length;
       for (let i = 0; i < threadsCount; i++) {
         threads[i].posts = parseDateInPosts(threads[i].posts);

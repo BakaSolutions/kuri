@@ -39,10 +39,22 @@ Controllers.initHTTP = async app => {
       }
     } catch (err) {
       ctx.status = err.status || 500;
-      ctx.body = config('debug.enable') && ctx.status >= 500
-          ? '<pre>\n' + (err.stack || err) + '\n</pre>'
-          : {error: err.name, message: err.message};
-      ctx.app.emit('error', err, ctx);
+
+      let out = {
+        error: err.name,
+        message: err.message
+      };
+
+      if (config('debug.enable') && ctx.status >= 500) {
+        out.stack = err.stack || err;
+
+        if (!Controllers.isAJAXRequested(ctx)) {
+          out = `<pre>\n${out.stack}\n</pre>`;
+        }
+        return ctx.app.emit('error', err, ctx);
+      }
+
+      ctx.body = out;
     }
   });
 

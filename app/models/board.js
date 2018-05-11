@@ -58,5 +58,9 @@ Board.getPage = async (board, page) => {
     Logger.error(new Error('Trying to get something unexpectable!'));
     return false;
   }
-  return await API.getPage(board, page);
+  return await API.getPage(board, page).catch(e => {
+    return {
+      threads: []
+    }
+  });
 };
