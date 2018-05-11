@@ -114,15 +114,18 @@ function sel(selector){
 settingsManager.init();
 
 function zoomImage(img, multiplier){
-	const MAX_SIZE = 5e3,
-				MIN_SIZE = 100;
+	const MAX_SIZE = window.innerWidth * 3,
+				MIN_SIZE = window.innerHeight / 5;
 
-	let newHeight = multiplier * img.style.height.replace('px', ''),
-	 		newWidth = multiplier * img.style.width.replace('px', '');
+	let newHeight = multiplier * parseInt(img.style.height),
+	 		newWidth = multiplier * parseInt(img.style.width)
 
 	if (newHeight < MAX_SIZE && newWidth < MAX_SIZE && newHeight > MIN_SIZE && newWidth > MIN_SIZE) {
-		img.style.width = newWidth + 'px';
-		img.style.height = newHeight + 'px';
+		img.style.height = newHeight + "px"
+		img.style.width = newWidth + "px"
+	} else{
+		console.error("Trying to set width to", newWidth, "and height to", newHeight, 
+									"when minimum limit is", MIN_SIZE, "and maximum limit is", MAX_SIZE)
 	}
 }
 

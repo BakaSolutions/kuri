@@ -59,10 +59,22 @@ function showImage(e, url) {
 				img = new Image();
 
 		img.onload = () => {
-			let imgSmallerThanViewport = img.naturalWidth < window.innerWidth && img.naturalHeight < window.innerHeight;
+			let maxWidth = window.innerWidth * 0.8,
+					maxHeight = window.innerHeight * 0.8,
+					widthRatio = img.naturalWidth / maxWidth,
+					heightRatio = img.naturalHeight / maxHeight
 
-			img.style.width = (imgSmallerThanViewport ? img.naturalWidth : window.innerWidth) + 'px';
-			img.style.height = (imgSmallerThanViewport ? img.naturalHeight : window.innerHeight) + 'px';
+			if (widthRatio > 1 && widthRatio > heightRatio){
+				img.style.width = maxWidth + "px"
+				img.style.height = img.naturalHeight / widthRatio + "px"
+			} else if (heightRatio > 1 && heightRatio > widthRatio){
+				img.style.height = maxHeight + "px"
+				img.style.width = img.naturalWidth / heightRatio + "px"
+			} else{
+				img.style.width = img.naturalWidth
+				img.style.height = img.naturalHeight
+			}
+
 			widget.innerHTML = '';
 
 			sel('.widget#imageViewer .widgetBox').style.left = '0';

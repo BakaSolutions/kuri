@@ -247,16 +247,20 @@
 	}
 }
 
-#imageViewer .widgetBox{
-	height: auto;
-	width: auto;
-	padding: 0;
+#imageViewer{
+	z-index: 2001;
 
-	&:active{
-		cursor: move;
-	}
+	.widgetBox{
+		height: auto;
+		width: auto;
+		padding: 0;
 
-	*{
-		vertical-align: middle;
+		&.is-pointer-down{
+			cursor: move;
+		}
+
+		img{
+			vertical-align: middle;
+		}
 	}
 }
