@@ -23,7 +23,9 @@ function spoilPost(button, thread) {
 }
 
 function quickReply(postNumber, threadNumber) {
-	document.querySelector("#replyFormShow").checked = true;
+	let cb = sel("#replyFormShow")
+	if(!cb.checked) cb.click()
+		
 	document.querySelector('#replyForm [name="subject"]').placeholder = 'Имя';
 	document.querySelector('#replyForm .widgetHandle').innerHTML = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><label for="replyFormShow" class="icon close"></label>`;
 
