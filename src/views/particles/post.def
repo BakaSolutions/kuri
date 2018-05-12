@@ -31,7 +31,7 @@
 		{{? Array.isArray(post.files) && post.files.length}}
 			<div class="postAttachments">
 				{{~post.files :file}}
-					{{? file.mime.split("/")[0] == "image" || file.mime.split("/")[0] == "video"}}
+					{{? ["image", "video"].includes(file.mime.split("/")[0])}}
 						<div class="thumb">
 							<img src="/static/nopic.png">
 
@@ -43,7 +43,7 @@
 							<a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">сохранить</a>
 						</div>
 					{{?? }}
-						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">{{!file.path}} <div>({{! (file.size / 1048576).toFixed(2) }} Mb)</div></a>
+						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}"{{? file.mime.split("/")[0] == "audio" }}onclick="loadAudio(event, '{{=it.foxtan.upload}}{{!file.path}}', '{{!file.path}}')"{{? }}>{{!file.path}} <div>({{! (file.size / 1048576).toFixed(2) }} Mb)</div></a>
 					{{? }}
 				{{~ }}
 			</div>

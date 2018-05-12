@@ -1,4 +1,4 @@
-#musicPlayer{
+#musicPlayer:not([hidden]){
 	$sideBarWidth: 256px;
 	$sideBarHorizontalPadding: 20px;
 
