@@ -5,7 +5,7 @@
 		<label for="delete-{{!it.board.name}}:{{!post.number}}" class="material-icons jsOnly" onclick="activatePostRemovalWidget()">delete</label>
 
 		<!-- Сажа -->
-		{{? post.sageru}}
+		{{? post.sage}}
 			<span class="material-icons">details</span>
 		{{? }}
 

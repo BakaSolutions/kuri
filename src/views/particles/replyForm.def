@@ -17,7 +17,7 @@
 		<input type="checkbox" name="OP" id="opCheckbox" hidden>
 		<label for="opCheckbox" class="btn">OP</label>
 
-		<input type="checkbox" name="sageru" id="sageCheckbox" hidden>
+		<input type="checkbox" name="sage" id="sageCheckbox" hidden>
 		<label for="sageCheckbox" class="btn">Sage</label>
 		
 		<textarea name="text" required></textarea>

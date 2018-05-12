@@ -61,7 +61,8 @@ function showImage(e, url) {
 				img = new Image();
 
 		img.onload = () => {
-			let maxWidth = window.innerWidth * 0.8,
+			let minSize = window.innerHeight / 5,
+					maxWidth = window.innerWidth * 0.8,
 					maxHeight = window.innerHeight * 0.8,
 					widthRatio = img.naturalWidth / maxWidth,
 					heightRatio = img.naturalHeight / maxHeight

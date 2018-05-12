@@ -115,7 +115,7 @@ settingsManager.init();
 
 function zoomImage(img, multiplier){
 	const MAX_SIZE = window.innerWidth * 3,
-				MIN_SIZE = window.innerHeight / 5;
+				MIN_SIZE = window.innerHeight / 10;
 
 	let newHeight = multiplier * parseInt(img.style.height),
 	 		newWidth = multiplier * parseInt(img.style.width)
@@ -141,6 +141,9 @@ function zoomImage(img, multiplier){
 				break;
 			case "-":
 				if (!e.shiftKey && img) zoomImage(img, 0.8);
+				break;
+			case "Escape":
+				if (sel('.widget#imageViewer:not([hidden])')) switchAttribute(sel('.widget#imageViewer'), 'hidden')
 				break;
 			case "F5":
 				if (!e.ctrlKey) {
