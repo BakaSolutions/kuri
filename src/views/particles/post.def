@@ -28,23 +28,26 @@
 		<span class="material-icons jsOnly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})">reply</span>
 	</div>
 	<div class="postBody">
-    {{? Array.isArray(post.files) && post.files.length}}
-      <div class="postAttachments">
-        <!-- Костыль с прикреплением файлов -->
-        {{~post.files :file}}
-          <div class="thumb">
-            <img src="/static/nopic.png">
+		{{? Array.isArray(post.files) && post.files.length}}
+			<div class="postAttachments">
+				{{~post.files :file}}
+					{{? file.mime.split("/")[0] == "image" || file.mime.split("/")[0] == "video"}}
+						<div class="thumb">
+							<img src="/static/nopic.png">
 
-            <a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" {{? file.mime.split("/")[0] == "image"}}onclick="showImage(event, '{{=it.foxtan.upload}}{{!file.path}}')"{{? }}>
-              <span>{{!file.path}}</span>
-              <span>{{! (file.size / 1048576).toFixed(2) }} Mb</span>
-            </a>
+							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="showImage(event, '{{=it.foxtan.upload}}{{!file.path}}')">
+								<span>{{!file.path}}</span>
+								<span>{{! (file.size / 1048576).toFixed(2) }} Mb</span>
+							</a>
 
-            <a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">сохранить</a>
-          </div>
-        {{~ }}
-      </div>
-    {{? }}
+							<a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">сохранить</a>
+						</div>
+					{{?? }}
+						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">{{!file.path}} <div>({{! (file.size / 1048576).toFixed(2) }} Mb)</div></a>
+					{{? }}
+				{{~ }}
+			</div>
+		{{? }}
 		<div class="postText">
 			{{=post.text}}
 

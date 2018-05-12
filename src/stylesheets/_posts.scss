@@ -32,6 +32,10 @@
 	.postAttachments{
 		margin-right: 5px;
 
+		& > *{
+			margin-bottom: 2px;
+		}
+
 		.info, .dlLink{
 			flex-direction: column;
 			transition: color .3s;
@@ -64,6 +68,16 @@
 
 			img{
 				opacity: .1
+			}
+		}
+
+		a.unpreviewable{
+			display: block;
+			width: 200px;
+
+			div{
+				color: var(--textcolor);
+				font-size: .8em
 			}
 		}
 	}
@@ -108,7 +122,7 @@
 .post{
 	transition: max-height .3s;
 	position: relative;
-	max-height: 300px;
+	// max-height: 300px;
 	overflow-y: auto;
 	padding: 5px;
 
