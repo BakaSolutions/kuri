@@ -36,14 +36,14 @@
 							<img src="/static/nopic.png">
 
 							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="showImage(event, '{{=it.foxtan.upload}}{{!file.path}}')">
-								<span>{{!file.path}}</span>
+								<span>{{!file.name}}</span>
 								<span>{{! (file.size / 1048576).toFixed(2) }} Mb</span>
 							</a>
 
-							<a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}">сохранить</a>
+							<a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.name}}">сохранить</a>
 						</div>
 					{{?? }}
-						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}"{{? file.mime.split("/")[0] == "audio" }}onclick="loadAudio(event, '{{=it.foxtan.upload}}{{!file.path}}', '{{!file.path}}')"{{? }}>{{!file.path}} <div>({{! (file.size / 1048576).toFixed(2) }} Mb)</div></a>
+						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}"{{? file.mime.split("/")[0] == "audio" }}onclick="loadAudio(event, '{{=it.foxtan.upload}}{{!file.path}}', '{{!file.name}}')"{{? }}>{{!file.name}} <div>({{! (file.size / 1048576).toFixed(2) }} Mb)</div></a>
 					{{? }}
 				{{~ }}
 			</div>
