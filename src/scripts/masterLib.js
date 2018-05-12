@@ -132,17 +132,17 @@ function zoomImage(img, multiplier){
 // Hotkeys
 (() => {
 	document.onkeydown = (e) => {
-		// console.log("Button pushed: ", e.which)
+		// console.log("Button pushed: ", e.key)
 		let img = sel('#imageViewer .widgetBox img')
 
-		switch (e.which) {
-			case 61: // Plus
+		switch (e.key) {
+			case "+":
 				if (e.shiftKey && img) zoomImage(img, 1.2);
 				break;
-			case 173: // Minus
+			case "-":
 				if (!e.shiftKey && img) zoomImage(img, 0.8);
 				break;
-			case 116: // f5
+			case "F5":
 				if (!e.ctrlKey) {
 					e.preventDefault();
 					asyncLoadPage(document.location.href, 1);
