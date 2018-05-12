@@ -1,43 +1,28 @@
 function asyncLoadPage(uri, noScrolling = 0) {
-	// document.querySelector('main').classList.add('refreshing');
-	let xhr = new XMLHttpRequest();
+	// sel("main").classList.add("refreshing")
+	let xhr = new XMLHttpRequest()
 
 	xhr.onload = () => {
-		let content = xhr.response;
+		let doc = (new DOMParser()).parseFromString(xhr.response, "text/html")
 
-		let main = /<main>([\s\S]*)<\/main>/.exec(content);
-		if (!main) {
-			return location.href = uri;
+		let main = doc.querySelector("main")
+		if (main) sel("main").innerHTML = main.innerHTML
+		else return location.href = uri
+
+		let title = doc.querySelector("title")
+		sel("title").innerHTML = title.innerHTML
+		history.pushState({uri}, title, uri)
+
+		if (sel("#replyForm") && doc.querySelector("#replyForm")) {
+			sel("#replyForm .widgetHandle").innerHTML = doc.querySelector("#replyForm .widgetHandle").innerHTML
+			sel("#postForm").innerHTML = doc.querySelector("#postForm").innerHTML
 		}
-		document.querySelector('main').innerHTML = main[1];
 
-		let title = /<title>(.+)<\/title>/.exec(content);
-		document.querySelector('title').innerHTML = title[1] || '';
-		history.pushState({}, title, uri);
+		// console.log("Asynchronously navigated to", uri)
+		// sel("main").classList.remove("refreshing")
 
-		if (!document.querySelector('#replyForm') && /id="replyForm"/.test(content)) {
-			let BODY = sel('body');
-			let replyForm = /<div id="replyForm" class="widget">([\s\S]*)<!--\/replyForm-->/.exec(content);
-
-			createElement('input', {
-				'type': 'checkbox',
-				'id': 'replyFormShow',
-				'className': 'hidden'
-			}).then(el => BODY.appendChild(el));
-
-			createElement('div', {
-				'id': 'replyForm',
-				'className': 'widget',
-				'innerHTML': replyForm[1]
-			}).then(el => BODY.appendChild(el));
-
-			initDraggableReplyForm();
-		};
-
-		console.log('Asynchronously navigated to', uri);
-		// document.querySelector('main').classList.remove('refreshing');
-
-		if (!noScrolling) scrollTo(~uri.indexOf('#') ? uri.split('#')[1] : 'top'); // Scroll to top if hash not specified
+		// Скролл к указанному хэшу либо по-умолчанию вверх
+		if (!noScrolling) scrollTo(uri.includes("#") ? uri.split("#")[1] : "top")
 	};
 
 	xhr.open("GET", uri);
@@ -46,7 +31,7 @@ function asyncLoadPage(uri, noScrolling = 0) {
 
 // Бинд кликов
 (() => {
-	document.querySelector('body').onclick = e => {
+	sel('body').onclick = e => {
 		if (e.target.hasAttribute('href')){
 			let uri = e.target.getAttribute('href').replace(window.location.host, "")
 
@@ -62,6 +47,3 @@ function asyncLoadPage(uri, noScrolling = 0) {
 		}
 	}
 })()
-
-
-

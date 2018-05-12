@@ -36,4 +36,3 @@
 		<button class="btn" id="submit" onclick="sendPost(event)">Отправить</button>	
 	</form>
 </div>
-<!--/replyForm-->
