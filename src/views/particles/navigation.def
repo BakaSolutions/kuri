@@ -52,7 +52,7 @@
 	</div>
 	<div class="column">
 		<label for="hideImagesCheckbox" class="btn material-icons">visibility_off</label>
-		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow ">chat</label>
+		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow">chat</label>
 		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>
 	</div>
 </div>

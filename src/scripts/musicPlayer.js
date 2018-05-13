@@ -37,7 +37,6 @@ musicPlayer.progressBar.addEventListener("change", () => {
 
 function loadAudio(e, uri, trackname) {
 	e.preventDefault()
-	e.stopPropagation()
 
 	sel("#musicPlayer").removeAttribute("hidden")
 

@@ -1,5 +1,5 @@
 (() => { // Функция делает форму ответа плавающей при первом ее показе
-	let trigger = document.querySelector("#replyFormShow") 
+	let trigger = sel("#replyFormShow") 
 
 	let init = () => {
 		if (screen.width > 414) {
@@ -26,12 +26,17 @@ function quickReply(postNumber, threadNumber) {
 	let cb = sel("#replyFormShow")
 	if(!cb.checked) cb.click()
 		
-	document.querySelector('#replyForm [name="subject"]').placeholder = 'Имя';
-	document.querySelector('#replyForm .widgetHandle').innerHTML = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><label for="replyFormShow" class="icon close"></label>`;
+	sel("#replyForm .widgetHandle").innerHTML = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><span class="material-icons" onclick="undoQuickReply()">close</span>`
+	sel("#replyForm [name='subject']").placeholder = "Имя"
+	sel("#replyForm textarea").innerHTML += `>>${postNumber}\n`
+	sel("input#threadNumber").value = threadNumber
+}
 
-	document.querySelector('input#threadNumber').value = threadNumber;
-	document.querySelector('#replyForm textarea').innerHTML += `>>${postNumber}\n`;
-};
+function undoQuickReply(){
+	sel("#replyForm .widgetHandle").innerHTML = `Создание треда в <span class="pseudoLink">/${sel("#postForm [name='boardName']").value}/</span>`
+	sel("#replyForm [name='subject']").placeholder = "Тема"
+	sel("#replyForm input#threadNumber").value = ""
+}
 
 function activatePostRemovalWidget(){
 	setTimeout(() => {
@@ -44,7 +49,7 @@ function activatePostRemovalWidget(){
 }
 
 function deselectAllPosts() {
-	for (checkbox of document.querySelectorAll('[form="deletePosts"]:checked')) {
+	for (checkbox of sel('[form="deletePosts"]:checked')) {
 		checkbox.checked = false;
 	}
 
@@ -55,7 +60,6 @@ function deselectAllPosts() {
 function showImage(e, url) {
 	if (!e.ctrlKey) {
 		e.preventDefault();
-		e.stopPropagation();
 
 		let widget = sel('#imageViewer .widgetBox'),
 				img = new Image();

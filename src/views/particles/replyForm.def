@@ -20,7 +20,7 @@
 		<input type="checkbox" name="sage" id="sageCheckbox" hidden>
 		<label for="sageCheckbox" class="btn">Sage</label>
 		
-		<textarea name="text" required></textarea>
+		<textarea name="text"></textarea>
 
 		<div id="fileInputs" data-filelimit="{{!it.board.fileLimit || 0}}">
 			{{ for(let i = 0; i < it.board.fileLimit; i++){ }}
