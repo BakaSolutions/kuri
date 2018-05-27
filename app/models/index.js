@@ -34,10 +34,7 @@ Model.init = async () => {
   Model.add({
     engine: data.engine,
     base: {
-      foxtan: {
-        public: data.paths.public,
-        upload: data.paths.upload
-      }
+      foxtan: data.paths
     }
   });
 

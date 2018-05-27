@@ -88,7 +88,7 @@ Render.renderPage = (templateName, model) => {
     return template(model);
   } catch (e) {
     Logger.error(e);
-    return 'Ni-paa~! Please, recompile templates.';
+    return `Ni-paa~! Please, recompile templates: ${e.message}`;
   }
 };
 
