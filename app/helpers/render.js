@@ -40,7 +40,7 @@ Render.loadTemplates = async () => {
 };
 
 /**
- * Complies all doT.js templates into functions and files
+ * Compiles all doT.js templates into functions and files
  * Why do we have this function?
  * First and the main reason: it doesn't ignore subdirectories.
  * @returns {Object} -- object with template functions

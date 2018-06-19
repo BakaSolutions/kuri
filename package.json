@@ -28,7 +28,7 @@
     "ws": "^5.0.0"
   },
   "devDependencies": {
-    "gulp": "gulpjs/gulp#3.9.0",
+    "gulp": "^3.9.0",
     "gulp-babel-minify": "latest",
     "gulp-clean-css": "latest",
     "gulp-sass": "latest",

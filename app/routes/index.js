@@ -3,6 +3,7 @@ const Controllers = module.exports = {};
 const Tools = require('../helpers/tools');
 const config = require('../helpers/config');
 const Logger = require('../helpers/logger');
+const Render = require('../helpers/render');
 
 const Model = require('../models');
 
@@ -35,26 +36,10 @@ Controllers.initHTTP = async app => {
       await next();
       const status = ctx.status || 404;
       if (status === 404) {
-        ctx.throw(404);
+        ctx.throw(404)
       }
     } catch (err) {
-      ctx.status = err.status || 500;
-
-      let out = {
-        error: err.name,
-        message: err.message
-      };
-
-      if (config('debug.enable') && ctx.status >= 500) {
-        out.stack = err.stack || err;
-
-        if (!Controllers.isAJAXRequested(ctx)) {
-          out = `<pre>\n${out.stack}\n</pre>`;
-        }
-        return ctx.app.emit('error', err, ctx);
-      }
-
-      ctx.body = out;
+      return ctx.app.emit('error', err, ctx);
     }
   });
 
@@ -80,17 +65,32 @@ Controllers.initHTTP = async app => {
   Logger.info('[HTTP] Paths are inited.');
 
   app.on('error', (err, ctx) => {
-    if (ctx.status >= 500) {
+    const status = err.status || 500;
+    let out = '';
+
+    if (status >= 500) {
       Logger.error('[ERR]', ctx.header.host, ctx.status, ctx.url, err.message);
     }
+
+    if (Controllers.isAJAXRequested(ctx)) {
+      out = {
+        error: err.name,
+        message: err.message
+      };
+
+      if (config('debug.enable') && ctx.status >= 500) {
+        out.stack = err.stack || err;
+      }
+    } else {
+      out = Render.renderPage('pages/error', err);
+    }
+    ctx.body = out;
   });
 
   return app;
 };
 
-Controllers.isAJAXRequested = ctx => {
-  return ctx.headers["X-Requested-With"] === "XMLHttpRequest";
-};
+Controllers.isAJAXRequested = ctx => ctx.headers["X-Requested-With"] === "XMLHttpRequest";
 
 Controllers.success = (ctx, out) => {
   if (!out) {
