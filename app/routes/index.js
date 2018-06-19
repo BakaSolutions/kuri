@@ -2,6 +2,7 @@ const Controllers = module.exports = {};
 
 const Tools = require('../helpers/tools');
 const config = require('../helpers/config');
+const FS = require('../helpers/fs');
 const Logger = require('../helpers/logger');
 const Render = require('../helpers/render');
 
@@ -66,23 +67,21 @@ Controllers.initHTTP = async app => {
 
   app.on('error', (err, ctx) => {
     const status = err.status || 500;
-    let out = '';
+    let out = {
+      error: err.name,
+      message: err.message
+    };
+
+    if (config('debug.enable') && ctx.status >= 500) {
+      out.stack = err.stack.replace(new RegExp(FS.ROOT, 'g'), '') || err;
+    }
 
     if (status >= 500) {
       Logger.error('[ERR]', ctx.header.host, ctx.status, ctx.url, err.message);
     }
 
-    if (Controllers.isAJAXRequested(ctx)) {
-      out = {
-        error: err.name,
-        message: err.message
-      };
-
-      if (config('debug.enable') && ctx.status >= 500) {
-        out.stack = err.stack || err;
-      }
-    } else {
-      out = Render.renderPage('pages/error', err);
+    if (!Controllers.isAJAXRequested(ctx)) {
+      out = Render.renderPage('pages/error', out);
     }
     ctx.body = out;
   });

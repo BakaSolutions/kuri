@@ -7,6 +7,9 @@
 			<header>
 				<div>{{!it.name}}</div>
 				<div>{{!it.message}}</div>
+				{{?it.stack}}
+					<pre>{{=it.stack}}</pre>
+				{{?}}
 			</header>
 		</main>
 		{{#def["particles/widgets"]}}

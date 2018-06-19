@@ -11,7 +11,7 @@ const writeFile = promisify(fs.writeFile);
 const Pledge = require('./promise');
 
 let FS = module.exports = {};
-const ROOT = path.join(__dirname, '/../../');
+const ROOT = FS.ROOT = path.join(__dirname, '/../../');
 
 /**
  * Normalizes the path (removes all unnecessary "../")
