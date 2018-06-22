@@ -49,7 +49,7 @@ function activatePostRemovalWidget(){
 }
 
 function deselectAllPosts() {
-	let checkboxes = sel('[form="deletePosts"]:checked')
+	let checkboxes = document.querySelectorAll('[form="deletePosts"]:checked')
 	for (checkbox of checkboxes) checkbox.checked = false
 
 	activatePostRemovalWidget()
