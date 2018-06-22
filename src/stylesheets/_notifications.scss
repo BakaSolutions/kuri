@@ -1,0 +1,30 @@
+@keyframes newNotification {
+  0% {top: -5em}
+  100% {top: .7em}
+}
+
+#notificationsContainer{
+  position: fixed;
+  z-index: 1100;
+  right: .7em;
+  top: .7em;
+
+  width: 20em;
+
+  &.newNotification{
+    animation-name: newNotification;
+    animation-duration: .3s;
+  }
+
+  .notification{
+    @include user-select(none);
+    cursor: pointer;
+
+    border: 0.2em solid var(--bgcolor);
+    background: var(--bgcolor_card);
+
+    margin-bottom: .7em;
+    padding: 1em;
+    height: 5em;
+  }
+}

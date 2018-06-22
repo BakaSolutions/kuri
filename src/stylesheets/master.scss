@@ -31,6 +31,7 @@
 @import '_posts.scss';
 @import '_scrollbar.scss';
 @import '_musicPlayer.scss';
+@import '_notifications.scss';
 
 *{
 	box-sizing: border-box;
@@ -139,7 +140,7 @@ main{
 		transition: margin .3s;
 		margin-right: 55px;
 		margin-left: 256px;
-		
+
 		padding: 15px;
 	}
 }
@@ -189,7 +190,7 @@ input:not([type=file]), textarea{
 
 	border: none;
 
-	// Фикс для Фаерфокса, который убирает плейсхолдер  
+	// Фикс для Фаерфокса, который убирает плейсхолдер
 	// при фокусировке на поле ввода
 	&:focus::-moz-placeholder {
 		color: transparent !important

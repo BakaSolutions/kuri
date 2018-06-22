@@ -3,7 +3,7 @@
 }
 
 #replyForm{
-	--widgetWidth: 600px;
+	--widgetWidth: 6з00px;
 
 	// Начальная позиция
 	left: calc(50vw - var(--widgetWidth) / 2);
@@ -49,7 +49,7 @@
 
 		display: grid;
 		padding: $gap;
-		
+
 		// grid-template-rows: $narrowLineHeight 1fr $narrowLineHeight;
 		grid-template-rows: $narrowLineHeight 1fr auto;
 		grid-template-columns: 1fr $buttonWidth $buttonWidth;
@@ -59,19 +59,19 @@
 
 		input[name="subject"]{
 			height: $narrowLineHeight;
-			
+
 			grid-column: 1;
 			grid-row: 1;
 		}
 
 		label[for="opCheckbox"]{
-			grid-column: 2;	
+			grid-column: 2;
 			grid-row: 1;
 		}
 
 		label[for="sageCheckbox"]{
 			grid-column: 3;
-			grid-row: 1;	
+			grid-row: 1;
 		}
 
 		textarea{
@@ -112,7 +112,7 @@
 				input:checked + label{
 					opacity: 1
 				}
-			}	
+			}
 		}
 
 		.btn{
@@ -124,12 +124,12 @@
 .widget{
 	$widgetPadding: 10px;
 	$widgetHeight: 90vh;
-	$widgetWidth: 400px;
+	$widgetWidth: 600px;
 
 	position: fixed;
 	left: 0;
 	top: 0;
-	
+
 	height: 100vh;
 	width: 100vw;
 
@@ -154,6 +154,7 @@
 
 	.tabs{
 		margin-bottom: 5px;
+		text-align: center;
 	}
 
 	.widgetBox{
@@ -167,8 +168,8 @@
 
 		h2{
 			// Верхний маржин не должен суммироваться с парентом
-			margin: 0 $widgetPadding $widgetPadding $widgetPadding; 
-			
+			margin: 0 $widgetPadding $widgetPadding $widgetPadding;
+
 			text-align: center;
 			cursor: default;
 		}
@@ -195,7 +196,7 @@
 
 			height: calc(var(--h) - 74px);
 			width: 100%;
-			
+
 			resize: none;
 		}
 
@@ -239,7 +240,7 @@
 
 	input{
 		margin-right: 5px;
-		
+
 		height: $inputHeight;
 		width: 100%;
 	}

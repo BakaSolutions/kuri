@@ -40,4 +40,6 @@
 	'userInterface.js',
 	'posting.js',
 	'musicPlayer.js',
-	'draggabilly.js')
+	'draggabilly.js',
+	'notifications.js'
+)

@@ -1,7 +1,7 @@
-let log = async (...text) => settingsManager.get('logging') ? console.log(...text) : 0;
-let switchAttribute = (el, attr) => el.getAttribute(attr) != null ? el.removeAttribute(attr) : el.setAttribute(attr, true);
+const log = async (...text) => settingsManager.get('logging') ? console.log(...text) : 0;
+const switchAttribute = (el, attr) => el.getAttribute(attr) != null ? el.removeAttribute(attr) : el.setAttribute(attr, true);
 
-let settingsManager = {
+const settingsManager = {
 	defaultSettings: {
 		// Basic
 		AJAXNavigation: 1,
@@ -49,7 +49,7 @@ let settingsManager = {
 };
 
 
-let scrollTo = (name) => {
+function scrollTo(name){
 	log('Scrolling to', name);
 
 	if (!settingsManager.get('smoothScrolling')){
@@ -124,7 +124,7 @@ function zoomImage(img, multiplier){
 		img.style.height = newHeight + "px"
 		img.style.width = newWidth + "px"
 	} else{
-		console.error("Trying to set width to", newWidth, "and height to", newHeight, 
+		console.error("Trying to set width to", newWidth, "and height to", newHeight,
 									"when minimum limit is", MIN_SIZE, "and maximum limit is", MAX_SIZE)
 	}
 }

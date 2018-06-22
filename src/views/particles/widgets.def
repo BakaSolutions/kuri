@@ -8,6 +8,7 @@
 			<label for="themesSettingsTab">Темы</label>
 			<label for="spoilingSettingsTab">Автоскрытие</label>
 			<label for="securitySettingsTab">Безопасность</label>
+			<label for="testingSettingsTab">Тестирование</label>
 		</div>
 
 		<input type="radio" id="basicSettingsTab" checked hidden name="settingsTabs">
@@ -46,6 +47,11 @@
 		<div class="column">
 			Пароль:
 			<input type="password" placeholder="Пароль">
+		</div>
+
+		<input type="radio" id="testingSettingsTab" hidden name="settingsTabs">
+		<div class="column">
+			<a onclick="notifications.add({text: 'Сенпай, не забудь убрать этот кавай, а то отняшу!', timeout: 10000, class: 'notification'})">Тестовое уведомление</a>
 		</div>
 	</div>
 </div>
