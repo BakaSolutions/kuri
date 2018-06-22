@@ -1,5 +1,5 @@
 (() => { // Функция делает форму ответа плавающей при первом ее показе
-	let trigger = sel("#replyFormShow") 
+	let trigger = sel("#replyFormShow")
 
 	let init = () => {
 		if (screen.width > 414) {
@@ -25,7 +25,7 @@ function spoilPost(button, thread) {
 function quickReply(postNumber, threadNumber) {
 	let cb = sel("#replyFormShow")
 	if(!cb.checked) cb.click()
-		
+
 	sel("#replyForm .widgetHandle").innerHTML = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><span class="material-icons" onclick="undoQuickReply()">close</span>`
 	sel("#replyForm [name='subject']").placeholder = "Имя"
 	sel("#replyForm textarea").innerHTML += `>>${postNumber}\n`
@@ -49,11 +49,10 @@ function activatePostRemovalWidget(){
 }
 
 function deselectAllPosts() {
-	for (checkbox of sel('[form="deletePosts"]:checked')) {
-		checkbox.checked = false;
-	}
+	let checkboxes = sel('[form="deletePosts"]:checked')
+	for (checkbox of checkboxes) checkbox.checked = false
 
-	activatePostRemovalWidget();
+	activatePostRemovalWidget()
 }
 
 /* Оверлей с картинкой */
