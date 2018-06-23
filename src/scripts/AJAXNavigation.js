@@ -1,5 +1,9 @@
 function asyncLoadPage(uri, noScrolling = 0) {
-	// sel("main").classList.add("refreshing")
+	let ntf = notifications.add({
+		text: "Загрузка...",
+		class: 'notification'
+	})
+
 	let xhr = new XMLHttpRequest()
 
 	xhr.onload = () => {
@@ -18,11 +22,12 @@ function asyncLoadPage(uri, noScrolling = 0) {
 			sel("#postForm").innerHTML = doc.querySelector("#postForm").innerHTML
 		}
 
-		// console.log("Asynchronously navigated to", uri)
-		// sel("main").classList.remove("refreshing")
-
 		// Скролл к указанному хэшу либо по-умолчанию вверх
 		if (!noScrolling) scrollTo(uri.includes("#") ? uri.split("#")[1] : "top")
+
+		// console.log("Asynchronously navigated to", uri)
+		// sel("main").classList.remove("refreshing")
+		notifications.remove(ntf)
 	};
 
 	xhr.open("GET", uri);
@@ -40,7 +45,7 @@ function asyncLoadPage(uri, noScrolling = 0) {
 
 				// Внутренние ссылки
 				if (/^\//.test(uri)) asyncLoadPage(uri)
-				
+
 				// Ссылки на якоря
 				else if (/^\#/.test(uri)) scrollTo(uri.split('#')[1])
 			}
