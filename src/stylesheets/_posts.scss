@@ -100,9 +100,9 @@
 .thread{
 	transition: max-height .3s;
 	overflow: hidden;
-	
+
 	// TODO: Выставлять максимальную высоту при помощи ЖС
-	
+
 	&.spoiled{
 		max-height: 20px;
 
@@ -140,7 +140,7 @@
 .postDetails{
 	@include user-select(none);
 	color: var(--textcolor);
-	font-size: .8rem;
+	font-size: .9rem;
 	cursor: default;
 
 	time{
@@ -178,7 +178,7 @@
 		justify-content: center;
 		align-items: center;
 		display: flex;
-		
+
 		height: 100%;
 		width: 100%;
 	}

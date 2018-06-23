@@ -1,3 +1,6 @@
+$sidebarWidth: 28vh;
+$gap: 1vh;
+
 :root{
 	--textcolor: #ccc;
 	--textcolor_secondary: #999;
@@ -46,8 +49,9 @@ body{
 	display: flex;
 	margin: 0;
 
-	font: 15px/19px 'Noto Sans', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	color: var(--textcolor);
+	font-size: 1.7vmin;
 
 	.hidden{
 		display: none;
@@ -138,8 +142,8 @@ main{
 @media screen and (min-device-width: 415px) { // Desktop or tablet
 	main{
 		transition: margin .3s;
-		margin-right: 55px;
-		margin-left: 256px;
+		margin-right: calc(45px + #{2 * $gap});
+		margin-left: $sidebarWidth;
 
 		padding: 15px;
 	}

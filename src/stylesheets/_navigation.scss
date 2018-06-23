@@ -36,9 +36,9 @@
 		@include user-select(none);
 
 		flex-direction: column;
-		padding: 10px 20px;
+		width: $sidebarWidth;
+		padding: 10px $gap;
 		position: fixed;
-		width: 256px;
 	}
 
 	#sidebar #logo{
@@ -62,12 +62,15 @@
 	}
 
 	#sidebar #boards{
+		flex-direction: column;
+		display: flex;
+
 		margin-top: 20px;
 	}
 
 	// Sidebar hiding
 	#hideSidebarCheckbox:checked ~ main {
-		margin-left: 5px;
+		margin-left: $gap;
 	}
 
 	#navbar{
@@ -77,25 +80,26 @@
 
 // Navbar
 #navbar{
-	$gaps: 5px; // Отступы вокруг и между кнопками
+	// $gaps: 5px; // Отступы вокруг и между кнопками
 
 	justify-content: space-between;
 	flex-direction: column;
-	padding: $gaps 0;
+	padding: $gap 0;
 	display: flex;
-	
-	padding: ($gaps / 2) 0;
+
+	padding: ($gap / 2) 0;
 	position: fixed;
 	z-index: 900;
-	right: $gaps;
+	right: $gap;
 
 	.btn{
 		box-shadow: var(--boxShadow);
 
 		font-size: 1.5em;
 
-		margin: ($gaps / 2) 0;
+		margin: ($gap / 2) 0;
 		height: 45px;
 		width: 45px;
+
 	}
 }
