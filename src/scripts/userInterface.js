@@ -60,6 +60,11 @@ function showImage(e, url) {
 	if (!e.ctrlKey) {
 		e.preventDefault();
 
+		let ntf = notifications.add({
+			text: "Загрузка...",
+			class: 'notification'
+		})
+
 		let widget = sel('#imageViewer .widgetBox'),
 				img = new Image();
 
@@ -89,6 +94,8 @@ function showImage(e, url) {
 
 			new Draggabilly('.widget#imageViewer .widgetBox');
 			sel('.widget#imageViewer').removeAttribute('hidden');
+
+			notifications.remove(ntf)
 		}
 
 		img.src = url;
