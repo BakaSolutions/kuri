@@ -19,7 +19,7 @@ const ROOT = FS.ROOT = path.join(__dirname, '/../../');
  * @returns {String}
  */
 FS.normalize = filePath => {
-  let rooted = filePath.indexOf(ROOT) === 0;
+  let rooted = FS.check(filePath);
   return path.normalize(rooted
     ? filePath
     : path.join(ROOT, filePath));
@@ -30,9 +30,7 @@ FS.normalize = filePath => {
  * @param {String} filePath
  * @returns {boolean}
  */
-FS.check = filePath => {
-  return filePath.indexOf(path.normalize(ROOT)) === 0;
-};
+FS.check = filePath => filePath.includes(ROOT, 0);
 
 /**
  * Read file synchronously with checking the filePath

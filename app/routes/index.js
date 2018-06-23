@@ -68,7 +68,7 @@ Controllers.initHTTP = async app => {
   app.on('error', (err, ctx) => {
     const status = err.status || 500;
     let out = {
-      error: err.name,
+      error: err.error || err.name,
       message: err.message
     };
 
