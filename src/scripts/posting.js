@@ -12,16 +12,38 @@ function sendPost(e){
 	// Асинхронная отправка
 	let xhr = new XMLHttpRequest();
 	xhr.onload = () => {
-		console.log(xhr.responseText);
+		let message = xhr.responseText;
 		try {
       let r = JSON.parse(xhr.responseText);
-      if (r.error) {
-        throw r.message || r.error;
+      message = r.message || r.error;
+      if (xhr.status < 400) {
+        asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`);
       }
-      asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`);
     } catch (e) {
 			//
-		}
+		} finally {
+      notifications.add({
+        text: message,
+        timeout: 10000,
+        class: 'notification'
+      });
+    }
+  };
+	xhr.onerror = () => {
+	  let message = "CORS problems?";
+    try {
+      let r = JSON.parse(xhr.responseText);
+      if (r.error) {
+        message =  r.message || r.error;
+      }
+    } catch (e) {
+      //
+    }
+    notifications.add({
+      text: message,
+      timeout: 10000,
+      class: 'notification'
+    });
   };
   xhr.open("POST", uri);
 	xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
