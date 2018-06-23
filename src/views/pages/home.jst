@@ -6,50 +6,76 @@
 		<link rel="stylesheet" href="/css/home.css">
 		<script defer src="/js/home.js"></script>
 		<script defer src="/js/veeze.js"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0">
 	</head>
 	<body>
-		<div class="screen">
-			<div id="center">
-				<div id="logo">
-					<span>TUMBA</span>
-					<div id="slogan">
-						<div>
-							You Just Keep on Trying
-						</div>
-						<div>
-							'till You Run Out of Cake
-						</div>
-					</div>
-				</div>
+		<div id="faq">
+			<span>Рекомендовано к прочтению:</span>
+			<div class="content">
+				<a href="#">
+					<i class="material-icons">supervisor_account</i>
+					<b>Правила</b>
+				</a>
 
-				<div id="player">
-					<span>Tumba.ch radio: The Prodigy - The Day Is My Enemy</span>
-					<a href="javascript:void(0)">switch channel</a>
-				</div>
+				<a href="#">
+					<i class="material-icons">timeline</i>
+					<b>Статистика</b>
+				</a>
+
+				<a href="#">
+					<i class="material-icons">receipt</i>
+					<b>ЧаВО</b>
+				</a>
+
+				<a href="https://ruwapa.net/load/5d2499181f10fbaff530c38ab27aa764/1/">
+					<i class="material-icons">chrome_reader_mode</i>
+					<b>„Мастер и Маргаритa”</b>
+				</a>
 			</div>
 		</div>
 
-		<div class="screen">
-			{{#def["particles/faq"]}}
+		<div id="feed">
+			<span>Последние события:</span>
+
+			<a href="#">
+				<i class="material-icons">cake</i>
+				<div class="content">
+					<b>Два года Тумбачу</b>
+					<time>01.01.2018</time>
+					<div class="details">А также запуск радио и тестовый эфир</div>
+				</div>
+			</a>
+
+			<a href="#">
+				<i class="material-icons">build</i>
+				<div class="content">
+					<b>Обновление главной</b>
+					<time>12.12.2017</time>
+					<div class="details">Картинки на фоне и виджет последних новостей</div>
+				</div>
+			</a>
+
+			<a href="#">
+				<i class="material-icons">build</i>
+				<div class="content">
+					<b>Анонс нового движка</b>
+					<time>28.07.2017</time>
+					<div class="details">Примерная дата выхода: лето 2021</div>
+				</div>
+			</a>
 		</div>
 
-		<div id="scrollIndicator" class="firstScreen"></div>
+		<div id="player">
+			<img id="logo" src="/static/logo/tumba_big.gif"></img>
+		</div>
 
-		<div id="hexes">
-			<img src="./static/hex.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex.svg">
-			<img src="./static/hex_hollow.svg">
-			<img src="./static/hex.svg">
-			<img src="./static/hex_hollow.svg">
+		<div id="links">
+			<a href="/test">/a</a>
+			<a href="/test">/art</a>
+			<a href="/test">/b</a>
+			<a href="/test">/mu</a>
+			<a href="/test">/vg</a>
 		</div>
 	</body>
 </html>
