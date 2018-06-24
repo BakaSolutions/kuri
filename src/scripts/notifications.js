@@ -11,10 +11,10 @@ const notifications = {
           el.dataset.notificationId = id
           this.container.classList.remove("newNotification")
 
-          setTimeout((container) => {
+          setTimeout(() => {
             this.container.classList.add("newNotification")
             this.container.insertBefore(el, this.container.childNodes[0])
-          }, 100, this.container)
+          }, 100)
         })
 
         parameters.timeout ? setTimeout(() => {
@@ -26,9 +26,11 @@ const notifications = {
   },
 
   remove: function(id){
-    let el = sel(`[data-notification-id="${id}"]`)
+    setTimeout(() => {
+      let el = sel(`[data-notification-id="${id}"]`)
 
-    if (el) this.container.removeChild(el)
-    else console.log("Element doesn't exist.")
+      if (el) this.container.removeChild(el)
+      else console.log("Element doesn't exist.")
+    }, 100);
   }
 }

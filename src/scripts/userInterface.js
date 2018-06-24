@@ -98,6 +98,10 @@ function showImage(e, url) {
 			notifications.remove(ntf)
 		}
 
+		img.onerror = () => {
+            notifications.remove(ntf)
+		}
+
 		img.src = url;
 	}
 };
