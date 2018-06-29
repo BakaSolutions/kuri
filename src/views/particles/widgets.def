@@ -85,3 +85,10 @@
 	</div>
 	<input type="password" name="password" placeholder="Пароль" required>
 </form>
+
+<div class="widget" id="favourite" hidden>
+	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#favourite'), 'hidden')"></div>
+	<div class="widgetBox">
+		<h2>Отмеченные звездочкой</h2>
+	</div>
+</div>

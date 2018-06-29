@@ -51,6 +51,7 @@
 		<label for="hideSidebarCheckbox" class="btn material-icons">view_quilt</label>
 	</div>
 	<div class="column">
+		<a onclick="switchAttribute(sel('.widget#favourite'), 'hidden')" class="btn material-icons jsOnly">star</a>
 		<label for="hideImagesCheckbox" class="btn material-icons">visibility_off</label>
 		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow">chat</label>
 		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>
