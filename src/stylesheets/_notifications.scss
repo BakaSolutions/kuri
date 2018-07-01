@@ -1,15 +1,14 @@
-@keyframes newNotification {
+/*@keyframes newNotification {
   0% {top: -5em}
   100% {top: .7em}
-}
+}*/
 
 #notificationsContainer{
   position: fixed;
   z-index: 1100;
   right: .7em;
   top: .7em;
-
-  width: 20em;
+  min-width: 10em;
 
   &.newNotification{
     animation-name: newNotification;
@@ -20,11 +19,24 @@
     @include user-select(none);
     cursor: pointer;
 
-    border: 0.2em solid var(--bgcolor);
+    border: 1px solid var(--bgcolor);
     background: var(--bgcolor_card);
 
+    box-sizing: border-box;
+    overflow: hidden;
     margin-bottom: .7em;
-    padding: 1em;
-    height: 5em;
+
+    transition: all .5s;
+
+    max-height: 0;
+    padding: 0 1em;
+    opacity: 0;
+
+    &.newNotification{
+      transition: all .2s;
+      max-height: 500px;
+      padding: 1em;
+      opacity: 1;
+    }
   }
 }

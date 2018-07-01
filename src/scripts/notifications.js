@@ -9,17 +9,16 @@ const notifications = {
       createElement("div", {className: parameters.class, innerHTML: parameters.text})
         .then(el => {
           el.dataset.notificationId = id
-          this.container.classList.remove("newNotification")
+          this.container.insertBefore(el, this.container.childNodes[0])
 
-          setTimeout(() => {
-            this.container.classList.add("newNotification")
-            this.container.insertBefore(el, this.container.childNodes[0])
-          }, 100)
-        })
+          setTimeout(() => el.classList.add("newNotification"), 50);
 
-        parameters.timeout ? setTimeout(() => {
-          notifications.remove(id)
-        }, parameters.timeout) : 0
+          parameters.timeout ? setTimeout(() => {
+            el.classList.remove("newNotification")
+
+            setTimeout(() => notifications.remove(id), 200);
+          }, parameters.timeout) : 0
+        });
 
         return id
     }

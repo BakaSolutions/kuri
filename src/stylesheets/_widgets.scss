@@ -3,11 +3,11 @@
 }
 
 #replyForm{
-	--widgetWidth: 6з00px;
+	--widgetWidth: 600px;
 
 	// Начальная позиция
 	left: calc(50vw - var(--widgetWidth) / 2);
-	top: calc(100vh - 220px);
+	top: calc(100vh - 226px);
 
 	background-color: var(--bgcolor_card);
 	border: 1px solid var(--bordercolor);
