@@ -11,6 +11,9 @@ function sendPost(e){
 
 	// Асинхронная отправка
 	let xhr = new XMLHttpRequest();
+
+	xhr.withCredentials = true;
+
 	xhr.onload = () => {
 		let message = xhr.responseText;
 		try {
