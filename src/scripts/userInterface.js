@@ -56,7 +56,7 @@ function deselectAllPosts() {
 }
 
 /* Оверлей с картинкой */
-function showImage(e, url) {
+function showImage(e) {
 	if (!e.ctrlKey) {
 		e.preventDefault();
 
@@ -102,6 +102,6 @@ function showImage(e, url) {
             notifications.remove(ntf)
 		}
 
-		img.src = url;
+		img.src = e.target.href;
 	}
 };

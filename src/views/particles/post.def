@@ -41,8 +41,8 @@
 						<div class="thumb">
 							<img src="{{? file.thumb }}{{=it.foxtan.thumb}}{{!file.thumb}}{{?? }}/static/nopic.png{{? }}">
 
-							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="showImage(event, '{{=it.foxtan.upload}}{{!file.path}}')">
-								<span>{{!file.name}}</span>
+							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" data-title="{{!file.name}}" data-width="{{!file.width}}" data-height="{{!file.height}}" target="_blank" onclick="showImage(event)">
+								<span>{{!file.mime}} file</span>
 								<span>{{! (file.size / 1048576).toFixed(2) }} Mb</span>
 							</a>
 
