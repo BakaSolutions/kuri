@@ -46,7 +46,10 @@
 
 		.info{
 			top: 0;
-			cursor: zoom-in;
+
+			span{
+				pointer-events: none;
+			}
 		}
 
 		.dlLink{
