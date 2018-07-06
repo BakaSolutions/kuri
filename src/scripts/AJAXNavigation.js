@@ -30,6 +30,16 @@ function asyncLoadPage(uri, noScrolling = 0) {
 		notifications.remove(ntf)
 	};
 
+	xhr.onerror = (err) => {
+		notifications.remove(ntf)
+
+		ntf = notifications.add({
+			text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
+			class: 'notification',
+			timeout: 10000
+		})
+	}
+
 	xhr.open("GET", uri);
 	xhr.send(null);
 }

@@ -62,7 +62,8 @@ function showImage(e) {
 
 		let ntf = notifications.add({
 			text: "Загрузка...",
-			class: 'notification'
+			class: 'notification',
+			nonclosable: 1
 		})
 
 		let widget = sel('#imageViewer .widgetBox'),
@@ -98,8 +99,14 @@ function showImage(e) {
 			notifications.remove(ntf)
 		}
 
-		img.onerror = () => {
-            notifications.remove(ntf)
+		img.onerror = (err) => {
+			notifications.remove(ntf)
+
+			ntf = notifications.add({
+				text: "Не удалось загрузить изображение.<br>" + JSON.stringify(err),
+				class: 'notification',
+				timeout: 10000
+			})
 		}
 
 		img.src = e.target.href;
