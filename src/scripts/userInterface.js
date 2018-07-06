@@ -93,6 +93,8 @@ function showImage(e) {
 			sel('.widget#imageViewer .widgetBox').style.top = '0';
 			widget.appendChild(img);
 
+			sel('.widget#imageViewer .mediaInfo').innerText = e.target.dataset.title
+
 			new Draggabilly('.widget#imageViewer .widgetBox');
 			sel('.widget#imageViewer').removeAttribute('hidden');
 

@@ -70,9 +70,8 @@
 
 <div class="widget" id="imageViewer" hidden>
 	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#imageViewer'), 'hidden')"></div>
-	<div class="widgetBox">
-
-	</div>
+	<div class="widgetBox"></div>
+	<div class="mediaInfo"></div>
 </div>
 
 <form id="deletePosts" method="POST" action="{{!it.foxtan.href}}api/v1/post.delete" hidden>
