@@ -43,7 +43,7 @@
 
 							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" data-title="{{!file.name}}" data-width="{{!file.width}}" data-height="{{!file.height}}" target="_blank" onclick="showImage(event)">
 								<span>{{!file.mime}} file</span>
-								<span>{{! (file.size / 1048576).toFixed(2) }} Mb</span>
+								<span>{{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{! (file.size / 1048576).toFixed(1)}} MiB{{? }}</span>
 							</a>
 
 							<a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.name}}">сохранить</a>
