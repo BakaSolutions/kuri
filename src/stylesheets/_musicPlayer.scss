@@ -1,17 +1,17 @@
 #musicPlayer:not([hidden]){
 	position: absolute;
-	bottom: $gap;
-	left: $gap;
+	bottom: var(--gap);
+	left: var(--gap);
 
-	height: calc(50px + .5em + $gap / 2);
-	width: $sidebarWidth - 2 * $gap;
+	height: calc(50px + .5em + var(--gap) / 2);
+	width: calc(var(--sidebarWidth) - 2 * var(--gap));
 
 	color: var(--textcolor_secondary);
 	display: grid;
 
 	grid-template-columns: 50px 1fr;
 	grid-template-rows: 1em 1fr .5em;
-	grid-gap: $gap / 2;
+	grid-gap: var(--gap) / 2;
 
 	#cover{
 		background-size: cover;

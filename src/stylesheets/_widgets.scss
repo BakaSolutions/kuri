@@ -45,17 +45,16 @@
 	form{
 		$narrowLineHeight: 26px;
 		$buttonWidth: 60px;
-		$gap: 5px;
 
 		display: grid;
-		padding: $gap;
+		padding: var(--gap);
 
 		// grid-template-rows: $narrowLineHeight 1fr $narrowLineHeight;
 		grid-template-rows: $narrowLineHeight 1fr auto;
 		grid-template-columns: 1fr $buttonWidth $buttonWidth;
 
-		grid-column-gap: $gap;
-		grid-row-gap: $gap;
+		grid-column-gap: var(--gap);
+		grid-row-gap: var(--gap);
 
 		input[name="subject"]{
 			height: $narrowLineHeight;
@@ -100,7 +99,7 @@
 				display: flex;
 
 				&:not(:last-child){
-					margin-bottom: $gap
+					margin-bottom: var(--gap)
 				}
 
 				label{

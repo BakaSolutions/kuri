@@ -1,7 +1,30 @@
-$sidebarWidth: 28vh;
-$gap: 1vh;
+@media screen and (min-device-width: 415px) { // Desktop or tablet
+	:root{
+		--sidebarWidth: 28vh;
+		--gap: 1vh;
 
-:root{
+		font-size: 1.7vmin;
+	}
+
+	main{
+		margin-right: calc(45px + 2 * var(--gap));
+	}
+}
+
+@media screen and (max-device-width: 414px) { // Mobile
+	:root{
+		--sidebarWidth: 0;
+		--gap: 1vw;
+
+		font-size: 3vmin;
+	}
+
+	.desktopOnly{
+		display: none !important;
+	}
+}
+
+:root{ // Темы
 	--textcolor: #ccc;
 	--textcolor_secondary: #999;
 
@@ -51,7 +74,6 @@ body{
 
 	font-family: 'Noto Sans', sans-serif;
 	color: var(--textcolor);
-	font-size: 1.7vmin;
 
 	.hidden{
 		display: none;
@@ -111,6 +133,11 @@ main{
 	flex-direction: column;
 	display: flex;
 	z-index: 500;
+
+	margin-left: var(--sidebarWidth);
+	padding: 15px;
+
+	transition: margin .3s;
 }
 
 // Buttons
@@ -137,22 +164,6 @@ main{
 
 [type="checkbox"]:checked + .btn{
 	background-color: var(--btncolor_hover);
-}
-
-@media screen and (min-device-width: 415px) { // Desktop or tablet
-	main{
-		transition: margin .3s;
-		margin-right: calc(45px + #{2 * $gap});
-		margin-left: $sidebarWidth;
-
-		padding: 15px;
-	}
-}
-
-@media screen and (max-device-width: 414px) { // Mobile
-	main{
-		padding: 15px 0;
-	}
 }
 
 .row, .column{

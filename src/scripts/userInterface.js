@@ -57,7 +57,7 @@ function deselectAllPosts() {
 
 /* Оверлей с картинкой */
 function showImage(e) {
-	if (!e.ctrlKey) {
+	if (!e.ctrlKey && window.innerWidth > 414) {
 		e.preventDefault();
 
 		let ntf = notifications.add({
