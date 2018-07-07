@@ -1,11 +1,13 @@
 @media screen and (max-device-width: 414px) { // Mobile
 	.postAttachments{
-		margin-bottom: 1rem;
+		display: flex;
 
 		.thumb{
+			margin: 0 calc(var(--gap) / 2);
+
 			&, img{
-				max-height: 100px;
-				max-width: 100px;
+				max-height: 128px;
+				max-width: 128px;
 			}
 
 			.dlLink{
@@ -17,12 +19,16 @@
 	.post:not(:first-child){
 		border-width: 1px 0;
 	}
+
+	.postText{
+		padding-top: 2px;
+		padding-left: calc(var(--gap) / 2);
+	}
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
 	.postAttachments{
 		margin-right: 5px;
-		flex-direction: column;
 
 		& > *{
 			margin-bottom: 2px;
@@ -41,13 +47,17 @@
 			}
 		}
 
-		.thumb:hover{
-			.info, .dlLink{
-				color: inherit;
-			}
+		.thumb{
+			margin: calc(var(--gap) / 2) 0;
 
-			img{
-				opacity: .1
+			&:hover{
+				.info, .dlLink{
+					color: inherit;
+				}
+
+				img{
+					opacity: .1
+				}
 			}
 		}
 
@@ -147,10 +157,6 @@
 			opacity: 1;
 		}
 	}
-}
-
-.postAttachments{
-	display: flex;
 }
 
 .thumb{

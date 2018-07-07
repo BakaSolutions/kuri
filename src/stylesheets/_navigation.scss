@@ -1,37 +1,30 @@
 @media screen and (max-device-width: 414px) { // Mobile
-	#sidebar{
-		display: none;
-	}
-
-	#topbar{
-		justify-content: space-around;
+	#navbar{
 		position: fixed;
-		display: flex;
-		top: 0;
+		width: calc(100vw);
+		right: 0 !important;
+		bottom: 0;
 
 		background-color: var(--bgcolor);
+		padding: var(--gap) !important;
 
-		height: 25px;
-		padding: 3px;
-		z-index: 999;
-		width: 100%;
-	}
+		&, .column{
+			flex-direction: row !important;
+		}
 
-	#navbar{
-		height: calc(100vh - 25px);
-		top: 25px;
+		.column{
+			width: 50vw;
+		}
 
-		.btn.wide, .btn.hide{
-			display: none;
+		.btn{
+			height: 50px !important;
+			width: 100% !important;
+			margin: calc(var(--gap) / 2) !important;
 		}
 	}
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
-	#topbar{
-		display: none;
-	}
-
 	#sidebar{
 		@include user-select(none);
 
@@ -40,33 +33,32 @@
 		height: 100vh;
 		padding: 10px var(--gap);
 		position: fixed;
-	}
+		#logo{
+			text-align: center;
+			line-height: 17px;
+			margin: 5px 0;
 
-	#sidebar #logo{
-		text-align: center;
-		line-height: 17px;
-		margin: 5px 0;
+			a{
+				color: var(--textcolor) !important;
+				display: block;
+			}
 
-		a{
-			color: var(--textcolor) !important;
-			display: block;
+			&:hover{
+				text-decoration: none;
+			}
+
+			:first-child{
+				line-height: 1em;
+				font-size: 2em;
+			}
 		}
 
-		&:hover{
-			text-decoration: none;
+		#boards{
+			flex-direction: column;
+			display: flex;
+
+			margin-top: 20px;
 		}
-
-		:first-child{
-			line-height: 1em;
-			font-size: 2em;
-		}
-	}
-
-	#sidebar #boards{
-		flex-direction: column;
-		display: flex;
-
-		margin-top: 20px;
 	}
 
 	// Sidebar hiding
@@ -98,6 +90,5 @@
 		margin: calc(var(--gap) / 2) 0;
 		height: 45px;
 		width: 45px;
-
 	}
 }
