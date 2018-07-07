@@ -1,4 +1,8 @@
 @media screen and (max-device-width: 414px) { // Mobile
+	.postDetails{
+		font-size: 1.2em;
+	}
+
 	.postAttachments{
 		display: flex;
 
@@ -27,6 +31,10 @@
 }
 
 @media screen and (min-device-width: 415px) { // Desktop or tablet
+	.postDetails{
+		font-size: .95em;
+	}
+
 	.postAttachments{
 		margin-right: 5px;
 
@@ -130,7 +138,6 @@
 .postDetails{
 	@include user-select(none);
 	color: var(--textcolor);
-	font-size: .95em;
 	cursor: default;
 
 	time{

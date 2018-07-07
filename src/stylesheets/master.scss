@@ -17,6 +17,10 @@
 	.btn:hover{
 		background-color: var(--btncolor_hover);
 	}
+
+	header a:not(#banner){
+		font-size: 0.9em;
+	}
 }
 
 @media screen and (max-device-width: 414px) { // Mobile
@@ -33,6 +37,10 @@
 
 	.desktopOnly{
 		display: none !important;
+	}
+
+	header a:not(#banner){
+		font-size: 1.2em;
 	}
 }
 
@@ -111,7 +119,6 @@ header{
 	a:not(#banner){
 		color: var(--textcolor_secondary) !important;
 		margin: 5px 15px;
-		font-size: 0.9em;
 
 		&:hover{
 			opacity: 0.7

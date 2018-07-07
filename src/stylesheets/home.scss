@@ -1,7 +1,47 @@
 $linksBarHeight: 7.5vh;
-$shroudColor: rgba(0, 0, 0, .75);
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+@media screen and (min-device-width: 415px) { // Desktop or tablet
+	body{
+		font-size: 1.5vmin;
+	}
+
+	main{
+		padding: 10em;
+	}
+
+	#player{
+		grid-column: 2;
+		grid-row: 1/3
+	}
+
+	#links a:hover{
+		background-color: rgba(255, 255, 255, .08);
+	}
+}
+
+@media screen and (max-device-width: 414px) { // Mobile
+	body{
+		font-size: 2.5vmin;
+	}
+
+	main{
+		padding: 5em;
+	}
+	
+	#player{
+		grid-row: 1;
+	}
+
+	#feed{
+		grid-row: 2;
+	}
+
+	#faq{
+		grid-row: 3;
+	}
+}
 
 *{
 	// Лиса обводит ссылки при нажатии
@@ -19,25 +59,30 @@ body{
 	-ms-user-select: none;
 	user-select: none;
 
-	display: grid;
-	grid-template-columns: 1fr 2fr;
-	grid-template-rows: 1fr 1fr $linksBarHeight;
-
-	margin: 0;
-	height: 100vh;
-
-	font-family: 'Noto Sans', sans-serif;
-	color: rgba(255, 255, 255, .7);
-	font-size: 1.7vmin;
-
 	background-image: url('/static/background/9.jpg');
 	background-position: top;
 	background-size: cover;
+
+	font-family: 'Noto Sans', sans-serif;
+	color: rgba(255, 255, 255, .7);
+
+	overflow: hidden;
+	height: 100vh;
+	margin: 0;
+}
+
+main{
+	box-sizing: border-box;
+	display: grid;
+
+	background-color: rgba(0, 0, 0, .8);
+	position: fixed;
+	height: 100%;
+	width: 100vw;
+	z-index: -1;
 }
 
 #player, #faq, #feed{
-	background-color: $shroudColor;
-
 	justify-content: center;
 	flex-direction: column;
 	align-items: flex-start;
@@ -45,9 +90,6 @@ body{
 }
 
 #player{
-	grid-row: 1/3;
-	grid-column: 2;
-
 	align-items: center;
 
 	#logo, #title{
@@ -60,7 +102,6 @@ body{
 }
 
 #feed, #faq{
-	padding-left: 5em;
 	font-size: 1.2em;
 
 	a{
@@ -71,8 +112,8 @@ body{
 	i{
 		font-size: 1.3em;
 
-		padding: 0 .5em;
 		align-items: center;
+		padding: 0 .5em;
 		display: flex;
 	}
 
@@ -83,8 +124,10 @@ body{
 }
 
 #links{
-	grid-column: 1/3;
-	grid-row: 3;
+	width: 100vw;
+	position: fixed;
+	bottom: 0;
+	font-size: 2em;
 
 	display: grid;
 
@@ -96,10 +139,5 @@ body{
 		text-align: center;
 
 		transition: background-color .2s;
-		background-color: $shroudColor;
-
-		&:hover{
-			background-color: rgba(0, 0, 0, .5);
-		}
 	}
 }
