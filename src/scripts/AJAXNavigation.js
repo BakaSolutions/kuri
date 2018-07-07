@@ -1,4 +1,6 @@
 function asyncLoadPage(uri, noScrolling = 0) {
+	if (uri == "/") return location.href = uri
+
 	let ntf = notifications.add({
 		text: "Загрузка...",
 		class: 'notification'
@@ -11,7 +13,6 @@ function asyncLoadPage(uri, noScrolling = 0) {
 
 		let main = doc.querySelector("main")
 		if (main) sel("main").innerHTML = main.innerHTML
-		else return location.href = uri
 
 		let title = doc.querySelector("title")
 		sel("title").innerHTML = title.innerHTML
