@@ -1,19 +1,54 @@
+@media screen and (max-device-width: 414px) { // Mobile
+	#replyForm{
+		top: auto !important;
+		bottom: calc(50px + 3 * var(--gap)) !important;
+
+		width: 100vw !important;
+	}
+
+	#replyForm textarea{
+		max-width: calc(var(--widgetMinWidth) - 2 * var(--gap)) !important;
+		min-width: auto !important;
+		resize: none;
+	}
+}
+
+@media screen and (min-device-width: 415px) { // Desktop or tablet
+	:root{
+		--widgetMinWidth: 415px;
+	}
+
+	#replyForm{
+		min-width: var(--widgetMinWidth);
+	}
+}
+
 #replyFormShow:not(:checked) + #replyForm{
 	display: none;
 }
 
+.widgetBox, #replyForm{
+	border-width: var(--gap);
+	border-style: solid;
+}
+
 #replyForm{
-	--widgetWidth: 600px;
-
 	// Начальная позиция
-	left: calc(50vw - var(--widgetWidth) / 2);
-	top: calc(100vh - 226px);
+	left: calc(50vw - var(--widgetMinWidth) / 2);
+	top: 10em;
 
-	background-color: var(--bgcolor_card);
-	border: 1px solid var(--bordercolor);
-	width: var(--widgetWidth);
+	background-color: var(--bgcolor_postform);
+	border-color: var(--bgcolor_postform);
 	position: fixed;
 	z-index: 2000;
+
+	&.is-dragging{
+		opacity: .7;
+	}
+
+	input, textarea{
+		font-size: .95em;
+	}
 
 	.container{
 		pointer-events: none;
@@ -28,7 +63,6 @@
 		justify-content: center;
 		font-size: .9em;
 		display: flex;
-		padding-top: 3px;
 		cursor: move;
 
 		span{
@@ -43,18 +77,17 @@
 	}
 
 	form{
-		$narrowLineHeight: 26px;
-		$buttonWidth: 60px;
+		$narrowLineHeight: 30px;
+		$buttonWidth: 3em;
 
 		display: grid;
-		padding: var(--gap);
+		padding-top: calc(var(--gap) / 2);
 
 		// grid-template-rows: $narrowLineHeight 1fr $narrowLineHeight;
 		grid-template-rows: $narrowLineHeight 1fr auto;
 		grid-template-columns: 1fr $buttonWidth $buttonWidth;
 
-		grid-column-gap: var(--gap);
-		grid-row-gap: var(--gap);
+		grid-gap: calc(var(--gap) / 2);
 
 		input[name="subject"]{
 			height: $narrowLineHeight;
@@ -77,8 +110,10 @@
 			grid-column: 1/4;
 			grid-row: 2;
 
-			height: 100px;
-			resize: none;
+			min-height: 10em;
+			max-height: 50vh;
+			min-width: 100%;
+			max-width: 50vw;
 		}
 
 		button#submit{
@@ -96,6 +131,7 @@
 			& > div{
 				justify-content: space-between;
 				height: $narrowLineHeight;
+				align-items: center;
 				display: flex;
 
 				&:not(:last-child){
@@ -116,12 +152,17 @@
 
 		.btn{
 			line-height: 0;
+			background-color: inherit;
+		}
+
+		[type="checkbox"]:checked + .btn{
+			color: var(--linkcolor) !important;
+			background-color: var(--bgcolor);
 		}
 	}
 }
 
 .widget{
-	$widgetPadding: 10px;
 	$widgetHeight: 90vh;
 	$widgetWidth: 600px;
 
@@ -158,16 +199,16 @@
 
 	.widgetBox{
 		background-color: var(--bgcolor_card);
+		border-color: var(--bgcolor_card);
 		@include user-select(none);
 		position: relative;
 
-		padding: $widgetPadding;
 		height: $widgetHeight;
 		width: $widgetWidth;
 
 		h2{
 			// Верхний маржин не должен суммироваться с парентом
-			margin: 0 $widgetPadding $widgetPadding $widgetPadding;
+			// margin: 0 $widgetPadding $widgetPadding $widgetPadding;
 
 			font-size: 1.3em;
 			text-align: center;
@@ -201,7 +242,7 @@
 		}
 
 		input{
-			height: 26px;
+			height: 30px;
 		}
 	}
 }
@@ -216,6 +257,7 @@
 	align-items: center;
 	justify-content: center;
 	transition: opacity .3s;
+
 	background-color: var(--bgcolor_card);
 	border-top: 2px solid var(--bordercolor);
 
@@ -236,12 +278,12 @@
 
 #searchForm{
 	display: flex;
-	$inputHeight: 26px;
+	$inputHeight: 30px;
 
 	input{
-		margin-right: 5px;
-
 		height: $inputHeight;
+		margin-right: 5px;
+		font-size: .95em;
 		width: 100%;
 	}
 
