@@ -1,6 +1,17 @@
+@media (pointer:none), (pointer:coarse) {
+	.postAttachments img{
+		max-height: 100px;
+		max-width: 100px;
+	}
+}
+
 @media screen and (max-device-width: 414px) { // Mobile
 	.postDetails{
-		font-size: 1.2em;
+		font-size: 1.15em;
+
+		time{
+			font-size: 1rem;
+		}
 	}
 
 	.postAttachments{
@@ -9,15 +20,14 @@
 		.thumb{
 			margin: 0 calc(var(--gap) / 2);
 
-			&, img{
-				max-height: 128px;
-				max-width: 128px;
-			}
-
 			.dlLink{
 				display: none;
 			}
 		}
+	}
+
+	.omittedPosts{
+		margin-left: var(--gap);
 	}
 
 	.post:not(:first-child){
@@ -33,6 +43,10 @@
 @media screen and (min-device-width: 415px) { // Desktop or tablet
 	.postDetails{
 		font-size: .95em;
+	}
+
+	.omittedPosts{
+		margin-left: calc(1.5em + var(--gap));
 	}
 
 	.postAttachments{
@@ -57,6 +71,10 @@
 
 		.thumb{
 			margin: calc(var(--gap) / 2) 0;
+
+			img{
+				transition: opacity .3s;
+			}
 
 			&:hover{
 				.info, .dlLink{
@@ -86,8 +104,7 @@
 	}
 
 	.post:not(:first-child){
-		// border-left: 25px solid var(--bgcolor_card);
-		margin-left: 20px;
+		margin-left: 1.5em !important;
 
 		.postBody{
 			padding: 5px;
@@ -111,9 +128,8 @@
 
 	.omittedPosts{
 		color: var(--textcolor_secondary);
-		margin-bottom: 5px;
-		margin-left: 20px;
-		font-size: .8rem;
+		margin-bottom: .5em;
+		font-size: .8em;
 	}
 }
 
@@ -131,7 +147,7 @@
 
 	&:not(:first-child){
 		background-color: var(--bgcolor);
-		margin-bottom: 5px;
+		margin: .4em 0;
 	}
 }
 
@@ -170,7 +186,6 @@
 	position: relative;
 
 	img{
-		transition: opacity .3s;
 		vertical-align: bottom;
 	}
 

@@ -28,7 +28,7 @@
 		--sidebarWidth: 0;
 		--gap: 1vw;
 
-		font-size: 3vmin;
+		font-size: 3.5vmin;
 	}
 
 	main{
@@ -41,6 +41,10 @@
 
 	header a:not(#banner){
 		font-size: 1.2em;
+	}
+
+	.btn{
+		font-size: 2em !important;
 	}
 }
 
@@ -107,10 +111,9 @@ header{
 
 	#banner {
 		font-weight: bold;
-		line-height: 25px;
+		line-height: 2em;
 		font-size: 1.3em;
 
-		margin-top: 10px;
 		cursor: pointer;
 
 		color: var(--textcolor);
@@ -118,7 +121,7 @@ header{
 
 	a:not(#banner){
 		color: var(--textcolor_secondary) !important;
-		margin: 5px 15px;
+		margin: 0 .5em;
 
 		&:hover{
 			opacity: 0.7
@@ -153,7 +156,7 @@ main{
 	z-index: 500;
 
 	margin-left: var(--sidebarWidth);
-	padding: 15px;
+	padding: 1em;
 
 	transition: margin .3s;
 }

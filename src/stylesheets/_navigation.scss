@@ -33,9 +33,10 @@
 		height: 100vh;
 		padding: 10px var(--gap);
 		position: fixed;
+
 		#logo{
 			text-align: center;
-			line-height: 17px;
+			line-height: 1.3em;
 			margin: 5px 0;
 
 			a{
@@ -57,7 +58,22 @@
 			flex-direction: column;
 			display: flex;
 
-			margin-top: 20px;
+			margin-top: 1em;
+		}
+
+		#JSInd{
+			bottom: var(--gap);
+			position: fixed;
+			left: 0;
+
+			width: var(--sidebarWidth);
+			padding: var(--gap);
+			text-align: center;
+			color: red;
+
+			small{
+				color: var(--textcolor);
+			}
 		}
 	}
 

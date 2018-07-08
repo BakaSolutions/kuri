@@ -28,7 +28,9 @@
 		<input id="progress" type="range" value="0" max="100">
 	</div>
 
-	<noscript>JavaScript отключен.</noscript>
+	<noscript id="JSInd">
+		JavaScript отключен<br><small>Некоторые функции недоступны.</small>
+	</noscript>
 </div>
 
 <div id="navbar">
