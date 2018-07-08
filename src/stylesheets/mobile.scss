@@ -1,0 +1,98 @@
+$navBarHeight: 60px;
+
+:root{
+	--sidebarWidth: 0;
+}
+
+@import "_theme";
+@import "_base";
+
+body{
+	font-size: 3.5vmin;
+}
+
+main{
+	padding-bottom: calc(#{$navBarHeight} - .4em);
+}
+
+.desktopOnly{
+	display: none !important;
+}
+
+header a:not(#banner){
+	font-size: 1.2em;
+}
+
+@import "_posts";
+
+.post{
+	padding: var(--gap);
+}
+
+.postText{
+	padding-top: 2px;
+	padding-left: calc(var(--gap) / 2);
+}
+
+.postDetails{
+	font-size: 1.1em;
+
+	time{
+		font-size: .9rem;
+	}
+}
+
+.postAttachments{
+	.thumb{
+		margin: 0 calc(var(--gap) / 2);
+		display: inline;
+
+		.info, .dlLink{
+			display: none;
+		}
+	}
+
+	img{
+		max-height: 150px;
+		max-width: 150px;
+	}
+}
+
+.omittedPosts{
+	margin-left: var(--gap);
+}
+
+@import "_navBar";
+
+#navbar{
+	background-color: var(--bgcolor);
+	flex-direction: row;
+	bottom: 0;
+
+	height: $navBarHeight;
+	width: 100vw;
+
+	& > div{
+		width: 50%;
+	}
+
+	.btn{
+		font-size: 2em;
+		width: 100%;
+	}
+}
+
+@import "_notifications";
+@import "_widgets";
+@import "_replyForm.scss";
+
+#replyForm{
+	bottom: calc(#{$navBarHeight} - var(--gap));
+	border: var(--gap) solid var(--bgcolor);
+	width: 100vw;
+
+	textarea{
+		max-width: calc(var(--widgetMinWidth) - 2 * var(--gap));
+		resize: none;
+	}
+}

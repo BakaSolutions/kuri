@@ -1,68 +1,7 @@
-@media screen and (min-device-width: 415px) { // Desktop or tablet
-	:root{
-		--sidebarWidth: 28vh;
-		--gap: 1vh;
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
 
-		font-size: 1.7vmin;
-	}
-
-	main{
-		margin-right: calc(45px + 2 * var(--gap));
-	}
-
-	.mobileOnly{
-		display: none !important;
-	}
-
-	.btn:hover{
-		background-color: var(--btncolor_hover);
-	}
-
-	header a:not(#banner){
-		font-size: 0.9em;
-	}
-}
-
-@media screen and (max-device-width: 414px) { // Mobile
-	:root{
-		--sidebarWidth: 0;
-		--gap: 1vw;
-
-		font-size: 3.5vmin;
-	}
-
-	main{
-		padding: 10px 0 55px 0 !important;
-	}
-
-	.desktopOnly{
-		display: none !important;
-	}
-
-	header a:not(#banner){
-		font-size: 1.2em;
-	}
-}
-
-:root{ // Темы
-	--textcolor: #ccc;
-	--textcolor_secondary: #999;
-
-	--linkcolor: #79bde2;
-	--linkcolor_hover: #5496b9;
-
-	--btncolor: #191d21;
-	--btncolor_hover: #15191d;
-
-	--bgcolor: #0c0f12;
-	--bgcolor_card: #13161a;
-	--bgcolor_postform: #181B1F;
-
-	--bordercolor: #0c0f12;
-
-	--boxShadow: none;
-
-	--quotationcolor: #789922;
+:root{
+	--gap: 1vmin;
 }
 
 @mixin user-select($value){
@@ -71,14 +10,6 @@
 	-ms-user-select: $value;
 	user-select: $value;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
-@import '_navigation.scss';
-@import '_widgets.scss';
-@import '_posts.scss';
-@import '_scrollbar.scss';
-@import '_musicPlayer.scss';
-@import '_notifications.scss';
 
 *{
 	box-sizing: border-box;
@@ -153,16 +84,17 @@ main{
 	z-index: 500;
 
 	margin-left: var(--sidebarWidth);
-	padding: 1em;
 
 	transition: margin .3s;
 }
 
 // Buttons
 .btn{
-	display: flex;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
+	display: flex;
+
+	box-shadow: var(--boxShadow);
 
 	padding: 5px;
 	color: var(--textcolor) !important;
@@ -250,7 +182,6 @@ button, input, textarea{
 		display: flex;
 	}
 }
-
 
 // Markup
 span.quotation{

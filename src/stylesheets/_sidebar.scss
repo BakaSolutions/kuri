@@ -1,0 +1,56 @@
+#sidebar{
+	@include user-select(none);
+
+	flex-direction: column;
+	width: var(--sidebarWidth);
+	height: 100vh;
+	padding: 10px var(--gap);
+	position: fixed;
+
+	#logo{
+		text-align: center;
+		line-height: 1.3em;
+		margin: 5px 0;
+
+		a{
+			color: var(--textcolor) !important;
+			display: block;
+		}
+
+		&:hover{
+			text-decoration: none;
+		}
+
+		:first-child{
+			line-height: 1em;
+			font-size: 2em;
+		}
+	}
+
+	#boards{
+		flex-direction: column;
+		display: flex;
+
+		margin-top: 1em;
+	}
+
+	#JSInd{
+		bottom: var(--gap);
+		position: fixed;
+		left: 0;
+
+		width: var(--sidebarWidth);
+		padding: var(--gap);
+		text-align: center;
+		color: red;
+
+		small{
+			color: var(--textcolor);
+		}
+	}
+}
+
+// Sidebar hiding
+#hideSidebarCheckbox:checked ~ main {
+	margin-left: var(--gap);
+}

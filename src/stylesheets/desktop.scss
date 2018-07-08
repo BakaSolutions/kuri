@@ -1,0 +1,164 @@
+:root{
+	--widgetMinWidth: 450px;
+	--sidebarWidth: 28vh;
+}
+
+@import "_theme";
+@import "_base";
+
+body{
+	font-size: 1.7vmin;
+}
+
+main{
+	margin-right: calc(45px + 2 * var(--gap));
+	padding: var(--gap);
+}
+
+.mobileOnly{
+	display: none;
+}
+
+.btn:hover{
+	background-color: var(--btncolor_hover);
+}
+
+header a:not(#banner){
+	font-size: 0.9em;
+}
+
+@import "_musicPlayer";
+@import "_scrollbar";
+@import "_posts";
+
+.postDetails{
+	font-size: .95em;
+	cursor: default;
+
+	.material-icons{
+		cursor: pointer;
+	}
+}
+
+.postAttachments{
+	margin-right: 5px;
+
+	& > *{
+		margin-bottom: 2px;
+	}
+
+	.info, .dlLink{
+		flex-direction: column;
+		transition: color .3s;
+		color: transparent;
+
+		position: absolute;
+	}
+
+	.info{
+		justify-content: center;
+		align-items: center;
+		display: flex;
+
+		height: 100%;
+		width: 100%;
+
+		top: 0;
+
+		span{
+			pointer-events: none;
+		}
+	}
+
+	.dlLink{
+		padding: 5px 0;
+		bottom: 0;
+		left: 0;
+
+		text-align: center;
+		width: 100%;
+
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+
+	.thumb{
+		margin: calc(var(--gap) / 2) 0;
+
+		img{
+			transition: opacity .3s;
+		}
+
+		&:hover{
+			.info, .dlLink{
+				color: inherit;
+			}
+
+			img{
+				opacity: .1
+			}
+		}
+	}
+
+	a.unpreviewable{
+		width: 200px;
+
+		div{
+			color: var(--textcolor);
+			font-size: .8em
+		}
+	}
+}
+
+.omittedPosts{
+	margin-left: calc(var(--gap) * 2);
+}
+
+.postBody{
+	display: flex;
+	padding-top: 3px;
+}
+
+.post:not(:first-child){
+	margin-left: calc(var(--gap) * 2);
+	padding: var(--gap);
+
+	.postBody{
+		padding: 5px;
+	}
+}
+
+@import "_navBar";
+
+#navbar{
+	justify-content: space-between;
+	flex-direction: column;
+
+	height: 100vh;
+	right: 0;
+
+	& > div{
+		flex-direction: column;
+	}
+
+	.btn{
+		font-size: 1.5em;
+
+		height: 45px;
+		width: 45px;
+	}
+}
+
+@import "_sidebar";
+@import "_notifications";
+@import "_widgets";
+@import "_replyForm.scss";
+
+#replyForm{
+	min-width: var(--widgetMinWidth);
+
+	// Начальная позиция
+	left: calc(50vw - var(--widgetMinWidth) / 2);
+	top: 10em;
+}

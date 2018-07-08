@@ -1,0 +1,14 @@
+#navbar{
+	padding: calc(var(--gap) / 2);
+
+	position: fixed;
+	z-index: 900;
+
+	&, & > div{
+		display: flex;
+	}
+
+	.btn{
+		margin: calc(var(--gap) / 2);
+	}
+}

@@ -34,14 +34,14 @@
 </div>
 
 <div id="navbar">
-	<div class="column">
+	<div>
 		<a id="toTop" class="btn material-icons" href="#top">arrow_upward</a>
 		<a href="{{=it.site.url.pathname}}" class="btn material-icons mobileOnly">home</a>
 		<a onclick="switchAttribute(sel('.widget#search'), 'hidden')" class="btn material-icons jsOnly">search</a>
 		<a onclick="switchAttribute(sel('.widget#preferences'), 'hidden')" class="btn material-icons desktopOnly jsOnly">settings</a>
 		<label for="hideSidebarCheckbox" class="btn material-icons desktopOnly">view_quilt</label>
 	</div>
-	<div class="column">
+	<div>
 		<a onclick="switchAttribute(sel('.widget#favourite'), 'hidden')" class="btn material-icons jsOnly">star</a>
 		<label for="hideImagesCheckbox" class="btn material-icons desktopOnly">visibility_off</label>
 		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow">chat</label>

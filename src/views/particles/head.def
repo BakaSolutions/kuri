@@ -1,16 +1,13 @@
 <head>
-	<meta charset='utf-8'>
-	<meta name="referrer" content="no-referrer">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<link rel='shortcut icon' href='{{=it.site.url.pathname}}static/favicon.ico'>
-	<link rel="stylesheet" id="mainStylesheet" href="{{=it.site.url.pathname}}css/master.css">
-	<script type="text/javascript" src="{{=it.site.url.pathname}}js/resquer.js"></script>
-
-	<noscript><style>
-		.jsOnly{display: none !important}
-	</style></noscript>
-
+	<meta name="referrer" content="no-referrer">
 	<title>{{!it.title}}</title>
+	<meta charset='utf-8'>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" id="mainStylesheet" media="(min-width: 451px)" href="/css/desktop.css">
+	<link rel="stylesheet" id="mainStylesheet" media="(max-width: 450px)" href="/css/mobile.css">
+	<noscript><style>.jsOnly{display: none !important}</style></noscript>
+	<script type="text/javascript" src="/js/resquer.js"></script>
+	<link rel="shortcut icon" href="/static/favicon.ico">
 </head>
