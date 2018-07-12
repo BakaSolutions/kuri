@@ -34,6 +34,19 @@
 		background-color: var(--bgcolor);
 		margin: .4em 0;
 	}
+
+	.postAttachments{
+		display: flex;
+
+		.info{
+			color: transparent;
+
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			top: 0;
+		}
+	}
 }
 
 .postDetails{
@@ -53,10 +66,6 @@
 		& + label{
 			transition: opacity .2s;
 			opacity: .4;
-		}
-
-		&:hover + label{
-			opacity: .6;
 		}
 
 		&:checked + label{

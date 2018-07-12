@@ -20,6 +20,7 @@ const notifications = {
 					}
 
 					if(!parameters.nonclosable){
+						el.classList.add("clickable")
 						el.onclick = () => {
 							notifications.remove(id)
 						}

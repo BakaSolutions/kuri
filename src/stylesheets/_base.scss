@@ -35,40 +35,28 @@ body{
 header{
 	@include user-select(none);
 	text-align: center;
-	cursor: default;
 
 	#banner {
+		color: var(--textcolor);
+
 		font-weight: bold;
 		line-height: 2em;
 		font-size: 1.3em;
-
-		cursor: pointer;
-
-		color: var(--textcolor);
 	}
 
 	a:not(#banner){
 		color: var(--textcolor_secondary) !important;
 		margin: 0 .5em;
-
-		&:hover{
-			opacity: 0.7
-		}
 	}
 }
 
 // Links
 a, .pseudoLink, .tabs label{
-	cursor: pointer;
 	color: var(--linkcolor);
 }
 
 a{
 	text-decoration: none;
-
-	&:hover{
-		color: var(--linkcolor_hover)
-	}
 
 	&:focus{
 		outline: none;
@@ -103,7 +91,6 @@ main{
 	/*border: 1px solid var(--bordercolor);*/
 	border: none;
 
-	cursor: pointer;
 	@include user-select(none);
 }
 
@@ -128,7 +115,6 @@ main{
 
 	& + label{
 		@include user-select(none);
-		cursor: pointer;
 	}
 
 	& + label::before{

@@ -2,11 +2,6 @@
 	display: none;
 }
 
-.widgetBox:not(#imageViewer .widgetBox){
-	border-width: var(--gap);
-	border-style: solid;
-}
-
 .widget{
 	$widgetHeight: 90vh;
 	$widgetWidth: 600px;
@@ -43,8 +38,8 @@
 	}
 
 	.widgetBox{
+		border: var(--gap) solid var(--bgcolor_card);
 		background-color: var(--bgcolor_card);
-		border-color: var(--bgcolor_card);
 		@include user-select(none);
 		position: relative;
 
@@ -138,35 +133,5 @@
 
 		font-size: 1.2em;
 		line-height: 0;
-	}
-}
-
-#imageViewer{
-	z-index: 2001;
-
-	.widgetBox{
-		height: auto;
-		width: auto;
-		padding: 0;
-
-		&.is-pointer-down{
-			cursor: move;
-		}
-
-		img{
-			vertical-align: middle;
-		}
-	}
-
-	.mediaInfo{
-		left: 1em;
-		bottom: 1em;
-		position: absolute;
-
-		opacity: .9;
-		pointer-events: none;
-
-		padding: .5em;
-		background-color: rgba(0, 0, 0, .7);
 	}
 }

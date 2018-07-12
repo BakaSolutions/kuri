@@ -22,10 +22,10 @@
 	}
 
 	.widgetHandle{
+		@include user-select(none);
 		justify-content: center;
 		font-size: .9em;
 		display: flex;
-		cursor: move;
 
 		span{
 			margin-left: 5px;
@@ -34,7 +34,6 @@
 		span.material-icons{
 			font-size: 1.3em;
 			margin-top: 1px;
-			cursor: pointer
 		}
 	}
 

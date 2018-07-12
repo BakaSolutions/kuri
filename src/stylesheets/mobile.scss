@@ -45,9 +45,12 @@ header a:not(#banner){
 .postAttachments{
 	.thumb{
 		margin: 0 calc(var(--gap) / 2);
-		display: inline;
 
-		.info, .dlLink{
+		.info{
+			position: absolute;
+		}
+
+		.dlLink{
 			display: none;
 		}
 	}
@@ -55,6 +58,10 @@ header a:not(#banner){
 	img{
 		max-height: 150px;
 		max-width: 150px;
+	}
+
+	.unpreviewable{
+		width: 100%;
 	}
 }
 

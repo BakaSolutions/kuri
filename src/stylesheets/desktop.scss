@@ -19,12 +19,36 @@ main{
 	display: none;
 }
 
-.btn:hover{
-	background-color: var(--btncolor_hover);
+.btn{
+	cursor: default;
+
+	&:hover{
+		background-color: var(--btncolor_hover);
+	}
 }
 
-header a:not(#banner){
-	font-size: 0.9em;
+header{
+	cursor: default;
+
+	#banner {
+		cursor: pointer;
+	}
+
+	a:not(#banner){
+		font-size: 0.9em;
+
+		&:hover{
+			opacity: 0.7
+		}
+	}
+}
+
+a, .pseudoLink, .tabs label{
+	cursor: pointer;
+}
+
+a:hover{
+	color: var(--linkcolor_hover)
 }
 
 @import "_musicPlayer";
@@ -38,10 +62,17 @@ header a:not(#banner){
 	.material-icons{
 		cursor: pointer;
 	}
+
+	input[id|="delete"], input[id|="star"]{
+		&:hover + label{
+			opacity: .6;
+		}
+	}
 }
 
 .postAttachments{
 	margin-right: 5px;
+	flex-direction: column;
 
 	& > *{
 		margin-bottom: 2px;
@@ -50,9 +81,6 @@ header a:not(#banner){
 	.info, .dlLink{
 		flex-direction: column;
 		transition: color .3s;
-		color: transparent;
-
-		position: absolute;
 	}
 
 	.info{
@@ -60,10 +88,7 @@ header a:not(#banner){
 		align-items: center;
 		display: flex;
 
-		height: 100%;
-		width: 100%;
-
-		top: 0;
+		right: 0;
 
 		span{
 			pointer-events: none;
@@ -71,10 +96,12 @@ header a:not(#banner){
 	}
 
 	.dlLink{
+		position: absolute;
 		padding: 5px 0;
 		bottom: 0;
 		left: 0;
 
+		color: transparent;
 		text-align: center;
 		width: 100%;
 
@@ -151,8 +178,58 @@ header a:not(#banner){
 }
 
 @import "_sidebar";
+
+#sidebar #logo:hover{
+	text-decoration: none;
+}
+
 @import "_notifications";
+
+#notificationsContainer .notification{
+	transition: all .5s;
+
+	&.clickable{
+		cursor: pointer;
+	}
+
+	&.newNotification{
+		transition: all .2s;
+	}
+}
+
 @import "_widgets";
+
+#imageViewer{
+	z-index: 2001;
+
+	.widgetBox{
+		border: none;
+		height: auto;
+		width: auto;
+		padding: 0;
+
+		&.is-pointer-down{
+			cursor: move;
+		}
+
+		img{
+			vertical-align: middle;
+		}
+	}
+
+	.mediaInfo{
+		left: 1em;
+		bottom: 1em;
+		position: absolute;
+
+		opacity: .9;
+		pointer-events: none;
+
+		padding: .5em;
+		background-color: rgba(0, 0, 0, .7);
+	}
+}
+
 @import "_replyForm.scss";
 
 #replyForm{
@@ -161,4 +238,18 @@ header a:not(#banner){
 	// Начальная позиция
 	left: calc(50vw - var(--widgetMinWidth) / 2);
 	top: 10em;
+
+	.widgetHandle, .pseudoLink{
+		cursor: default;
+	}
+
+	.material-icons{
+		cursor: pointer;
+	}
+
+	&.is-dragging{
+		.widgetHandle, .pseudoLink{
+			cursor: move;
+		}
+	}
 }

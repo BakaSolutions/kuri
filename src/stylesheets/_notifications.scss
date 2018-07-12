@@ -1,37 +1,29 @@
 #notificationsContainer{
-  position: fixed;
-  z-index: 1100;
-  right: .7em;
-  top: .7em;
-  min-width: 10em;
+	min-width: 10em;
 
-  &.newNotification{
-    animation-name: newNotification;
-    animation-duration: .3s;
-  }
+	position: fixed;
+	right: var(--gap);
+	top: var(--gap);
+	z-index: 1100;
 
-  .notification{
-    @include user-select(none);
-    cursor: pointer;
+	.notification{
+		@include user-select(none);
 
-    border: 1px solid var(--bgcolor);
-    background: var(--bgcolor_card);
+		border: 1px solid var(--bgcolor);
+		background: var(--bgcolor_card);
 
-    box-sizing: border-box;
-    overflow: hidden;
-    margin-bottom: .7em;
+		box-sizing: border-box;
+		margin-bottom: var(--gap);
+		overflow: hidden;
 
-    transition: all .5s;
+		padding: 0 var(--gap);
+		max-height: 0;
+		opacity: 0;
 
-    max-height: 0;
-    padding: 0 1em;
-    opacity: 0;
-
-    &.newNotification{
-      transition: all .2s;
-      max-height: 500px;
-      padding: 1em;
-      opacity: 1;
-    }
-  }
+		&.newNotification{
+			max-height: 100vh;
+			padding: var(--gap);
+			opacity: 1;
+		}
+	}
 }
