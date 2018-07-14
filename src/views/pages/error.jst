@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 	{{#def["particles/head"]}}
+	<link rel="stylesheet" href="/css/error.css">
 	<body>
 		{{#def["particles/navigation"]}}
 		<main>
 			<header>
-				<div>{{!it.name}}</div>
-				<div>{{!it.message}}</div>
+				<div id="name">{{!it.name}}</div>
+				<div id="message">{{!it.message}}</div>
 				{{?it.stack}}
 					<pre>{{=it.stack}}</pre>
 				{{?}}
+
+				<img id="err" src="/static/err.png" alt="">
 			</header>
 		</main>
 		{{#def["particles/widgets"]}}
