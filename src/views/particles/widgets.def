@@ -91,3 +91,9 @@
 		<h2>Отмеченные звездочкой</h2>
 	</div>
 </div>
+
+<ul id="postMenu" hidden>
+	<li><a href="#">Редактировать</a></li>
+	<li><a href="#">Скрыть</a></li>
+	<li><a href="#">Забанить</a></li>
+</ul>

@@ -17,12 +17,11 @@
 		<!-- Дата -->
 		<time data-creationdate="{{!post.createdAt}}">{{!post.formatted_date}}</time>
 
-
 		<!-- Скрытие -->
 		<!-- <span class="icon spoil jsOnly" onclick="spoilPost(this, {{? post.number === post.threadNumber}}1{{? }})"></span> -->
 
 		<!-- Меню -->
-		<span class="material-icons jsOnly">menu</span>
+		<span class="material-icons jsOnly" onclick="openPostMenu(event, '{{!it.board.name}}', {{!post.number}}{{? post.number == post.threadNumber}}, 1{{? }})">menu</span>
 
 		<!-- Быстрый ответ -->
 		<span class="material-icons jsOnly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})">reply</span>

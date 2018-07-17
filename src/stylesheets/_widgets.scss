@@ -135,3 +135,13 @@
 		line-height: 0;
 	}
 }
+
+#postMenu{
+	position: absolute;
+	list-style: none;
+
+	background-color: var(--bgcolor_card);
+	border: 1px solid var(--bgcolor);
+	padding: var(--gap);
+	z-index: 900;
+}

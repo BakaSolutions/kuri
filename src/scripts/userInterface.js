@@ -114,3 +114,19 @@ function showImage(e) {
 		img.src = e.target.href;
 	}
 };
+
+function openPostMenu(event, board, postNumber, opPost) {
+	let postMenu = sel("#postMenu"),
+		rect = event.target.getBoundingClientRect();
+
+	if (postMenu.hasAttribute("hidden")) {
+		postMenu.removeAttribute("hidden") 		// Показать меню, если оно скрыто
+	} else if (parseInt(postMenu.style.top) == Math.round(rect.bottom + window.scrollY - 20)){
+		postMenu.setAttribute("hidden", "1") 	// Скрыть меню, если не скрыто и клик прошел по той же кнопке,
+												// которая его открыла
+	}
+
+	// Перемещение меню к нужному месту
+	postMenu.style.left = rect.right + "px"
+	postMenu.style.top = rect.bottom + window.scrollY - 20  + "px"
+}
