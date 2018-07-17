@@ -72,6 +72,10 @@
 			opacity: 1;
 		}
 	}
+
+	label[for|="delete"]{
+		display: var(--deletionIconsDisplay);
+	}
 }
 
 .thumb{

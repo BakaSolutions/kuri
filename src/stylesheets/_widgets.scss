@@ -138,10 +138,21 @@
 
 #postMenu{
 	position: absolute;
-	list-style: none;
-
-	background-color: var(--bgcolor_card);
-	border: 1px solid var(--bgcolor);
-	padding: var(--gap);
 	z-index: 900;
+
+	background-color: var(--btncolor);
+	border: 1px solid var(--bgcolor);
+	padding: calc(var(--gap) / 2);
+
+	list-style: none;
+	font-size: .9em;
+	cursor: default;
+
+	li{
+		padding: calc(var(--gap) / 2);
+
+		&:hover{
+			background-color: var(--btncolor_hover);
+		}
+	}
 }

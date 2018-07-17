@@ -43,6 +43,7 @@ function activatePostRemovalWidget(){
 		if(sel('[form="deletePosts"]:checked')){
 			sel('#deletePosts').removeAttribute('hidden');
 		} else{
+			document.documentElement.style.setProperty("--deletionIconsDisplay", "none")
 			sel('#deletePosts').setAttribute('hidden', '');
 		}
 	}, 1)
@@ -129,4 +130,9 @@ function openPostMenu(event, board, postNumber, opPost) {
 	// Перемещение меню к нужному месту
 	postMenu.style.left = rect.right + "px"
 	postMenu.style.top = rect.bottom + window.scrollY - 20  + "px"
+
+	postMenu.querySelector("[data-action='delete']").onclick = () => {
+		document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
+		sel(`[for="delete-${board}:${postNumber}"]`).click()
+	}
 }

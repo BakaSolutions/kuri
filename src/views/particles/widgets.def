@@ -92,8 +92,9 @@
 	</div>
 </div>
 
-<ul id="postMenu" hidden>
-	<li><a href="#">Редактировать</a></li>
-	<li><a href="#">Скрыть</a></li>
-	<li><a href="#">Забанить</a></li>
+<ul id="postMenu" hidden onclick="this.setAttribute('hidden', 1)">
+	<li data-action="edit">Редактировать</li>
+	<li data-action="delete">Удалить</li>
+	<li data-action="spoil">Скрыть</li>
+	<li data-action="ban">Забанить</li>
 </ul>
