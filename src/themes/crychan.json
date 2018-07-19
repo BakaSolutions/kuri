@@ -1,15 +1,18 @@
 {
-	"text_primary": "#37474f",
-	"text_secondary": "#666",
-	
-	"link_primary": "#d7535c",
-	"link_secondary": "#096be8",
-	
-	"btn_primary": "#f5f5f5",
-	"btn_secondary": "#fefefe",
+	"textcolor": "#37474f",
+	"textcolor_secondary": "#666",
 
-	"bg_primary": "#ededed",
-	"bg_secondary": "#e6e6e6",
+	"linkcolor": "#d7535c",
+	"linkcolor_hover": "#096be8",
 
-	"border_primary": "#ddd"
+	"btncolor": "#f5f5f5",
+	"btncolor_hover": "#fefefe",
+
+	"bgcolor": "#e6e6e6",
+	"bgcolor_card": "#ededed",
+	"bgcolor_postform": "#ededed",
+
+	"bordercolor": "#ddd",
+
+	"quotationcolor": "#789922"
 }

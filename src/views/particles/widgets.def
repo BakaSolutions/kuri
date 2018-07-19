@@ -34,8 +34,9 @@
 
 		<input type="radio" id="themesSettingsTab" hidden name="settingsTabs">
 		<div class="tab">
-			<a class="row" onclick="setTheme(THEMES['Tumbach'])">Tumbach</a>
-			<a class="row" onclick="setTheme(THEMES['Tumbach Light'])">Tumbach Light</a>
+			<a class="row" onclick="loadTheme('/themes/tumbach.json')">Tumbach</a>
+			<a class="row" onclick="loadTheme('/themes/crychan.json')">Crychan</a>
+			<a class="row" onclick="loadTheme('/themes/sosach.json')">Makaba</a>
 		</div>
 
 		<input type="radio" id="spoilingSettingsTab" hidden name="settingsTabs">

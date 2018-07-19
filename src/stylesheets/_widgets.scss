@@ -137,6 +137,7 @@
 }
 
 #postMenu{
+	@include user-select(none);
 	position: absolute;
 	z-index: 900;
 
