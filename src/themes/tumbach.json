@@ -1,18 +1,18 @@
 {
-	"textcolor": "#ccc",
-	"textcolor_secondary": "#999",
+	"textcolor": 			"#cccccc",
+	"textcolor_secondary": 	"#909090",
 
-	"linkcolor": "#79bde2",
-	"linkcolor_hover": "#5496b9",
+	"linkcolor": 			"#79bde2",
+	"linkcolor_hover": 		"#5496b9",
 
-	"btncolor": "#191d21",
-	"btncolor_hover": "#15191d",
+	"btncolor": 			"#191d21",
+	"btncolor_hover": 		"#15191d",
 
-	"bgcolor": "#0c0f12",
-	"bgcolor_card": "#13161a",
-	"bgcolor_postform": "#181B1F",
+	"bgcolor": 				"#0c0f12",
+	"bgcolor_card": 		"#13161a",
+	"bgcolor_postform": 	"#181B1F",
 
-	"bordercolor": "#0c0f12",
+	"bordercolor": 			"#0c0f12",
 
-	"quotationcolor": "#789922"
+	"quotationcolor": 		"#789922"
 }

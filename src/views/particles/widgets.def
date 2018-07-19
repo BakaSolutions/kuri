@@ -34,9 +34,48 @@
 
 		<input type="radio" id="themesSettingsTab" hidden name="settingsTabs">
 		<div class="tab">
-			<a class="row" onclick="loadTheme('/themes/tumbach.json')">Tumbach</a>
-			<a class="row" onclick="loadTheme('/themes/crychan.json')">Crychan</a>
-			<a class="row" onclick="loadTheme('/themes/sosach.json')">Makaba</a>
+			<div id="themes">
+				<div onclick="loadTheme('/themes/tumbach.json')">Темный Tumbach с неоновыми мотивами</div>
+				<div onclick="loadTheme('/themes/crychan.json')">Минималистичный светлый Crychan</div>
+				<div onclick="loadTheme('/themes/sosach.json')">Визитная карточка Сосача, б-гомерзкая Makaba</div>
+				<div onclick="loadTheme()">Свой собственный вкус</div>
+			</div>
+			<div id="themeEditor">
+				<label>Цвет текста</label>
+				<div>
+					<input type="color" name="textcolor">
+					<input type="color" name="textcolor_secondary">
+				</div>
+
+				<label>Цвет ссылок</label>
+				<div>
+					<input type="color" name="linkcolor">
+					<input type="color" name="linkcolor_hover">
+				</div>
+
+				<label>Цвет кнопок</label>
+				<div>
+					<input type="color" name="btncolor">
+					<input type="color" name="btncolor_hover">
+				</div>
+
+				<label>Цвет фона</label>
+				<div>
+					<input type="color" name="bgcolor">
+					<input type="color" name="bgcolor_card">
+					<input type="color" name="bgcolor_postform">
+				</div>
+
+				<label>Цвет границ</label>
+				<div>
+					<input type="color" name="bordercolor">
+				</div>
+
+				<label>Цвет цитат</label>
+				<div>
+					<input type="color" name="quotationcolor">
+				</div>
+			</div>
 		</div>
 
 		<input type="radio" id="spoilingSettingsTab" hidden name="settingsTabs">
