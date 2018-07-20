@@ -32,7 +32,7 @@
 		</div>
 
 		<div data-tab="themes" hidden>
-			<div id="themes" onclick="loadTheme(event)">
+			<div id="themes" onclick="selectTheme(event)">
 				<div data-theme="tumbach">Темный Tumbach с неоновыми мотивами</div>
 				<div data-theme="crychan">Минималистичный светлый Crychan</div>
 				<div data-theme="sosach">Визитная карточка Сосача, б-гомерзкая Makaba</div>

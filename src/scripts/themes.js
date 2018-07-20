@@ -2,10 +2,31 @@ async function initThemes (){
 	let theme = localStorage.getItem('theme') || 'tumbach'
 
 	switchThemeSelector(document.querySelector(`[data-theme="${theme}"]`), 1)
-	applyTheme(localStorage.getItem(`theme-${theme}`))
+	if (localStorage.getItem(`theme-${theme}`)){
+		applyTheme(localStorage.getItem(`theme-${theme}`))
+	} else{
+		loadTheme(theme, () => {
+			applyTheme(localStorage.getItem(`theme-${theme}`))
+		})
+	}
 }
 
-async function loadTheme(event) {
+async function loadTheme(name, callback) {
+	let uri = `${window.location.origin}/themes/${name}.json`,
+		xhr = new XMLHttpRequest()
+
+	xhr.onload = (e) => {
+		localStorage.setItem(`theme-${name}`, xhr.response)
+		callback()
+	}
+
+	xhr.onerror = (e) => console.log("Error: ", uri, xhr, e)
+
+	xhr.open("GET", uri)
+	xhr.send(null)
+}
+
+async function selectTheme(event) {
 	let name = event.target.dataset.theme
 	if (!name) return
 
@@ -18,18 +39,9 @@ async function loadTheme(event) {
 		if(cached){
 			applyTheme(cached)
 		} else{
-			let uri = `${window.location.origin}/themes/${name}.json`,
-				xhr = new XMLHttpRequest()
-
-			xhr.onload = (e) => {
-				applyTheme(xhr.response)
-				localStorage.setItem(`theme-${name}`, xhr.response)
-			}
-
-			xhr.onerror = (e) => console.log("Error: ", uri, xhr, e)
-
-			xhr.open("GET", uri)
-			xhr.send(null)
+			loadTheme(name, () => {
+				applyTheme(localStorage.getItem(`theme-${name}`))
+			})
 		}
 	}
 
