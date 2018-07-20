@@ -32,11 +32,11 @@
 		</div>
 
 		<div data-tab="themes" hidden>
-			<div id="themes">
-				<div onclick="loadTheme('/themes/tumbach.json')">Темный Tumbach с неоновыми мотивами</div>
-				<div onclick="loadTheme('/themes/crychan.json')">Минималистичный светлый Crychan</div>
-				<div onclick="loadTheme('/themes/sosach.json')">Визитная карточка Сосача, б-гомерзкая Makaba</div>
-				<div onclick="loadTheme()">Свой собственный вкус</div>
+			<div id="themes" onclick="loadTheme(event)">
+				<div data-theme="tumbach">Темный Tumbach с неоновыми мотивами</div>
+				<div data-theme="crychan">Минималистичный светлый Crychan</div>
+				<div data-theme="sosach">Визитная карточка Сосача, б-гомерзкая Makaba</div>
+				<div data-theme="custom">Свой собственный вкус</div>
 			</div>
 			<div id="themeEditor">
 				<label>Цвет текста</label>

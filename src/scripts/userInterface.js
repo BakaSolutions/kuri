@@ -140,9 +140,11 @@ function openPostMenu(event, board, postNumber, opPost) {
 function switchToTab(name) { // Переключение табов в виджете настроек
 	let preferences = sel("#preferences")
 
-	preferences.querySelector(`[data-tab]:not([hidden])`).setAttribute("hidden", "1")
-	preferences.querySelector(`[data-tab="${name}"]`).removeAttribute("hidden")
+	if (preferences.querySelector(`[data-tab="${name}"]`).hasAttribute("hidden")) {
+		preferences.querySelector(`[data-tab]:not([hidden])`).setAttribute("hidden", "1")
+		preferences.querySelector(`[data-tab="${name}"]`).removeAttribute("hidden")
 
-	preferences.querySelector(`.tabs .active`).classList.remove("active")
-	preferences.querySelector(`.tabs [onclick="switchToTab('${name}')"]`).classList.add("active")
+		preferences.querySelector(`.tabs .active`).classList.remove("active")
+		preferences.querySelector(`.tabs [onclick="switchToTab('${name}')"]`).classList.add("active")
+	}
 }

@@ -43,7 +43,7 @@ header{
 	}
 }
 
-a, .pseudoLink, .tabs label{
+a, .pseudoLink{
 	cursor: pointer;
 }
 
@@ -243,6 +243,11 @@ a:hover{
 		max-height: 10em;
 		padding-bottom: var(--gap);
 		overflow-y: auto;
+
+
+		:hover, .active{
+			background-color: var(--bgcolor_card)
+		}
 	}
 
 	#themeEditor{
