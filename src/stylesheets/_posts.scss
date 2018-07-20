@@ -19,16 +19,11 @@
 	}
 }
 
-.post{
+[id^="post"]{
 	transition: max-height .3s;
 	position: relative;
 	// max-height: 300px;
 	overflow-y: auto;
-
-	&.spoiled{
-		overflow-y: hidden;
-		max-height: 20px;
-	}
 
 	&:not(:first-child){
 		background-color: var(--bgcolor);
@@ -47,6 +42,11 @@
 			top: 0;
 		}
 	}
+}
+
+[id^="post"].hidden, .thread.hidden{
+	overflow-y: hidden;
+	max-height: 1.5em;
 }
 
 .postDetails{

@@ -130,6 +130,6 @@
 <ul id="postMenu" hidden onclick="this.setAttribute('hidden', 1)">
 	<li data-action="edit">Редактировать</li>
 	<li data-action="delete">Удалить</li>
-	<li data-action="spoil">Скрыть</li>
+	<li data-action="hide">Скрыть</li>
 	<li data-action="ban">Забанить</li>
 </ul>

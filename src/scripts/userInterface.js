@@ -13,13 +13,45 @@
 	}
 
 	trigger.addEventListener("change", init)
+})();
+
+(() => { // Инициализация скрытых постов
+	let object = JSON.parse(localStorage.getItem("hiddenPosts"))
+
+	for (board in object) {
+		for (entry of object[board].threads) {
+			toggleHidePost(board, entry, 1, 1)
+		}
+
+		for (entry of object[board].posts) {
+			toggleHidePost(board, entry, 0, 1)
+		}
+	}
 })()
 
-function spoilPost(button, thread) {
-	let target = button.parentNode.parentNode.parentNode.parentNode;
-	if (thread) target = target.parentNode;
+async function toggleHidePost(board, postNumber, thread, initial) {
+	let target = sel(`#post${postNumber}`)
+	if (!target) return
+	if (thread) target = target.parentNode
 
-	target.classList.toggle('spoiled');
+	if (initial) {
+		target.classList.add("hidden")
+		return
+	} else{
+		let array = JSON.parse(localStorage.getItem("hiddenPosts") || "{}")
+
+		if(!target.classList.contains("hidden")){
+			if (!array[board]) array[board] = {"threads": [], "posts": []}
+
+			array[board][thread ? "threads" : "posts"].push(postNumber)
+			target.classList.add("hidden")
+		} else{
+			array[board][thread ? "threads" : "posts"].splice(array[board][thread ? "threads" : "posts"].indexOf(postNumber), 1)
+			target.classList.remove("hidden")
+		}
+
+		localStorage.setItem("hiddenPosts", JSON.stringify(array))
+	}
 }
 
 function quickReply(postNumber, threadNumber) {
@@ -134,6 +166,10 @@ function openPostMenu(event, board, postNumber, opPost) {
 	postMenu.querySelector("[data-action='delete']").onclick = () => {
 		document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
 		sel(`[for="delete-${board}:${postNumber}"]`).click()
+	}
+
+	postMenu.querySelector("[data-action='hide']").onclick = () => {
+		toggleHidePost(board, postNumber, opPost)
 	}
 }
 
