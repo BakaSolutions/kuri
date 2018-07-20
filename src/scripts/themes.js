@@ -1,5 +1,7 @@
 async function initThemes (){
-	switchThemeSelector(document.querySelector(`[data-theme="${localStorage.getItem('theme') || 'tumbach'}"]`), 1)
+	let theme = localStorage.getItem('theme') || 'tumbach'
+
+	switchThemeSelector(document.querySelector(`[data-theme="${theme}"]`), 1)
 	applyTheme(localStorage.getItem(`theme-${theme}`))
 }
 
