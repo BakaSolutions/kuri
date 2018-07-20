@@ -32,11 +32,6 @@
 		width: 100vw;
 	}
 
-	.tabs{
-		margin-bottom: 5px;
-		text-align: center;
-	}
-
 	.widgetBox{
 		border: var(--gap) solid var(--bgcolor_card);
 		background-color: var(--bgcolor_card);
@@ -53,36 +48,6 @@
 			font-size: 1.3em;
 			text-align: center;
 			cursor: default;
-		}
-	}
-
-	.row{
-		display: flex;
-	}
-
-	input{
-		&:checked + .tab{
-			display: flex;
-			flex-direction: column;
-		}
-
-		& + .tab{
-			display: none;
-		}
-	}
-
-	&#preferences{
-		textarea{
-			--h: $widgetHeight;
-
-			height: calc(var(--h) - 74px);
-			width: 100%;
-
-			resize: none;
-		}
-
-		input{
-			height: 30px;
 		}
 	}
 }
@@ -155,29 +120,5 @@
 		&:hover{
 			background-color: var(--btncolor_hover);
 		}
-	}
-}
-
-#themes{
-	height: 10em;
-	background-color: var(--bgcolor);
-	padding: var(--gap);
-	overflow-y: auto;
-}
-
-#themeEditor{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-
-	label{
-		grid-column: 1;
-	}
-
-	input[type="color"]{
-		// grid-column: 2;
-		height: 1.5em;
-		padding: 0;
-		width: 3em;
-		vertical-align: bottom;
 	}
 }

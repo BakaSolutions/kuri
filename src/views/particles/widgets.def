@@ -4,15 +4,14 @@
 		<h2>Настройки</h2>
 
 		<div class="tabs">
-			<label for="basicSettingsTab">Общее</label>
-			<label for="themesSettingsTab">Темы</label>
-			<label for="spoilingSettingsTab">Автоскрытие</label>
-			<label for="securitySettingsTab">Безопасность</label>
-			<label for="testingSettingsTab">Тестирование</label>
+			<label onclick="switchToTab('basicSettings')" class="active">Общее</label>
+			<label onclick="switchToTab('themes')">Темы</label>
+			<label onclick="switchToTab('spoilingSettings')">Автоскрытие</label>
+			<label onclick="switchToTab('securitySettings')">Безопасность</label>
+			<label onclick="switchToTab('testing')">Тестирование</label>
 		</div>
 
-		<input type="radio" id="basicSettingsTab" checked hidden name="settingsTabs">
-		<div class="tab">
+		<div data-tab="basicSettings">
 			<input type="checkbox" id="localTime" hidden class="visibleCheckbox material-icons">
 			<label for="localTime">Mестное время</label>
 
@@ -32,8 +31,7 @@
 			<label for="showAnimations">Показывать анимации</label>
 		</div>
 
-		<input type="radio" id="themesSettingsTab" hidden name="settingsTabs">
-		<div class="tab">
+		<div data-tab="themes" hidden>
 			<div id="themes">
 				<div onclick="loadTheme('/themes/tumbach.json')">Темный Tumbach с неоновыми мотивами</div>
 				<div onclick="loadTheme('/themes/crychan.json')">Минималистичный светлый Crychan</div>
@@ -78,19 +76,16 @@
 			</div>
 		</div>
 
-		<input type="radio" id="spoilingSettingsTab" hidden name="settingsTabs">
-		<div class="column">
+		<div data-tab="spoilingSettings" hidden>
 			<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
 		</div>
 
-		<input type="radio" id="securitySettingsTab" hidden name="settingsTabs">
-		<div class="column">
+		<div data-tab="securitySettings" hidden>
 			Пароль:
 			<input type="password" placeholder="Пароль">
 		</div>
 
-		<input type="radio" id="testingSettingsTab" hidden name="settingsTabs">
-		<div class="column">
+		<div data-tab="testing" hidden>
 			<a onclick="notifications.add({text: 'Сенпай, не забудь убрать этот кавай, а то отняшу!', timeout: 10000, class: 'notification'})">Тестовое уведомление</a>
 		</div>
 	</div>

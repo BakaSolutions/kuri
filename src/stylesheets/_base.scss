@@ -100,18 +100,6 @@ main{
 	background-color: var(--btncolor_hover);
 }
 
-.row, .column{
-	display: flex;
-}
-
-.row{
-	justify-content: space-between;
-}
-
-.column{
-	flex-direction: column;
-}
-
 .visibleCheckbox{
 	display: none;
 
@@ -152,23 +140,6 @@ input:not([type=file]){
 
 button, input, textarea{
 	outline: none !important;
-}
-
-.tabs{
-	@include user-select(none);
-
-	label{
-		padding: 5px 10px;
-		background-color: var(--bgcolor_card);
-	}
-
-	& ~ [type="radio"] + div {
-		display: none;
-	}
-
-	& ~ [type="radio"]:checked + div {
-		display: flex;
-	}
 }
 
 // Markup
