@@ -226,7 +226,7 @@ a:hover{
 		pointer-events: none;
 
 		padding: .5em;
-		background-color: rgba(0, 0, 0, .7);
+		background-color: var(--bgcolor_card);
 	}
 }
 
