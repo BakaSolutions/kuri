@@ -1,43 +1,48 @@
-((...arg) => {
+((...args) => {
 	function apply(uri, content, callback){
 		let node;
 
 		switch (uri.split('.').pop()) {
 			case 'js':
 				node = document.createElement('script');
+				node.type = "text/javascript"
 				break
 			case 'css':
 				node = document.createElement('style');
-				node.type = 'text/css'
+				node.type = "text/css"
 				break
 		}
 
 		node.innerHTML = content;
 		document.querySelector('head').appendChild(node);
 
-		eval(callback)
+		eval(callback) // TODO: Избавиться от коллбеков и инициализировать скрипты по-человечески
 	}
 
-	async function request(uri, callback) {
-		let xhr = new XMLHttpRequest();
-
-		xhr.onload = e => xhr.status < 400 ? apply(uri, xhr.response, callback) : 0;
-		xhr.onerror = e => console.log('error: ', uri, xhr, e);
-
-		xhr.open('GET', uri);
-		xhr.send(null);
+	function request(uri, callback) {
+		fetch(uri)
+			.then(response => {
+				if (response.status == 200) {
+					response.text().then(data => apply(uri, data, callback))
+				} else {
+					throw response.status
+				}
+			})
+			.catch(err => console.error("Resources fetch error occured:", err))
 	}
 
-	for (let i = 0; i < arg.length; i++) {
-		arg[i] instanceof Object
-		? request(`/${arg[i][0].split('.').pop()}/${arg[i][0]}`, arg[i][1])
-		: request(`/${arg[i].split('.').pop()}/${arg[i]}`)
+	for (let arg of args) {
+		if (arg instanceof Object){
+			request(`/${arg[0].split('.').pop()}/${arg[0]}`, arg[1])
+		} else{
+			request(`/${arg.split('.').pop()}/${arg}`)
+		}
 	}
 
 })('masterLib.js',
 	['themes.js', 'initThemes()'],
 	'AJAXNavigation.js',
-	'userInterface.js',
+	['userInterface.js', 'initInterface()'],
 	'posting.js',
 	'musicPlayer.js',
 	'draggabilly.js',

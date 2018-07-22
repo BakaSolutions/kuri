@@ -1,54 +1,37 @@
 async function initThemes (){
-	let theme = localStorage.getItem('theme') || 'tumbach'
+	let name = localStorage.getItem("theme") || "tumbach",
+		json = localStorage.getItem(`theme-${name}`) || await loadTheme(name)
 
-	switchThemeSelector(document.querySelector(`[data-theme="${theme}"]`), 1)
-	if (localStorage.getItem(`theme-${theme}`)){
-		applyTheme(localStorage.getItem(`theme-${theme}`))
-	} else{
-		loadTheme(theme, () => {
-			applyTheme(localStorage.getItem(`theme-${theme}`))
-		})
-	}
+	applyTheme(json)
+	switchThemeSelector(document.querySelector(`[data-theme="${name}"]`), 1)
 }
 
-async function loadTheme(name, callback) {
-	let uri = `${window.location.origin}/themes/${name}.json`,
-		xhr = new XMLHttpRequest()
-
-	xhr.onload = (e) => {
-		localStorage.setItem(`theme-${name}`, xhr.response)
-		callback()
-	}
-
-	xhr.onerror = (e) => console.log("Error: ", uri, xhr, e)
-
-	xhr.open("GET", uri)
-	xhr.send(null)
+async function loadTheme(name) {
+	return fetch(`${window.location.origin}/themes/${name}.json`)
+		.then(response => {
+			if (response.status == 200) {
+				return response.text()
+						.then(data => {
+							localStorage.setItem(`theme-${name}`, data)
+							return data
+						})
+			} else {
+				throw response.status
+			}
+		})
+		.catch(err => console.error("Theme fetch error occured:", err))
 }
 
 async function selectTheme(event) {
-	let name = event.target.dataset.theme
-	if (!name) return
+	let name = event.target.dataset.theme,
+		json = name == "custom" ? parseCustomTheme(event) : localStorage.getItem(`theme-${name}`) || await loadTheme(name)
 
-	if (name == "custom"){
-		parseCustomTheme(event)
-	} else{
-		localStorage.setItem("theme", name)
-		let cached = localStorage.getItem(`theme-${name}`)
-
-		if(cached){
-			applyTheme(cached)
-		} else{
-			loadTheme(name, () => {
-				applyTheme(localStorage.getItem(`theme-${name}`))
-			})
-		}
-	}
-
+	applyTheme(json)
 	switchThemeSelector(event.target)
+	localStorage.setItem("theme", name)
 }
 
-async function applyTheme(json, updateEditor = 1) {
+function applyTheme(json, updateEditor = 1) {
 	let object = JSON.parse(json)
 
 	for (let rule in object) {
@@ -57,7 +40,7 @@ async function applyTheme(json, updateEditor = 1) {
 	}
 }
 
-async function parseCustomTheme(event){
+function parseCustomTheme(){
 	let object = {}
 
 	for (let input of document.querySelectorAll("#themeEditor input")) {
@@ -65,14 +48,11 @@ async function parseCustomTheme(event){
 	}
 
 	let json = JSON.stringify(object)
-
-	applyTheme(json, 0)
-	switchThemeSelector(event.target)
-	localStorage.setItem("theme", "custom")
 	localStorage.setItem("theme-custom", json)
+	return json
 }
 
-async function switchThemeSelector(activate, initial) {
+function switchThemeSelector(activate, initial) {
 	if (!initial){
 		let deactivate = document.querySelector("#themes .active")
 

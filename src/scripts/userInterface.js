@@ -1,55 +1,53 @@
-(() => { // Функция делает форму ответа плавающей при первом ее показе
-	let trigger = sel("#replyFormShow")
+function initInterface() {
+	// Инициализация скрытых постов
+	let object = JSON.parse(localStorage.getItem("hiddenPosts") || "{}"),
+		board = window.location.pathname.split("/")[1]
 
-	let init = () => {
+	if (object.hasOwnProperty(board)){
+		for (postNumber of object[board].threads) {
+			toggleHidePost({board, postNumber, "opPost": 1}, 1)
+		}
+
+		for (postNumber of object[board].posts) {
+			toggleHidePost({board, postNumber, "opPost": 0}, 1)
+		}
+	}
+
+	// Инициализация плавающей формы постинга
+	let postingFormTrigger = sel("#replyFormShow")
+
+	function initPostingForm() {
 		if (screen.width > 414) {
-			new Draggabilly('#replyForm', {
-				containment: '#replyForm .container',
-				handle: '#replyForm .widgetHandle'
+			new Draggabilly("#replyForm", {
+				containment:	"#replyForm .container",
+				handle: 		"#replyForm .widgetHandle"
 			})
 
-			trigger.removeEventListener("change", init)
+			postingFormTrigger.removeEventListener("change", initPostingForm)
 		}
 	}
 
-	trigger.addEventListener("change", init)
-})();
+	postingFormTrigger.addEventListener("change", initPostingForm)
+}
 
-(() => { // Инициализация скрытых постов
-	let object = JSON.parse(localStorage.getItem("hiddenPosts"))
-
-	for (board in object) {
-		for (entry of object[board].threads) {
-			toggleHidePost(board, entry, 1, 1)
-		}
-
-		for (entry of object[board].posts) {
-			toggleHidePost(board, entry, 0, 1)
-		}
-	}
-})()
-
-async function toggleHidePost(board, postNumber, thread, initial) {
-	let target = sel(`#post${postNumber}`)
+function toggleHidePost(data, initial) {
+	let target = sel(`#post${data.postNumber}`)
 	if (!target) return
-	if (thread) target = target.parentNode
+	if (data.opPost) target = target.parentNode
 
 	if (initial) {
 		target.classList.add("hidden")
-		return
 	} else{
 		let array = JSON.parse(localStorage.getItem("hiddenPosts") || "{}")
 
-		if(!target.classList.contains("hidden")){
-			if (!array[board]) array[board] = {"threads": [], "posts": []}
-
-			array[board][thread ? "threads" : "posts"].push(postNumber)
-			target.classList.add("hidden")
+		if (target.classList.contains("hidden")){
+			array[data.board][data.opPost ? "threads" : "posts"].splice(array[data.board][data.thread ? "threads" : "posts"].indexOf(data.postNumber), 1)
 		} else{
-			array[board][thread ? "threads" : "posts"].splice(array[board][thread ? "threads" : "posts"].indexOf(postNumber), 1)
-			target.classList.remove("hidden")
+			if (!array[data.board]) array[data.board] = {"threads": [], "posts": []}
+			array[data.board][data.opPost ? "threads" : "posts"].push(data.postNumber)
 		}
 
+		target.classList.toggle("hidden")
 		localStorage.setItem("hiddenPosts", JSON.stringify(array))
 	}
 }
@@ -58,45 +56,54 @@ function quickReply(postNumber, threadNumber) {
 	let cb = sel("#replyFormShow")
 	if(!cb.checked) cb.click()
 
-	sel("#replyForm .widgetHandle").innerHTML = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><span class="material-icons" onclick="undoQuickReply()">close</span>`
-	sel("#replyForm [name='subject']").placeholder = "Имя"
-	sel("#replyForm textarea").innerHTML += `>>${postNumber}\n`
-	sel("input#threadNumber").value = threadNumber
+	let header = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><span class="material-icons" onclick="undoQuickReply()">close</span>`
+	updatePostForm(header, "Имя", threadNumber, `>>${postNumber}\n`)
 }
 
 function undoQuickReply(){
-	sel("#replyForm .widgetHandle").innerHTML = `Создание треда в <span class="pseudoLink">/${sel("#postForm [name='boardName']").value}/</span>`
-	sel("#replyForm [name='subject']").placeholder = "Тема"
-	sel("#replyForm input#threadNumber").value = ""
+	updatePostForm(`Создание треда в <span class="pseudoLink">/${sel("#postForm [name='boardName']").value}/</span>`, "Тема", "")
 }
 
-function activatePostRemovalWidget(){
+function updatePostForm(header, subjectPlaceholder, threadNumber, addText){
+	let postForm = sel("#replyForm")
+
+	postForm.querySelector(".widgetHandle").innerHTML = header
+	postForm.querySelector("[name='subject']").placeholder = subjectPlaceholder
+	postForm.querySelector("input#threadNumber").value = threadNumber
+	if (!addText) return
+	postForm.querySelector("textarea").innerHTML += addText
+}
+
+function activatePostRemovalWidget(noCheck){
+	let widget = sel("#deletePosts")
+
 	setTimeout(() => {
-		if(sel('[form="deletePosts"]:checked')){
-			sel('#deletePosts').removeAttribute('hidden');
-		} else{
+		if (noCheck || !sel("[form='deletePosts']:checked")){
 			document.documentElement.style.setProperty("--deletionIconsDisplay", "none")
-			sel('#deletePosts').setAttribute('hidden', '');
+			widget.setAttribute("hidden", 1)
+		} else {
+			widget.removeAttribute("hidden")
 		}
 	}, 1)
 }
 
 function deselectAllPosts() {
-	let checkboxes = document.querySelectorAll('[form="deletePosts"]:checked')
+	let checkboxes = document.querySelectorAll("[form='deletePosts']:checked")
 	for (checkbox of checkboxes) checkbox.checked = false
 
-	activatePostRemovalWidget()
+	activatePostRemovalWidget(1)
 }
 
 /* Оверлей с картинкой */
+// TODO: Получать разрешение из БД и отрефакторить
 function showImage(e) {
 	if (!e.ctrlKey && window.innerWidth > 414) {
 		e.preventDefault();
 
 		let ntf = notifications.add({
 			text: "Загрузка...",
-			class: 'notification',
-			nonclosable: 1
+			class: "notification",
+			closable: false
 		})
 
 		let widget = sel('#imageViewer .widgetBox'),
@@ -129,7 +136,7 @@ function showImage(e) {
 			sel('.widget#imageViewer .mediaInfo').innerText = e.target.dataset.title
 
 			new Draggabilly('.widget#imageViewer .widgetBox');
-			sel('.widget#imageViewer').removeAttribute('hidden');
+			toggleWidget("imageViewer")
 
 			notifications.remove(ntf)
 		}
@@ -139,48 +146,104 @@ function showImage(e) {
 
 			ntf = notifications.add({
 				text: "Не удалось загрузить изображение.<br>" + JSON.stringify(err),
-				class: 'notification',
+				class: "error",
 				timeout: 10000
 			})
 		}
 
 		img.src = e.target.href;
 	}
-};
+}
+
+function zoomImage(img, multiplier){ // TODO: Toже подлежит рефакторингу после добавления разрешений изображений в БД
+	let maxSize = window.innerWidth * 3,
+		minSize = window.innerHeight / 10
+
+	let newHeight = multiplier * parseInt(img.style.height),
+		newWidth  = multiplier * parseInt(img.style.width)
+
+	if (newHeight < maxSize && newWidth < maxSize && newHeight > minSize && newWidth > minSize) {
+		img.style.height = newHeight + "px"
+		img.style.width  = newWidth  + "px"
+	} else{
+		console.error("Trying to set width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
+	}
+}
 
 function openPostMenu(event, board, postNumber, opPost) {
 	let postMenu = sel("#postMenu"),
-		rect = event.target.getBoundingClientRect();
+		rect = event.target.getBoundingClientRect()
 
 	if (postMenu.hasAttribute("hidden")) {
 		postMenu.removeAttribute("hidden") 		// Показать меню, если оно скрыто
-	} else if (parseInt(postMenu.style.top) == Math.round(rect.bottom + window.scrollY - 20)){
+	} else if (parseInt(postMenu.style.top) == Math.round(rect.bottom + window.scrollY - 10)){
 		postMenu.setAttribute("hidden", "1") 	// Скрыть меню, если не скрыто и клик прошел по той же кнопке,
 												// которая его открыла
 	}
 
 	// Перемещение меню к нужному месту
 	postMenu.style.left = rect.right + "px"
-	postMenu.style.top = rect.bottom + window.scrollY - 20  + "px"
+	postMenu.style.top 	= rect.bottom + window.scrollY - 10  + "px"
 
-	postMenu.querySelector("[data-action='delete']").onclick = () => {
-		document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
-		sel(`[for="delete-${board}:${postNumber}"]`).click()
-	}
+	postMenu.dataset.board = board
+	postMenu.dataset.postNumber = postNumber
+	postMenu.dataset.opPost = opPost || 0
+}
 
-	postMenu.querySelector("[data-action='hide']").onclick = () => {
-		toggleHidePost(board, postNumber, opPost)
+function handlePostMenuClick(event) {
+	let menu = event.target
+	if (menu.dataset.action) menu = menu.parentNode
+
+	toggleWidget(menu)
+
+	switch (event.target.dataset.action) {
+		case "delete":
+			handlePostDeletion(menu.dataset)
+			break
+		case "hide":
+			toggleHidePost(menu.dataset)
+			break
+		case "edit":
+			handlePostEdition(menu.dataset)
+			break
+		case "ban":
+			handleUserBan(menu.dataset)
+			break
 	}
 }
 
+function handlePostDeletion(data) {
+	document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
+	sel(`[for="delete-${data.board}:${data.postNumber}"]`).click()
+}
+
+function handlePostEdition(data) {
+	// TODO:
+}
+
+function handleUserBan(data) {
+	// TODO:
+}
+
 function switchToTab(name) { // Переключение табов в виджете настроек
-	let preferences = sel("#preferences")
+	let newTab = sel(`#preferences [data-tab="${name}"]`),
+		oldTab = sel("#preferences [data-tab]:not([hidden])"),
+		tabsList = sel("#preferences .tabs")
 
-	if (preferences.querySelector(`[data-tab="${name}"]`).hasAttribute("hidden")) {
-		preferences.querySelector(`[data-tab]:not([hidden])`).setAttribute("hidden", "1")
-		preferences.querySelector(`[data-tab="${name}"]`).removeAttribute("hidden")
+	if (newTab.hasAttribute("hidden")) {
+		oldTab.setAttribute("hidden", "1")
+		newTab.removeAttribute("hidden")
 
-		preferences.querySelector(`.tabs .active`).classList.remove("active")
-		preferences.querySelector(`.tabs [onclick="switchToTab('${name}')"]`).classList.add("active")
+		tabsList.querySelector(".active").classList.remove("active")
+		tabsList.querySelector(`[onclick="switchToTab('${name}')"]`).classList.add("active")
 	}
+}
+
+function addToFavourites() {
+	// TODO:
+}
+
+function toggleWidget(widget) {
+	let element = widget instanceof HTMLElement ? widget : sel(`.widget#${widget}`)
+	element.hasAttribute("hidden") ? element.removeAttribute("hidden") : element.setAttribute("hidden", 1)
 }

@@ -1,37 +1,43 @@
 const notifications = {
-  container: sel("#notificationsContainer"),
-  lastId: 0,
+	container: sel("#notificationsContainer"),
+	lastId: 0,
 
-  add: function(parameters){
-    if (this.container) {
-      let id = this.lastId++
+	add: function(parameters){
+		if (this.container) {
+			let id = this.lastId++
 
-      createElement("div", {className: parameters.class, innerHTML: parameters.text})
-        .then(el => {
-					el.dataset.notificationId = id
-          this.container.insertBefore(el, this.container.childNodes[0])
+			let el = createElement("div", {
+				className: parameters.class,
+				innerHTML: parameters.text
+			})
 
-          setTimeout(() => el.classList.add("newNotification"), 50);
+			el.dataset.notificationId = id
 
-					if (parameters.timeout){
-						setTimeout(() => {
-							notifications.remove(id);
-						}, parameters.timeout)
-					}
+			this.container.insertBefore(el, this.container.childNodes[0])
 
-					if(!parameters.nonclosable){
-						el.classList.add("clickable")
-						el.onclick = () => {
-							notifications.remove(id)
-						}
-					}
-        });
+			setTimeout(() => {
+				el.classList.add("newNotification")
+			}, 50)
 
-        return id
-    }
-  },
+			if (parameters.timeout){
+				setTimeout(() => {
+					notifications.remove(id);
+				}, parameters.timeout)
+			}
 
-	remove: function(id){
+			if(!parameters.hasOwnProperty("closable") || parameters.closable){
+				el.classList.add("clickable")
+
+				el.onclick = () => {
+					notifications.remove(id)
+				}
+			}
+
+			return id
+		}
+	},
+
+	remove: function(id) {
 		setTimeout(() => {
 			let el = sel(`[data-notification-id="${id}"]`)
 

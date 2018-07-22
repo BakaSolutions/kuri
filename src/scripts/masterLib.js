@@ -1,7 +1,4 @@
-const log = async (...text) => settingsManager.get('logging') ? console.log(...text) : 0;
-const switchAttribute = (el, attr) => el.getAttribute(attr) != null ? el.removeAttribute(attr) : el.setAttribute(attr, true);
-
-const settingsManager = {
+const settingsManager = { // TODO: Сделать это чудо рабочим и отрефакторить
 	defaultSettings: {
 		// Basic
 		AJAXNavigation: 1,
@@ -46,60 +43,59 @@ const settingsManager = {
 	toggle: function(field){
 		this.set(field, !this.get(field))
 	}
-};
-
+}
 
 function scrollTo(name){
-	log('Scrolling to', name);
-
 	if (!settingsManager.get('smoothScrolling')){
 		document.getElementsByName(name)[0].scrollIntoView();
 	} else{
 		let elementY = window.pageYOffset + document.getElementsByName(name)[0].getBoundingClientRect().top,
-				startingY = window.pageYOffset,
-				diff = elementY - startingY,
-				start,
-				duration = Math.abs(diff / 3);
+			startingY = window.pageYOffset,
+			diff = elementY - startingY,
+			start,
+			duration = Math.abs(diff / 3)
 
-	  window.requestAnimationFrame(function step(timestamp) {
-	    start = start || timestamp;
+		window.requestAnimationFrame(function step(timestamp) {
+			start = start || timestamp
 
-	    let time = timestamp - start,
-					percent = Math.min(time / duration, 1)
+			let time = timestamp - start,
+			percent = Math.min(time / duration, 1)
 
-	    window.scrollTo(0, startingY + diff * percent);
+			window.scrollTo(0, startingY + diff * percent)
 
-	    if (time < duration) window.requestAnimationFrame(step);
-	  })
+			if (time < duration) window.requestAnimationFrame(step)
+		})
 	}
 }
 
-async function createElement(nodeName, params) {
-	let node = document.createElement(nodeName);
-	for (let i in params) node[i] = params[i];
+function createElement(nodeName, params) {
+	let node = document.createElement(nodeName)
+	for (let i in params) node[i] = params[i]
 
 	return node
 }
 
-function truncate(fullStr, strLen) {
-	if (fullStr.length <= strLen) return fullStr;
+String.prototype.truncate = function truncate(targetLength) {
+	if (this.length <= targetLength) return this
 
-	let charsToShow = strLen - 3,
-			frontChars = Math.ceil(charsToShow/2),
-			backChars = Math.floor(charsToShow/2);
+	let charsToShow = targetLength - 3,
+		frontChars = Math.ceil(charsToShow / 2),
+		backChars = Math.floor(charsToShow / 2)
 
-	return fullStr.substr(0, frontChars) + '...' + fullStr.substr(fullStr.length - backChars);
+	return this.substr(0, frontChars) + "..." + this.substr(this.length - backChars)
 }
 
-String.prototype.padStart = function padStart(targetLength, padString) {
-	targetLength = targetLength >> 0;
-	padString = String(padString || ' ');
-	if (this.length > targetLength) return String(this)
-	else {
-		targetLength = targetLength - this.length;
-		if (targetLength > padString.length) padString += padString.repeat(targetLength/padString.length);
+if (!String.prototype.padStart) {
+	String.prototype.padStart = function padStart(targetLength, padString) {
+		targetLength = targetLength >> 0;
+		padString = String(padString || ' ');
+		if (this.length > targetLength) return String(this)
+		else {
+			targetLength = targetLength - this.length;
+			if (targetLength > padString.length) padString += padString.repeat(targetLength/padString.length);
 
-		return padString.slice(0, targetLength) + String(this);
+			return padString.slice(0, targetLength) + String(this);
+		}
 	}
 }
 
@@ -113,44 +109,30 @@ function sel(selector){
 
 settingsManager.init();
 
-function zoomImage(img, multiplier){
-	const MAX_SIZE = window.innerWidth * 3,
-				MIN_SIZE = window.innerHeight / 10;
-
-	let newHeight = multiplier * parseInt(img.style.height),
-	 		newWidth = multiplier * parseInt(img.style.width)
-
-	if (newHeight < MAX_SIZE && newWidth < MAX_SIZE && newHeight > MIN_SIZE && newWidth > MIN_SIZE) {
-		img.style.height = newHeight + "px"
-		img.style.width = newWidth + "px"
-	} else{
-		console.error("Trying to set width to", newWidth, "and height to", newHeight,
-									"when minimum limit is", MIN_SIZE, "and maximum limit is", MAX_SIZE)
-	}
-}
-
 // Hotkeys
 (() => {
 	document.onkeydown = (e) => {
 		// console.log("Button pushed: ", e.key)
-		let img = sel('#imageViewer .widgetBox img')
+
+		let imageViewer = sel("#imageViewer:not([hidden])"),
+			img = imageViewer ? imageViewer.querySelector("img") : null
 
 		switch (e.key) {
 			case "+":
 				if (e.shiftKey && img) zoomImage(img, 1.2);
-				break;
+				break
 			case "-":
 				if (!e.shiftKey && img) zoomImage(img, 0.8);
-				break;
+				break
 			case "Escape":
-				if (sel('.widget#imageViewer:not([hidden])')) switchAttribute(sel('.widget#imageViewer'), 'hidden')
-				break;
+				if (imageViewer) imageViewer.setAttribute("hidden", "1")
+				break
 			case "F5":
 				if (!e.ctrlKey) {
 					e.preventDefault();
-					asyncLoadPage(document.location.href, 1);
+					asyncLoadPage(document.location.href, 1)
 				}
-				break;
+				break
 		}
 	}
 })()

@@ -1,5 +1,5 @@
 <div class="widget" id="preferences" hidden>
-	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#preferences'), 'hidden')"></div>
+	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox">
 		<h2>Настройки</h2>
 
@@ -92,7 +92,7 @@
 </div>
 
 <div class="widget" id="search" hidden>
-	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#search'), 'hidden')"></div>
+	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox">
 		<h2>Поиск</h2>
 
@@ -104,7 +104,7 @@
 </div>
 
 <div class="widget" id="imageViewer" hidden>
-	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#imageViewer'), 'hidden')"></div>
+	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox"></div>
 	<div class="mediaInfo"></div>
 </div>
@@ -121,13 +121,13 @@
 </form>
 
 <div class="widget" id="favourite" hidden>
-	<div class="widgetBgLayer" onclick="switchAttribute(sel('.widget#favourite'), 'hidden')"></div>
+	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox">
 		<h2>Отмеченные звездочкой</h2>
 	</div>
 </div>
 
-<ul id="postMenu" hidden onclick="this.setAttribute('hidden', 1)">
+<ul id="postMenu" hidden onclick="handlePostMenuClick(event)">
 	<li data-action="edit">Редактировать</li>
 	<li data-action="delete">Удалить</li>
 	<li data-action="hide">Скрыть</li>
