@@ -107,14 +107,14 @@ function showImage(e) {
 		})
 
 		let widget = sel('#imageViewer .widgetBox'),
-				img = new Image();
+			img = new Image()
 
 		img.onload = () => {
 			let minSize = window.innerHeight / 5,
-					maxWidth = window.innerWidth * 0.8,
-					maxHeight = window.innerHeight * 0.8,
-					widthRatio = img.naturalWidth / maxWidth,
-					heightRatio = img.naturalHeight / maxHeight
+				maxWidth = window.innerWidth * 0.8,
+				maxHeight = window.innerHeight * 0.8,
+				widthRatio = img.naturalWidth / maxWidth,
+				heightRatio = img.naturalHeight / maxHeight
 
 			if (widthRatio > 1 && widthRatio > heightRatio){
 				img.style.width = maxWidth + "px"
@@ -123,8 +123,8 @@ function showImage(e) {
 				img.style.height = maxHeight + "px"
 				img.style.width = img.naturalWidth / heightRatio + "px"
 			} else{
-				img.style.width = img.naturalWidth
-				img.style.height = img.naturalHeight
+				img.style.width = img.naturalWidth + "px"
+				img.style.height = img.naturalHeight + "px"
 			}
 
 			widget.innerHTML = '';
@@ -167,10 +167,6 @@ function zoomImage(img, multiplier){ // TODO: Toже подлежит рефак
 		img.style.width  = newWidth  + "px"
 	} else{
 		console.error("Trying to set width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
-
-		if (!img.style.height) {
-			console.error("Ошибка в изображении. Возможно, это проблема gif?")
-		}
 	}
 }
 
