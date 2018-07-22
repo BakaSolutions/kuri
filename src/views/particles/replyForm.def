@@ -7,7 +7,7 @@
 		{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}
 	</div>
 
-	<form id="postForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">
+	<form id="postForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">		
 		<input type="hidden" name="boardName" value="{{!it.board.name}}">
 		<input type="hidden" name="redirect" value="{{!it.site.href}}{{? it.thread}}{{=it.board.name}}/res/{{=it.thread.number}}.html#bottom{{?? }}redirect?i=:board/:post{{? }}">
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
@@ -19,7 +19,7 @@
 
 		<input type="checkbox" name="sage" id="sageCheckbox" hidden>
 		<label for="sageCheckbox" class="btn">Sage</label>
-		
+
 		<textarea name="text"></textarea>
 
 		<div id="fileInputs" data-filelimit="{{!it.board.fileLimit || 0}}">
@@ -32,7 +32,7 @@
 				</div>
 			{{ } }}
 		</div>
-		
-		<button class="btn" id="submit" onclick="sendPost(event)">Отправить</button>	
+
+		<button class="btn" id="submit" onclick="sendPost(event)">Отправить</button>
 	</form>
 </div>

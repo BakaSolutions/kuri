@@ -143,16 +143,11 @@ a:hover{
 
 .postBody{
 	display: flex;
-	padding-top: 3px;
 }
 
-.post:not(:first-child){
+[id^="post"]:not(:first-child):not(.widgetContent){
 	margin-left: calc(var(--gap) * 2);
-	padding: var(--gap);
-
-	.postBody{
-		padding: 5px;
-	}
+	padding: calc(var(--gap) / 2) var(--gap);
 }
 
 @import "_navBar";

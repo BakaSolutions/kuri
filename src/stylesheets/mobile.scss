@@ -25,7 +25,7 @@ header a:not(#banner){
 
 @import "_posts";
 
-.post{
+[id^="post"]{
 	padding: var(--gap);
 }
 

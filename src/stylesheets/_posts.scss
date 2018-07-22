@@ -25,7 +25,7 @@
 	// max-height: 300px;
 	overflow-y: auto;
 
-	&:not(:first-child){
+	&:not(:first-child):not(.widgetContent){
 		background-color: var(--bgcolor);
 		margin: .4em 0;
 	}

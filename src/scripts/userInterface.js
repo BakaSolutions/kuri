@@ -167,6 +167,10 @@ function zoomImage(img, multiplier){ // TODO: Toже подлежит рефак
 		img.style.width  = newWidth  + "px"
 	} else{
 		console.error("Trying to set width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
+
+		if (!img.style.height) {
+			console.error("Ошибка в изображении. Возможно, это проблема gif?")
+		}
 	}
 }
 

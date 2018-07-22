@@ -53,18 +53,20 @@
 }
 
 #deletePosts{
-	bottom: 0;
-	z-index: 1000;
-	width: 100vw;
-	height: 40px;
+	border-top: 2px solid var(--bordercolor);
+	background-color: var(--bgcolor_card);
+	@include user-select(none);
+	transition: opacity .3s;
 	display: flex;
-	position: fixed;
+	width: 100vw;
+	height: 4em;
+
 	align-items: center;
 	justify-content: center;
-	transition: opacity .3s;
 
-	background-color: var(--bgcolor_card);
-	border-top: 2px solid var(--bordercolor);
+	position: fixed;
+	z-index: 1000;
+	bottom: 0;
 
 	&[hidden]{
 		opacity: 0;
@@ -78,6 +80,10 @@
 	div > div{
 		display: flex;
 		justify-content: space-between;
+	}
+
+	input{
+		height: 2em
 	}
 }
 
