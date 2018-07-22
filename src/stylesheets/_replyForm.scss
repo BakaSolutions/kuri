@@ -122,3 +122,7 @@
 		}
 	}
 }
+
+#replyFormShow:not(:checked) + #replyForm{
+	display: none;
+}
