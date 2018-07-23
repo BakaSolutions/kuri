@@ -1,17 +1,4 @@
 .thread{
-	transition: max-height .3s;
-	overflow: hidden;
-
-	// TODO: Выставлять максимальную высоту при помощи ЖС
-
-	&.spoiled{
-		max-height: 20px;
-
-		.post:first-child {
-			overflow-y: hidden;
-		}
-	}
-
 	.omittedPosts{
 		color: var(--textcolor_secondary);
 		margin-bottom: .5em;
@@ -20,10 +7,7 @@
 }
 
 [id^="post"]{
-	transition: max-height .3s;
 	position: relative;
-	// max-height: 300px;
-	overflow-y: auto;
 
 	&:not(:first-child):not(.widgetContent){
 		background-color: var(--bgcolor);
@@ -44,9 +28,9 @@
 	}
 }
 
-[id^="post"].hidden, .thread.hidden{
-	overflow-y: hidden;
-	max-height: 1.5em;
+// Скрытие
+[id^="post"].hidden .postBody, .thread.hidden>*:not(:first-child), .thread.hidden>*:first-child .postBody{
+	display: none;
 }
 
 .postDetails{

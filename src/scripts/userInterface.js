@@ -1,17 +1,5 @@
 function initInterface() {
-	// Инициализация скрытых постов
-	let object = JSON.parse(localStorage.getItem("hiddenPosts") || "{}"),
-		board = window.location.pathname.split("/")[1]
-
-	if (object.hasOwnProperty(board)){
-		for (postNumber of object[board].threads) {
-			toggleHidePost({board, postNumber, "opPost": 1}, 1)
-		}
-
-		for (postNumber of object[board].posts) {
-			toggleHidePost({board, postNumber, "opPost": 0}, 1)
-		}
-	}
+	initHiddenPosts()
 
 	// Инициализация плавающей формы постинга
 	if(DEVICE == "desktop"){
@@ -32,10 +20,25 @@ function initInterface() {
 	}
 }
 
+function initHiddenPosts() {
+	let object = JSON.parse(localStorage.getItem("hiddenPosts") || "{}"),
+		board = window.location.pathname.split("/")[1]
+
+	if (object.hasOwnProperty(board)){
+		for (postNumber of object[board].threads) {
+			toggleHidePost({board, postNumber, "opPost": 1}, 1)
+		}
+
+		for (postNumber of object[board].posts) {
+			toggleHidePost({board, postNumber, "opPost": 0}, 1)
+		}
+	}
+}
+
 function toggleHidePost(data, initial) {
 	let target = sel(`#post${data.postNumber}`)
 	if (!target) return
-	if (data.opPost) target = target.parentNode
+	if (data.opPost == 1) target = target.parentNode
 
 	if (initial) {
 		target.classList.add("hidden")
