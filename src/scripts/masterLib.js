@@ -93,25 +93,22 @@ settingsManager.init();
 	document.onkeydown = (e) => {
 		// console.log("Button pushed: ", e.key)
 
-		let imageViewer = sel("#imageViewer:not([hidden])"),
-		img = imageViewer ? imageViewer.querySelector("img") : null
-
 		switch (e.key) {
 			case "+":
-			if (e.shiftKey && img) zoomImage(img, 1.2);
-			break
+				media.zoom(1.2)
+				break
 			case "-":
-			if (!e.shiftKey && img) zoomImage(img, 0.8);
-			break
+				media.zoom(0.8)
+				break
 			case "Escape":
-			if (imageViewer) imageViewer.setAttribute("hidden", "1")
-			break
+				if (sel("#mediaViewer:not([hidden])")) toggleWidget("mediaViewer")
+				break
 			case "F5":
-			if (!e.ctrlKey) {
-				e.preventDefault();
-				asyncLoadPage(document.location.href, 1)
-			}
-			break
+				if (!e.ctrlKey) {
+					e.preventDefault();
+					asyncLoadPage(document.location.href, 1)
+				}
+				break
 		}
 	}
 })()

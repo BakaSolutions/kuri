@@ -1,22 +1,70 @@
-function initInterface() {
-	initHiddenPosts()
+const media = {
+	init: function() {
+		this.widget 	= sel(".widget#mediaViewer")
+		this.widgetBox 	= this.widget.querySelector(".widgetBox")
+		this.info		= this.widget.querySelector(".mediaInfo")
+		this.ntf		= null
 
-	// Инициализация плавающей формы постинга
-	if(DEVICE == "desktop"){
-		let postingFormTrigger = sel("#replyFormShow")
+		new Draggabilly(this.widgetBox)
+	},
 
-		function initPostingForm() {
-			if (screen.width > 414) {
-				new Draggabilly("#replyForm", {
-					containment:	"#replyForm .container",
-					handle: 		"#replyForm .widgetHandle"
+	reset: function(title) {
+		this.widgetBox.innerHTML  	= ""
+		this.widgetBox.style.left 	= 0
+		this.widgetBox.style.top  	= 0
+		this.info.innerText 		= title
+	},
+
+	prepare: function(e, mime) {
+		if (!e.ctrlKey && DEVICE == "desktop") {
+			e.preventDefault()
+
+			this.ntf = notifications.add({
+				text: "Загрузка...",
+				class: "notification",
+				closable: false
+			})
+
+			this.reset(e.target.dataset.title)
+
+			if (mime.split("/")[0] == "video") {
+				let video = createElement("video", {
+					src: e.target.href,
+					type: mime,
+					controls: 1
 				})
 
-				postingFormTrigger.removeEventListener("change", initPostingForm)
+				this.display(video)
+			} else{
+				let img = new Image()
+				img.onload = () => this.display(img)
+				img.src = e.target.href
 			}
 		}
+	},
 
-		postingFormTrigger.addEventListener("change", initPostingForm)
+	display: function(element) {
+		this.widgetBox.appendChild(element)
+		toggleWidget("mediaViewer")
+		notifications.remove(this.ntf)
+	},
+
+	zoom: function(multiplier){
+		let maxSize 		= window.innerWidth * 3,
+			minSize 		= window.innerHeight / 10,
+			mediaNode		= this.widgetBox.querySelector("*"),
+			computedStyle 	= window.getComputedStyle(mediaNode, null),
+			newHeight 		= multiplier * parseInt(computedStyle.getPropertyValue("height")),
+			newWidth  		= multiplier * parseInt(computedStyle.getPropertyValue("width"))
+
+		if (newHeight < maxSize && newWidth < maxSize && newHeight > minSize && newWidth > minSize) {
+			mediaNode.style.maxHeight 	= "none"
+			mediaNode.style.maxWidth 	= "none"
+			mediaNode.style.height 		= newHeight + "px"
+			mediaNode.style.width 		= newWidth  + "px"
+		} else{
+			console.error("Trying to set media width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
+		}
 	}
 }
 
@@ -97,82 +145,6 @@ function deselectAllPosts() {
 	for (checkbox of checkboxes) checkbox.checked = false
 
 	activatePostRemovalWidget(1)
-}
-
-/* Оверлей с картинкой */
-// TODO: Получать разрешение из БД и отрефакторить
-function showImage(e) {
-	if (!e.ctrlKey && window.innerWidth > 414) {
-		e.preventDefault();
-
-		let ntf = notifications.add({
-			text: "Загрузка...",
-			class: "notification",
-			closable: false
-		})
-
-		let widget = sel('#imageViewer .widgetBox'),
-			img = new Image()
-
-		img.onload = () => {
-			let minSize = window.innerHeight / 5,
-				maxWidth = window.innerWidth * 0.8,
-				maxHeight = window.innerHeight * 0.8,
-				widthRatio = img.naturalWidth / maxWidth,
-				heightRatio = img.naturalHeight / maxHeight
-
-			if (widthRatio > 1 && widthRatio > heightRatio){
-				img.style.width = maxWidth + "px"
-				img.style.height = img.naturalHeight / widthRatio + "px"
-			} else if (heightRatio > 1 && heightRatio > widthRatio){
-				img.style.height = maxHeight + "px"
-				img.style.width = img.naturalWidth / heightRatio + "px"
-			} else{
-				img.style.width = img.naturalWidth + "px"
-				img.style.height = img.naturalHeight + "px"
-			}
-
-			widget.innerHTML = '';
-
-			sel('.widget#imageViewer .widgetBox').style.left = '0';
-			sel('.widget#imageViewer .widgetBox').style.top = '0';
-			widget.appendChild(img);
-
-			sel('.widget#imageViewer .mediaInfo').innerText = e.target.dataset.title
-
-			new Draggabilly('.widget#imageViewer .widgetBox');
-			toggleWidget("imageViewer")
-
-			notifications.remove(ntf)
-		}
-
-		img.onerror = (err) => {
-			notifications.remove(ntf)
-
-			ntf = notifications.add({
-				text: "Не удалось загрузить изображение.<br>" + JSON.stringify(err),
-				class: "error",
-				timeout: 10000
-			})
-		}
-
-		img.src = e.target.href;
-	}
-}
-
-function zoomImage(img, multiplier){ // TODO: Toже подлежит рефакторингу после добавления разрешений изображений в БД
-	let maxSize = window.innerWidth * 3,
-		minSize = window.innerHeight / 10
-
-	let newHeight = multiplier * parseInt(img.style.height),
-		newWidth  = multiplier * parseInt(img.style.width)
-
-	if (newHeight < maxSize && newWidth < maxSize && newHeight > minSize && newWidth > minSize) {
-		img.style.height = newHeight + "px"
-		img.style.width  = newWidth  + "px"
-	} else{
-		console.error("Trying to set width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
-	}
 }
 
 function openPostMenu(event, board, postNumber, opPost) {
@@ -258,5 +230,26 @@ function toggleWidget(widget) {
 		element.removeAttribute("hidden")
 	} else{
 		element.setAttribute("hidden", 1)
+	}
+}
+
+function initInterface() {
+	initHiddenPosts()
+	media.init()
+
+	// Инициализация плавающей формы постинга
+	if(DEVICE == "desktop"){
+		let postingFormTrigger = sel("#replyFormShow")
+
+		function initPostingForm() {
+			new Draggabilly("#replyForm", {
+				containment: 	"#replyForm .container",
+				handle: 		"#replyForm .widgetHandle"
+			})
+
+			postingFormTrigger.removeEventListener("change", initPostingForm)
+		}
+
+		postingFormTrigger.addEventListener("change", initPostingForm)
 	}
 }

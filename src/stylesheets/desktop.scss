@@ -64,7 +64,7 @@
 	justify-content: center;
 	align-items: center;
 
-	.widgetBox{
+	.widgetBox:not(#mediaViewer .widgetBox){
 		height: $widgetHeight;
 		width: $widgetWidth;
 	}
@@ -139,21 +139,21 @@
 	}
 }
 
-#imageViewer{
+#mediaViewer{
 	z-index: 2001;
 
 	.widgetBox{
 		border: none;
-		height: auto;
-		width: auto;
-		padding: 0;
+		background-color: transparent;
 
 		&.is-pointer-down{
 			cursor: move;
 		}
 
-		img{
+		*{
 			vertical-align: middle;
+			max-width: 80vw;
+			max-height: 80vh;
 		}
 	}
 

@@ -41,10 +41,10 @@
 
 })('masterLib.js',
 	['themes.js', 'initThemes()'],
+	'draggabilly.js',
 	'AJAXNavigation.js',
 	['userInterface.js', 'initInterface()'],
 	'posting.js',
 	'musicPlayer.js',
-	'draggabilly.js',
 	'notifications.js'
 )

@@ -103,7 +103,7 @@
 	</div>
 </div>
 
-<div class="widget" id="imageViewer" hidden>
+<div class="widget" id="mediaViewer" hidden>
 	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox"></div>
 	<div class="mediaInfo"></div>
