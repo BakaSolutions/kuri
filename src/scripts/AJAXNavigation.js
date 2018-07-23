@@ -28,8 +28,11 @@ function asyncLoadPage(uri, noScrolling) {
 							sel("#postForm").innerHTML = doc.querySelector("#postForm").innerHTML
 						}
 
+						let postMenu = sel("#postMenu:not([hidden])")
+						if(postMenu) postMenu.setAttribute("hidden", 1)
+
 						initHiddenPosts()
-						
+
 						// Скролл к указанному хэшу либо по-умолчанию вверх
 						if (!noScrolling) sel(`a[name=${uri.includes("#") ? uri.split("#")[1] : "top"}]`).scrollIntoView()
 

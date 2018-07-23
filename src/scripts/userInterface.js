@@ -46,10 +46,10 @@ function toggleHidePost(data, initial) {
 		let array = JSON.parse(localStorage.getItem("hiddenPosts") || "{}")
 
 		if (target.classList.contains("hidden")){
-			array[data.board][data.opPost ? "threads" : "posts"].splice(array[data.board][data.thread ? "threads" : "posts"].indexOf(data.postNumber), 1)
+			array[data.board][data.opPost == 1 ? "threads" : "posts"].splice(array[data.board][data.opPost == 1 ? "threads" : "posts"].indexOf(data.postNumber), 1)
 		} else{
 			if (!array[data.board]) array[data.board] = {"threads": [], "posts": []}
-			array[data.board][data.opPost ? "threads" : "posts"].push(data.postNumber)
+			array[data.board][data.opPost == 1 ? "threads" : "posts"].push(data.postNumber)
 		}
 
 		target.classList.toggle("hidden")
@@ -179,20 +179,18 @@ function openPostMenu(event, board, postNumber, opPost) {
 	let postMenu = sel("#postMenu"),
 		rect = event.target.getBoundingClientRect()
 
-	if (postMenu.hasAttribute("hidden")) {
-		postMenu.removeAttribute("hidden") 		// Показать меню, если оно скрыто
-	} else if (parseInt(postMenu.style.top) == Math.round(rect.bottom + window.scrollY - 10)){
-		postMenu.setAttribute("hidden", "1") 	// Скрыть меню, если не скрыто и клик прошел по той же кнопке,
-												// которая его открыла
+	if (!postMenu.hasAttribute("hidden") && postNumber == postMenu.dataset.postNumber && board == postMenu.dataset.board) {
+		postMenu.setAttribute("hidden", "1")
+	} else{
+		postMenu.style.left = rect.right + "px"
+		postMenu.style.top 	= rect.bottom + window.scrollY - 10  + "px"
+
+		postMenu.dataset.board = board
+		postMenu.dataset.postNumber = postNumber
+		postMenu.dataset.opPost = opPost || 0
+
+		postMenu.removeAttribute("hidden")
 	}
-
-	// Перемещение меню к нужному месту
-	postMenu.style.left = rect.right + "px"
-	postMenu.style.top 	= rect.bottom + window.scrollY - 10  + "px"
-
-	postMenu.dataset.board = board
-	postMenu.dataset.postNumber = postNumber
-	postMenu.dataset.opPost = opPost || 0
 }
 
 function handlePostMenuClick(event) {
@@ -236,7 +234,7 @@ function switchToTab(name) { // Переключение табов в видж�
 		tabsList = sel("#preferences .tabs")
 
 	if (newTab.hasAttribute("hidden")) {
-		oldTab.setAttribute("hidden", "1")
+		oldTab.setAttribute("hidden", 1)
 		newTab.removeAttribute("hidden")
 
 		tabsList.querySelector(".active").classList.remove("active")
