@@ -29,7 +29,7 @@ function asyncLoadPage(uri, noScrolling) {
 						}
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
-						if (!noScrolling) scrollTo(uri.includes("#") ? uri.split("#")[1] : "top")
+						if (!noScrolling) sel(`a[name=${uri.includes("#") ? uri.split("#")[1] : "top"}]`).scrollIntoView()
 
 						// console.log("Asynchronously navigated to", uri)
 						// sel("main").classList.remove("refreshing")
@@ -55,8 +55,8 @@ function asyncLoadPage(uri, noScrolling) {
 			if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
 				e.preventDefault()
 
-				if (/^\//.test(uri)) asyncLoadPage(uri) 				// Внутренние ссылки
-				else if (/^\#/.test(uri)) scrollTo(uri.split('#')[1])	// Ссылки на якоря
+				if (/^\//.test(uri)) asyncLoadPage(uri) 										// Внутренние ссылки
+				else if (/^\#/.test(uri)) sel(`a[name=${uri.split("#")[1]}]`).scrollIntoView()	// Ссылки на якоря
 			}
 		}
 	}

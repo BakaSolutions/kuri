@@ -34,39 +34,16 @@ const settingsManager = { // TODO: Сделать это чудо рабочим
 	},
 
 	set: function(field, value){ // settingsManager.set('hello world', true)
-	this.settings[field] = value;
-	localStorage.settings = JSON.stringify(this.settings);
-},
+		this.settings[field] = value;
+		localStorage.settings = JSON.stringify(this.settings);
+	},
 
-get: function(field){
-	return this.settings[field];
-},
+	get: function(field){
+		return this.settings[field];
+	},
 
-toggle: function(field){
-	this.set(field, !this.get(field))
-}
-}
-
-function scrollTo(name){
-	if (!settingsManager.get('smoothScrolling')){
-		document.getElementsByName(name)[0].scrollIntoView();
-	} else{
-		let elementY = window.pageYOffset + document.getElementsByName(name)[0].getBoundingClientRect().top,
-		startingY = window.pageYOffset,
-		diff = elementY - startingY,
-		start,
-		duration = Math.abs(diff / 3)
-
-		window.requestAnimationFrame(function step(timestamp) {
-			start = start || timestamp
-
-			let time = timestamp - start,
-			percent = Math.min(time / duration, 1)
-
-			window.scrollTo(0, startingY + diff * percent)
-
-			if (time < duration) window.requestAnimationFrame(step)
-		})
+	toggle: function(field){
+		this.set(field, !this.get(field))
 	}
 }
 
