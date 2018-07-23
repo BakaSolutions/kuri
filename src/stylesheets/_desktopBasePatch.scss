@@ -1,0 +1,45 @@
+body{
+	font-size: 1.7vmin;
+}
+
+main{
+	margin-right: calc(45px + 2 * var(--gap));
+	transition: margin .3s;
+	padding: var(--gap);
+}
+
+.mobileOnly{
+	display: none;
+}
+
+.btn{
+	cursor: default;
+
+	&:hover{
+		background-color: var(--btncolor_hover);
+	}
+}
+
+header{
+	cursor: default;
+
+	#banner {
+		cursor: pointer;
+	}
+
+	a:not(#banner){
+		font-size: 0.9em;
+
+		&:hover{
+			opacity: 0.7
+		}
+	}
+}
+
+a, .pseudoLink{
+	cursor: pointer;
+}
+
+a:hover{
+	color: var(--linkcolor_hover)
+}

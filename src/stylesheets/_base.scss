@@ -63,15 +63,12 @@ a{
 
 main{
 	background-color: var(--bgcolor_card);
+	margin-left: var(--sidebarWidth);
 	box-shadow: var(--boxShadow);
 
 	flex-direction: column;
 	display: flex;
 	z-index: 500;
-
-	margin-left: var(--sidebarWidth);
-
-	transition: margin .3s;
 }
 
 // Buttons

@@ -4,152 +4,11 @@
 }
 
 @import "_base";
-
-body{
-	font-size: 1.7vmin;
-}
-
-main{
-	margin-right: calc(45px + 2 * var(--gap));
-	padding: var(--gap);
-}
-
-.mobileOnly{
-	display: none;
-}
-
-.btn{
-	cursor: default;
-
-	&:hover{
-		background-color: var(--btncolor_hover);
-	}
-}
-
-header{
-	cursor: default;
-
-	#banner {
-		cursor: pointer;
-	}
-
-	a:not(#banner){
-		font-size: 0.9em;
-
-		&:hover{
-			opacity: 0.7
-		}
-	}
-}
-
-a, .pseudoLink{
-	cursor: pointer;
-}
-
-a:hover{
-	color: var(--linkcolor_hover)
-}
-
+@import "_desktopBasePatch";
 @import "_musicPlayer";
 @import "_scrollbar";
 @import "_posts";
-
-.postDetails{
-	font-size: .95em;
-	cursor: default;
-
-	.material-icons{
-		cursor: pointer;
-	}
-
-	input[id|="delete"], input[id|="star"]{
-		&:hover + label{
-			opacity: .6;
-		}
-	}
-}
-
-.postAttachments{
-	margin-right: 5px;
-	flex-direction: column;
-
-	& > *{
-		margin-bottom: 2px;
-	}
-
-	.info, .dlLink{
-		flex-direction: column;
-		transition: color .3s;
-	}
-
-	.info{
-		justify-content: center;
-		align-items: center;
-		display: flex;
-
-		right: 0;
-
-		span{
-			pointer-events: none;
-		}
-	}
-
-	.dlLink{
-		position: absolute;
-		padding: 5px 0;
-		bottom: 0;
-		left: 0;
-
-		color: transparent;
-		text-align: center;
-		width: 100%;
-
-		&:hover{
-			text-decoration: underline;
-		}
-	}
-
-	.thumb{
-		margin: calc(var(--gap) / 2) 0;
-
-		img{
-			transition: opacity .3s;
-		}
-
-		&:hover{
-			.info, .dlLink{
-				color: inherit;
-			}
-
-			img{
-				opacity: .1
-			}
-		}
-	}
-
-	a.unpreviewable{
-		width: 200px;
-
-		div{
-			color: var(--textcolor);
-			font-size: .8em
-		}
-	}
-}
-
-.omittedPosts{
-	margin-left: calc(var(--gap) * 2);
-}
-
-.postBody{
-	display: flex;
-}
-
-[id^="post"]:not(:first-child):not(.widgetContent){
-	margin-left: calc(var(--gap) * 2);
-	padding: calc(var(--gap) / 2) var(--gap);
-}
-
+@import "_desktopPostsPatch";
 @import "_navBar";
 
 #navbar{
@@ -177,6 +36,11 @@ a:hover{
 	text-decoration: none;
 }
 
+// Sidebar hiding
+#hideSidebarCheckbox:checked ~ main {
+	margin-left: var(--gap);
+}
+
 @import "_notifications";
 
 #notificationsContainer .notification{
@@ -192,6 +56,19 @@ a:hover{
 }
 
 @import "_widgets";
+
+.widget{
+	$widgetHeight: 90vh;
+	$widgetWidth: 600px;
+
+	justify-content: center;
+	align-items: center;
+
+	.widgetBox{
+		height: $widgetHeight;
+		width: $widgetWidth;
+	}
+}
 
 #preferences{
 	.widgetBox{

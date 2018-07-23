@@ -1,11 +1,15 @@
 $navBarHeight: 60px;
 
 :root{
-	--sidebarWidth: 0;
+	--sidebarWidth: calc(66.6vw + 0.5 * var(--gap));
 }
 
 @import "_defaultTheme";
 @import "_base";
+
+html{
+	overflow-x: hidden;
+}
 
 body{
 	font-size: 3.5vmin;
@@ -13,6 +17,7 @@ body{
 
 main{
 	padding-bottom: calc(#{$navBarHeight} - .4em);
+	width: 100vw;
 }
 
 .desktopOnly{
@@ -24,51 +29,7 @@ header a:not(#banner){
 }
 
 @import "_posts";
-
-[id^="post"]{
-	padding: var(--gap);
-}
-
-.postText{
-	padding-top: 2px;
-	padding-left: calc(var(--gap) / 2);
-}
-
-.postDetails{
-	font-size: 1.1em;
-
-	time{
-		font-size: .9rem;
-	}
-}
-
-.postAttachments{
-	.thumb{
-		margin: 0 calc(var(--gap) / 2);
-
-		.info{
-			position: absolute;
-		}
-
-		.dlLink{
-			display: none;
-		}
-	}
-
-	img{
-		max-height: 150px;
-		max-width: 150px;
-	}
-
-	.unpreviewable{
-		width: 100%;
-	}
-}
-
-.omittedPosts{
-	margin-left: var(--gap);
-}
-
+@import "_mobilePostsPatch";
 @import "_navBar";
 
 #navbar{
@@ -89,8 +50,15 @@ header a:not(#banner){
 	}
 }
 
+@import "_sidebar";
 @import "_notifications";
 @import "_widgets";
+
+.widgetBox{
+	height: calc(100vh - #{$navBarHeight});
+	width: 100vw;
+}
+
 @import "_replyForm.scss";
 
 #replyForm{

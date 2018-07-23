@@ -1,0 +1,43 @@
+[id^="post"]{
+	padding: var(--gap);
+}
+
+.postText{
+	padding-top: 2px;
+	padding-left: calc(var(--gap) / 2);
+}
+
+.postDetails{
+	font-size: 1.1em;
+
+	time{
+		font-size: .9rem;
+	}
+}
+
+.postAttachments{
+	.thumb{
+		margin: 0 calc(var(--gap) / 2);
+
+		.info{
+			position: absolute;
+		}
+
+		.dlLink{
+			display: none;
+		}
+	}
+
+	img{
+		max-height: 150px;
+		max-width: 150px;
+	}
+
+	.unpreviewable{
+		width: 100%;
+	}
+}
+
+.omittedPosts{
+	margin-left: var(--gap);
+}

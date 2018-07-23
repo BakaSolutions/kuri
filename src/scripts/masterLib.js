@@ -1,3 +1,5 @@
+const DEVICE = window.innerWidth > 450 ? "desktop" : "mobile"
+
 const settingsManager = { // TODO: Сделать это чудо рабочим и отрефакторить
 	defaultSettings: {
 		// Basic
@@ -32,17 +34,17 @@ const settingsManager = { // TODO: Сделать это чудо рабочим
 	},
 
 	set: function(field, value){ // settingsManager.set('hello world', true)
-		this.settings[field] = value;
-		localStorage.settings = JSON.stringify(this.settings);
-	},
+	this.settings[field] = value;
+	localStorage.settings = JSON.stringify(this.settings);
+},
 
-	get: function(field){
-		return this.settings[field];
-	},
+get: function(field){
+	return this.settings[field];
+},
 
-	toggle: function(field){
-		this.set(field, !this.get(field))
-	}
+toggle: function(field){
+	this.set(field, !this.get(field))
+}
 }
 
 function scrollTo(name){
@@ -50,10 +52,10 @@ function scrollTo(name){
 		document.getElementsByName(name)[0].scrollIntoView();
 	} else{
 		let elementY = window.pageYOffset + document.getElementsByName(name)[0].getBoundingClientRect().top,
-			startingY = window.pageYOffset,
-			diff = elementY - startingY,
-			start,
-			duration = Math.abs(diff / 3)
+		startingY = window.pageYOffset,
+		diff = elementY - startingY,
+		start,
+		duration = Math.abs(diff / 3)
 
 		window.requestAnimationFrame(function step(timestamp) {
 			start = start || timestamp
@@ -79,8 +81,8 @@ String.prototype.truncate = function truncate(targetLength) {
 	if (this.length <= targetLength) return this
 
 	let charsToShow = targetLength - 3,
-		frontChars = Math.ceil(charsToShow / 2),
-		backChars = Math.floor(charsToShow / 2)
+	frontChars = Math.ceil(charsToShow / 2),
+	backChars = Math.floor(charsToShow / 2)
 
 	return this.substr(0, frontChars) + "..." + this.substr(this.length - backChars)
 }
@@ -115,24 +117,24 @@ settingsManager.init();
 		// console.log("Button pushed: ", e.key)
 
 		let imageViewer = sel("#imageViewer:not([hidden])"),
-			img = imageViewer ? imageViewer.querySelector("img") : null
+		img = imageViewer ? imageViewer.querySelector("img") : null
 
 		switch (e.key) {
 			case "+":
-				if (e.shiftKey && img) zoomImage(img, 1.2);
-				break
+			if (e.shiftKey && img) zoomImage(img, 1.2);
+			break
 			case "-":
-				if (!e.shiftKey && img) zoomImage(img, 0.8);
-				break
+			if (!e.shiftKey && img) zoomImage(img, 0.8);
+			break
 			case "Escape":
-				if (imageViewer) imageViewer.setAttribute("hidden", "1")
-				break
+			if (imageViewer) imageViewer.setAttribute("hidden", "1")
+			break
 			case "F5":
-				if (!e.ctrlKey) {
-					e.preventDefault();
-					asyncLoadPage(document.location.href, 1)
-				}
-				break
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				asyncLoadPage(document.location.href, 1)
+			}
+			break
 		}
 	}
 })()

@@ -45,8 +45,3 @@
 		}
 	}
 }
-
-// Sidebar hiding
-#hideSidebarCheckbox:checked ~ main {
-	margin-left: var(--gap);
-}

@@ -14,20 +14,22 @@ function initInterface() {
 	}
 
 	// Инициализация плавающей формы постинга
-	let postingFormTrigger = sel("#replyFormShow")
+	if(DEVICE == "desktop"){
+		let postingFormTrigger = sel("#replyFormShow")
 
-	function initPostingForm() {
-		if (screen.width > 414) {
-			new Draggabilly("#replyForm", {
-				containment:	"#replyForm .container",
-				handle: 		"#replyForm .widgetHandle"
-			})
+		function initPostingForm() {
+			if (screen.width > 414) {
+				new Draggabilly("#replyForm", {
+					containment:	"#replyForm .container",
+					handle: 		"#replyForm .widgetHandle"
+				})
 
-			postingFormTrigger.removeEventListener("change", initPostingForm)
+				postingFormTrigger.removeEventListener("change", initPostingForm)
+			}
 		}
-	}
 
-	postingFormTrigger.addEventListener("change", initPostingForm)
+		postingFormTrigger.addEventListener("change", initPostingForm)
+	}
 }
 
 function toggleHidePost(data, initial) {
@@ -245,5 +247,15 @@ function addToFavourites() {
 
 function toggleWidget(widget) {
 	let element = widget instanceof HTMLElement ? widget : sel(`.widget#${widget}`)
-	element.hasAttribute("hidden") ? element.removeAttribute("hidden") : element.setAttribute("hidden", 1)
+
+	if (element.hasAttribute("hidden")){
+		if(DEVICE == "mobile"){
+			let postFormCheckbox = sel("#replyFormShow")
+			if (postFormCheckbox.checked) postFormCheckbox.click()
+		}
+
+		element.removeAttribute("hidden")
+	} else{
+		element.setAttribute("hidden", 1)
+	}
 }

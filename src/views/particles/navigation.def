@@ -1,7 +1,7 @@
 <input type="checkbox" id="hideSidebarCheckbox" hidden>
 <input type="checkbox" id="hideImagesCheckbox" hidden>
 
-<div id="sidebar" class="desktopOnly">
+<div id="sidebar">
 	<div id="logo">
 		<a href="{{=it.site.url.pathname}}">Тумба.ч</a>
 		<a href="{{=it.site.url.pathname}}">технологичный и удобный имиджборд</a>
