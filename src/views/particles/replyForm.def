@@ -33,6 +33,6 @@
 			{{ } }}
 		</div>
 
-		<button class="btn" id="submit" onclick="handlePostSend(event)">Отправить</button>
+		<button id="submit" onclick="handlePostSend(event)">Отправить</button>
 	</form>
 </div>

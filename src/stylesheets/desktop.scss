@@ -22,7 +22,7 @@
 		flex-direction: column;
 	}
 
-	.btn{
+	.btn, button{
 		font-size: 1.5em;
 
 		height: 45px;
@@ -159,16 +159,31 @@
 		}
 	}
 
+	.mediaInfo, #zoomButtons{
+		position: absolute;
+		bottom: 1em;
+		z-index: 1;
+		opacity: .9;
+	}
+
 	.mediaInfo{
 		left: 1em;
-		bottom: 1em;
-		position: absolute;
 
-		opacity: .9;
-		pointer-events: none;
-
-		padding: .5em;
 		background-color: var(--bgcolor_card);
+		padding: .5em;
+	}
+
+	#zoomButtons{
+		right: calc(1em + 12px);
+		display: flex;
+
+		button{
+			padding: .3em;
+		}
+
+		button:first-child{
+			margin-right: var(--gap)
+		}
 	}
 }
 

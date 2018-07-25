@@ -37,14 +37,14 @@
 	<div>
 		<a id="toTop" class="btn material-icons" href="#top">arrow_upward</a>
 		<a href="{{=it.site.url.pathname}}" class="btn material-icons mobileOnly">home</a>
-		<!-- <a onclick="toggleWidget('search')" class="btn material-icons jsOnly">search</a> -->
-		<a class="btn material-icons jsOnly">search</a>
-		<a onclick="toggleWidget('settings', settings.init)" class="btn material-icons desktopOnly jsOnly">settings</a>
+		<!-- <button type="button" onclick="toggleWidget('search')" class="btn material-icons jsOnly">search</button> -->
+		<button type="button" class="material-icons jsOnly">search</button>
+		<button type="button" onclick="toggleWidget('settings', settings.init)" class="material-icons desktopOnly jsOnly">settings</button>
 		<label for="hideSidebarCheckbox" class="btn material-icons desktopOnly">view_quilt</label>
 	</div>
 	<div>
 		<!-- <a onclick="toggleWidget('favourite')" class="btn material-icons jsOnly">star</a> -->
-		<a class="btn material-icons jsOnly">star</a>
+		<button type="button" class="material-icons jsOnly">star</button>
 		<label for="hideImagesCheckbox" class="btn material-icons desktopOnly">visibility_off</label>
 		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow">chat</label>
 		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>

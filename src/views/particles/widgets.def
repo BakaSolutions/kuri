@@ -82,7 +82,7 @@
 
 		<form id="searchForm">
 			<input type="text" placeholder="Тумбач: найдется кое-что">
-			<button type="button" class="btn material-icons">search</button>
+			<button type="button" class="material-icons">search</button>
 		</form>
 	</div>
 </div>
@@ -91,6 +91,10 @@
 	<div class="widgetBgLayer" onclick="media.hide()"></div>
 	<div class="widgetBox"></div>
 	<div class="mediaInfo"></div>
+	<div id="zoomButtons">
+		<button type="button" class="material-icons" onclick="media.zoom(1.2)">add</button>
+		<button type="button" class="material-icons" onclick="media.zoom(0.8)">remove</button>
+	</div>
 </div>
 
 <form id="deletePosts" method="POST" action="{{!it.foxtan.href}}api/v1/post.delete" hidden>
@@ -125,7 +129,7 @@
 		<img width="192" height="64" onclick="captcha.update()">
 		<form method="post" autocomplete="off">
 			<input type="text" name="code" placeholder="Капча">
-			<button type="button" class="btn" onclick="captcha.send()">Отправить</button>
+			<button type="button" onclick="captcha.send()">Отправить</button>
 		</form>
 	</div>
 </div>
