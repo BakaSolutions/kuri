@@ -28,7 +28,7 @@ function sendPost() {
 		.then(response => {
 			if (response.status == 200) {
 				response.json().then(r => {
-					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
+					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#bottom`)
 
 					notifications.add({
 						text: r.message,

@@ -7,6 +7,8 @@ function asyncLoadPage(uri, noScrolling) {
 		closable: false
 	})
 
+	console.log(uri);
+
 	fetch(uri)
 		.then(response => {
 			notifications.remove(ntf)
@@ -46,6 +48,7 @@ function asyncLoadPage(uri, noScrolling) {
 			}
 		})
 		.catch(err => {
+			console.log("error:", err)
 			ntf = notifications.add({
 				text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
 				class: "error",
