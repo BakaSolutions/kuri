@@ -48,7 +48,7 @@
 
 	input[id|="delete"], input[id|="star"]{
 		& + label{
-			transition: opacity .2s;
+			transition: opacity var(--animationDuration);
 			opacity: .4;
 		}
 

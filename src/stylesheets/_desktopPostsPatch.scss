@@ -23,7 +23,7 @@
 
 	.info, .dlLink{
 		flex-direction: column;
-		transition: color .3s;
+		transition: color var(--animationDuration);
 	}
 
 	.info{
@@ -57,7 +57,7 @@
 		margin: calc(var(--gap) / 2) 0;
 
 		img{
-			transition: opacity .3s;
+			transition: opacity var(--animationDuration);
 		}
 
 		&:hover{

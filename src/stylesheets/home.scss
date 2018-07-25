@@ -29,7 +29,7 @@ $linksBarHeight: 7.5vh;
 	main{
 		padding: 5em;
 	}
-	
+
 	#player{
 		grid-row: 1;
 	}
@@ -138,6 +138,6 @@ main{
 		line-height: $linksBarHeight;
 		text-align: center;
 
-		transition: background-color .2s;
+		transition: background-color var(--animationDuration);
 	}
 }

@@ -201,9 +201,9 @@ function handleUserBan(data) {
 }
 
 function switchToTab(name) { // Переключение табов в виджете настроек
-	let newTab = sel(`#preferences [data-tab="${name}"]`),
-		oldTab = sel("#preferences [data-tab]:not([hidden])"),
-		tabsList = sel("#preferences .tabs")
+	let newTab = sel(`#settings [data-tab="${name}"]`),
+		oldTab = sel("#settings [data-tab]:not([hidden])"),
+		tabsList = sel("#settings .tabs")
 
 	if (newTab.hasAttribute("hidden")) {
 		oldTab.setAttribute("hidden", 1)
@@ -218,8 +218,9 @@ function addToFavourites() {
 	// TODO:
 }
 
-function toggleWidget(widget) {
+function toggleWidget(widget, init) {
 	let element = widget instanceof HTMLElement ? widget : sel(`.widget#${widget}`)
+	if (init && !INITIALIZED_SCRIPTS.includes(widget)) init()
 
 	if (element.hasAttribute("hidden")){
 		if(DEVICE == "mobile"){

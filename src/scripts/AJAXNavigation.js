@@ -1,5 +1,5 @@
 function asyncLoadPage(uri, noScrolling) {
-	if (uri == "/") return location.href = uri
+	if (uri == "/" || !settings.getOption("USEAJAX")) return location.href = uri
 
 	let ntf = notifications.add({
 		text: "Загрузка...",
@@ -34,7 +34,9 @@ function asyncLoadPage(uri, noScrolling) {
 						initHiddenPosts()
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
-						if (!noScrolling) sel(`a[name=${uri.includes("#") ? uri.split("#")[1] : "top"}]`).scrollIntoView()
+						if (!noScrolling) {
+							sel(`a[name=${uri.includes("#") ? uri.split("#")[1] : "top"}]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+						}
 
 						// console.log("Asynchronously navigated to", uri)
 						// sel("main").classList.remove("refreshing")
@@ -60,8 +62,10 @@ function asyncLoadPage(uri, noScrolling) {
 			if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
 				e.preventDefault()
 
-				if (/^\//.test(uri)) asyncLoadPage(uri) 										// Внутренние ссылки
-				else if (/^\#/.test(uri)) sel(`a[name=${uri.split("#")[1]}]`).scrollIntoView()	// Ссылки на якоря
+				if (/^\//.test(uri)) asyncLoadPage(uri) // Внутренние ссылки
+				else if (/^\#/.test(uri)){				// Ссылки на якоря
+					sel(`a[name=${uri.split("#")[1]}]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+				}
 			}
 		}
 	}

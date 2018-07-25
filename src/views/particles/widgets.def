@@ -1,4 +1,4 @@
-<div class="widget" id="preferences" hidden>
+<div class="widget" id="settings" hidden>
 	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox">
 		<h2>Настройки</h2>
@@ -11,24 +11,8 @@
 			<label onclick="switchToTab('testing')">Тестирование</label>
 		</div>
 
-		<div data-tab="basicSettings">
-			<input type="checkbox" id="localTime" hidden class="visibleCheckbox material-icons">
-			<label for="localTime">Mестное время</label>
+		<div data-tab="basicSettings" onclick="settings.toggleOption(event.target.dataset.optionId)">
 
-			<input type="checkbox" id="relativeTime" hidden class="visibleCheckbox material-icons">
-			<label for="relativeTime">Относительное время</label>
-
-			<input type="checkbox" id="useAJAX" hidden class="visibleCheckbox material-icons">
-			<label for="useAJAX">Использовать AJAX</label>
-
-			<input type="checkbox" id="revealSpoiledText" hidden class="visibleCheckbox material-icons">
-			<label for="revealSpoiledText">Раскрывать спойлеры</label>
-
-			<input type="checkbox" id="revealSpoiledImages" hidden class="visibleCheckbox material-icons">
-			<label for="revealSpoiledImages">Раскрывать картнки под спойлерами</label>
-
-			<input type="checkbox" id="showAnimations" hidden class="visibleCheckbox material-icons">
-			<label for="showAnimations">Показывать анимации</label>
 		</div>
 
 		<div data-tab="themes" hidden>

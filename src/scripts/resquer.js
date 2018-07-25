@@ -42,6 +42,7 @@
 })('masterLib.js',
 	['themes.js', 'initThemes()'],
 	'draggabilly.js',
+	'settings.js',
 	'AJAXNavigation.js',
 	['userInterface.js', 'initInterface()'],
 	'posting.js',

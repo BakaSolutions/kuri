@@ -44,41 +44,32 @@
 @import "_notifications";
 
 #notificationsContainer .notification{
-	transition: all .5s;
+	transition: all calc(.2s + var(--animationDuration));
 
 	&.clickable{
 		cursor: pointer;
 	}
 
 	&.newNotification{
-		transition: all .2s;
+		transition: all calc(var(--animationDuration) - .1s);
 	}
 }
 
 @import "_widgets";
 
 .widget{
-	$widgetHeight: 90vh;
-	$widgetWidth: 600px;
-
 	justify-content: center;
 	align-items: center;
-
-	.widgetBox:not(#mediaViewer .widgetBox){
-		height: $widgetHeight;
-		width: $widgetWidth;
-	}
 }
 
-#preferences{
-	.widgetBox{
-		overflow: hidden;
-	}
+.widgetBox{
+	min-width: 40vw;
+	min-height: 50vh;
+}
 
+#settings{
 	textarea{
-		resize: none;
-		height: 100%;
-		width: 100%;
+		resize: vertical;
 	}
 
 	input{
@@ -107,7 +98,16 @@
 		display: flex;
 		padding: var(--gap);
 		background-color: var(--bgcolor);
-		height: 100%;
+	}
+
+	[data-tab=basicSettings]{
+		::before{
+			content: "- ";
+		}
+
+		.active::before{
+			content: "+ "
+		}
 	}
 
 	#themes{

@@ -1,51 +1,5 @@
 const DEVICE = window.innerWidth > 450 ? "desktop" : "mobile"
-
-const settingsManager = { // TODO: Сделать это чудо рабочим и отрефакторить
-	defaultSettings: {
-		// Basic
-		AJAXNavigation: 1,
-		smoothScrolling: 0,
-		showJumpButtons: 1,
-		logging: 0,
-
-		// Posts
-		showNSFW: 0,
-		maskNSFW: 0,
-		useLocalTime: 1,
-		useRelativeTime: 1,
-		autoRefresh: 1,
-		markOwnPosts: 1,
-
-		// Posting
-		noko: 1,
-		markup: 0b111,
-		AJAXPosting: 1,
-		rememberInputValues: 1
-	},
-
-	settings: {},
-
-	init: function(){
-		this.settings = localStorage.settings ? JSON.parse(localStorage.settings) : {};
-
-		for (let field in this.defaultSettings) {
-			if (this.settings[field] === undefined) this.set(field, this.defaultSettings[field]);
-		}
-	},
-
-	set: function(field, value){ // settingsManager.set('hello world', true)
-		this.settings[field] = value;
-		localStorage.settings = JSON.stringify(this.settings);
-	},
-
-	get: function(field){
-		return this.settings[field];
-	},
-
-	toggle: function(field){
-		this.set(field, !this.get(field))
-	}
-}
+const INITIALIZED_SCRIPTS = []
 
 function createElement(nodeName, params) {
 	let node = document.createElement(nodeName)
@@ -85,8 +39,6 @@ function sel(selector){
 		return e.length > 1 ? e : e[0];
 	}
 }
-
-settingsManager.init();
 
 // Hotkeys
 (() => {

@@ -4,7 +4,7 @@ body{
 
 main{
 	margin-right: calc(45px + 2 * var(--gap));
-	transition: margin .3s;
+	transition: margin var(--animationDuration);
 	padding: var(--gap);
 }
 

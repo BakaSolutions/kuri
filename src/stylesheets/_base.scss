@@ -81,7 +81,7 @@ main{
 
 	padding: 5px;
 	color: var(--textcolor) !important;
-	transition: background-color .3s;
+	transition: background-color var(--animationDuration);
 	background-color: var(--btncolor);
 	/*border: 1px solid var(--bordercolor);*/
 	border: none;
