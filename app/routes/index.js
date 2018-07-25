@@ -36,11 +36,15 @@ Controllers.initHTTP = async app => {
       }
       await next();
       const status = ctx.status || 404;
-      if (status === 404) {
-        ctx.throw(404)
+      if (status === 404 && !ctx.body) {
+        throw {
+          status
+        };
       }
     } catch (err) {
-      return ctx.app.emit('error', err, ctx);
+      return (err instanceof Error)
+          ? ctx.app.emit('error', err, ctx)
+          : errorHandler(err, ctx, false);
     }
   });
 
@@ -65,29 +69,30 @@ Controllers.initHTTP = async app => {
   }
   Logger.info('[HTTP] Paths are inited.');
 
-  app.on('error', (err, ctx) => {
-    const status = err.status || 500;
-    let out = {
-      error: err.error || err.name,
-      message: err.message
-    };
-
-    if (config('debug.enable') && ctx.status >= 500) {
-      out.stack = err.stack.replace(new RegExp(FS.ROOT, 'g'), '') || err;
-    }
-
-    if (status >= 500) {
-      Logger.error('[ERR]', ctx.header.host, ctx.status, ctx.url, err.message);
-    }
-
-    if (!Controllers.isAJAXRequested(ctx)) {
-      out = Render.renderPage('pages/error', out);
-    }
-    ctx.body = out;
-  });
+  app.on('error', errorHandler);
 
   return app;
 };
+
+function errorHandler(err, ctx, isError = true) {
+  if (isError && /^E(PIPE|CONNRESET)$/.test(err.code)) {
+    return;
+  }
+
+  const status = err.status || 500;
+
+  if (status >= 500) {
+    Logger.error('[ERR]', ctx.header.host, status + '/' + ctx.status, ctx.url, err.message);
+
+    if (isError && config('debug.enable')) {
+      err.stack = err.stack.replace(new RegExp(FS.ROOT, 'g'), '') || err;
+    } else {
+      delete err.stack;
+    }
+  }
+
+  return Controllers.fail(ctx, err);
+}
 
 Controllers.isAJAXRequested = ctx => ctx.headers["X-Requested-With"] === "XMLHttpRequest";
 
@@ -98,9 +103,19 @@ Controllers.success = (ctx, out) => {
   ctx.body = out;
 };
 
-Controllers.fail = (ctx, out) => {
-  let code = out
+Controllers.fail = (ctx, out, templateName = 'pages/error') => {
+  ctx.status = out
     ? out.status || 500
     : 500;
+
+  if (out instanceof Error) {
+    out = Object.assign({}, out);
+  }
+
+  if (!Controllers.isAJAXRequested(ctx)) {
+    ctx.type = 'text/html';
+    out.debug = config('debug.enable');
+    return ctx.body = Render.renderPage(templateName, out);
+  }
   return ctx.throw(code, out.message, out);
 };
