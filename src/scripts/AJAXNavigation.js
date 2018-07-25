@@ -7,8 +7,6 @@ function asyncLoadPage(uri, noScrolling) {
 		closable: false
 	})
 
-	console.log(uri);
-
 	fetch(uri)
 		.then(response => {
 			notifications.remove(ntf)
@@ -37,7 +35,7 @@ function asyncLoadPage(uri, noScrolling) {
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
 						if (!noScrolling) {
-							sel(`a[name=${uri.includes("#") ? uri.split("#")[1] : "top"}]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
 						}
 
 						// console.log("Asynchronously navigated to", uri)
@@ -48,7 +46,6 @@ function asyncLoadPage(uri, noScrolling) {
 			}
 		})
 		.catch(err => {
-			console.log("error:", err)
 			ntf = notifications.add({
 				text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
 				class: "error",
