@@ -65,6 +65,11 @@ const media = {
 		} else{
 			console.error("Trying to set media width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
 		}
+	},
+
+	hide: function(){
+		this.reset()
+		toggleWidget("mediaViewer")
 	}
 }
 
