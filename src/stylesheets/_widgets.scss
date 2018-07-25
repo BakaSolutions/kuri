@@ -48,6 +48,8 @@
 		.widgetBox{
 			height: auto;
 			width: calc(192px + 4 * var(--gap));
+			min-height: auto;
+			min-width: auto;
 
 			img{
 				box-sizing: content-box;
