@@ -63,7 +63,7 @@
 }
 
 .widgetBox{
-	min-width: 40vw;
+	min-width: 30vw;
 	min-height: 50vh;
 }
 
@@ -143,8 +143,10 @@
 	z-index: 2001;
 
 	.widgetBox{
-		border: none;
 		background-color: transparent;
+		min-height: auto;
+		min-width: auto;
+		border: none;
 
 		&.is-pointer-down{
 			cursor: move;
