@@ -26,8 +26,8 @@ function sendPost() {
 
 	fetch(uri, options)
 		.then(response => {
-			if (response.status == 200) {
-				response.json().then(r => {
+			response.json().then(r => {
+				if (response.status == 200) {
 					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
 
 					notifications.add({
@@ -35,16 +35,16 @@ function sendPost() {
 						timeout: 10000,
 						class: 'notification'
 					})
+				} else{
+					throw r.message
+				}
+			})
+			.catch(err => {
+				notifications.add({
+					text: "Ошибка постинга:<br>" + err,
+					timeout: 10000,
+					class: 'notification'
 				})
-			} else {
-				throw response.status
-			}
-		})
-		.catch(err => {
-			notifications.add({
-				text: err,
-				timeout: 10000,
-				class: 'notification'
 			})
 		})
 }
