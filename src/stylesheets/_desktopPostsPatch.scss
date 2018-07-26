@@ -56,7 +56,7 @@
 	.thumb{
 		margin: calc(var(--gap) / 2) 0;
 
-		img{
+		img, .noPreview{
 			transition: opacity var(--animationDuration);
 		}
 
@@ -65,11 +65,16 @@
 				color: inherit;
 			}
 
-			img{
+			img, .noPreview{
 				opacity: .1
 			}
 		}
 	}
+
+	.noPreview{
+		height: 200px;
+		width: 200px;
+}
 
 	a.unpreviewable{
 		width: 200px;

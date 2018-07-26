@@ -17,6 +17,19 @@
 	.postAttachments{
 		display: flex;
 
+		.noPreview{
+			border: 1px solid var(--bordercolor);
+
+			justify-content: center;
+			align-items: center;
+			display: flex;
+
+			&::after{
+				color: var(--textcolor_secondary);
+				content: "Превью недоступно"
+			}
+		}
+
 		.info{
 			color: transparent;
 
