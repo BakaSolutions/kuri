@@ -62,10 +62,11 @@ function asyncLoadPage(uri, noScrolling) {
 			if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
 				e.preventDefault()
 
-				if (/^\//.test(uri)) asyncLoadPage(uri) // Внутренние ссылки
-				else if (/^\#/.test(uri)){				// Ссылки на якоря
-					sel(`a[name=${uri.split("#")[1]}]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
-				}
+				if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
+					sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+				} else if (/^\//.test(uri)) {
+					asyncLoadPage(uri)
+			 	}
 			}
 		}
 	}
