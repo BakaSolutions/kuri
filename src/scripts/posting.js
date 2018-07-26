@@ -60,8 +60,10 @@ captcha = {
 			options = {
 				credentials: "include",
 				method: "post",
-				body: new FormData(sel("#captcha form"))
+				body: new FormData()
 			}
+
+		options.body.append("code", sel("#captcha input").value);
 
 		return fetch(uri, options)
 			.then(response => {
@@ -74,8 +76,14 @@ captcha = {
 			.catch(err => console.error("Fetch error occured:", err))
 	},
 
-	send: async function() {
-		if (sel("#captcha input").value) {
+	send: async function(e) {
+		let value = sel("#captcha input").value
+
+		if (!/[0-9]/.test(e.key)) {
+			e.preventDefault()
+		}
+
+		if (e.key == "Enter" && value.length > 3) {
 			let c = await this.check()
 
 			if (c.passed) {

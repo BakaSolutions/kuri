@@ -129,9 +129,6 @@
 	<div class="widgetBox">
 		<h2>Проверка</h2>
 		<img width="192" height="64" onclick="captcha.update()">
-		<form method="post" autocomplete="off">
-			<input type="text" name="code" placeholder="Капча">
-			<button type="button" onclick="captcha.send()">Отправить</button>
-		</form>
+		<input type="text" autocomplete="off" placeholder="Капча" onkeypress="captcha.send(event)">
 	</div>
 </div>
