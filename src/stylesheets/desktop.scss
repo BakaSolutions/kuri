@@ -44,14 +44,14 @@
 @import "_notifications";
 
 #notificationsContainer .notification{
-	transition: all calc(.2s + var(--animationDuration));
+	transition: all var(--animationDuration);
 
 	&.clickable{
 		cursor: pointer;
 	}
 
 	&.newNotification{
-		transition: all calc(var(--animationDuration) - .1s);
+		transition: all var(--animationDuration);
 	}
 }
 
@@ -195,6 +195,8 @@
 	// Начальная позиция
 	left: calc(50vw - var(--widgetMinWidth) / 2);
 	top: 10em;
+
+	border: 1px solid var(--bordercolor);
 
 	.widgetHandle, .pseudoLink{
 		cursor: default;
