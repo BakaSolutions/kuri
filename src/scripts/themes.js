@@ -65,3 +65,5 @@ function switchThemeSelector(activate, initial) {
 		activate.classList.add("active")
 	}
 }
+
+initThemes()

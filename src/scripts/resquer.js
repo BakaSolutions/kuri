@@ -1,51 +1,36 @@
-((...args) => {
-	function apply(uri, content, callback){
-		let node;
+const loader = {
+	request: function(uri) {
+		fetch(uri).then(response => {
+			if (response.status < 400) {
+				response.text().then(r => {
+					let node
 
-		switch (uri.split('.').pop()) {
-			case 'js':
-				node = document.createElement('script');
-				node.type = "text/javascript"
-				break
-			case 'css':
-				node = document.createElement('style');
-				node.type = "text/css"
-				break
-		}
+					switch (uri.split(".").pop()) {
+						case "js":
+							node = document.createElement("script")
+							node.type = "text/javascript"
+							break
 
-		node.innerHTML = content;
-		document.querySelector('head').appendChild(node);
+						case "css":
+							node = document.createElement("style")
+							node.type = "text/css"
+							break
+					}
+					
+					node.innerText = r
+					document.querySelector("head").appendChild(node)
+				})
+			} else {
+				throw response.statusText
+			}
+		}).catch(err => console.error("Fetch error occured:", err))
+	},
 
-		eval(callback) // TODO: Избавиться от коллбеков и инициализировать скрипты по-человечески
+	run: function(...items) {
+		for (let item of items) this.request(item)
 	}
+}
 
-	function request(uri, callback) {
-		fetch(uri)
-			.then(response => {
-				if (response.status == 200) {
-					response.text().then(data => apply(uri, data, callback))
-				} else {
-					throw response.status
-				}
-			})
-			.catch(err => console.error("Resources fetch error occured:", err))
-	}
-
-	for (let arg of args) {
-		if (arg instanceof Object){
-			request(`/${arg[0].split('.').pop()}/${arg[0]}`, arg[1])
-		} else{
-			request(`/${arg.split('.').pop()}/${arg}`)
-		}
-	}
-
-})('masterLib.js',
-	['themes.js', 'initThemes()'],
-	'draggabilly.js',
-	'settings.js',
-	'AJAXNavigation.js',
-	['userInterface.js', 'initInterface()'],
-	'posting.js',
-	'musicPlayer.js',
-	'notifications.js'
-)
+loader.run("/js/themes.js")
+loader.run("/js/masterLib.js", "/js/draggabilly.js")
+loader.run("/js/themes.js", "/js/settings.js", "/js/AJAXNavigation.js", "/js/userInterface.js", "/js/posting.js", "/js/musicPlayer.js", "/js/notifications.js")

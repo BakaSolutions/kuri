@@ -259,3 +259,5 @@ function initInterface() {
 		postingFormTrigger.addEventListener("change", initPostingForm)
 	}
 }
+
+initInterface()
