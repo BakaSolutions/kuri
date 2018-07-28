@@ -2,16 +2,21 @@ const gulp = require('gulp');
 const cleanCSS = require('gulp-clean-css');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
-const minify = require("gulp-babel-minify");
+const minify = require('gulp-babel-minify');
+const concat = require('gulp-concat');
 const Render = require('./app/helpers/render');
 
 let input = {
 	dot: ['src/views/**/*.@(jst|def|dot)', 'custom/src/views/**/*.@(jst|def|dot)'],
-	js: ['src/scripts/**/*.js', 'custom/src/scripts/**/*.js', '!src/scripts/**/*.min.js', '!custom/src/scripts/**/*.min.js'],
 	minjs: ['src/scripts/**/*.min.js', 'custom/src/scripts/**/*.min.js'],
 	sass: ['src/stylesheets/*.?(s)css', 'custom/src/stylesheets/*.?(s)css'],
 	staticFiles: ['src/static/**/*'],
-	themes: ['src/themes/**/*.json']
+	themes: ['src/themes/**/*.json'],
+	js: {
+		base: ["src/scripts/base/masterLib.js", "src/scripts/base/*.js"],
+		home: ["src/scripts/home.js"],
+		themes: ["src/scripts/modules/themes.js"]
+	}
 };
 
 let output = {
@@ -30,13 +35,13 @@ gulp.task('dot', (() => {
 	return Render.compileTemplates();
 }));
 
-gulp.task('js', (() => {
-	gulp.src(input.minjs)
-		.pipe(gulp.dest(output.js));
-
-	return gulp.src(input.js)
-		.pipe(minify())
-		.pipe(gulp.dest(output.js));
+gulp.task("js", (() => {
+	for (let inputName in input.js) {
+		gulp.src(input.js[inputName])
+			.pipe(minify())
+			.pipe(concat(`${inputName}.js`))
+			.pipe(gulp.dest(output.js))
+	}
 }));
 
 gulp.task('themes', (() => {
@@ -55,12 +60,12 @@ gulp.task('sass', (() => {
 
 gulp.task('watch', (() => {
 	watch(input.dot, () => gulp.start('dot'));
-	watch(input.js, () => gulp.start('js'));
 	watch(input.sass, () => gulp.start('sass'));
 	watch(input.themes, () => gulp.start('themes'));
+
+	for (let inputName in input.js) {
+		watch(input.js[inputName], () => gulp.start("js"))
+	}
 }));
 
-// Бесполезные обновления только ломают то, что работает
-// Особенно если обновляешь инструменты, которыми пользуешься не ты, а кто-то другой
-// gulp.task('default', gulp.parallel('dot', 'js', 'sass', 'staticFiles', 'themes'));
 gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);

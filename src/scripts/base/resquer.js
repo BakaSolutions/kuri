@@ -3,6 +3,7 @@ const loader = {
 		fetch(uri).then(response => {
 			if (response.status < 400) {
 				response.text().then(r => {
+					console.log("resquer succesfully loaded", uri)
 					let node
 
 					switch (uri.split(".").pop()) {
@@ -32,5 +33,3 @@ const loader = {
 }
 
 loader.run("/js/themes.js")
-loader.run("/js/masterLib.js", "/js/draggabilly.js")
-loader.run("/js/themes.js", "/js/settings.js", "/js/AJAXNavigation.js", "/js/userInterface.js", "/js/posting.js", "/js/musicPlayer.js", "/js/notifications.js")

@@ -54,20 +54,19 @@ function asyncLoadPage(uri, noScrolling) {
 		})
 }
 
-(() => { // Бинд кликов
-	sel('body').onclick = (e) => {
-		if (e.target.hasAttribute('href')){
-			let uri = e.target.getAttribute('href').replace(window.location.host, "")
+// Бинд кликов
+sel("body").onclick = (e) => {
+	if (e.target.hasAttribute('href')){
+		let uri = e.target.getAttribute('href').replace(window.location.host, "")
 
-			if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
-				e.preventDefault()
+		if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
+			e.preventDefault()
 
-				if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
-					sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
-				} else if (/^\//.test(uri)) {
-					asyncLoadPage(uri)
-			 	}
-			}
+			if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
+				sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+			} else if (/^\//.test(uri)) {
+				asyncLoadPage(uri)
+		 	}
 		}
 	}
-})()
+}

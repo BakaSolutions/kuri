@@ -22,6 +22,7 @@
   "dependencies": {
     "dot": "^1.1.2",
     "figurecon": "rngnrs/figurecon",
+    "gulp-concat": "^2.6.1",
     "koa": "^2.3.0",
     "koa-router": "^7.3.0",
     "rfc6902": "^2.2.2",

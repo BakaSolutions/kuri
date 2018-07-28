@@ -41,26 +41,24 @@ function sel(selector){
 }
 
 // Hotkeys
-(() => {
-	document.onkeydown = (e) => {
-		// console.log("Button pushed: ", e.key)
+document.onkeydown = (e) => {
+	// console.log("Button pushed: ", e.key)
 
-		switch (e.key) {
-			case "+":
-				media.zoom(1.2)
-				break
-			case "-":
-				media.zoom(0.8)
-				break
-			case "Escape":
-				if (sel("#mediaViewer:not([hidden])")) toggleWidget("mediaViewer")
-				break
-			case "F5":
-				if (!e.ctrlKey) {
-					e.preventDefault();
-					asyncLoadPage(document.location.href, 1)
-				}
-				break
-		}
+	switch (e.key) {
+		case "+":
+			media.zoom(1.2)
+			break
+		case "-":
+			media.zoom(0.8)
+			break
+		case "Escape":
+			if (sel("#mediaViewer:not([hidden])")) toggleWidget("mediaViewer")
+			break
+		case "F5":
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				asyncLoadPage(document.location.href, 1)
+			}
+			break
 	}
-})()
+}
