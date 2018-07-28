@@ -3,6 +3,8 @@ const notifications = {
 	lastId: 0,
 
 	add: function(parameters){
+		console.log("new notification:", parameters.text)
+
 		if (this.container) {
 			let id = this.lastId++
 

@@ -78,7 +78,7 @@
 		}
 
 		button#submit{
-			height: $narrowLineHeight;
+			max-height: 2 * $narrowLineHeight;
 			font-size: inherit;
 
 			grid-column: 2/4;
