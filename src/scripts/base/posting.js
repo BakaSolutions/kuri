@@ -51,13 +51,13 @@ function sendPost() {
 
 captcha = {
 	update: function() {
-		sel("#captcha img").src = "https://tuderi.tumba.ch:48596/api/v1/captcha.image" + "?" + +new Date()
+		sel("#captcha img").src = FOXTAN_URL_BASE + "api/v1/captcha.image" + "?" + +new Date()
 	},
 
 	check: async function() {
 		console.log("sending captcha", sel("#captcha input").value)
 
-		let uri = "https://tuderi.tumba.ch:48596/api/v1/captcha.check",
+		let uri = FOXTAN_URL_BASE + "api/v1/captcha.check",
 			options = {
 				credentials: "include",
 				method: "post",
@@ -71,7 +71,7 @@ captcha = {
 				if (response.status == 200) {
 					return response.json()
 				} else {
-					throw response.statusText
+					throw response
 				}
 			})
 			.catch(err => {
@@ -91,7 +91,7 @@ captcha = {
 			e.preventDefault()
 		}
 	
-		if (e.key == "Enter" && value.length > 3) {
+		if (e.key == "Enter" && value.length > 4) {
 			let c = await this.check()
 			sel("#captcha input").value = ""
 

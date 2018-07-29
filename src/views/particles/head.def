@@ -7,6 +7,9 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" media="(min-width: 451px)" href="/css/desktop.css">
 	<link rel="stylesheet" media="(max-width: 450px)" href="/css/mobile.css">
+	<script type="text/javascript">
+		const FOXTAN_URL_BASE = '{{=it.foxtan.href}}';
+	</script>
 	<script type="text/javascript" src="/js/base.js" defer></script>
 	<link rel="shortcut icon" href="/static/favicon.ico">
 
