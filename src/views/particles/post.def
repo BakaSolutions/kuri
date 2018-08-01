@@ -10,9 +10,11 @@
 		{{? }}
 
 		<!-- Рефлинк -->
-		<a class="refLink" name="{{!post.number}}" href="{{=it.site.url.pathname}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
+		<a class="refLink" href="{{=it.site.url.pathname}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
 			{{? post.subject}}{{!post.subject}}{{? }} #{{!post.number}}
 		</a>
+
+		<a class="jumpToPost" name="{{!post.number}}"></a>
 
 		<!-- Дата -->
 		<time data-creationdate="{{!post.createdAt}}">{{!post.formatted_date}}</time>
