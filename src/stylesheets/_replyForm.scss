@@ -109,6 +109,37 @@
 					opacity: 1
 				}
 			}
+
+			.fancyFileInput{
+				@include user-select(none);
+				width: $narrowLineHeight * 2;
+				height: $narrowLineHeight * 2;
+				border: 1px solid var(--textcolor_secondary);
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				position: relative;
+				
+				&:not(.hasFile):after{
+					content: "cloud_upload";
+					font-size: 2em;
+				}
+
+				&.hasFile{
+					background-size: cover;
+					background-position: center;
+					margin-right: calc(var(--gap) / 2);
+				}
+
+				.del{
+					position: absolute;
+					background: var(--bgcolor);
+					right: 0;
+					top: 0;
+				}
+			}
 		}
 
 		.btn{
