@@ -239,12 +239,14 @@ function toggleWidget(widget, init) {
 	}
 }
 
-function initInterface() {
+function initInterface(update) {
 	initHiddenPosts()
-	media.init()
-
+	fancyFileInputs.init()
+	
 	// Инициализация плавающей формы постинга
-	if(DEVICE == "desktop"){
+	if(!update && DEVICE == "desktop"){
+		media.init()
+
 		let postingFormTrigger = sel("#replyFormShow")
 
 		function initPostingForm() {

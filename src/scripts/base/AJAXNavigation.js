@@ -31,7 +31,7 @@ function asyncLoadPage(uri, noScrolling) {
 						let postMenu = sel("#postMenu:not([hidden])")
 						if(postMenu) postMenu.setAttribute("hidden", 1)
 
-						initHiddenPosts()
+						initInterface(1)
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
 						if (!noScrolling) {

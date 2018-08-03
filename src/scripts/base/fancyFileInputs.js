@@ -1,13 +1,12 @@
 const fancyFileInputs = {
-	inputCount: 0,
-	lastInputId: 0,
-
 	init: function() {
 		this.wrapper = sel("#fileInputs")
 		this.fileLimit = this.wrapper.dataset.filelimit
 
 		this.wrapper.style.display = "flex"
 		this.wrapper.innerHTML = ""
+		this.lastInputId = 0
+		this.inputCount = 0
 		this.addInput()
 	},
 
@@ -83,5 +82,3 @@ const fancyFileInputs = {
 		}
 	}
 }
-
-fancyFileInputs.init()
