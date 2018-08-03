@@ -259,6 +259,13 @@ function initInterface(update) {
 		}
 
 		postingFormTrigger.addEventListener("change", initPostingForm)
+
+		// Только на время беты
+		notifications.add({
+			text: `Тестер! Не пропускай последние новости,<br>проверь нашу <a href="${this.location.origin}/static/changelog.htm">страницу с чейнджлогом</a>`,
+			class: "notification",
+			timeout: 60000
+		})
 	}
 }
 

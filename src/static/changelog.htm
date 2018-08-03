@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Чейнджлог</title>
+	<style type="text/css">
+		body{
+			height: 100vh;
+			margin: 0;
+			
+			background-color: #0c0f12;
+			font-family: sans;
+			color: #cccccc;
+			
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 12em 1fr;
+		}
+
+		ul{
+			list-style: none;
+		}
+
+		section:last-child li::before{
+			color: #79bde2;
+			content: ">"
+		}
+
+		li::before, time{
+			margin-right: .5em;
+		}
+
+		time, a{
+			color: #79bde2;
+		}
+
+		a:not(:hover){
+			text-decoration: none;
+		}
+
+		time::before{
+			content: "[";
+		}
+
+		time::after{
+			content: "]";
+		}
+
+		pre{
+			grid-column: 1/3;
+			justify-self: center;
+			font-family: monospace;
+		}
+
+		section{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+	</style>
+</head>
+<body>
+	<pre>
+   '_       _ '    
+  | \ \\__// /|    На этой странице ниже представлен список последних
+  \ /        \/         изменений <a href="tuderi.tumba.ch">нового движка Тумбача</a>
+  _|_  v   v  |_             а также (некоторые) планы на будущее
+=.   =   _* =   =
+  \= ________=/
+      /_   _\
+     |= WW  =\--..
+    | |     | |  _\.
+    _\|_   _|/  >   \
+   //___\/___\/\      \
+              \.___.-. |
+	</pre>
+	<section>
+		<h1>Последние изменения</h1>
+		<ul>
+			<li><time>03.08.2018</time>Исправлены разнообразные баги интерфейса, добавлен чейнджлог</li>
+			<li><time>02.08.2018</time>Добавлены улучшенные поля для прикрепления файлов</li>
+			<li><time>01.08.2018</time>Пофикшен баг с быстрой прокруткой на мобильных</li>
+		</ul>
+	</section>
+	<section>
+		<h1>Запланированные изменения</h1>
+		<ul>
+			<li>Наладить механизм удаления постов</li>
+			<li>Отображать прогресс загрузки файлов на сервер</li>
+			<li>Сделать опциональный пересчет серверного времени в постах на клиентское</li>
+			<li>Сделать опциональный пересчет времени в постах в относительный формат</li>
+			<li>Доделать аудиоплеер</li>
+			<li>Настроить обрезку превью изображений до подходящего формата</li>
+		</ul>
+	</section>
+</body>
+</html>
