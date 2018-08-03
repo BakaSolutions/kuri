@@ -5,7 +5,7 @@ body{
 main{
 	margin-right: calc(45px + 2 * var(--gap));
 	transition: margin var(--animationDuration);
-	padding: var(--gap);
+	padding: 0 var(--gap);
 }
 
 .mobileOnly{
