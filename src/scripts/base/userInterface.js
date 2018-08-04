@@ -242,6 +242,7 @@ function toggleWidget(widget, init) {
 function initInterface(update) {
 	initHiddenPosts()
 	fancyFileInputs.init()
+	time.recalculate()
 	
 	// Инициализация плавающей формы постинга
 	if(!update && DEVICE == "desktop"){

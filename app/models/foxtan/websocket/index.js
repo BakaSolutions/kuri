@@ -83,12 +83,7 @@ function parseDateInPosts(posts) {
   }
   let postsCount = posts.length;
   for (let i = 0; i < postsCount; i++) {
-		/*
-			Каждому посту вписывается его дата дважды:
-			— численное значение может быть распаршено на фронте в усовершенствованный человекочитаемый вид;
-			— преформатированное значение поставляется для обратной совместимости с шизиками.
-		*/
-		posts[i].createdAt = +new Date(posts[i].createdAt);
+    posts[i].createdAt = new Date(posts[i].createdAt);
     posts[i].formatted_date = Tools.parseDate(posts[i].createdAt);
   }
 
