@@ -41,7 +41,7 @@ const time = {
 
 					let days = Math.round(diff / 8.64e7)
 					return `${days} ${this.num2Word(days, ["день", "дня", "дней"])} назад`
-				} else if (relativeOffset){
+				} else {
 					let d = date.getDate().toString(),
 						month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
 						yyyy = date.getFullYear(),
@@ -50,7 +50,7 @@ const time = {
 
 					return `${d} ${month} ${yyyy} ${hh}:${mm}`
 				}
-			})(new Date(+new Date(node.dataset.unix) + (settings.getOption("LOCTIME") ? relativeOffset : 0))) || node.innerText
+			})(new Date(+new Date(node.dataset.unix) + (settings.getOption("LOCTIME") ? relativeOffset : 0)))
 		}
 	}
 }
