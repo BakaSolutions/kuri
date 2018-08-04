@@ -11,7 +11,6 @@ let Model = module.exports = {
   models: {
     base: {
       site: config('site'),
-      tzOffset: -(new Date()).getTimezoneOffset(),
       foxtan: {
         href: config('foxtan.http.href')
       }
