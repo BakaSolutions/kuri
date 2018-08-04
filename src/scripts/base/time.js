@@ -16,11 +16,9 @@ const time = {
 	},
 
 	recalculate: function() {
-		let relativeOffset = (-(new Date()).getTimezoneOffset() - SERVER_TZ_OFFSET) * 60000
-
-		for (let node of document.querySelectorAll(".postDetails time")) {
-			node.innerText = ((date) => {
-				if (settings.getOption("RELTIME")) {
+		if (settings.getOption("RELTIME")) {
+			for (let node of document.querySelectorAll(".postDetails time")) {
+				node.innerText = ((date) => {
 					let diff = +new Date() - date
 
 					// console.log(Math.round(diff / 8.64e7), Math.round(diff / 3.6e6), Math.round(diff / 6e+4))
@@ -41,16 +39,8 @@ const time = {
 
 					let days = Math.round(diff / 8.64e7)
 					return `${days} ${this.num2Word(days, ["день", "дня", "дней"])} назад`
-				} else {
-					let d = date.getDate().toString(),
-						month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
-						yyyy = date.getFullYear(),
-						hh = date.getHours().toString().padStart(2, 0),
-						mm = date.getMinutes().toString().padStart(2, 0)
-
-					return `${d} ${month} ${yyyy} ${hh}:${mm}`
-				}
-			})(new Date(+new Date(node.dataset.unix) + (settings.getOption("LOCTIME") ? relativeOffset : 0)))
+				})(new Date(+new Date(node.dataset.unix)))
+			}
 		}
 	}
 }

@@ -2,7 +2,6 @@ const settings = {
 	wrapper: sel(["[data-tab=basicSettings]"]),
 
 	init: function() {
-		settings.addOption("LOCTIME", "Использовать локальное время")
 		settings.addOption("RELTIME", "Отображать относительное время")
 		settings.addOption("USEAJAX", "Использовать AJAX")
 		// settings.addOption("UNSPTXT", "Раскрывать спойлеры", false)
@@ -22,7 +21,7 @@ const settings = {
 	},
 
 	getDefaultOption: function(id){
-		return ["LOCTIME", "RELTIME", "USEAJAX", "SHANIMA"].includes(id)
+		return ["RELTIME", "USEAJAX", "SHANIMA"].includes(id)
 	},
 
 	getOption: function(id){
