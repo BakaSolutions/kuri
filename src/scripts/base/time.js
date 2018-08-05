@@ -48,11 +48,11 @@ const time = {
 						}
 					}
 
-					let d = date.getDate().toString(),
-					month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
-					yyyy = date.getFullYear(),
-					hh = date.getHours().toString().padStart(2, 0),
-					mm = date.getMinutes().toString().padStart(2, 0)
+					let d = date.getDate().toString().padStart(2, 0),
+						month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
+						yyyy = date.getFullYear(),
+						hh = date.getHours().toString().padStart(2, 0),
+						mm = date.getMinutes().toString().padStart(2, 0)
 
 					return `${d} ${month} ${yyyy} ${hh}:${mm}`
 				})(new Date(+new Date(node.dataset.unix)))
