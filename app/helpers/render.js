@@ -10,7 +10,7 @@ let templates = {};
 
 const settings = {
   __proto__: doT.templateSettings,
-  strip: false
+  strip: true
 };
 const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 

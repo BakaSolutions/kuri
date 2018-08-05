@@ -1,6 +1,6 @@
 :root{
 	--widgetMinWidth: 450px;
-	--sidebarWidth: 28vh;
+	--sidebarWidth: 20em;
 }
 
 @import "_base";
@@ -23,10 +23,10 @@
 	}
 
 	.btn, button{
-		font-size: 1.5em;
+		font-size: 1.5rem;
 
-		height: 45px;
-		width: 45px;
+		height: 3.5rem;
+		width: 3.5rem;
 	}
 }
 
@@ -125,7 +125,7 @@
 		}
 
 		input[type="color"]{
-			// grid-column: 2;
+			margin: .1em;
 			height: 1.5em;
 			padding: 0;
 			width: 3em;

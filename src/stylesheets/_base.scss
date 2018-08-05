@@ -85,6 +85,7 @@ main{
 	background-color: var(--btncolor);
 	/*border: 1px solid var(--bordercolor);*/
 	border: none;
+	border-radius: 2px;
 
 	@include user-select(none);
 }

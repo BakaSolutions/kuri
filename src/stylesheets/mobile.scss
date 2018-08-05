@@ -1,7 +1,7 @@
 $navBarHeight: 60px;
 
 :root{
-	--sidebarWidth: calc(66.6vw + 0.5 * var(--gap));
+	--sidebarWidth: calc(100vw / 3 * 2 + 0.5 * var(--gap));
 }
 
 @import "_defaultTheme";

@@ -21,7 +21,7 @@ const fancyFileInputs = {
 
 			let button = createElement("label", {
 				htmlFor: `f${this.lastInputId}`,
-				className: "fancyFileInput material-icons"
+				className: "fancyFileInput material-icons btn"
 			})
 
 			this.lastInputId++

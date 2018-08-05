@@ -1,5 +1,5 @@
 #replyForm{
-	background-color: var(--btncolor);
+	background-color: var(--bgcolor_card);
 	padding: var(--gap);
 	position: fixed;
 	z-index: 2000;
@@ -112,9 +112,10 @@
 
 			.fancyFileInput{
 				@include user-select(none);
+				background-color: var(--btncolor);
 				width: $narrowLineHeight * 2;
 				height: $narrowLineHeight * 2;
-				border: 1px solid var(--textcolor_secondary);
+				// border: 1px solid var(--btncolor);
 
 				display: flex;
 				justify-content: center;
@@ -144,7 +145,6 @@
 
 		.btn{
 			line-height: 0;
-			background-color: inherit;
 		}
 
 		[type="checkbox"]:checked + .btn{

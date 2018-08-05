@@ -29,7 +29,7 @@ const time = {
 						}
 
 						let minutes = Math.round(diff / 6e4)
-						if (minutes < 40){
+						if (minutes < 50){
 							return `${minutes} ${this.num2Word(minutes, ["минуту", "минуты", "минут"])} назад`
 						}
 
@@ -39,16 +39,22 @@ const time = {
 						}
 
 						let days = Math.round(diff / 8.64e7)
-						return `${days} ${this.num2Word(days, ["день", "дня", "дней"])} назад`
-					} else {
-						let d = date.getDate().toString(),
-						month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
-						yyyy = date.getFullYear(),
-						hh = date.getHours().toString().padStart(2, 0),
-						mm = date.getMinutes().toString().padStart(2, 0)
+						if (days == 1){
+							return "Вчера"	
+						}
 
-						return `${d} ${month} ${yyyy} ${hh}:${mm}`
+						if (days <= 7){
+							return `${days} ${this.num2Word(days, ["день", "дня", "дней"])} назад`
+						}
 					}
+
+					let d = date.getDate().toString(),
+					month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
+					yyyy = date.getFullYear(),
+					hh = date.getHours().toString().padStart(2, 0),
+					mm = date.getMinutes().toString().padStart(2, 0)
+
+					return `${d} ${month} ${yyyy} ${hh}:${mm}`
 				})(new Date(+new Date(node.dataset.unix)))
 			}
 		}

@@ -154,12 +154,13 @@ function deselectAllPosts() {
 
 function openPostMenu(event, board, postNumber, opPost) {
 	let postMenu = sel("#postMenu"),
-		rect = event.target.getBoundingClientRect()
+		rect = event.target.getBoundingClientRect(),
+		button = sel("#replyFormButton")
 
 	if (!postMenu.hasAttribute("hidden") && postNumber == postMenu.dataset.postNumber && board == postMenu.dataset.board) {
-		postMenu.setAttribute("hidden", "1")
+		postMenu.setAttribute("hidden", 1)
 	} else{
-		postMenu.style.left = rect.right + "px"
+		postMenu.style.left = rect.right - 20 + "px"
 		postMenu.style.top 	= rect.bottom + window.scrollY - 10  + "px"
 
 		postMenu.dataset.board = board
@@ -239,13 +240,27 @@ function toggleWidget(widget, init) {
 	}
 }
 
+function handleOpenPostForm() {
+	let button = sel("#replyFormButton")
+	
+	if (sel("#replyFormShow").checked){
+		button.classList.add("active")
+	} else{
+		button.classList.remove("active")
+	}
+}
+
 function initInterface(update) {
 	initHiddenPosts()
 	fancyFileInputs.init()
 	time.recalculate()
-	
-	// Инициализация плавающей формы постинга
-	if(!update && DEVICE == "desktop"){
+
+	handleOpenPostForm()
+	sel("#replyFormShow").onclick = handleOpenPostForm
+
+	if (DEVICE == "mobile"){
+		sel("a[name=top]").scrollIntoView()
+	} else if(!update && DEVICE == "desktop"){
 		media.init()
 
 		let postingFormTrigger = sel("#replyFormShow")
@@ -262,11 +277,13 @@ function initInterface(update) {
 		postingFormTrigger.addEventListener("change", initPostingForm)
 
 		// Только на время беты
-		notifications.add({
-			text: `Тестер! Не пропускай последние новости,<br>проверь нашу <a href="${this.location.origin}/static/changelog.htm">страницу с чейнджлогом</a>`,
-			class: "notification",
-			timeout: 60000
-		})
+		setTimeout(() => {
+			notifications.add({
+				text: `Тестер! Не пропускай последние новости,<br>проверь нашу <a href="${this.location.origin}/static/changelog.htm">страницу с чейнджлогом</a>`,
+				class: "notification",
+				timeout: 30000
+			})
+		}, 10000)
 	}
 }
 

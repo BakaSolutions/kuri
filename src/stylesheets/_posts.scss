@@ -10,7 +10,7 @@
 	position: relative;
 
 	&:not(:first-child):not(.widgetContent){
-		background-color: var(--bgcolor);
+		background-color: var(--btncolor);
 		margin: .4em 0;
 	}
 
@@ -52,10 +52,22 @@
 
 	time{
 		color: var(--textcolor_secondary);
+		position: absolute;
+		right: var(--gap);
+		font-size: .9em
+	}
+
+	.refLink{
+		padding-right: .2em
+	}
+
+	.subject{
+		color: var(--textcolor_secondary);
+		// color: var(--linkcolor_hover);
 	}
 
 	.material-icons{
-		vertical-align: sub;
+		vertical-align: bottom;
 		font-size: 1.35em;
 	}
 

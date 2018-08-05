@@ -11,4 +11,8 @@
 	.btn, button{
 		margin: calc(var(--gap) / 2);
 	}
+
+	.active{
+		background-color: var(--btncolor_hover)
+	}
 }
