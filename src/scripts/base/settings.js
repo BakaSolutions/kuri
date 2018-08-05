@@ -2,8 +2,6 @@ const settings = {
 	wrapper: sel(["[data-tab=basicSettings]"]),
 
 	init: function() {
-		settings.addOption("LOCTIME", "Использовать локальное время")
-		settings.addOption("RELTIME", "Отображать относительное время")
 		settings.addOption("USEAJAX", "Использовать AJAX")
 		// settings.addOption("UNSPTXT", "Раскрывать спойлеры", false)
 		// settings.addOption("UNSPPCS", "Раскрывать картнки под спойлерами", false)

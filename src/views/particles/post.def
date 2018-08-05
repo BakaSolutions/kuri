@@ -17,7 +17,7 @@
 		<a class="jumpToPost" name="{{!post.number}}"></a>
 
 		<!-- Дата -->
-		<time data-unix="{{!post.createdAt}}">{{!post.formatted_date}}</time>
+		<time title="{{!post.createdAt}}">{{!post.formatted_date}}</time>
 
 		<!-- Меню -->
 		<span class="material-icons jsOnly" onclick="openPostMenu(event, '{{!it.board.name}}', {{!post.number}}{{? post.number == post.threadNumber}}, 1{{? }})">menu</span>

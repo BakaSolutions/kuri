@@ -16,47 +16,45 @@ const time = {
 	},
 
 	recalculate: function() {
-		if (settings.getOption("LOCTIME")) {
-			for (let node of document.querySelectorAll(".postDetails time")) {
-				node.innerText = ((date) => {
-					if (settings.getOption("RELTIME")) {
-						let diff = +new Date() - date
+		for (let node of document.querySelectorAll(".postDetails time")) {
+			node.innerText = ((date) => {
+				let d = date.getDate(),
+					month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
+					yyyy = date.getFullYear(),
+					hh = date.getHours().toString().padStart(2, 0),
+					mm = date.getMinutes().toString().padStart(2, 0)
 
-						// console.log(Math.round(diff / 8.64e7), Math.round(diff / 3.6e6), Math.round(diff / 6e+4))
+				node.title = `${d} ${month} ${yyyy} ${hh}:${mm}`
 
-						if (diff < 4e4){
-							return "Только что"
-						}
+				let diff = +new Date() - date
 
-						let minutes = Math.round(diff / 6e4)
-						if (minutes < 50){
-							return `${minutes} ${this.num2Word(minutes, ["минуту", "минуты", "минут"])} назад`
-						}
+				// console.log(Math.round(diff / 8.64e7), Math.round(diff / 3.6e6), Math.round(diff / 6e+4))
 
-						let hours = Math.round(diff / 3.6e6)
-						if (hours < 20){
-							return `${hours} ${this.num2Word(hours, ["час", "часа", "часов"])} назад`
-						}
+				if (diff < 4e4){
+					return "Только что"
+				}
 
-						let days = Math.round(diff / 8.64e7)
-						if (days == 1){
-							return "Вчера"	
-						}
+				let minutes = Math.round(diff / 6e4)
+				if (minutes < 50){
+					return `${minutes} ${this.num2Word(minutes, ["минуту", "минуты", "минут"])} назад`
+				}
 
-						if (days <= 7){
-							return `${days} ${this.num2Word(days, ["день", "дня", "дней"])} назад`
-						}
-					}
+				let hours = Math.round(diff / 3.6e6)
+				if (hours < 20){
+					return `${hours} ${this.num2Word(hours, ["час", "часа", "часов"])} назад`
+				}
 
-					let d = date.getDate().toString().padStart(2, 0),
-						month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],
-						yyyy = date.getFullYear(),
-						hh = date.getHours().toString().padStart(2, 0),
-						mm = date.getMinutes().toString().padStart(2, 0)
+				let days = Math.round(diff / 8.64e7)
+				if (days == 1){
+					return "Вчера"	
+				}
 
-					return `${d} ${month} ${yyyy} ${hh}:${mm}`
-				})(new Date(+new Date(node.dataset.unix)))
-			}
+				if (days <= 7){
+					return `${days} ${this.num2Word(days, ["день", "дня", "дней"])} назад`
+				}
+
+				return `${d} ${month} ${yyyy}`
+			})(new Date(+new Date(node.title)))
 		}
 	}
 }
