@@ -21,8 +21,6 @@ body{
 	background-color: var(--bgcolor);
 
 	flex-direction: column;
-	overflow-y: scroll;
-	min-height: 100vh;
 	display: flex;
 	margin: 0;
 
@@ -69,6 +67,8 @@ main{
 	flex-direction: column;
 	display: flex;
 	z-index: 500;
+
+	min-height: 100vh;
 }
 
 // Buttons
