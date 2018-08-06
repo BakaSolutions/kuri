@@ -1,4 +1,4 @@
-<article id="post{{!post.number}}">
+<article class="post" data-number="{{!post.number}}" data-board="{{!it.board.name}}" data-op="{{! post.number == post.threadNumber}}">
 	<div class="postDetails">
 		<!-- Удаление поста -->
 		<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>

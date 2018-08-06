@@ -6,7 +6,7 @@
 	}
 }
 
-[id^="post"]{
+.post{
 	position: relative;
 
 	&:not(:first-child):not(.widgetContent){
@@ -41,9 +41,20 @@
 	}
 }
 
-// Скрытие
-[id^="post"].hidden .postBody, .thread.hidden>*:not(:first-child), .thread.hidden>*:first-child .postBody{
-	display: none;
+// Отметки
+.post[data-marks~=hidden] .postBody, .thread[data-marks~=hidden] > *:not(:first-child), .thread[data-marks~=hidden] > *:first-child .postBody{
+	display: none
+}
+
+.postLink[data-marks~=hidden]{
+	text-decoration: line-through
+}
+
+.post[data-marks~=own] .refLink, .postLink[data-marks~=own]{
+	&::after{
+		content: "(You)";
+		margin-left: .4em
+	}
 }
 
 .postDetails{

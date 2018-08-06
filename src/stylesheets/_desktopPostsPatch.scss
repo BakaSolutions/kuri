@@ -94,7 +94,7 @@
 	display: flex;
 }
 
-[id^="post"]:not(:first-child):not(.widgetContent){
+.post:not(:first-child):not(.widgetContent){
 	margin-left: calc(var(--gap) * 2);
 	padding: calc(var(--gap) / 2) var(--gap);
 }

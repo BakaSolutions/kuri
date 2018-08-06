@@ -73,43 +73,6 @@ const media = {
 	}
 }
 
-function initHiddenPosts() {
-	let object = JSON.parse(localStorage.getItem("hiddenPosts") || "{}"),
-		board = window.location.pathname.split("/")[1]
-
-	if (object.hasOwnProperty(board)){
-		for (postNumber of object[board].threads) {
-			toggleHidePost({board, postNumber, "opPost": 1}, 1)
-		}
-
-		for (postNumber of object[board].posts) {
-			toggleHidePost({board, postNumber, "opPost": 0}, 1)
-		}
-	}
-}
-
-function toggleHidePost(data, initial) {
-	let target = sel(`#post${data.postNumber}`)
-	if (!target) return
-	if (data.opPost == 1) target = target.parentNode
-
-	if (initial) {
-		target.classList.add("hidden")
-	} else{
-		let array = JSON.parse(localStorage.getItem("hiddenPosts") || "{}")
-
-		if (target.classList.contains("hidden")){
-			array[data.board][data.opPost == 1 ? "threads" : "posts"].splice(array[data.board][data.opPost == 1 ? "threads" : "posts"].indexOf(data.postNumber), 1)
-		} else{
-			if (!array[data.board]) array[data.board] = {"threads": [], "posts": []}
-			array[data.board][data.opPost == 1 ? "threads" : "posts"].push(data.postNumber)
-		}
-
-		target.classList.toggle("hidden")
-		localStorage.setItem("hiddenPosts", JSON.stringify(array))
-	}
-}
-
 function quickReply(postNumber, threadNumber) {
 	let cb = sel("#replyFormShow")
 	if(!cb.checked) cb.click()
@@ -174,36 +137,25 @@ function openPostMenu(event, board, postNumber, opPost) {
 function handlePostMenuClick(event) {
 	let menu = event.target
 	if (menu.dataset.action) menu = menu.parentNode
-
+	
+	let data = menu.dataset
 	toggleWidget(menu)
 
 	switch (event.target.dataset.action) {
 		case "delete":
-			handlePostDeletion(menu.dataset)
+			document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
+			sel(`[for="delete-${data.board}:${data.postNumber}"]`).click()
 			break
 		case "hide":
-			toggleHidePost(menu.dataset)
+			marker.toggleMark(data.board, data.postNumber, "hidden")
 			break
 		case "edit":
-			handlePostEdition(menu.dataset)
+			// TODO:
 			break
 		case "ban":
-			handleUserBan(menu.dataset)
+			// TODO:
 			break
 	}
-}
-
-function handlePostDeletion(data) {
-	document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
-	sel(`[for="delete-${data.board}:${data.postNumber}"]`).click()
-}
-
-function handlePostEdition(data) {
-	// TODO:
-}
-
-function handleUserBan(data) {
-	// TODO:
 }
 
 function switchToTab(name) { // Переключение табов в виджете настроек
@@ -251,9 +203,14 @@ function handleOpenPostForm() {
 }
 
 function initInterface(update) {
-	initHiddenPosts()
+	let emptyPage = sel(".noThreads") ? true : false
+
+	if (!emptyPage){
+		marker.init()
+		time.recalculate()
+	}
+
 	fancyFileInputs.init()
-	time.recalculate()
 
 	handleOpenPostForm()
 	sel("#replyFormShow").onclick = handleOpenPostForm

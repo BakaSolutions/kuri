@@ -46,6 +46,8 @@ function asyncLoadPage(uri, noScrolling) {
 			}
 		})
 		.catch(err => {
+			console.log(err)
+			
 			ntf = notifications.add({
 				text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
 				class: "error",

@@ -29,6 +29,7 @@ function sendPost() {
 			response.json().then(r => {
 				if (response.status == 200) {
 					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
+					marker.addMark(r.boardName, r.number.toString(), "own")
 
 					notifications.add({
 						text: r.message,
@@ -40,6 +41,7 @@ function sendPost() {
 				}
 			})
 			.catch(err => {
+				console.log(err)
 				notifications.add({
 					text: "Ошибка постинга:<br>" + err,
 					timeout: 10000,
