@@ -11,7 +11,7 @@
 
 		<!-- Рефлинк -->
 		<a class="refLink" href="{{=it.site.url.pathname}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
-			<span class="subject">{{? post.subject}}{{!post.subject}}{{?? }}Тестер{{? }}</span> #{{!post.number}}
+			<span class="subject">{{? post.subject}}{{!post.subject}}{{?? }}{{!it.board.defaultUsername || ''}}{{? }}</span> #{{!post.number}}
 		</a>
 
 		<a class="jumpToPost" name="{{!post.number}}"></a>
