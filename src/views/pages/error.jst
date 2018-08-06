@@ -6,13 +6,17 @@
 		{{#def["particles/navigation"]}}
 		<main>
 			<header>
-				<div id="name">{{!it.name}}</div>
-				<div id="message">{{!it.message}}</div>
+				<a id="title" href="/">
+					<h2>{{!it.name}} {{!it.message}}</h2>
+				</a>
+
 				{{?it.stack}}
 					<pre>{{=it.stack}}</pre>
 				{{?}}
 
-				<img id="err" src="/static/err.png" alt="">
+				<div id="banner">
+					<img src="/static/err.png">
+				</div>
 			</header>
 		</main>
 		{{#def["particles/widgets"]}}

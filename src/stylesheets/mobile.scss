@@ -25,10 +25,6 @@ main{
 	display: none !important;
 }
 
-header a:not(#banner){
-	font-size: 1.2em;
-}
-
 @import "_posts";
 @import "_mobilePostsPatch";
 @import "_navBar";

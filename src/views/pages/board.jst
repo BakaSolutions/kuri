@@ -6,8 +6,11 @@
 		<main>
 			<a name="top"></a>
 			<header>
-				<a id="banner" href="{{=it.site.url.pathname}}{{!it.board.name}}/">
-					/{{!it.board.name}}/ — {{!it.board.title}}
+				<!-- <img id="banner"> -->
+
+				<a id="title" href="{{=it.site.url.pathname}}{{!it.board.name}}/">
+					<h2>/{{!it.board.name}}/ — {{!it.board.title}}</h2>
+					<h3>{{!it.board.subtitle}}</h3>
 				</a>
 			</header>
 			{{? !it.threads.length}}

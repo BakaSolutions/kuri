@@ -30,19 +30,24 @@ body{
 
 header{
 	@include user-select(none);
-	text-align: center;
+	// text-align: center;
 
-	#banner {
-		color: var(--textcolor);
+	#title{
+		display: block;
+		padding: 1em 0;
 
-		font-weight: bold;
-		line-height: 2em;
-		font-size: 1.3em;
-	}
+		& > *{
+			margin: 0;
+		}
 
-	a:not(#banner){
-		color: var(--textcolor_secondary) !important;
-		margin: 0 .5em;
+		h2{
+			color: var(--textcolor);
+		}
+
+		h3{
+			padding-bottom: .5em;
+			font-weight: normal;
+		}
 	}
 }
 
