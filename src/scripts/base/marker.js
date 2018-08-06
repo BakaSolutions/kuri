@@ -3,7 +3,8 @@ const marker = {
 		let json = localStorage.getItem("postMarks")
 		if (json){
 			this.marks = JSON.parse(json)
-			this.markPosts(...sel(".post"))
+			this.markPosts(...document.querySelectorAll(".post"))
+			this.markLinks(...document.querySelectorAll(".postLink"))
 		} else {
 			this.marks = {}
 		}
@@ -49,7 +50,7 @@ const marker = {
 			this.backup()
 
 			this.markPosts(sel(`.post[data-board=${board}][data-number="${number}"]`))
-			this.markLinks(sel(`.postLink[data-board=${board}][data-number="${number}"]`))
+			this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`))
 		} else {
 			console.error("Post already has this mark")
 		}
@@ -65,7 +66,7 @@ const marker = {
 			this.backup()
 
 			this.markPosts(sel(`.post[data-board=${board}][data-number="${number}"]`))
-			this.markLinks(sel(`.postLink[data-board=${board}][data-number="${number}"]`))
+			this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`))
 		} else {
 			console.error("Post doesn't have this mark")
 		}
