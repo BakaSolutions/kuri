@@ -54,6 +54,7 @@ function sendPost() {
 captcha = {
 	update: function() {
 		sel("#captcha img").src = FOXTAN_URL_BASE + "api/v1/captcha.image" + "?" + +new Date()
+		setTimeout(() => {sel("#captcha input").focus()}, 100)
 	},
 
 	check: async function() {
