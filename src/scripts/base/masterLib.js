@@ -54,6 +54,9 @@ document.onkeydown = (e) => {
 		case "Escape":
 			if (sel("#mediaViewer:not([hidden])")) toggleWidget("mediaViewer")
 			break
+		case "Enter":
+			if (e.ctrlKey && sel("#replyFormShow").checked) handlePostSend(e)
+			break
 		case "F5":
 			if (!e.ctrlKey) {
 				e.preventDefault();
