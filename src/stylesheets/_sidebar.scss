@@ -8,14 +8,10 @@
 	position: fixed;
 
 	#logo{
+		color: var(--textcolor);
 		text-align: center;
 		line-height: 1.3em;
 		margin: 5px 0;
-
-		a{
-			color: var(--textcolor) !important;
-			display: block;
-		}
 
 		:first-child{
 			line-height: 1em;

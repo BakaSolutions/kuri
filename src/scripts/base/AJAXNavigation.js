@@ -57,12 +57,16 @@ function asyncLoadPage(uri, noScrolling) {
 }
 
 // Бинд кликов
-sel("body").onclick = (e) => {
-	if (e.target.hasAttribute('href')){
-		let uri = e.target.getAttribute('href').replace(window.location.host, "")
+sel("body").onclick = (event) => {
+	let target = event.target,
+		uri = (target.getAttribute("href") || target.parentNode.getAttribute("href"))
 
-		if(/^(\/|#)/.test(uri) && !e.target.hasAttribute('download')){
-			e.preventDefault()
+	if (!uri) return
+	else {
+		uri = uri.replace(window.location.host, "")
+
+		if(/^(\/|#)/.test(uri) && !target.hasAttribute("download")){
+			event.preventDefault()
 
 			if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
 				sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})

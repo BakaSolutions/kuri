@@ -2,10 +2,10 @@
 <input type="checkbox" id="hideImagesCheckbox" hidden>
 
 <div id="sidebar">
-	<div id="logo">
-		<a href="{{=it.site.url.pathname}}">Тумба.ч</a>
-		<a href="{{=it.site.url.pathname}}">технологичный и удобный имиджборд</a>
-	</div>
+	<a href="/" id="logo">
+		<div>Тумба.ч</div>
+		<div>технологичный и удобный имиджборд</div>
+	</a>
 
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}

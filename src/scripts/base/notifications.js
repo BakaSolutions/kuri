@@ -23,7 +23,7 @@ const notifications = {
 
 			if (parameters.timeout){
 				setTimeout(() => {
-					notifications.remove(id);
+					notifications.remove(id)
 				}, parameters.timeout)
 			}
 
@@ -40,15 +40,13 @@ const notifications = {
 	},
 
 	remove: function(id) {
-		setTimeout(() => {
-			let el = sel(`[data-notification-id="${id}"]`)
+		let el = sel(`[data-notification-id="${id}"]`)
 
-			if (el){
-				el.classList.remove("newNotification")
-				setTimeout(() => {
-					this.container.removeChild(el)
-				}, 200)
-			} else console.log("Element doesn't exist.")
-		}, 100);
+		if (el){
+			el.classList.remove("newNotification")
+			setTimeout(() => {
+				this.container.removeChild(el)
+			}, 200)
+		}
 	}
 }
