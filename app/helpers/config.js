@@ -10,8 +10,8 @@ let config = {
     }
   },
   foxtan: {
-    http: URL.parse('https://tuderi.tumba.ch:48596/'),
-    websocket: URL.parse('wss://tuderi.tumba.ch:48596/ws'),
+    http: URL.parse('https://foxtan.tuderi.tumba.ch/'),
+    websocket: URL.parse('wss://foxtan.tuderi.tumba.ch/ws'),
   },
   server: {
     host: '0.0.0.0',

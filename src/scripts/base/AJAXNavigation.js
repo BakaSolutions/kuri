@@ -1,5 +1,5 @@
 function asyncLoadPage(uri, noScrolling) {
-	if (uri == "/" || !settings.getOption("USEAJAX")) return location.href = uri
+	if (uri == "/" || !settings.storage.get("USEAJAX")) return location.href = uri
 
 	let ntf = notifications.add({
 		text: "Загрузка...",

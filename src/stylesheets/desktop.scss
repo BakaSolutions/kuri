@@ -95,16 +95,6 @@
 		background-color: var(--bgcolor);
 	}
 
-	[data-tab=basicSettings]{
-		::before{
-			content: "- ";
-		}
-
-		.active::before{
-			content: "+ "
-		}
-	}
-
 	#themes{
 		max-height: 10em;
 		margin-bottom: var(--gap);
