@@ -190,7 +190,7 @@
 		background-color: var(--linkcolor);
 
 		&::after{
-			transition: right var(--animationDuration)
+			transition: right var(--animationDuration);
 			right: 0%;
 		}
 	}
