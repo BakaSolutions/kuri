@@ -1,0 +1,167 @@
+.widgetBox{
+	min-width: 30vw;
+	min-height: 50vh;
+}
+
+#settings{
+	textarea{
+		resize: vertical;
+	}
+
+	input{
+		height: 2em;
+		background: var(--bgcolor_card);
+	}
+
+	.tabs{
+		@include user-select(none);
+
+		display: flex;
+		justify-content: space-between;
+
+		label{
+			padding: calc(var(--gap) / 2) var(--gap);
+			background-color: var(--bgcolor_card);
+
+			&.active{
+				background-color: var(--bgcolor);
+			}
+		}
+	}
+
+	[data-tab]:not([hidden]){
+		flex-direction: column;
+		display: flex;
+		padding: var(--gap);
+		background-color: var(--bgcolor);
+	}
+
+	#themes{
+		max-height: 10em;
+		margin-bottom: var(--gap);
+		overflow-y: auto;
+
+
+		:hover, .active{
+			background-color: var(--bgcolor_card)
+		}
+	}
+
+	#themeEditor{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+
+		label{
+			grid-column: 1;
+		}
+
+		input[type="color"]{
+			margin: .1em;
+			height: 1.5em;
+			padding: 0;
+			width: 3em;
+			vertical-align: bottom;
+		}
+	}
+
+	[data-tab="basicSettings"]{
+		& > label {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			//padding: 0 var(--gap);
+			min-height: 30px;
+		}
+
+		input{
+			background-color: transparent;
+			text-align: right;
+
+			&.switch {
+				display: none;
+			}
+		}
+
+		span.switch {
+			position: relative;
+			display: block;
+			
+			transition: background-color var(--animationDuration);
+			background-color: var(--btncolor);
+			border-radius: .5em;
+			width: 1.7em;
+			height: .7em;
+
+			&::after {
+				border-radius: 50%;
+				content: "";
+
+				right: calc(100% - 1em);
+				position: absolute;
+				top: -25%;
+
+				transition: all var(--animationDuration);
+				background-color: var(--linkcolor_hover);
+				height: 1em;
+				width: 1em;
+			}
+		}
+
+		input.switch:checked + span.switch {
+			background-color: var(--linkcolor);
+
+			&::after{
+				transition: right var(--animationDuration);
+				right: 0%;
+			}
+		}
+	}
+}
+
+#mediaViewer{
+	z-index: 2001;
+
+	.widgetBox{
+		background-color: transparent;
+		min-height: auto;
+		min-width: auto;
+		border: none;
+
+		&.is-pointer-down{
+			cursor: move;
+		}
+
+		*{
+			vertical-align: middle;
+			max-width: 80vw;
+			max-height: 80vh;
+		}
+	}
+
+	.mediaInfo, #zoomButtons{
+		position: absolute;
+		bottom: 1em;
+		z-index: 1;
+		opacity: .9;
+	}
+
+	.mediaInfo{
+		left: 1em;
+
+		background-color: var(--bgcolor_card);
+		padding: .5em;
+	}
+
+	#zoomButtons{
+		right: calc(1em + 12px);
+		display: flex;
+
+		button{
+			padding: .3em;
+		}
+
+		button:first-child{
+			margin-right: var(--gap)
+		}
+	}
+}

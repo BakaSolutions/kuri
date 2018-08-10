@@ -11,7 +11,7 @@
 			<label onclick="switchToTab('testing')">Тестирование</label>
 		</div>
 
-		<div data-tab="basicSettings" onclick="settings.toggleOption(event)">
+		<div data-tab="basicSettings" onchange="settings.updateOption(event.target)">
 
 		</div>
 

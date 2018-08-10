@@ -3,7 +3,7 @@ const settings = {
 		settings.wrapper = sel(["[data-tab=basicSettings]"])
 
 		settings.addOption("USEAJAX", "Использовать AJAX")
-		settings.addOption("SHANIMA", "Показывать анимации")
+		settings.addOption("ANIDUR", "Длительность анимаций")
 
 		INITIALIZED_SCRIPTS.push("settings")
 	},
@@ -13,14 +13,14 @@ const settings = {
 			defaults: {
 				settings: {
 					"USEAJAX": true,
-					"SHANIMA": true
+					"ANIDUR": 0.3
 				}
 			}
 		})
 
 		// let config = this.storage.get("settings")
 		let config = { //TODO: Тут даже комментарии излишни
-			"SHANIMA": this.storage.get("settings.SHANIMA"), 
+			"ANIDUR": this.storage.get("settings.ANIDUR"), 
 			"USEAJAX": this.storage.get("settings.USEAJAX")
 		}
 
@@ -64,19 +64,21 @@ const settings = {
 		this.storage.set(`settings.${id}`, value)
 
 		switch (id) {
-			case "SHANIMA":
-				document.documentElement.style.setProperty("--animationDuration", value ? ".3s" : "0s")
+			case "ANIDUR":
+				document.documentElement.style.setProperty("--animationDuration", `${value}s`)
 				break
 		}
 	},
 
-	toggleOption: function(event) {
-		let id = event.target.id
-		if (!id) return
-
-		let value = this.storage.get(`settings.${id}`)
-		if (typeof value == "boolean") {
-			this.setOption(id, !value)
+	updateOption: function(target) {
+		// console.log(event)
+		let id = target.id,
+			currentValue = this.storage.get(`settings.${id}`)
+		
+		if (typeof currentValue == "boolean") {
+			this.setOption(id, target.checked)
+		} else{
+			this.setOption(id, target.value)
 		}
 	},
 

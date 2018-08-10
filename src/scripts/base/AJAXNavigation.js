@@ -35,7 +35,7 @@ function asyncLoadPage(uri, noScrolling) {
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
 						if (!noScrolling) {
-							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: settings.getOption("ANIDUR") > 0 ? "smooth" : "instant"})
 						}
 
 						// console.log("Asynchronously navigated to", uri)
@@ -69,7 +69,7 @@ sel("body").onclick = (event) => {
 			event.preventDefault()
 
 			if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
-				sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("SHANIMA") ? "smooth" : "instant"})
+				sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("ANIDUR") > 0 ? "smooth" : "instant"})
 			} else if (/^\//.test(uri)) {
 				asyncLoadPage(uri)
 		 	}
