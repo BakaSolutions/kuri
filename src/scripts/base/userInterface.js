@@ -219,6 +219,7 @@ function initInterface(update) {
 		sel("a[name=top]").scrollIntoView()
 	} else if(!update && DEVICE == "desktop"){
 		media.init()
+		settings.initConfig()
 
 		let postingFormTrigger = sel("#replyFormShow")
 

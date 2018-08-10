@@ -156,51 +156,42 @@
 		cursor: pointer;
 		min-height: 30px;
 	}
+
 	input.switch {
 		display: none;
 	}
-	label.switch {
+
+	span.switch {
 		position: relative;
 		display: block;
-		width: 2em;
-		height: 1em;
-		cursor: pointer;
-		-webkit-tap-highlight-color: transparent;
-		transform: translate(0);
+		
+		transition: background-color var(--animationDuration);
+		background-color: var(--btncolor);
+		border-radius: .5em;
+		width: 1.7em;
+		height: .7em;
 
-		&:before {
+		&::after {
+			border-radius: 50%;
 			content: "";
-			position: relative;
-			top: .15em;
-			left: .15em;
-			width: 1.7em;
-			height: .7em;
-			display: block;
-			background: var(--bordercolor);
-			border-radius: .7em;
-			transition: background var(--animationDuration);
-		}
-		span {
+
+			right: calc(100% - 1em);
 			position: absolute;
-			top: 0;
-			left: 0;
-			width: 1em;
-			height: 1em;
-			display: block;
-			background: var(--textcolor);
-			border-radius: 1em;
+			top: -25%;
+
 			transition: all var(--animationDuration);
+			background-color: var(--linkcolor_hover);
+			height: 1em;
+			width: 1em;
 		}
 	}
 
-	input.switch:checked + label.switch:before {
-		background: var(--linkcolor);
-		opacity: .75;
-	}
-	input.switch:checked + label.switch span {
-		background: var(--linkcolor);
-		transform: translateX(1.7vmin);
-		transition: all var(--animationDuration) cubic-bezier(0.8, 0.4, 0.3, 1.25),
-					background var(--animationDuration) ease;
+	input.switch:checked + span.switch {
+		background-color: var(--linkcolor);
+
+		&::after{
+			transition: right var(--animationDuration)
+			right: 0%;
+		}
 	}
 }
