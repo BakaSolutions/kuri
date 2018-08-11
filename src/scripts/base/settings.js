@@ -8,27 +8,6 @@ const settings = {
 		INITIALIZED_SCRIPTS.push("settings")
 	},
 
-	initConfig: function() {
-		this.storage = new Storage({
-			defaults: {
-				settings: {
-					"USEAJAX": true,
-					"ANIDUR": 0.3
-				}
-			}
-		})
-
-		// let config = this.storage.get("settings")
-		let config = { //TODO: Тут даже комментарии излишни
-			"ANIDUR": this.storage.get("settings.ANIDUR"), 
-			"USEAJAX": this.storage.get("settings.USEAJAX")
-		}
-
-		for (variable in config) {
-			this.setOption(variable, config[variable])
-		}
-	},
-
 	addOption: function(id, description) {
 		let node = createElement("label", {
 			innerText: description
@@ -36,8 +15,7 @@ const settings = {
 			input = createElement("input", {
 			id
 		})
-
-		let value = this.storage.get(`settings.${id}`)
+		let value = this.getOption(id)
 
 		if (typeof value == "boolean") {
 			input.type = "checkbox"
@@ -61,7 +39,7 @@ const settings = {
 
 	setOption: function(id, value) {
 		console.log("Setting option", id, "to", value)
-		this.storage.set(`settings.${id}`, value)
+		storage.set(`settings.${id}`, value)
 
 		switch (id) {
 			case "ANIDUR":
@@ -71,9 +49,8 @@ const settings = {
 	},
 
 	updateOption: function(target) {
-		// console.log(event)
 		let id = target.id,
-			currentValue = this.storage.get(`settings.${id}`)
+			currentValue = this.getOption(id)
 		
 		if (typeof currentValue == "boolean") {
 			this.setOption(id, target.checked)
@@ -82,7 +59,5 @@ const settings = {
 		}
 	},
 
-	getOption: function(id) {
-		return this.storage.get(`settings.${id}`)
-	}
+	getOption: id => storage.get(`settings.${id}`)
 }

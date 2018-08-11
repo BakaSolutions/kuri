@@ -27,13 +27,17 @@ class Storage {
       return fromDefaults;
     }
     if (isObject(fromStorage) && isObject(fromDefaults)) {
-      return Object.assign(fromStorage, fromDefaults);
+      return Object.assign(fromDefaults, fromStorage);
     }
     return fromStorage;
   }
 
   set(path, value) {
     let [key, ...keys] = this._parsePath(path);
+
+    if (value && !isNaN(value) && typeof value !== 'boolean') { // is [Number] or [String <containing number>]
+      value = +value;
+    }
 
     let prevValue = this._rawGet(key);
     let currValue = this._diffSet(keys, value);
@@ -139,3 +143,12 @@ class Storage {
   }
 
 }
+
+let storage = new Storage({
+  defaults: {
+    settings: {
+      "USEAJAX": true,
+      "ANIDUR": 0.3
+    }
+  }
+});
