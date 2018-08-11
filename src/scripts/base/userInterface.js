@@ -117,8 +117,7 @@ function deselectAllPosts() {
 
 function openPostMenu(event, board, postNumber, opPost) {
 	let postMenu = sel("#postMenu"),
-		rect = event.target.getBoundingClientRect(),
-		button = sel("#replyFormButton")
+		rect = event.target.getBoundingClientRect()
 
 	if (!postMenu.hasAttribute("hidden") && postNumber == postMenu.dataset.postNumber && board == postMenu.dataset.board) {
 		postMenu.setAttribute("hidden", 1)
@@ -203,7 +202,9 @@ function handleOpenPostForm() {
 }
 
 function initInterface(update) {
-	let emptyPage = sel(".noThreads") ? true : false
+  document.documentElement.style.setProperty("--animationDuration", `${storage.get('settings.ANIDUR')}s`)
+
+	let emptyPage = !!sel(".noThreads")
 
 	if (!emptyPage){
 		marker.init()
@@ -219,7 +220,6 @@ function initInterface(update) {
 		sel("a[name=top]").scrollIntoView()
 	} else if(!update && DEVICE == "desktop"){
 		media.init()
-		settings.initConfig()
 
 		let postingFormTrigger = sel("#replyFormShow")
 

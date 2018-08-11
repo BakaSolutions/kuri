@@ -1,5 +1,5 @@
 function asyncLoadPage(uri, noScrolling) {
-	if (uri == "/" || !settings.getOption("USEAJAX")) return location.href = uri
+	if (uri == "/" || !storage.get("settings.USEAJAX")) return location.href = uri
 
 	let ntf = notifications.add({
 		text: "Загрузка...",
@@ -35,15 +35,15 @@ function asyncLoadPage(uri, noScrolling) {
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
 						if (!noScrolling) {
-							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: settings.getOption("ANIDUR") > 0 ? "smooth" : "instant"})
+							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: storage.get("settings.ANIDUR") > 0 ? "smooth" : "instant"})
 						}
 
 						// console.log("Asynchronously navigated to", uri)
 						// sel("main").classList.remove("refreshing")
 					})
-			} else {
-				throw response.status
 			}
+
+			throw response.status
 		})
 		.catch(err => {
 			console.log(err)
@@ -62,17 +62,16 @@ sel("body").onclick = (event) => {
 		uri = (target.getAttribute("href") || target.parentNode.getAttribute("href"))
 
 	if (!uri) return
-	else {
-		uri = uri.replace(window.location.host, "")
 
-		if(/^(\/|#)/.test(uri) && !target.hasAttribute("download")){
-			event.preventDefault()
+	uri = uri.replace(window.location.host, "")
 
-			if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
-				sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: settings.getOption("ANIDUR") > 0 ? "smooth" : "instant"})
-			} else if (/^\//.test(uri)) {
-				asyncLoadPage(uri)
-		 	}
+	if(/^(\/|#)/.test(uri) && !target.hasAttribute("download")){
+		event.preventDefault()
+
+		if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
+			sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: storage.get("settings.ANIDUR") > 0 ? "smooth" : "instant"})
+		} else if (/^\//.test(uri)) {
+			asyncLoadPage(uri)
 		}
 	}
 }
