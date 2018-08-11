@@ -68,7 +68,7 @@
 
 		<div data-tab="securitySettings" hidden>
 			Пароль:
-			<input type="password" placeholder="Пароль">
+			<input type="password" name="password" form="replyForm deletePosts" placeholder="Пароль">
 		</div>
 
 		<div data-tab="testing" hidden>
