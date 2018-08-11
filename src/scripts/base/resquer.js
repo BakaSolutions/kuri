@@ -25,11 +25,9 @@ const loader = {
 				throw response.statusText
 			}
 		}).catch(err => console.error("Fetch error occured:", err))
-	},
-
-	run: function(...items) {
-		for (let item of items) this.request(item)
 	}
 }
 
-loader.run("/js/themes.js")
+for (module of storage.get("settings.modules")) {
+	loader.request(`/js/${module}.js`)
+}

@@ -65,6 +65,14 @@
 	}
 
 	[data-tab="basicSettings"]{
+		label{
+			margin-left: var(--gap)
+		}
+
+		& > span:not(:first-child) {
+			margin-top: var(--gap)
+		}
+
 		& > label {
 			display: flex;
 			align-items: center;

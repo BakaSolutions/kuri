@@ -202,11 +202,9 @@ function handleOpenPostForm() {
 }
 
 function initInterface(update) {
-  document.documentElement.style.setProperty("--animationDuration", `${storage.get('settings.ANIDUR')}s`)
+	document.documentElement.style.setProperty("--animationDuration", `${storage.get("settings.ANIDUR")}s`)
 
-	let emptyPage = !!sel(".noThreads")
-
-	if (!emptyPage){
+	if (!sel(".noThreads")){
 		marker.init()
 		time.recalculate()
 	}

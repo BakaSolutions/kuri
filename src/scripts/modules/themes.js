@@ -1,69 +1,113 @@
-async function initThemes (){
-	let name = localStorage.getItem("theme") || "tumbach",
-		json = localStorage.getItem(`theme-${name}`) || await loadTheme(name)
+themes = {
+	init: async function () {
+		let name = localStorage.getItem("theme") || "tumbach",
+			json = localStorage.getItem(`theme-${name}`) || await this.load(name)
 
-	applyTheme(json)
-	switchThemeSelector(document.querySelector(`[data-theme="${name}"]`), 1)
-}
+		this.apply(json)
+		// this.switchSelector(document.querySelector(`[data-theme="${name}"]`), 1)
+	},
 
-async function loadTheme(name) {
-	return fetch(`${window.location.origin}/themes/${name}.json`)
-		.then(response => {
-			if (response.status == 200) {
-				return response.text()
-						.then(data => {
-							localStorage.setItem(`theme-${name}`, data)
-							return data
-						})
-			} else {
-				throw response.status
-			}
+	initInterface: function () {
+		// this.wrapper = 
+		this.showcase = createElement("div", {
+			id: "themes",
+			onclick: this.select
 		})
-		.catch(err => console.error("Theme fetch error occured:", err))
-}
 
-async function selectTheme(event) {
-	let name = event.target.dataset.theme,
-		json = name == "custom" ? parseCustomTheme(event) : localStorage.getItem(`theme-${name}`) || await loadTheme(name)
+		this.addToShowcase({
+			id: "tumbach",
+			description: "Standart"
+		}, {
+			id: "crychan",
+			description: "Crychan"
+		}, {
+			id: "sosach",
+			description: "Sosach"
+		}, {
+			id: "oneDark",
+			description: "One Dark"
+		}, {
+			id: "tumbachClassic",
+			description: "Tumbach Classic"
+		})
 
-	applyTheme(json)
-	switchThemeSelector(event.target)
-	localStorage.setItem("theme", name)
-}
+		sel("[data-tab=themes]").appendChild(this.showcase)
 
-function applyTheme(json, updateEditor = 1) {
-	let object = JSON.parse(json)
+		sel("label[data-module=themes]").removeAttribute("hidden")
+	},
 
-	for (let rule in object) {
-		if (updateEditor) document.querySelector(`#themeEditor [name="${rule}"]`).value = object[rule]
-		document.documentElement.style.setProperty(`--${rule}`, object[rule])
-	}
-}
+	addToShowcase: function (...themes) {
+		for (theme of themes) {
+			let node = createElement("div", {
+				innerText: theme.description
+			})
 
-function parseCustomTheme(){
-	let object = {}
+			node.dataset.themeId = theme.id
 
-	for (let input of document.querySelectorAll("#themeEditor input")) {
-		object[input.name] = input.value
-	}
+			this.showcase.appendChild(node)
+		}
+	},
 
-	let json = JSON.stringify(object)
-	localStorage.setItem("theme-custom", json)
-	return json
-}
+	load: async function (name) {
+		return fetch(`${window.location.origin}/themes/${name}.json`)
+			.then(response => {
+				if (response.status == 200) {
+					return response.text()
+							.then(data => {
+								localStorage.setItem(`theme-${name}`, data)
+								return data
+							})
+				} else {
+					throw response.status
+				}
+			})
+			.catch(err => console.error("Theme fetch error occured:", err))
+	},
 
-function switchThemeSelector(activate, initial) {
-	if (!initial){
-		let deactivate = document.querySelector("#themes .active")
+	select: async function (event) {
+		let name = event.target.dataset.themeId,
+			json = name == "custom" ? themes.parse(event) : localStorage.getItem(`theme-${name}`) || await themes.load(name)
 
-		if (deactivate != activate){
-			deactivate.classList.remove("active")
+		themes.apply(json)
+		// themes.switchSelector(event.target)
+		localStorage.setItem("theme", name)
+	},
+
+	apply: function (json, updateEditor = 1) {
+		let object = JSON.parse(json)
+
+		for (let rule in object) {
+			// if (updateEditor) document.querySelector(`#themeEditor [name="${rule}"]`).value = object[rule]
+			document.documentElement.style.setProperty(`--${rule}`, object[rule])
+		}
+	},
+
+	parse: function (){
+		let object = {}
+
+		for (let input of document.querySelectorAll("#themeEditor input")) {
+			object[input.name] = input.value
+		}
+
+		let json = JSON.stringify(object)
+		localStorage.setItem("theme-custom", json)
+		return json
+	},
+
+	switchSelector: function (activate, initial) {
+		if (!initial){
+			let deactivate = document.querySelector("#themes .active")
+
+			if (deactivate != activate){
+				deactivate.classList.remove("active")
+			}
+		}
+
+		if (!activate.classList.contains("active")){
+			activate.classList.add("active")
 		}
 	}
-
-	if (!activate.classList.contains("active")){
-		activate.classList.add("active")
-	}
 }
 
-initThemes()
+themes.init()
+if (INITIALIZED_SCRIPTS.includes("settings")) themes.initInterface()

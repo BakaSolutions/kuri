@@ -147,6 +147,7 @@ class Storage {
 let storage = new Storage({
   defaults: {
     settings: {
+      "modules": [],
       "USEAJAX": true,
       "ANIDUR": 0.3
     }
