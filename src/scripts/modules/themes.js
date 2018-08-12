@@ -8,7 +8,7 @@ themes = {
 	},
 
 	initInterface: function () {
-		// this.wrapper = 
+		this.wrapper = settings.addTab("themes", "Темы")
 		this.showcase = createElement("div", {
 			id: "themes",
 			onclick: this.select
@@ -31,9 +31,7 @@ themes = {
 			description: "Tumbach Classic"
 		})
 
-		sel("[data-tab=themes]").appendChild(this.showcase)
-
-		sel("label[data-module=themes]").removeAttribute("hidden")
+		this.wrapper.appendChild(this.showcase)
 	},
 
 	addToShowcase: function (...themes) {

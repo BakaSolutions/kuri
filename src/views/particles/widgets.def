@@ -3,20 +3,19 @@
 	<div class="widgetBox">
 		<h2>Настройки</h2>
 
-		<div class="tabs">
-			<label onclick="switchToTab('basicSettings')" class="active">Общее</label>
-			<label onclick="switchToTab('themes')" data-module="themes" hidden>Темы</label>
-			<label onclick="switchToTab('spoilingSettings')">Автоскрытие</label>
-			<label onclick="switchToTab('securitySettings')">Безопасность</label>
-			<label onclick="switchToTab('testing')">Тестирование</label>
+		<div class="tabs" onclick="settings.switchToTab(event.target.dataset.tab)">
+			<label data-tab="basicSettings" class="active">Общее</label>
+			<label data-tab="spoilingSettings">Автоскрытие</label>
+			<label data-tab="securitySettings">Безопасность</label>
+			<label data-tab="testing">Тестирование</label>
 		</div>
 
 		<div data-tab="basicSettings" onchange="settings.updateOption(event.target)">
 
 		</div>
 
-		<div data-tab="themes" hidden>
-			<!-- <div id="themes" onclick="selectTheme(event)">
+		<!-- <div data-tab="themes" hidden>
+			<div id="themes" onclick="selectTheme(event)">
 				<div data-theme="tumbach">Темный Tumbach с неоновыми мотивами</div>
 				<div data-theme="crychan">Минималистичный светлый Crychan</div>
 				<div data-theme="sosach">Визитная карточка Сосача, б-гомерзкая Makaba</div>
@@ -59,8 +58,8 @@
 				<div>
 					<input type="color" name="quotationcolor">
 				</div>
-			</div> -->
-		</div>
+			</div>
+		</div> -->
 
 		<div data-tab="spoilingSettings" hidden>
 			<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>

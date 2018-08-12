@@ -157,20 +157,6 @@ function handlePostMenuClick(event) {
 	}
 }
 
-function switchToTab(name) { // Переключение табов в виджете настроек
-	let newTab = sel(`#settings [data-tab="${name}"]`),
-		oldTab = sel("#settings [data-tab]:not([hidden])"),
-		tabsList = sel("#settings .tabs")
-
-	if (newTab.hasAttribute("hidden")) {
-		oldTab.setAttribute("hidden", 1)
-		newTab.removeAttribute("hidden")
-
-		tabsList.querySelector(".active").classList.remove("active")
-		tabsList.querySelector(`[onclick="switchToTab('${name}')"]`).classList.add("active")
-	}
-}
-
 function addToFavourites() {
 	// TODO:
 }

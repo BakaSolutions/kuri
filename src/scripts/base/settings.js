@@ -1,7 +1,7 @@
 const settings = {
 	init: function() {
 		let loadedModules = storage.get(`settings.modules`)
-		settings.wrapper = sel(["[data-tab=basicSettings]"])
+		settings.wrapper = sel(["div[data-tab=basicSettings]"])
 
 		settings.addOptions({
 			id: "USEAJAX", 
@@ -115,7 +115,8 @@ const settings = {
 			this.setOption("modules", modules)
 
 			this.hideModule(id)
-			loader.request(`/js/${id}.js`, "themes.initInterface()")
+
+			loader.request(`/js/${id}.js`)
 		} else{
 			let currentValue = this.getOption(id)
 		
@@ -131,5 +132,36 @@ const settings = {
 
 	hideModule: function(id) {
 		this.wrapper.removeChild(this.wrapper.querySelector(`[data-option-id=${id}]`))
+	},
+
+	addTab: function (id, title) {
+		let label = createElement("label", {
+			onclick: () => settings.switchToTab(id),
+			innerText: title
+		}), div = createElement("div", {
+			hidden: 1
+		})
+
+		label.dataset.tab = id
+		div.dataset.tab = id
+
+		sel("#settings .widgetBox").appendChild(div)
+		sel("#settings .tabs").appendChild(label)
+		
+		return div
+	},
+
+	switchToTab: function (name) {
+		let newTab = sel(`#settings div[data-tab="${name}"]`),
+			oldTab = sel("#settings div[data-tab]:not([hidden])"),
+			tabsList = sel("#settings .tabs")
+
+		if (newTab.hasAttribute("hidden")) {
+			oldTab.setAttribute("hidden", 1)
+			newTab.removeAttribute("hidden")
+
+			tabsList.querySelector(".active").classList.remove("active")
+			tabsList.querySelector(`label[data-tab=${name}]`).classList.add("active")
+		}
 	}
 }

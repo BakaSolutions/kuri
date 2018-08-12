@@ -29,7 +29,7 @@
 		}
 	}
 
-	[data-tab]:not([hidden]){
+	div[data-tab]:not([hidden]){
 		flex-direction: column;
 		display: flex;
 		padding: var(--gap);
@@ -64,7 +64,7 @@
 		}
 	}
 
-	[data-tab="basicSettings"]{
+	div[data-tab="basicSettings"]{
 		label{
 			margin-left: var(--gap)
 		}
