@@ -37,7 +37,7 @@
 				{{~post.files :file}}
 					{{? ["image", "video"].includes(file.mime.split("/")[0])}}
 						<div class="thumb">
-							{{? file.thumb }}<img src="{{=it.foxtan.thumb}}{{!file.thumb}}">{{?? }}<div class="noPreview"></div>{{? }}
+							{{? file.thumb.path }}<img src="{{=it.foxtan.thumb}}{{!file.thumb.path}}" width="{{!file.thumb.width}}" height="{{!file.thumb.height}}">{{?? }}<div class="noPreview"></div>{{? }}
 
 							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" data-title="{{!file.name}}" width="{{!file.width}}" height="{{!file.height}}" target="_blank" onclick="media.prepare(event, '{{=file.mime}}')">
 								<span>{{!file.mime}} file</span>
