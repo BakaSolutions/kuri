@@ -1,10 +1,12 @@
 themes = {
 	init: async function () {
-		let name = localStorage.getItem("theme") || "tumbach",
-			json = localStorage.getItem(`theme-${name}`) || await this.load(name)
+		storage.defaults.settings.theme = "tumbach"
+		storage.defaults.themes = []
+		
+		let name = storage.get("settings.theme"),
+			json = storage.get(`themes.${name}`) || await this.load(name)
 
 		this.apply(json)
-		// this.switchSelector(document.querySelector(`[data-theme="${name}"]`), 1)
 	},
 
 	initInterface: function () {
@@ -32,6 +34,7 @@ themes = {
 		})
 
 		this.wrapper.appendChild(this.showcase)
+		this.switchSelector(sel(`[data-theme-id=${storage.get("settings.theme")}]`), 1)
 	},
 
 	addToShowcase: function (...themes) {
@@ -50,9 +53,9 @@ themes = {
 		return fetch(`${window.location.origin}/themes/${name}.json`)
 			.then(response => {
 				if (response.status == 200) {
-					return response.text()
+					return response.json()
 							.then(data => {
-								localStorage.setItem(`theme-${name}`, data)
+								storage.set(`themes.${name}`, data)
 								return data
 							})
 				} else {
@@ -64,37 +67,35 @@ themes = {
 
 	select: async function (event) {
 		let name = event.target.dataset.themeId,
-			json = name == "custom" ? themes.parse(event) : localStorage.getItem(`theme-${name}`) || await themes.load(name)
+			json = name == "custom" ? themes.parse(event) : storage.get(`themes.${name}`) || await themes.load(name)
 
 		themes.apply(json)
-		// themes.switchSelector(event.target)
-		localStorage.setItem("theme", name)
+		themes.switchSelector(event.target)
+		storage.set("settings.theme", name)
 	},
 
-	apply: function (json, updateEditor = 1) {
-		let object = JSON.parse(json)
-
+	apply: function (object, updateEditor = 1) {
 		for (let rule in object) {
 			// if (updateEditor) document.querySelector(`#themeEditor [name="${rule}"]`).value = object[rule]
 			document.documentElement.style.setProperty(`--${rule}`, object[rule])
 		}
 	},
 
-	parse: function (){
-		let object = {}
+	// parse: function (){
+	// 	let object = {}
 
-		for (let input of document.querySelectorAll("#themeEditor input")) {
-			object[input.name] = input.value
-		}
+	// 	for (let input of document.querySelectorAll("#themeEditor input")) {
+	// 		object[input.name] = input.value
+	// 	}
 
-		let json = JSON.stringify(object)
-		localStorage.setItem("theme-custom", json)
-		return json
-	},
+	// 	let json = JSON.stringify(object)
+	// 	storage.set("themes.custom", json)
+	// 	return json
+	// },
 
 	switchSelector: function (activate, initial) {
 		if (!initial){
-			let deactivate = document.querySelector("#themes .active")
+			let deactivate = sel("#themes .active")
 
 			if (deactivate != activate){
 				deactivate.classList.remove("active")
