@@ -72,6 +72,7 @@
 
 		<div data-tab="testing" hidden>
 			<a onclick="notifications.add({text: 'Сенпай, не забудь убрать этот кавай, а то отняшу!', timeout: 10000, class: 'notification'})">Тестовое уведомление</a>
+			<a onclick="localStorage.clear(); window.location.reload(true)">Очистить кэш и LS</a> 
 		</div>
 	</div>
 </div>
