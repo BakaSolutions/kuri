@@ -25,12 +25,15 @@
 	}
 
 	img{
+		height: auto !important;
+		width: auto !important;
+
 		max-height: 150px;
 		max-width: 150px;
 	}
 
 	.noPreview{
-		height: 150px;
+		height: 100px;
 		width: 150px;
 	}
 

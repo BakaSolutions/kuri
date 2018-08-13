@@ -11,7 +11,7 @@
 
 	&:not(:first-child):not(.widgetContent){
 		background-color: var(--btncolor);
-		margin: .4em 0;
+		margin: calc(var(--gap) / 2) 0;
 	}
 
 	.postAttachments{
@@ -74,7 +74,6 @@
 
 	.subject{
 		color: var(--textcolor_secondary);
-		// color: var(--linkcolor_hover);
 	}
 
 	.material-icons{

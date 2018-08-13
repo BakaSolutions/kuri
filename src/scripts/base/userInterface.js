@@ -15,7 +15,7 @@ const media = {
 		this.info.innerText 		= title
 	},
 
-	prepare: function(e, mime) {
+	prepare: function(e, mime, name) {
 		if (!e.ctrlKey && DEVICE == "desktop") {
 			e.preventDefault()
 
@@ -25,7 +25,7 @@ const media = {
 				closable: false
 			})
 
-			this.reset(e.target.dataset.title)
+			this.reset(name)
 
 			if (mime.split("/")[0] == "video") {
 				let video = createElement("video", {

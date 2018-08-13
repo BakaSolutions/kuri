@@ -5,7 +5,6 @@ $navBarHeight: 60px;
 }
 
 @import "_base";
-@import "_defaultTheme";
 
 html{
 	overflow-x: hidden;
@@ -19,12 +18,17 @@ body{
 main{
 	padding-bottom: calc(#{$navBarHeight} - .4em);
 	width: 100vw;
+
+	header{
+		margin: 0 var(--gap);
+	}
 }
 
 .desktopOnly{
 	display: none !important;
 }
 
+@import "_defaultTheme";
 @import "_posts";
 @import "_mobilePostsPatch";
 @import "_navBar";
