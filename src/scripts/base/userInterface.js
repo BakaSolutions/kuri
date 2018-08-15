@@ -82,7 +82,7 @@ function quickReply(postNumber, threadNumber) {
 }
 
 function undoQuickReply(){
-	updatePostForm(`Создание треда в <span class="pseudoLink">/${sel("#postForm [name='boardName']").value}/</span>`, "Тема", "")
+	updatePostForm(`Создание треда в <span class="pseudoLink">/${sel("#postForm [name='boardName']").value}/</span>`, "Тема")
 }
 
 function updatePostForm(header, subjectPlaceholder, threadNumber, addText){
@@ -91,8 +91,9 @@ function updatePostForm(header, subjectPlaceholder, threadNumber, addText){
 	postForm.querySelector(".widgetHandle").innerHTML = header
 	postForm.querySelector("[name='subject']").placeholder = subjectPlaceholder
 	postForm.querySelector("input#threadNumber").value = threadNumber
-	if (!addText) return
-	postForm.querySelector("textarea").innerHTML += addText
+	postForm.querySelector("textarea").value += addText || ""
+
+	postForm.querySelector("textarea").focus()
 }
 
 function activatePostRemovalWidget(noCheck){

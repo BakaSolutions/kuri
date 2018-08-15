@@ -124,7 +124,7 @@
 				position: relative;
 				
 				&:not(.hasFile):after{
-					content: "cloud_upload";
+					content: "attach_file";
 					font-size: 2em;
 				}
 
