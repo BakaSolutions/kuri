@@ -39,6 +39,8 @@
 						<div class="thumb">
 							{{? file.thumb.path }}<img src="{{=it.foxtan.thumb}}{{!file.thumb.path}}" width="{{!file.thumb.width}}" height="{{!file.thumb.height}}">{{?? }}<div class="noPreview"></div>{{? }}
 
+							{{? file.duration }}<div class="duration">{{!file.duration}}</div>{{?}}
+
 							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="media.prepare(event, '{{=file.mime}}', '{{!file.name}}')">
 								<span>{{!file.mime}} file</span>
 								<span>{{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{! (file.size / 1048576).toFixed(1)}} MiB{{? }}</span>

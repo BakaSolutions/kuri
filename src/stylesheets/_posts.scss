@@ -103,6 +103,14 @@
 	img{
 		vertical-align: bottom;
 	}
+
+	.duration {
+		position: absolute;
+		bottom: .2em;
+		right: .2em;
+		padding: .1em;
+		background: var(--bgcolor);
+	}
 }
 
 
