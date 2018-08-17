@@ -13,14 +13,18 @@ const marker = {
 	markPosts: function(...posts) {
 		for (post of posts) {
 			if (post != undefined){
-				let marksArray = this.marks[post.dataset.board][post.dataset.number]
+				try {
+					let marksArray = this.marks[post.dataset.board][post.dataset.number]
 
-				if (marksArray){
-					post.dataset.marks = marksArray.join(" ")
-					
-					if (post.dataset.op){
-						post.parentNode.dataset.marks = marksArray.join(" ")
+					if (marksArray){
+						post.dataset.marks = marksArray.join(" ")
+						
+						if (post.dataset.op){
+							post.parentNode.dataset.marks = marksArray.join(" ")
+						}
 					}
+				} catch(e) {
+					if (!e instanceof TypeError) console.log(e)
 				}
 			}
 		}
@@ -29,10 +33,14 @@ const marker = {
 	markLinks: function(...links) {
 		for (link of links) {
 			if (link != undefined){
-				let marksArray = this.marks[link.dataset.board][link.dataset.number]
+				try {
+					let marksArray = this.marks[link.dataset.board][link.dataset.number]
 
-				if (marksArray){
-					link.dataset.marks = marksArray.join(" ")
+					if (marksArray){
+						link.dataset.marks = marksArray.join(" ")
+					}
+				} catch(e) {
+					if (!e instanceof TypeError) console.log(e)
 				}
 			}
 		}
