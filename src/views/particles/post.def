@@ -36,20 +36,18 @@
 			<div class="postAttachments">
 				{{~post.files :file}}
 					{{? ["image", "video"].includes(file.mime.split("/")[0])}}
-						<div class="thumb">
-							{{? file.thumb.path }}<img src="{{=it.foxtan.thumb}}{{!file.thumb.path}}" width="{{!file.thumb.width}}" height="{{!file.thumb.height}}">{{?? }}<div class="noPreview"></div>{{? }}
-
-							{{? file.duration }}<div class="duration">{{!file.duration}}</div>{{?}}
-
-							<a class="info" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="media.prepare(event, '{{=file.mime}}', '{{!file.name}}')">
-								<span>{{!file.mime}} file</span>
-								<span>{{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{! (file.size / 1048576).toFixed(1)}} MiB{{? }}</span>
+						<div class="attachment">
+							<a class="thumb" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="media.prepare(event, '{{=file.mime}}', '{{!file.name}}')" style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px">
 							</a>
 
-							<a class="dlLink" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.name}}">сохранить</a>
+							<div class="info">
+								<span>{{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{! (file.size / 1048576).toFixed(1)}} MiB{{? }}</span>
+								{{? file.duration }}<span class="duration">{{!file.duration}}</span>{{?}}
+								<a class="dlLink material-icons" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.name}}">save_alt</a>
+							</div>
 						</div>
 					{{?? }}
-						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.path}}"{{? file.mime.split("/")[0] == "audio" }}onclick="loadAudio(event, '{{=it.foxtan.upload}}{{!file.path}}', '{{!file.name}}')"{{? }}>{{!file.name}} <div>({{! (file.size / 1048576).toFixed(2) }} Mb)</div></a>
+						<a class="unpreviewable" href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" {{? file.mime.split("/")[0] == "audio" }}onclick="loadAudio(event, '{{=it.foxtan.upload}}{{!file.path}}', '{{!file.name}}')"{{? }}>{{!file.name}} <span>({{! (file.size / 1048576).toFixed(2) }} Mb)</span></a>
 					{{? }}
 				{{~ }}
 			</div>

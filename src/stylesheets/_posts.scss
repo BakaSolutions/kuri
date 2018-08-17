@@ -17,26 +17,30 @@
 	.postAttachments{
 		display: flex;
 
-		.noPreview{
-			border: 1px solid var(--bordercolor);
+		.attachment{
+			*{
+				transition: opacity var(--animationDuration);
+			}
+			
+			.thumb{
+				display: block;
+				
+				background-position: center;
+				background-size: cover;
+			}
 
-			justify-content: center;
-			align-items: center;
-			display: flex;
+			.info{
+				background-color: var(--bgcolor);
 
-			&::after{
-				color: var(--textcolor_secondary);
-				content: "Превью недоступно"
+				justify-content: space-between;
+				align-items: center;
+				display: flex;
 			}
 		}
 
-		.info{
-			color: transparent;
-
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			top: 0;
+		.unpreviewable span{
+			color: var(--textcolor);
+			font-size: .9em
 		}
 	}
 }
@@ -97,26 +101,9 @@
 	}
 }
 
-.thumb{
-	position: relative;
-
-	img{
-		vertical-align: bottom;
-	}
-
-	.duration {
-		position: absolute;
-		bottom: .2em;
-		right: .2em;
-		padding: .1em;
-		background: var(--bgcolor);
-	}
-}
-
-
 // Мамка в комнате
 body{
-	#hideImagesCheckbox:checked ~ main .thumb img{
+	#hideImagesCheckbox:checked ~ main .thumb:not(:hover){
 		opacity: .15;
 	}
 

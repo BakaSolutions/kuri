@@ -16,72 +16,52 @@
 .postAttachments{
 	margin-right: 5px;
 	flex-direction: column;
+	@include user-select(none);
 
 	& > *{
 		margin-bottom: 2px;
 	}
 
-	.info, .dlLink{
-		flex-direction: column;
-		transition: color var(--animationDuration);
-	}
+	.unpreviewable{
+		font-size: .9rem;
+		width: 13em;
 
-	.info{
-		justify-content: center;
-		align-items: center;
-		display: flex;
-
-		right: 0;
-
-		span{
-			pointer-events: none;
+		&:not(:first-child){
+			margin-top: 1em;
 		}
 	}
 
-	.dlLink{
-		position: absolute;
-		padding: 5px 0;
-		bottom: 0;
-		left: 0;
-
-		color: transparent;
-		text-align: center;
-		width: 100%;
-
-		&:hover{
-			text-decoration: underline;
-		}
-	}
-
-	.thumb{
-		margin: calc(var(--gap) / 2) 0;
-
-		img, .noPreview{
+	.attachment{
+		*{
 			transition: opacity var(--animationDuration);
 		}
 
-		&:hover{
-			.info, .dlLink{
+		.thumb{
+			max-height: 13em;
+			max-width: 13em;
+		}
+
+		.info{	
+			pointer-events: none;
+			opacity: 0;
+
+			.dlLink{
 				color: inherit;
 			}
 
-			img, .noPreview{
-				opacity: .1
-			}
+			margin-top: -1.5rem;
+			padding: .1rem;
+			height: 1.5rem;
 		}
 	}
 
-	.noPreview{
-		height: 200px;
-		width: 200px;
-}
+	.attachment:hover{
+		.info{
+			opacity: .8;
 
-	a.unpreviewable{
-		width: 200px;
-
-		div{
-			color: var(--textcolor);
-			font-size: .8em
+			.dlLink{
+				pointer-events: auto;
+			}
 		}
 	}
 }

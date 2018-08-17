@@ -13,28 +13,20 @@
 
 .postAttachments{
 	.thumb{
-		margin: 0 calc(var(--gap) / 2);
-
-		.info{
-			position: absolute;
-		}
-
-		.dlLink{
-			display: none;
-		}
-	}
-
-	img{
-		height: auto !important;
-		width: auto !important;
-
 		max-height: 150px;
 		max-width: 150px;
 	}
 
-	.noPreview{
-		height: 100px;
-		width: 150px;
+	.info{
+		opacity: .8;
+		
+		margin-top: -1.2rem;
+		padding: .1rem;
+		height: 1.2rem;
+	}
+
+	.dlLink{
+		display: none;
 	}
 
 	.unpreviewable{
