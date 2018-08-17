@@ -21,7 +21,7 @@ router.render = async path => {
   };
   let opPost = model.thread.posts[0];
   if (opPost.subject || opPost.text) {
-    model.title = `${opPost.subject || (opPost.text.slice(0, 32) + '...')}`
+    model.title = opPost.subject || (opPost.text.length > 32 ? opPost.text.slice(0, 32) + '...' : opPost.text)
   } else {
     model.title = `/${model.board.name}/${model.thread.number}`;
   }
