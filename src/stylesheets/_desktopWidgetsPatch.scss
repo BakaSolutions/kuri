@@ -172,4 +172,12 @@
 			margin-right: var(--gap)
 		}
 	}
+
+	&.video #zoomButtons{
+		display: none;
+	}
+
+	&:not(.draggable):not(.video) .widgetBox{
+		pointer-events: none;
+	}
 }

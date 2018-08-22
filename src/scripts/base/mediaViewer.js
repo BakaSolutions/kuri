@@ -1,0 +1,87 @@
+const media = {
+	init: function() {
+		this.widget 	= sel(".widget#mediaViewer")
+		this.widgetBox 	= this.widget.querySelector(".widgetBox")
+		this.info		= this.widget.querySelector(".mediaInfo")
+		this.ntf		= null
+	},
+
+	reset: function(title) {
+		this.widgetBox.innerHTML  	= ""
+		this.widgetBox.style.left 	= 0
+		this.widgetBox.style.top  	= 0
+		this.info.innerText 		= title
+	},
+
+	prepare: function(e, mime, name) {
+		if (!e.ctrlKey && DEVICE == "desktop") {
+			e.preventDefault()
+
+			this.ntf = notifications.add({
+				text: "Загрузка...",
+				class: "notification",
+				closable: false
+			})
+
+			this.reset(name)
+
+			if (mime.split("/")[0] == "video") {
+				this.widget.classList.add("video")
+
+				let video = createElement("video", {
+					src: e.target.href,
+					type: mime,
+					controls: 1
+				})
+
+				this.display(video)
+			} else{
+				this.widget.classList.remove("video")
+
+				let img = new Image()
+				img.onload = () => this.display(img)
+				img.src = e.target.href
+			}
+		}
+	},
+
+	display: function(element) {
+		this.widgetBox.appendChild(element)
+		toggleWidget("mediaViewer")
+		notifications.remove(this.ntf)
+	},
+
+	zoom: function(multiplier){
+		if (!this.widget.classList.contains("video")){
+			let maxSize 		= window.innerWidth * 3,
+				minSize 		= window.innerHeight / 10,
+				mediaNode		= this.widgetBox.querySelector("*"),
+				computedStyle 	= window.getComputedStyle(mediaNode, null),
+				newHeight 		= multiplier * parseInt(computedStyle.getPropertyValue("height")),
+				newWidth  		= multiplier * parseInt(computedStyle.getPropertyValue("width"))
+
+			if (newHeight < maxSize && newWidth < maxSize && newHeight > minSize && newWidth > minSize) {
+				mediaNode.style.maxHeight 	= "none"
+				mediaNode.style.maxWidth 	= "none"
+				mediaNode.style.height 		= newHeight + "px"
+				mediaNode.style.width 		= newWidth  + "px"
+
+			if(newHeight > window.innerHeight || newWidth > window.innerWidth){
+				this.widget.classList.add("draggable")
+				this.draggie = new Draggabilly(this.widgetBox)
+			} else if(this.draggie){
+				this.widget.classList.remove("draggable")
+				this.draggie.destroy()
+			}
+
+			} else{
+				console.error("Trying to set media width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
+			}
+		}
+	},
+
+	hide: function(){
+		this.reset()
+		toggleWidget("mediaViewer")
+	}
+}
