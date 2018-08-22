@@ -92,7 +92,10 @@
 <div class="widget" id="mediaViewer" hidden>
 	<div class="widgetBgLayer" onclick="media.hide()"></div>
 	<div class="widgetBox"></div>
-	<div class="mediaInfo"></div>
+	<div class="mediaInfo">
+		<div></div>
+		<div></div>
+	</div>
 	<div id="zoomButtons">
 		<button type="button" class="material-icons" onclick="media.zoom(1.2)">add</button>
 		<button type="button" class="material-icons" onclick="media.zoom(0.8)">remove</button>

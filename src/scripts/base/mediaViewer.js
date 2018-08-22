@@ -2,15 +2,15 @@ const media = {
 	init: function() {
 		this.widget 	= sel(".widget#mediaViewer")
 		this.widgetBox 	= this.widget.querySelector(".widgetBox")
-		this.info		= this.widget.querySelector(".mediaInfo")
 		this.ntf		= null
 	},
 
-	reset: function(title) {
-		this.widgetBox.innerHTML  	= ""
-		this.widgetBox.style.left 	= 0
-		this.widgetBox.style.top  	= 0
-		this.info.innerText 		= title
+	reset: function(title, width, height) {
+		this.widgetBox.innerHTML  										= ""
+		this.widgetBox.style.left 										= 0
+		this.widgetBox.style.top  										= 0
+		this.widget.querySelector(".mediaInfo :first-child").innerText 	= width && height ? `${width}x${height}` : ""
+		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
 	},
 
 	prepare: function(e, mime, name) {
@@ -23,23 +23,29 @@ const media = {
 				closable: false
 			})
 
-			this.reset(name)
-
 			if (mime.split("/")[0] == "video") {
 				this.widget.classList.add("video")
 
 				let video = createElement("video", {
-					src: e.target.href,
 					type: mime,
 					controls: 1
 				})
 
-				this.display(video)
+				video.onloadeddata = () => {
+					this.reset(name, video.videoWidth, video.videoHeight)
+					this.display(video)
+				}
+
+				video.src = e.target.href
 			} else{
 				this.widget.classList.remove("video")
 
 				let img = new Image()
-				img.onload = () => this.display(img)
+				img.onload = () => {
+					this.reset(name, img.naturalWidth, img.naturalHeight)
+					this.display(img)
+				}
+
 				img.src = e.target.href
 			}
 		}
