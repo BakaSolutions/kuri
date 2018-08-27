@@ -1,23 +1,52 @@
 const settings = {
-	init: function() {
-		let loadedModules = storage.get(`settings.modules`)
-		settings.wrapper = sel(["div[data-tab=basicSettings]"])
+	initedTabs: [],
 
-		settings.addOptions({
-			id: "USEAJAX", 
-			description: "Использовать AJAX"
-		}, {
-			id: "ANIDUR", 
-			description: "Длительность анимаций"
-		})
+	init: (name = "basicSettings") => {
+    settings.wrapper = sel(["div[data-tab=" + name + "]"]);
 
-		settings.addModules(...[{
-			id: "themes", 
-			description: "Темы"
-		}].filter(module => !loadedModules.includes(module.id)))
+    switch (name) {
+      case "securitySettings":
+        settings.addOptions({
+          id: "PASSWD",
+          description: "Пароль",
+          options: {
+            type: "password",
+            // form: "replyForm deletePosts"
+          }
+        });
+        break;
+      case "spoilingSettings":
+      case "testing":
+          //
+        break;
+      case "basicSettings":
+        let loadedModules = storage.get(`settings.modules`)
 
-		if (loadedModules.includes("themes")) themes.initInterface()
-		INITIALIZED_SCRIPTS.push("settings")
+        settings.addOptions({
+          id: "USEAJAX",
+          description: "Использовать AJAX"
+        }, {
+          id: "ANIDUR",
+          description: "Длительность анимаций"
+        })
+
+        settings.addModules(...[{
+          id: "themes",
+          description: "Темы"
+        }].filter(module => !loadedModules.includes(module.id)))
+
+        sel("#settings").addEventListener("settingsTabInit", e => {
+          let tab = e.detail.name;
+          if (!settings.initedTabs.includes(tab)) {
+            settings.init(tab);
+          }
+        }, false);
+
+        if (loadedModules.includes("themes")) themes.initInterface()
+        INITIALIZED_SCRIPTS.push("settings")
+        break;
+    }
+    settings.initedTabs.push(name);
 	},
 
 	addSeparator: function(innerText) {
@@ -58,6 +87,10 @@ const settings = {
 				node.appendChild(input)
 			}
 
+            for (let key in option.options || {}) {
+                input[key] = option.options[key];
+            }
+
 			this.wrapper.appendChild(node)
 		}
 	},
@@ -79,7 +112,6 @@ const settings = {
 				classList: "switch",
 				id
 			})
-			let value = this.getOption(id)
 
 			node.dataset.option = "loadModule"
 			node.dataset.optionId = id
@@ -162,6 +194,9 @@ const settings = {
 
 			tabsList.querySelector(".active").classList.remove("active")
 			tabsList.querySelector(`label[data-tab=${name}]`).classList.add("active")
+
+            let event = new CustomEvent("settingsTabInit", {detail: { name }});
+            sel("#settings").dispatchEvent(event);
 		}
 	}
-}
+};

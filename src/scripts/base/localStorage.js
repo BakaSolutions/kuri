@@ -148,8 +148,9 @@ let storage = new Storage({
   defaults: {
     settings: {
       "modules": [],
+      "ANIDUR": 0.3,
+      "PASSWD": "",
       "USEAJAX": true,
-      "ANIDUR": 0.3
     }
   }
 });

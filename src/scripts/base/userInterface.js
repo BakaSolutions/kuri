@@ -30,6 +30,7 @@ function activatePostRemovalWidget(noCheck){
 			widget.setAttribute("hidden", 1)
 		} else {
 			widget.removeAttribute("hidden")
+			sel("#deletePosts [name=password]").value = storage.get("settings.PASSWD")
 		}
 	}, 1)
 }

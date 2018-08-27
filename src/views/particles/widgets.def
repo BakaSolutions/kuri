@@ -65,9 +65,9 @@
 			<textarea id="autospoiling">#wipe(samelines,samewords,longwords,symbols,capslock,numbers,whitespace)</textarea>
 		</div>
 
-		<div data-tab="securitySettings" hidden>
-			Пароль:
-			<input type="password" name="password" form="replyForm deletePosts" placeholder="Пароль">
+		<div data-tab="securitySettings" hidden onchange="settings.updateOption(event.target)">
+			<!--Пароль:
+			<input type="password" name="password" form="replyForm deletePosts" placeholder="Пароль">-->
 		</div>
 
 		<div data-tab="testing" hidden>
