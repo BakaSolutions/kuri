@@ -22,15 +22,6 @@
 		margin-bottom: 2px;
 	}
 
-	.unpreviewable{
-		font-size: .9rem;
-		width: 13em;
-
-		&:not(:first-child){
-			margin-top: 1em;
-		}
-	}
-
 	.attachment{
 		*{
 			transition: opacity var(--animationDuration);
@@ -52,6 +43,16 @@
 			margin-top: -1.5rem;
 			padding: .1rem;
 			height: 1.5rem;
+		}
+
+		.unpreviewable{
+			display: block;
+			font-size: .9rem;
+			width: 13em;
+
+			&:not(:first-child){
+				margin-top: 1em;
+			}
 		}
 	}
 
