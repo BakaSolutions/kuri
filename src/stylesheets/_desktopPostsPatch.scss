@@ -78,3 +78,23 @@
 	margin-left: calc(var(--gap) * 2);
 	padding: calc(var(--gap) / 2) var(--gap);
 }
+
+.postLink{
+	position: relative;
+
+	&:not(:hover) .post{
+		display: none;
+	}
+
+	&:hover .post{
+		position: absolute;
+		z-index: 999;
+		left: 1em;
+		top: 1em;
+
+		background-color: var(--btncolor);
+		border: 1px solid var(--bgcolor);
+		color: var(--textcolor);
+		width: 50vw;
+	}
+}
