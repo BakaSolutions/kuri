@@ -3,6 +3,7 @@ const media = {
 		this.widget 	= sel(".widget#mediaViewer")
 		this.widgetBox 	= this.widget.querySelector(".widgetBox")
 		this.ntf		= null
+		storage.defaults.settings.videoVolume = .5
 	},
 
 	reset: function(title, width, height) {
@@ -33,6 +34,7 @@ const media = {
 
 				video.onloadeddata = () => {
 					this.reset(name, video.videoWidth, video.videoHeight)
+					video.volume = storage.get("settings.videoVolume")
 					this.display(video)
 				}
 
@@ -87,7 +89,10 @@ const media = {
 	},
 
 	hide: function(){
-		this.reset()
+		let video = this.widgetBox.querySelector("video")
+		if (video) storage.set("settings.videoVolume", video.volume)
+		
 		toggleWidget("mediaViewer")
+		this.reset()
 	}
 }
