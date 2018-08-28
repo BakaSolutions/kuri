@@ -1,3 +1,6 @@
+const conditional = require('koa-conditional-get');
+const etag = require('koa-etag');
+
 const Controllers = module.exports = {};
 
 const Tools = require('../helpers/tools');
@@ -15,25 +18,35 @@ const Model = require('../models');
 Controllers.initHTTP = async app => {
   Controllers.routers = [];
 
+  // handler for caching
+  if (!config('server.static.generate')) {
+    app.use(conditional());
+    app.use(etag());
+  }
+
   if (!config('server.static.external')) {
     if (Tools.moduleAvailable('koa-static')) {
       const Static = require('koa-static');
-      app.use(Static(__dirname + '/../../public'));
+      app.use(Static(__dirname + '/../../public', {
+        maxage: 5 * 60 * 1000
+      }));
     } else {
       Logger.warn(
-          'Чтобы использовать Foxtan без Nginx, установите модуль koa-static:\n\n' +
-          '\x1b[36m     npm i koa-static --optional \x1b[0m или \x1b[36m yarn add koa-static -O\x1b[0m\n\n'
+          'Чтобы использовать Kuri без Nginx, установите модуль koa-static:\n\n' +
+          '\x1b[36m    npm i koa-static --optional \x1b[0m или \x1b[36m yarn add koa-static -O\x1b[0m\n\n'
       );
     }
+
+    app.use(async (ctx, next) => {
+      ctx.set('Access-Control-Allow-Origin', '*');
+      ctx.set('Access-Control-Allow-Headers', 'X-Requested-With');
+      await next();
+    });
   }
 
   // handle errors
   app.use(async (ctx, next) => {
     try {
-      if (!config('server.static.external')) {
-        ctx.set('Access-Control-Allow-Origin', '*');
-        ctx.set('Access-Control-Allow-Headers', 'X-Requested-With');
-      }
       await next();
       const status = ctx.status || 404;
       if (status === 404 && !ctx.body) {
