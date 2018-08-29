@@ -88,6 +88,7 @@
 	}
 
 	&:hover .post{
+		padding: calc(var(--gap)/ 2) var(--gap);
 		position: absolute;
 		z-index: 999;
 		left: 1em;

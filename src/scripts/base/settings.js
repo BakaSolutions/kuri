@@ -2,51 +2,52 @@ const settings = {
 	initedTabs: [],
 
 	init: (name = "basicSettings") => {
-    settings.wrapper = sel(["div[data-tab=" + name + "]"]);
+		settings.wrapper = sel(["div[data-tab=" + name + "]"]);
 
-    switch (name) {
-      case "securitySettings":
-        settings.addOptions({
-          id: "PASSWD",
-          description: "Пароль",
-          options: {
-            type: "password",
-            // form: "replyForm deletePosts"
-          }
-        });
-        break;
-      case "spoilingSettings":
-      case "testing":
-          //
-        break;
-      case "basicSettings":
-        let loadedModules = storage.get(`settings.modules`)
+		switch (name) {
+			case "securitySettings":
+				settings.addOptions({
+					id: "PASSWD",
+					description: "Пароль",
+					options: {
+					type: "password",
+					// form: "replyForm deletePosts"
+					}
+				});
+				break;
+			case "spoilingSettings":
+			case "testing":
+				//
+				break;
+			case "basicSettings":
+				let loadedModules = storage.get(`settings.modules`)
 
-        settings.addOptions({
-          id: "USEAJAX",
-          description: "Использовать AJAX"
-        }, {
-          id: "ANIDUR",
-          description: "Длительность анимаций"
-        })
+				settings.addOptions({
+					id: "USEAJAX",
+					description: "Использовать AJAX"
+				}, {
+					id: "ANIDUR",
+					description: "Длительность анимаций"
+				})
 
-        settings.addModules(...[{
-          id: "themes",
-          description: "Темы"
-        }].filter(module => !loadedModules.includes(module.id)))
+				settings.addModules(...[{
+					id: "themes",
+					description: "Темы"
+				}].filter(module => !loadedModules.includes(module.id)))
 
-        sel("#settings").addEventListener("settingsTabInit", e => {
-          let tab = e.detail.name;
-          if (!settings.initedTabs.includes(tab)) {
-            settings.init(tab);
-          }
-        }, false);
+				sel("#settings").addEventListener("settingsTabInit", e => {
+					let tab = e.detail.name;
+					if (!settings.initedTabs.includes(tab)) {
+					settings.init(tab);
+					}
+				}, false);
 
-        if (loadedModules.includes("themes")) themes.initInterface()
-        INITIALIZED_SCRIPTS.push("settings")
-        break;
-    }
-    settings.initedTabs.push(name);
+				if (loadedModules.includes("themes")) themes.initInterface()
+				INITIALIZED_SCRIPTS.push("settings")
+				break;
+		}
+
+		settings.initedTabs.push(name);
 	},
 
 	addSeparator: function(innerText) {
@@ -87,9 +88,9 @@ const settings = {
 				node.appendChild(input)
 			}
 
-            for (let key in option.options || {}) {
-                input[key] = option.options[key];
-            }
+			for (let key in option.options || {}) {
+				input[key] = option.options[key];
+			}
 
 			this.wrapper.appendChild(node)
 		}
@@ -195,8 +196,8 @@ const settings = {
 			tabsList.querySelector(".active").classList.remove("active")
 			tabsList.querySelector(`label[data-tab=${name}]`).classList.add("active")
 
-            let event = new CustomEvent("settingsTabInit", {detail: { name }});
-            sel("#settings").dispatchEvent(event);
+			let event = new CustomEvent("settingsTabInit", {detail: { name }});
+			sel("#settings").dispatchEvent(event);
 		}
 	}
 };

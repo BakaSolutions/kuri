@@ -154,3 +154,14 @@ let storage = new Storage({
     }
   }
 });
+
+if (storage.get("settings.PASSWD") === ""){
+  storage.set("settings.PASSWD", (() => {
+    let str = []
+    while(str.length < 16){
+      str.push(String.fromCharCode(Math.floor(Math.random() * 90) + 33))
+    }
+
+    return str.join("")
+  })())
+}
