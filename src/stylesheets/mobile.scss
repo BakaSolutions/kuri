@@ -60,6 +60,10 @@ main{
 	width: 100vw;
 }
 
+#deletePosts{
+	bottom: calc(#{$navBarHeight});
+}
+
 @import "_replyForm.scss";
 
 #replyForm{

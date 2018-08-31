@@ -17,7 +17,8 @@ module.exports = {
     // http: URL.parse('https://tuderi.tumba.ch:48596/'),
     http: URL.parse('https://foxtan.tuderi.tumba.ch/'),
     // websocket: URL.parse('wss://tuderi.tumba.ch:48596/ws'),
-    websocket: URL.parse('wss://foxtan.tuderi.tumba.ch/ws'),
+    // websocket: URL.parse('wss://foxtan.tuderi.tumba.ch/ws'),
+    websocket: URL.parse('ws://foxtan.tuderi.tumba.ch:2807/ws'),
   },
   server: {
     port: 8080
