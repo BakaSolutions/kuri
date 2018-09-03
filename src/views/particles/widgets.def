@@ -106,8 +106,8 @@
 	<div>
 		Удалить выбранные посты?
 		<div>
-			<a onclick="sel('#deletePosts').submit()">Удалить</a>
-			<a onclick="deselectAllPosts()">Отмена</a>
+			<button>Фтопку!</button>
+			<button type="button" onclick="deselectAllPosts()">Отмена</button>
 		</div>
 	</div>
 	<input type="password" name="password" placeholder="Пароль" required>

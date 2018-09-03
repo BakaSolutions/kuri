@@ -28,7 +28,7 @@ Controllers.initHTTP = async app => {
     if (Tools.moduleAvailable('koa-static')) {
       const Static = require('koa-static');
       app.use(Static(__dirname + '/../../public', {
-        maxage: 5 * 60 * 1000
+        //maxage: 5 * 60 * 1000 TODO: remove maxage at all
       }));
     } else {
       Logger.warn(
