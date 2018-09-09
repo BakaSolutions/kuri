@@ -124,6 +124,7 @@
 	<li data-action="edit">Редактировать</li>
 	<li data-action="delete">Удалить</li>
 	<li data-action="hide">Скрыть</li>
+	<li data-action="pin">Закрепить</li>
 	<li data-action="ban">Забанить</li>
 </ul>
 

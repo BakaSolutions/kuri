@@ -78,6 +78,41 @@ function handlePostMenuClick(event) {
 		case "edit":
 			// TODO:
 			break
+		case "pin":
+			let body = new FormData();
+			body.append(data.board, data.postNumber);
+
+			let options = {
+				credentials: "include",
+				method: "post",
+				headers: {
+					"X-Requested-With": "XMLHttpRequest"
+				},
+				body
+			}
+
+			fetch(FOXTAN_URL_BASE + 'api/v1/thread.pin', options)
+				.then(response => {
+					response.json().then(r => {
+						if (!response.ok) {
+							throw r.message
+						}
+						notifications.add({
+							text: r.pinned ? "Тред закреплён." : "Тред откреплён.",
+							timeout: 10000,
+							class: 'notification'
+						})
+					})
+					.catch(err => {
+						console.log(err)
+						notifications.add({
+							text: "Ошибка закрепления:<br>" + (err.message || err),
+							timeout: 10000,
+							class: 'notification'
+						})
+					})
+				})
+			break
 		case "ban":
 			// TODO:
 			break

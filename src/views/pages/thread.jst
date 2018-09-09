@@ -14,7 +14,8 @@
 				</a>
 			</header>
 			<div class="thread">
-				{{~it.thread.posts :post}}
+				{{ let thread = it.thread; }}
+				{{~thread.posts :post}}
 					{{#def['particles/post']}}
 				{{~ }}
 			</div>
