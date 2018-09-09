@@ -66,7 +66,7 @@ class WSClient {
       }
 
       let promiseWrapper = data => {
-        if (data.indexOf(id) > -1) {
+        if (data.includes(id)) {
           data = data.replace(id, '');
           this.instance.removeEventListener('message', promiseWrapper);
           return resolve(data);
@@ -74,13 +74,13 @@ class WSClient {
       };
       this.instance.on('message', promiseWrapper);
 
-    }, true).catch(e => {
+    }, false).catch(e => {
       if (e instanceof Error) {
         setTimeout(() => {
           this.send(data);
         }, 2500);
       }
-      this.onError(e);
+      return this.onError(e);
     });
   }
 
@@ -112,7 +112,7 @@ class WSClient {
       Logger.debug(`Command from Foxtan: ${command} ${[board, thread, id]}`);
       Event.emit(`websocket.cmd.${command}`, [board, thread, id]);
     } catch (e) {
-      //
+      Logger.debug(`Command parsing error: ${command} ${[board, thread, id]}`);
     }
   }
 
@@ -121,9 +121,10 @@ class WSClient {
       let message = e.split(' ');
       let command = message.shift();
       message = message.join(' ');
+      let status = +message;
 
       if (command === 'FAIL') {
-        switch (+message) {
+        switch (status) {
           case 404:
             message = 'Not found!';
             break;
@@ -135,9 +136,10 @@ class WSClient {
             break;
         }
       }
-      e = message;
+      e = { status, message };
     }
-    Logger.error(e);
+    Logger.error(e.message || e);
+    return e;
   }
 
   onClose (code) {

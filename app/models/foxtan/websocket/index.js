@@ -35,23 +35,21 @@ function APIPlaceholder(url) {
       link = link.replace('$' + (i + 1), args[i]);
     }
     Logger.debug(`[WS] Receiving ${link}...`);
-    let out = await Request.send(link);
+    let out = await Request.send(link).catch(e => out = e);
     Logger.debug(`[WS] Received: ${out} on "${link}"`);
     try {
       out = JSON.parse(out);
     } catch (e) {
-      //
+      Logger.debug(`JSON parse error: ${link} -> ${out}`);
     }
-    return out
-      ? out
-      : [];
+    return out;
   };
 }
 
 API.getThread = (boardName, threadNumber) => {
   return APIPlaceholder(commands['getThread'])(boardName, threadNumber)
     .then(thread => {
-      if (typeof thread === 'string' && thread.indexOf('410') > -1) {
+      if (typeof thread === 'string' && thread.includes('410')) {
         throw [boardName, threadNumber];
       }
       thread.posts = parseDateInPosts(thread.posts);
@@ -64,10 +62,7 @@ API.getPage = (boardName, threadNumber) => {
     .then(page => {
       let threads = page.threads;
       if (!threads) {
-        throw {
-          status: 404,
-          message: 'No threads on page.'
-        }
+        return page;
       }
       let threadsCount = threads.length;
       for (let i = 0; i < threadsCount; i++) {

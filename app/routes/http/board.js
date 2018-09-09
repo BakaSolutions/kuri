@@ -21,6 +21,9 @@ router.render = async path => {
     threads: []
   };
   let page = await BoardModel.getPage(board, +pageNumber || 0);
+  if (!page || !page.threads) {
+    return Render.renderPage('pages/error', page)
+  }
   if (Tools.isObject(page)) {
     model = Object.assign({}, model, page);
   }

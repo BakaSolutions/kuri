@@ -11,7 +11,7 @@ module.exports = class Pledge {
 
   then(onResolve, onReject) {
     this.promise = this.promise.then(onResolve, onReject);
-    if (typeof onReject !== 'function') {
+    if (typeof onReject === 'undefined') {
       this.promise = this.promise.catch(this.defaultReject);
     }
     return this.promise;
