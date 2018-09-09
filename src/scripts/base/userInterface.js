@@ -13,12 +13,19 @@ function undoQuickReply(){
 function updatePostForm(header, subjectPlaceholder, threadNumber, addText){
 	let postForm = sel("#replyForm")
 
-	postForm.querySelector(".widgetHandle").innerHTML = header
-	postForm.querySelector("[name='subject']").placeholder = subjectPlaceholder
-	postForm.querySelector("input#threadNumber").value = threadNumber
-	postForm.querySelector("textarea").value += addText || ""
+	sel(".widgetHandle", postForm).innerHTML = header
 
-	postForm.querySelector("textarea").focus()
+	let password = sel("[name=password]", postForm)
+	password.value = storage.get("settings.PASSWD")
+	password.setAttribute("hidden", 1);
+
+	sel("[name='subject']", postForm).placeholder = subjectPlaceholder
+	sel("input#threadNumber", postForm).value = threadNumber
+
+	let textarea = sel("textarea", postForm)
+	textarea.value += addText || ""
+
+	textarea.focus()
 }
 
 function activatePostRemovalWidget(noCheck){
@@ -152,22 +159,24 @@ function handleOpenPostForm() {
 function initInterface(update) {
 	document.documentElement.style.setProperty("--animationDuration", `${storage.get("settings.ANIDUR")}s`)
 
-	if (!sel(".noThreads")){
-		marker.init()
-		time.recalculate()
+	if (sel(".noThreads")) return
+
+	marker.init()
+	time.recalculate()
+
+	let postingFormTrigger = sel("#replyFormShow")
+
+	if (fancyFileInputs.init()) {
+		handleOpenPostForm()
+		postingFormTrigger.onclick = handleOpenPostForm
+		sel("#postForm [name=password]").value = storage.get("settings.PASSWD")
 	}
 
-	fancyFileInputs.init()
-
-	handleOpenPostForm()
-	sel("#replyFormShow").onclick = handleOpenPostForm
 
 	if (DEVICE == "mobile"){
 		sel("a[name=top]").scrollIntoView()
 	} else if(!update && DEVICE == "desktop"){
 		media.init()
-
-		let postingFormTrigger = sel("#replyFormShow")
 
 		function initPostingForm() {
 			new Draggabilly("#replyForm", {

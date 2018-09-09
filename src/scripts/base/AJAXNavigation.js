@@ -57,9 +57,14 @@ function asyncLoadPage(uri, noScrolling) {
 }
 
 // Бинд кликов
-sel("body").onclick = (event) => {
-	let target = event.target,
-		uri = (target.getAttribute("href") || target.parentNode.getAttribute("href"))
+sel("body").onclick = event => {
+	let target = event.target;
+
+	let uri = target.getAttribute("href")
+
+	if (!uri && target.parentNode) {
+		uri = target.parentNode.getAttribute("href") // Workaround for `undoQuickReply()`
+	}
 
 	if (!uri) return
 

@@ -82,17 +82,24 @@
 			max-width: 50vw;
 		}
 
+		input[name="password"]{
+			height: $narrowLineHeight;
+
+			grid-column: 1/4;
+			grid-row: 3;
+		}
+
 		button#submit{
 			max-height: 2 * $narrowLineHeight;
 			font-size: inherit;
 
 			grid-column: 2/4;
-			grid-row: 3;
+			grid-row: 4;
 		}
 
 		#fileInputs{
 			grid-column: 1;
-			grid-row: 3;
+			grid-row: 4;
 
 			& > div{
 				justify-content: space-between;

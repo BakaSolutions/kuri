@@ -21,6 +21,7 @@ deletionForm.addEventListener("submit", e => {
 			timeout: 10000,
 			class: 'notification'
 		})
+		asyncLoadPage(document.location.href, 1)
 	})
 	.catch(err => {
 		console.log(err)
