@@ -35,7 +35,7 @@ function APIPlaceholder(url) {
       link = link.replace('$' + (i + 1), args[i]);
     }
     Logger.debug(`[WS] Receiving ${link}...`);
-    let out = await Request.send(link).catch(e => out = e);
+    let out = await Request.send(link).catch(e => {return e});
     Logger.debug(`[WS] Received: ${out} on "${link}"`);
     try {
       out = JSON.parse(out);

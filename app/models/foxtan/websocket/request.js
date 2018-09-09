@@ -1,3 +1,4 @@
+const http = require('http');
 const WebSocket = require('ws');
 const Logger = require('../../../helpers/logger');
 const Pledge = require('../../../helpers/promise');
@@ -69,12 +70,15 @@ class WSClient {
         if (data.includes(id)) {
           data = data.replace(id, '');
           this.instance.removeEventListener('message', promiseWrapper);
+          if (data.includes('FAIL', 0)) {
+            return reject(data);
+          }
           return resolve(data);
         }
       };
       this.instance.on('message', promiseWrapper);
 
-    }, false).catch(e => {
+    }, true).catch(e => {
       if (e instanceof Error) {
         setTimeout(() => {
           this.send(data);
@@ -117,12 +121,15 @@ class WSClient {
   }
 
   onError (e) {
+    let silent;
     if (!(e instanceof Error)) {
       let message = e.split(' ');
       let command = message.shift();
       message = message.join(' ');
       let status = +message;
-
+      if (status < 500) {
+        silent = true;
+      }
       if (command === 'FAIL') {
         switch (status) {
           case 404:
@@ -136,9 +143,12 @@ class WSClient {
             break;
         }
       }
-      e = { status, message };
+      let error = http.STATUS_CODES[status];
+      e = { status, message, error };
     }
-    Logger.error(e.message || e);
+    if (!silent) {
+      Logger.error(e.message || e);
+    }
     return e;
   }
 

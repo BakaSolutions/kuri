@@ -1,3 +1,4 @@
+const http = require('http');
 const conditional = require('koa-conditional-get');
 const etag = require('koa-etag');
 
@@ -124,6 +125,7 @@ Controllers.fail = (ctx, out, templateName = 'pages/error') => {
   if (out instanceof Error) {
     out = Object.assign({}, out);
   }
+  out.error = out.error || http.STATUS_CODES[ctx.status];
 
   if (!Controllers.isAJAXRequested(ctx)) {
     ctx.type = 'text/html';

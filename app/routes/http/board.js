@@ -20,12 +20,12 @@ router.render = async path => {
     title: `/${boardModel.name}/ &mdash; ${boardModel.title}`,
     threads: []
   };
+
   let page = await BoardModel.getPage(board, +pageNumber || 0);
-  if (!page || !page.threads) {
-    return Render.renderPage('pages/error', page)
-  }
-  if (Tools.isObject(page)) {
-    model = Object.assign({}, model, page);
+  model = Object.assign({}, model, page);
+
+  if (page instanceof Error || (model.message && model.status != 404)) {
+    return Render.renderPage('pages/error', model)
   }
   return Render.renderPage('pages/board', model);
 };

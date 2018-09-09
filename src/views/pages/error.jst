@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
 	{{#def["particles/head"]}}
-	<link rel="stylesheet" href="/css/error.css">
 	<body>
 		{{#def["particles/navigation"]}}
 		<main>
+			<link rel="stylesheet" href="/css/error.css">
+			<a name="top"></a>
 			<header>
 				<a id="title" href="/">
-					<h2>{{!it.name}} {{!it.message}}</h2>
+					<h2>{{!it.error}}</h2>
+					<h4>{{!it.message}}</h4>
 				</a>
 
 				{{?it.stack}}
 					<pre>{{=it.stack}}</pre>
 				{{?}}
 
-				<div id="banner">
+				<div class="noThreads" id="banner">
 					<img src="/static/err.png">
 				</div>
 			</header>
