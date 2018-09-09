@@ -1,6 +1,7 @@
 const fancyFileInputs = {
 	init: function() {
 		this.wrapper = sel("#fileInputs")
+		if (!this.wrapper) return false
 		this.fileLimit = this.wrapper.dataset.filelimit
 
 		this.wrapper.style.display = "flex"
@@ -8,6 +9,7 @@ const fancyFileInputs = {
 		this.lastInputId = 0
 		this.inputCount = 0
 		this.addInput()
+		return true
 	},
 
 	addInput: function(){

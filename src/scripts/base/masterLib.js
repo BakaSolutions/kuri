@@ -32,16 +32,14 @@ if (!String.prototype.padStart) {
 	}
 }
 
-function sel(selector){
-	let e = document.querySelectorAll(selector);
+function sel(selector = '', dom = document){
+	let e = dom.querySelectorAll(selector);
 
-	if (e.length){
-		return e.length > 1 ? e : e[0];
-	}
+	return e.length > 1 ? e : e[0];
 }
 
 // Hotkeys
-document.onkeydown = (e) => {
+document.onkeydown = e => {
 	// console.log("Button pushed: ", e.key)
 
 	switch (e.key) {

@@ -10,7 +10,7 @@
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 			{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
-				<a href="{{=it.site.url.pathname}}{{!board.name}}" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
+				<a href="{{=it.site.url.pathname}}{{!board.name}}/" {{? it.board && board.name == it.board.name}} class="selected"{{? }}>
 					/{{!board.name}}/ — {{!board.title}}
 				</a>
 			{{~ }}
