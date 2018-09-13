@@ -37,9 +37,15 @@
 	</div>
 	<div class="postBody">
 		{{? Array.isArray(post.files) && post.files.length}}
-			<div class="postAttachments">
-				{{~post.files :file}}
-					{{#def['particles/attachment']}}
+			<div class="thumbnails">
+				{{~post.files.filter((file) => file.thumb) :file}}
+					<div>{{#def['particles/thumbnail']}}</div>
+				{{~ }}
+			</div>
+
+			<div class="attachments">
+				{{~post.files.filter((file) => !file.thumb) :file}}
+					<div>{{#def['particles/attachment']}}</div>
 				{{~ }}
 			</div>
 		{{? }}

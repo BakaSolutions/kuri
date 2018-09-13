@@ -13,36 +13,6 @@
 		background-color: var(--btncolor);
 		margin: calc(var(--gap) / 2) 0;
 	}
-
-	.postAttachments{
-		display: flex;
-
-		.attachment{
-			*{
-				transition: opacity var(--animationDuration);
-			}
-			
-			.thumb{
-				display: block;
-				
-				background-position: center;
-				background-size: cover;
-			}
-
-			.info{
-				background-color: var(--bgcolor);
-
-				justify-content: space-between;
-				align-items: center;
-				display: flex;
-			}
-
-			.unpreviewable span{
-				color: var(--textcolor);
-				font-size: .9em
-			}
-		}
-	}
 }
 
 // Отметки
@@ -115,4 +85,49 @@ body{
 .noThreads{
 	text-align: center;
 	font-size: 1.1em;
+}
+
+.thumbnails{
+	@include user-select(none);
+	overflow: auto;
+	display: flex;
+
+	& > div{
+		justify-content: center;
+		min-width: 10em;
+		display: flex;
+
+		margin-right: calc(var(--gap) / 2);
+		position: relative;
+
+		& > a{
+			background-position: center;
+			background-size: cover;
+		}
+
+		.info{
+			position: absolute;
+			bottom: 0;
+
+			justify-content: space-between;
+			display: flex;
+			width: 100%;
+
+			transition: opacity var(--animationDuration);
+			background-color: var(--bgcolor_card);
+
+			[download]{
+				font-size: 1.4rem;
+			}
+		}
+	}
+}
+
+.attachments a {
+	display: block;
+
+	span{
+		font-size: .9em;
+		color: var(--textcolor_secondary)
+	}
 }

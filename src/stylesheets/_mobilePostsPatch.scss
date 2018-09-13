@@ -11,29 +11,28 @@
 	font-size: 1.1em;
 }
 
-.postAttachments{
-	.thumb{
-		max-height: 150px;
-		max-width: 150px;
-	}
+.omittedPosts{
+	margin-left: var(--gap);
+}
 
-	.info{
-		opacity: .8;
-		
-		margin-top: -1.2rem;
-		padding: .1rem;
-		height: 1.2rem;
-	}
+.thumbnails{
+	& > div{
+		& > a{
+			max-height: 150px;
+			max-width: 150px;
+		}
 
-	.dlLink{
-		display: none;
-	}
+		.info{
+			font-size: .9rem;
+			opacity: .9;
 
-	.unpreviewable{
-		width: 100%;
+			[download]{
+				display: none;
+			}
+		}
 	}
 }
 
-.omittedPosts{
-	margin-left: var(--gap);
+.attachments a{
+	margin: 1em 0;
 }
