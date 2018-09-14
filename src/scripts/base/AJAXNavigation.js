@@ -27,7 +27,7 @@ function asyncLoadPage(uri, noScrolling) {
 							sel("#replyForm .widgetHandle").innerHTML = doc.querySelector("#replyForm .widgetHandle").innerHTML
 
 							for (let field of ["boardName", "redirect", "threadNumber"]) {
-								sel(`#replyForm [name="${field}"]`).innerHTML = doc.querySelector(`#replyForm [name="${field}"]`).innerHTML
+								sel(`#replyForm [name="${field}"]`).value = doc.querySelector(`#replyForm [name="${field}"]`).value
 							}
 
 							sel("#replyForm [name='subject']").placeholder = doc.querySelector("#replyForm [name='subject']").placeholder
