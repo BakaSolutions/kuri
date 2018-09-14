@@ -25,7 +25,13 @@ function asyncLoadPage(uri, noScrolling) {
 
 						if (sel("#replyForm") && doc.querySelector("#replyForm")) {
 							sel("#replyForm .widgetHandle").innerHTML = doc.querySelector("#replyForm .widgetHandle").innerHTML
-							sel("#postForm").innerHTML = doc.querySelector("#postForm").innerHTML
+
+							for (let field of ["boardName", "redirect", "threadNumber"]) {
+								sel(`#replyForm [name="${field}"]`).innerHTML = doc.querySelector(`#replyForm [name="${field}"]`).innerHTML
+							}
+
+							sel("#replyForm [name='subject']").placeholder = doc.querySelector("#replyForm [name='subject']").placeholder
+							sel("#replyForm #fileInputs").dataset.filelimit = doc.querySelector("#replyForm #fileInputs").dataset.filelimit
 						}
 
 						let postMenu = sel("#postMenu:not([hidden])")
@@ -74,7 +80,7 @@ sel("body").onclick = event => {
 		event.preventDefault()
 
 		if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
-			sel(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: storage.get("settings.ANIDUR") > 0 ? "smooth" : "instant"})
+			document.querySelector(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: storage.get("settings.ANIDUR") > 0 ? "smooth" : "instant"})
 		} else if (/^\//.test(uri)) {
 			asyncLoadPage(uri)
 		}

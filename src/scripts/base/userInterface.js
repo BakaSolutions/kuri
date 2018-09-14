@@ -1,30 +1,12 @@
-function quickReply(postNumber, threadNumber) {
+function quickReply(element) {
+	let link = element.parentNode.querySelector(".refLink").href
+	if (window.location.href.split("#")[0] != link.split("#")[0]) asyncLoadPage(link)
+
 	let cb = sel("#replyFormShow")
 	if(!cb.checked) cb.click()
 
-	let header = `Ответ в тред <span class="pseudoLink">#${threadNumber}</span><span class="material-icons" onclick="undoQuickReply()">close</span>`
-	updatePostForm(header, "Имя", threadNumber, `>>${postNumber}\n`)
-}
-
-function undoQuickReply(){
-	updatePostForm(`Создание треда в <span class="pseudoLink">/${sel("#postForm [name='boardName']").value}/</span>`, "Тема")
-}
-
-function updatePostForm(header, subjectPlaceholder, threadNumber, addText){
-	let postForm = sel("#replyForm")
-
-	sel(".widgetHandle", postForm).innerHTML = header
-
-	let password = sel("[name=password]", postForm)
-	password.value = storage.get("settings.PASSWD")
-	password.setAttribute("hidden", 1);
-
-	sel("[name='subject']", postForm).placeholder = subjectPlaceholder
-	sel("input#threadNumber", postForm).value = threadNumber
-
-	let textarea = sel("textarea", postForm)
-	textarea.value += addText || ""
-
+	let textarea = sel("#postForm textarea")
+	textarea.value += `>>${element.parentNode.parentNode.dataset.number}\n`
 	textarea.focus()
 }
 

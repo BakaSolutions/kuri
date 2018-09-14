@@ -14,7 +14,7 @@
 		{{? }}
 
 		<!-- Рефлинк -->
-		<a class="refLink" href="{{=it.site.url.pathname}}{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
+		<a class="refLink" href="/{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
 			<span class="subject">{{? post.subject}}{{!post.subject}}{{?? }}{{!it.board.defaultUsername || ''}}{{? }}</span> #{{!post.number}}
 		</a>
 
@@ -27,7 +27,7 @@
 		<span class="material-icons jsOnly" onclick="openPostMenu(event, '{{!it.board.name}}', {{!post.number}}{{? post.number == post.threadNumber}}, 1{{? }})">menu</span>
 
 		<!-- Быстрый ответ -->
-		<span class="material-icons jsOnly" onclick="quickReply({{!post.number}}, {{!post.threadNumber}})">reply</span>
+		<span class="material-icons jsOnly" onclick="quickReply(this)">reply</span>
 
 		<!-- Закладки -->
 		{{? post.number == post.threadNumber}}
