@@ -22,7 +22,7 @@
 
 		<textarea name="text"></textarea>
 
-		<input type="password" name="password" placeholder="Пароль для управления постом">
+		<input type="password" name="password" class="noJs" placeholder="Пароль для управления постом">
 
 		<div id="fileInputs" data-filelimit="{{!it.board.fileLimit || 0}}">
 			{{ for(let i = 0; i < it.board.fileLimit; i++){ }}
