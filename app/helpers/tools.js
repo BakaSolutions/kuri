@@ -184,11 +184,11 @@ tools.parseDate = d => {
   let months = ['Янв', 'Фев', 'Мар', 'Апр', 'Мая', 'Июня', 'Июля', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
   if (!(d instanceof Date)) d = new Date(d);
 
-  let date = d.getDate(),
-      month = months[d.getMonth()],
-      year = d.getFullYear(),
-      hours = d.getHours().toString().padStart(2, 0),
-      minutes = d.getMinutes().toString().padStart(2, 0);
+  let date = d.getUTCDate(),
+      month = months[d.getUTCMonth()],
+      year = d.getUTCFullYear(),
+      hours = d.getUTCHours().toString().padStart(2, 0),
+      minutes = d.getUTCMinutes().toString().padStart(2, 0);
 
-  return `${date} ${month} ${year} ${hours}:${minutes}`;
+  return `${date} ${month} ${year} ${hours}:${minutes} (UTC)`;
 };

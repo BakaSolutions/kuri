@@ -66,7 +66,7 @@ API.getPage = (boardName, threadNumber) => {
       }
       let threadsCount = threads.length;
       for (let i = 0; i < threadsCount; i++) {
-        threads[i].posts = parseDateInPosts(threads[i].posts);
+        parseDateInPosts(threads[i].posts);
       }
       return page;
     })
@@ -78,7 +78,7 @@ function parseDateInPosts(posts) {
   }
   let postsCount = posts.length;
   for (let i = 0; i < postsCount; i++) {
-    posts[i].createdAt = new Date(posts[i].createdAt);
+    posts[i].createdAt = new Date(posts[i].createdAt).toUTCString();
     posts[i].formatted_date = Tools.parseDate(posts[i].createdAt);
   }
 
