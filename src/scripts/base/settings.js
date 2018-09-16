@@ -33,6 +33,9 @@ const settings = {
 				settings.addModules(...[{
 					id: "themes",
 					description: "Темы"
+				}, {
+					id: "quickSave",
+					description: "Быстрое сохранение файлов"
 				}].filter(module => !loadedModules.includes(module.id)))
 
 				sel("#settings").addEventListener("settingsTabInit", e => {

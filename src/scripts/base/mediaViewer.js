@@ -14,7 +14,7 @@ const media = {
 		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
 	},
 
-	prepare: function(e, mime, name) {
+	prepare: function(e, mime) {
 		if (!e.ctrlKey && DEVICE == "desktop") {
 			e.preventDefault()
 
@@ -23,6 +23,8 @@ const media = {
 				class: "notification",
 				closable: false
 			})
+
+			let name = e.target.dataset.name
 
 			if (mime.split("/")[0] == "video") {
 				this.widget.classList.add("video")

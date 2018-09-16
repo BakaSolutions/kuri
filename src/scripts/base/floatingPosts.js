@@ -1,4 +1,6 @@
 document.onmouseover = (e) => {
+	let loadedModules = storage.get(`settings.modules`)
+
 	if (e.target.className == "postLink" && !e.target.querySelector(".post")){
 		let link = e.target.href.split("#"),
 			selector = `.post[data-number="${link[1]}"]`
@@ -31,6 +33,15 @@ document.onmouseover = (e) => {
 						timeout: 10000
 					})
 				})
+		}
+	} else if(loadedModules.includes("quickSave")){
+		try{
+			let target = e.target.parentNode.parentNode
+			if (target.className != "thumbnails") target = target.parentNode
+
+			if(target.className == "thumbnails" && !target.querySelector(".dlLink")) quickSave.addLink(target)
+		} catch(error){
+			//
 		}
 	}
 }

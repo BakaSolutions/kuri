@@ -1,7 +1,6 @@
-<a href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" onclick="media.prepare(event, '{{=file.mime}}', '{{!file.name}}')" style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></a>
+<a href="{{=it.foxtan.upload}}{{!file.path}}" data-name="{{!file.name}}" target="_blank" onclick="media.prepare(event, '{{=file.mime}}')" style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></a>
 
 <div class="info">
 	<span>{{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{!(file.size / 1048576).toFixed(2)}} MiB{{? }}</span>
 	{{? file.duration }}<span class="duration">{{!file.duration}}</span>{{?}}
-	<a class="material-icons" href="{{=it.foxtan.upload}}{{!file.path}}" download="{{!file.name}}">save_alt</a>
 </div>

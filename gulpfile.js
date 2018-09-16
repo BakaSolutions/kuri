@@ -15,7 +15,8 @@ let input = {
 	js: {
 		base: ["src/scripts/base/masterLib.js", "src/scripts/base/*.js"],
 		home: ["src/scripts/home.js"],
-		themes: ["src/scripts/modules/themes.js"]
+		themes: ["src/scripts/modules/themes.js"],
+		quickSave: ["src/scripts/modules/quickSave.js"]
 	}
 };
 
