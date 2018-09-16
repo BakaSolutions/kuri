@@ -23,10 +23,13 @@ const quickSave = {
 						.then(data => {
 							let link = createElement("a", {
 								href: window.URL.createObjectURL(data),
-								download: name
+								download: name,
+								hidden: 1
 							})
 
-							link.click()
+							document.body.appendChild(link) // Фаерфокс не реагирует на .click(), 
+							link.click()					// если ссылки нет в DOMе
+							document.body.removeChild(link)
 						})
 				}
 
