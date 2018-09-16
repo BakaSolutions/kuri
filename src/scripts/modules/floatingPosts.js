@@ -13,7 +13,7 @@ const floatingPosts = {
 						return response.text()
 							.then(data => {
 								let doc = (new DOMParser()).parseFromString(data, "text/html"),
-									post = selector(selector, doc).cloneNode(true)
+									post = sel(selector, doc).cloneNode(true)
 
 								link.appendChild(post)
 							})
