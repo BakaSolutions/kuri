@@ -16,7 +16,8 @@ let input = {
 		base: ["src/scripts/base/masterLib.js", "src/scripts/base/*.js"],
 		home: ["src/scripts/home.js"],
 		themes: ["src/scripts/modules/themes.js"],
-		quickSave: ["src/scripts/modules/quickSave.js"]
+		quickSave: ["src/scripts/modules/quickSave.js"],
+		floatingPosts: ["src/scripts/modules/floatingPosts.js"]
 	}
 };
 

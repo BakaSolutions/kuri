@@ -36,6 +36,9 @@ const settings = {
 				}, {
 					id: "quickSave",
 					description: "Быстрое сохранение файлов"
+				}, {
+					id: "floatingPosts",
+					description: "Всплывающие посты"
 				}].filter(module => !loadedModules.includes(module.id)))
 
 				sel("#settings").addEventListener("settingsTabInit", e => {

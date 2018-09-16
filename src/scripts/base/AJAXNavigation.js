@@ -16,22 +16,22 @@ function asyncLoadPage(uri, noScrolling) {
 					.then(data => {
 						let doc = (new DOMParser()).parseFromString(data, "text/html")
 
-						let main = doc.querySelector("main")
+						let main = sel("main", doc)
 						if (main) sel("main").innerHTML = main.innerHTML
 
-						let title = doc.querySelector("title")
+						let title = sel("title", doc)
 						sel("title").innerHTML = title.innerHTML
 						history.pushState({uri}, title, uri)
 
 						if (sel("#replyForm") && doc.querySelector("#replyForm")) {
-							sel("#replyForm .widgetHandle").innerHTML = doc.querySelector("#replyForm .widgetHandle").innerHTML
+							sel("#replyForm .widgetHandle").innerHTML = sel("#replyForm .widgetHandle", doc).innerHTML
 
 							for (let field of ["boardName", "redirect", "threadNumber"]) {
-								sel(`#replyForm [name="${field}"]`).value = doc.querySelector(`#replyForm [name="${field}"]`).value
+								sel(`#replyForm [name="${field}"]`).value = sel(`#replyForm [name="${field}"]`, doc).value
 							}
 
-							sel("#replyForm [name='subject']").placeholder = doc.querySelector("#replyForm [name='subject']").placeholder
-							sel("#replyForm #fileInputs").dataset.filelimit = doc.querySelector("#replyForm #fileInputs").dataset.filelimit
+							sel("#replyForm [name='subject']").placeholder = sel("#replyForm [name='subject']", doc).placeholder
+							sel("#replyForm #fileInputs").dataset.filelimit = sel("#replyForm #fileInputs", doc).dataset.filelimit
 						}
 
 						let postMenu = sel("#postMenu:not([hidden])")
