@@ -18,12 +18,14 @@
 			{{?? }}
 				{{~it.threads :thread}}
 					<div class="thread">
-						{{~[thread.posts.shift()] :post}}
+						{{~[thread.posts[0]] :post}}
 							{{#def['particles/post']}}
 						{{~ }}
 
 						{{? thread.omittedPosts}}
-							<div class="omittedPosts">Пропущено постов: {{!thread.omittedPosts}}</div>
+							<a class="omittedPosts" href="/{{!it.board.name}}/res/{{!thread.posts.shift().threadNumber}}.html">Пропущено постов: {{!thread.omittedPosts}}</a>
+						{{?? }}
+							{{ thread.posts.shift() }}
 						{{? }}
 
 						{{~thread.posts :post}}

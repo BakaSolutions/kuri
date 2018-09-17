@@ -1,3 +1,7 @@
+.thread:not(:nth-last-child(2)){
+	margin-bottom: calc(var(--gap) * 2);
+}
+
 .post{
 	padding: var(--gap);
 }
@@ -9,10 +13,10 @@
 
 .postDetails{
 	font-size: 1.1em;
-}
 
-.omittedPosts{
-	margin-left: var(--gap);
+	time{
+		right: var(--gap)
+	}
 }
 
 .thumbnails{
@@ -31,4 +35,9 @@
 
 .attachments a{
 	margin: 1em 0;
+}
+
+.omittedPosts{
+	padding-left: var(--gap);
+	padding-bottom: .25em
 }

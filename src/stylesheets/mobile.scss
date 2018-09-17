@@ -18,10 +18,6 @@ body{
 main{
 	padding-bottom: calc(#{$navBarHeight} - .4em);
 	width: 100vw;
-
-	header{
-		margin: 0 var(--gap);
-	}
 }
 
 .desktopOnly{
