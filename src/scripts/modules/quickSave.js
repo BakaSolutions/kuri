@@ -46,3 +46,14 @@ const quickSave = {
 			})
 	}
 }
+
+document.addEventListener("mouseover", event => {
+	try{
+		let target = event.target.parentNode.parentNode
+		if (target.className != "thumbnails") target = target.parentNode
+
+		if(target.className == "thumbnails" && !sel(".dlLink", target)) quickSave.addLink(target)
+	} catch(error){
+		//
+	}
+})

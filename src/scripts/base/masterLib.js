@@ -63,24 +63,3 @@ document.onkeydown = e => {
 			break
 	}
 }
-
-document.onmouseover = (e) => {
-	let loadedModules = storage.get(`settings.modules`)
-
-	if(loadedModules.includes("floatingPosts")){
-		if (e.target.className == "postLink" && !sel(".post", e.target)){
-			floatingPosts.show(e.target)	
-		}
-	}
-
-	if(loadedModules.includes("quickSave")){
-		try{
-			let target = e.target.parentNode.parentNode
-			if (target.className != "thumbnails") target = target.parentNode
-
-			if(target.className == "thumbnails" && !sel(".dlLink", target)) quickSave.addLink(target)
-		} catch(error){
-			//
-		}
-	}
-}

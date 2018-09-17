@@ -1,11 +1,13 @@
-const floatingPosts = {
-	show: (link) => {
-		let uri = link.href.split("#"),
+document.addEventListener("mouseover", (event) => {
+	let target = event.target
+
+	if (target.className == "postLink" && !sel(".post", target)){
+		let uri = target.href.split("#"),
 			selector = `.post[data-number="${uri[1]}"]`
 
 		if (sel(selector)){
 			let post = sel(selector).cloneNode(true)
-			link.appendChild(post)
+			target.appendChild(post)
 		} else{
 			fetch(uri[0])
 				.then(response => {
@@ -15,7 +17,7 @@ const floatingPosts = {
 								let doc = (new DOMParser()).parseFromString(data, "text/html"),
 									post = sel(selector, doc).cloneNode(true)
 
-								link.appendChild(post)
+								target.appendChild(post)
 							})
 					}
 
@@ -32,4 +34,4 @@ const floatingPosts = {
 				})
 		}
 	}
-}
+})
