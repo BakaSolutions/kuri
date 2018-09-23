@@ -38,6 +38,9 @@ let tagMap = {
   postLink: [
     /&gt;&gt;(\/?.+\/)?([0-9]+)/gi,
   ],
+  quotation: [
+    /^(&gt;(?!&gt;).+)$/gim,
+  ],
   bold: [
     ['[b]', '[/b]'],
     ['**', '**'],
@@ -56,20 +59,17 @@ let tagMap = {
     ['[s]', '[/s]'],
     ['~~', '~~'],
   ],
-  link: [
-    ['[url]', '[/url]'],
-    /((https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi,
-    /(magnet:\?xt=urn:[a-z0-9]{20,50})/gi
-  ],
   titledLink: [
     /\[(.+)]\((.+)\)/g,
+  ],
+  link: [
+    ['[url]', '[/url]'],
+    /((?:https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi,
+    /(magnet:\\\?xt=urn:[a-z0-9]{20,50})/gi
   ],
   spoiler: [
     ['[spoiler]', '[/spoiler]'],
     ['%%', '%%'],
-  ],
-  quotation: [
-    /^(&gt;[^&gt;].+)$/gi,
   ],
   newLine: [
     /\s?\n/g,
@@ -81,6 +81,7 @@ let tagMap = {
 
 let typeMap = {
   postLink: processPostLink,
+  quotation: '<blockquote>$1</blockquote>',
   newLine: '<br />',
   reduceNewLines: new Array(Markup.reduceNewLines + 1).join('$1'),
   code: '<pre>$1</pre>',
@@ -89,10 +90,9 @@ let typeMap = {
   italic: '<i>$1</i>',
   underline: '<u>$1</u>',
   strike: '<s>$1</s>',
+  titledLink: processTitledURL,
   link: processURL,
-  titledLink: '<a href="$2" target="_blank">$1</a>',
   spoiler: '<span class="spoiler">$1</span>',
-  quotation: '<blockquote>$1</blockquote>'
 };
 
 Markup.process = async (text, board, thread, post) => {
@@ -168,19 +168,22 @@ async function processPostLink(capture, matches, board, thread, post) {
   return `<a class="postLink" data-board="${board}" data-number="${postFromMatch}" href="/${board}/res/${thread}.html#${postFromMatch}">${capture}</a>`;
 }
 
-function processURL(href, matches) {
-  if (href.includes('[url]', 0)) { // [url]href[/url]
-    matches = getMatches(href, /((https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi).matches[0];
+function processTitledURL(_, matches) {
+  let [title, href] = matches;
+  href = href.replace(/[*_\[\]'\\/:.#]/g, m => escapeMap[m]);
+  return `<a href="${href}" target="_blank">${title}</a>`;
+}
+
+function processURL(capture, matches) {
+  if (capture.includes('[url]', 0)) { // [url]href[/url]
+    matches = getMatches(capture, /((?:https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi).matches[0];
   }
-  let [ parsedHref, protocol ] = matches;
-  href = parsedHref.replace(/[*_\[\]'\\/:.#]/g, m => escapeMap[m]);
+  let [ href ] = matches;
+  href = href.replace(/[*_\[\]'\\/:.#]/g, m => escapeMap[m]);
   try {
     href = decodeURIComponent(href);
   } catch (e) {
     console.log(e, href);
   }
-  let cl = (protocol.includes('s'))
-    ? `class="secure"`
-    : '';
-  return `<a ${cl} href="${href}" target="_blank">${href}</a>`;
+  return `<a href="${href}" target="_blank">${href}</a>`;
 }

@@ -1,0 +1,36 @@
+.spoiler {
+  text-shadow: 0 0 .5em var(--textcolor_secondary);
+  transition: text-shadow var(--animationDuration);
+
+  &, * {
+    color: transparent;
+    background: transparent;
+  }
+
+  &:hover {
+    &, * {
+      color: unset;
+      background: unset;
+      text-shadow: none;
+    }
+    a {
+      color: var(--linkcolor);
+
+      &:hover {
+        color: var(--linkcolor_hover);
+      }
+    }
+  }
+}
+
+blockquote {
+  display: inline-block;
+  margin: 0;
+  color: var(--quotationcolor);
+}
+
+pre, code {
+  margin: 0;
+  padding: .4em;
+  background: var(--bgcolor);
+}
