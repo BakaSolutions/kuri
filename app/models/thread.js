@@ -1,6 +1,7 @@
 const API = require('./foxtan/websocket');
 
 const Board = require('./board');
+const Post = require('./post');
 
 let Thread = module.exports = {};
 
@@ -16,5 +17,6 @@ Thread.getOne = async (board, threadNumber) => {
   if (!thread) {
     return new Error(`There's no such thread: ${board}/${threadNumber}`);
   }
+  await Post.markup(thread.posts);
   return thread;
 };

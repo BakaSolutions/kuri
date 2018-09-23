@@ -3,6 +3,7 @@ const Tools = require('../helpers/tools');
 const API = require('./foxtan/websocket');
 
 const Model = require('./index');
+const Post = require('./post');
 
 let Board = module.exports = {};
 
@@ -58,5 +59,8 @@ Board.getPage = async (board, page) => {
     Logger.error(new Error('Trying to get something unexpectable!'));
     return false;
   }
-  return await API.getPage(board, page);
+  return await API.getPage(board, page).then(async page => {
+    await Promise.all(page.threads.map(thread => Post.markup(thread.posts)));
+    return page;
+  });
 };
