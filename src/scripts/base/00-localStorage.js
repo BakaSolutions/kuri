@@ -144,24 +144,17 @@ class Storage {
 
 }
 
-let storage = new Storage({
+const storage = new Storage({
   defaults: {
     settings: {
-      "modules": [],
-      "ANIDUR": 0.3,
-      "PASSWD": "",
-      "USEAJAX": true,
+      animationLength: 0.3,
+      useAjax: true,
+      password: "",
+    },
+    addons: {
+      floatingPosts: false,
+      quickSave: false,
+      themes: false,
     }
   }
-});
-
-if (storage.get("settings.PASSWD") === ""){
-  storage.set("settings.PASSWD", (() => {
-    let str = []
-    while(str.length < 16){
-      str.push(String.fromCharCode(Math.floor(Math.random() * 90) + 33))
-    }
-
-    return str.join("")
-  })())
-}
+})

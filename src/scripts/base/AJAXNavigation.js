@@ -1,5 +1,5 @@
 function asyncLoadPage(uri, noScrolling) {
-	if (uri == "/" || !storage.get("settings.USEAJAX")) return location.href = uri
+	if (uri == "/" || !storage.get("settings.useAjax")) return location.href = uri
 
 	let ntf = notifications.add({
 		text: "Загрузка...",
@@ -41,7 +41,7 @@ function asyncLoadPage(uri, noScrolling) {
 
 						// Скролл к указанному хэшу либо по-умолчанию вверх
 						if (!noScrolling) {
-							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: storage.get("settings.ANIDUR") > 0 ? "smooth" : "instant"})
+							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: storage.get("settings.animationLength") > 0 ? "smooth" : "instant"})
 						}
 
 						// console.log("Asynchronously navigated to", uri)
@@ -80,7 +80,7 @@ sel("body").onclick = event => {
 		event.preventDefault()
 
 		if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
-			document.querySelector(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: storage.get("settings.ANIDUR") > 0 ? "smooth" : "instant"})
+			document.querySelector(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: storage.get("settings.animationLength") > 0 ? "smooth" : "instant"})
 		} else if (/^\//.test(uri)) {
 			asyncLoadPage(uri)
 		}

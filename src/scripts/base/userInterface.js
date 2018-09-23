@@ -19,7 +19,7 @@ function activatePostRemovalWidget(noCheck){
 			widget.setAttribute("hidden", 1)
 		} else {
 			widget.removeAttribute("hidden")
-			sel("#deletePosts [name=password]").value = storage.get("settings.PASSWD")
+			sel("#deletePosts [name=password]").value = storage.get("settings.password")
 		}
 	}, 1)
 }
@@ -114,7 +114,10 @@ function addToFavourites() {
 
 function toggleWidget(widget, init) {
 	let element = widget instanceof HTMLElement ? widget : sel(`.widget#${widget}`)
-	if (init && !INITIALIZED_SCRIPTS.includes(widget)) init()
+	if (init && !INITIALIZED_SCRIPTS.includes(widget)){
+		INITIALIZED_SCRIPTS.push(widget)	
+		init()
+	} 
 
 	if (element.hasAttribute("hidden")){
 		if(DEVICE == "mobile"){
@@ -139,7 +142,7 @@ function handleOpenPostForm() {
 }
 
 function initInterface(update) {
-	document.documentElement.style.setProperty("--animationDuration", `${storage.get("settings.ANIDUR")}s`)
+	document.body.style.setProperty("--animationDuration", `${storage.get("settings.animationLength")}s`)
 
 	if (sel(".noThreads")) return
 
@@ -151,7 +154,7 @@ function initInterface(update) {
 	if (fancyFileInputs.init()) {
 		handleOpenPostForm()
 		postingFormTrigger.onclick = handleOpenPostForm
-		sel("#postForm [name=password]").value = storage.get("settings.PASSWD")
+		sel("#postForm [name=password]").value = storage.get("settings.password")
 	}
 
 

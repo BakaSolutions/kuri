@@ -28,6 +28,7 @@ const loader = {
 	}
 }
 
-for (module of storage.get("settings.modules")) {
-	loader.request(`/js/${module}.js`)
+let addons = storage.get("addons")
+for (id in addons) {
+	if (addons[id]) loader.request(`/js/${id}.js`)
 }

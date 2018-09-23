@@ -1,52 +1,24 @@
 themes = {
 	init: async function () {
-		storage.defaults.settings.theme = "tumbach"
-		storage.defaults.themes = []
+		storage.defaults.themes = {
+			current: "tumbach"
+		}
 		
-		let name = storage.get("settings.theme"),
-			json = storage.get(`themes.${name}`) || await this.load(name)
+		let name = storage.get("themes.current"),
+			json = storage.get(`themesCache.${name}`) || await this.load(name)
 
 		this.apply(json)
 	},
 
 	initInterface: function () {
-		this.wrapper = settings.addTab("themes", "Темы")
-		this.showcase = createElement("div", {
-			id: "themes",
-			onclick: this.select
-		})
+		let tabId = "themes"
+		this.wrapper = settings.addTab(tabId, "Темы")
 
-		this.addToShowcase({
-			id: "tumbach",
-			description: "Standart"
-		}, {
-			id: "crychan",
-			description: "Crychan"
-		}, {
-			id: "sosach",
-			description: "Sosach"
-		}, {
-			id: "oneDark",
-			description: "One Dark"
-		}, {
-			id: "tumbachClassic",
-			description: "Tumbach Classic"
-		})
-
-		this.wrapper.appendChild(this.showcase)
-		this.switchSelector(sel(`[data-theme-id=${storage.get("settings.theme")}]`), 1)
-	},
-
-	addToShowcase: function (...themes) {
-		for (theme of themes) {
-			let node = createElement("div", {
-				innerText: theme.description
-			})
-
-			node.dataset.themeId = theme.id
-
-			this.showcase.appendChild(node)
-		}
+		settings.addOption("themes.current", "Standart", 	tabId, 0, 1, "tumbach")
+		settings.addOption("themes.current", "Crychan", 	tabId, 0, 1, "crychan")
+		settings.addOption("themes.current", "Sosach", 		tabId, 0, 1, "sosach")
+		settings.addOption("themes.current", "One Dark", 	tabId, 0, 1, "oneDark")
+		settings.addOption("themes.current", "Classic", 	tabId, 0, 1, "tumbachClassic")
 	},
 
 	load: async function (name) {
@@ -55,7 +27,7 @@ themes = {
 				if (response.status == 200) {
 					return response.json()
 							.then(data => {
-								storage.set(`themes.${name}`, data)
+								// storage.set(`themesCache.${name}`, data)
 								return data
 							})
 				} else {
@@ -65,33 +37,11 @@ themes = {
 			.catch(err => console.error("Theme fetch error occured:", err))
 	},
 
-	select: async function (event) {
-		let name = event.target.dataset.themeId,
-			json = name == "custom" ? themes.parse(event) : storage.get(`themes.${name}`) || await themes.load(name)
-
-		themes.apply(json)
-		themes.switchSelector(event.target)
-		storage.set("settings.theme", name)
-	},
-
 	apply: function (object, updateEditor = 1) {
 		for (let rule in object) {
-			// if (updateEditor) document.querySelector(`#themeEditor [name="${rule}"]`).value = object[rule]
 			document.documentElement.style.setProperty(`--${rule}`, object[rule])
 		}
 	},
-
-	// parse: function (){
-	// 	let object = {}
-
-	// 	for (let input of document.querySelectorAll("#themeEditor input")) {
-	// 		object[input.name] = input.value
-	// 	}
-
-	// 	let json = JSON.stringify(object)
-	// 	storage.set("themes.custom", json)
-	// 	return json
-	// },
 
 	switchSelector: function (activate, initial) {
 		if (!initial){
@@ -109,4 +59,3 @@ themes = {
 }
 
 themes.init()
-if (INITIALIZED_SCRIPTS.includes("settings")) themes.initInterface()

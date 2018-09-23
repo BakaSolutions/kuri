@@ -4,124 +4,73 @@
 }
 
 #settings{
-	textarea{
-		resize: vertical;
-	}
-
-	input{
-		height: 2em;
-		background: var(--bgcolor_card);
-	}
+	@include user-select(none);
 
 	.tabs{
-		@include user-select(none);
-
 		display: flex;
-		justify-content: space-between;
 
-		label{
+		span{
 			padding: calc(var(--gap) / 2) var(--gap);
-			background-color: var(--bgcolor_card);
+			text-align: center;
+			width: 100%;
 
-			&.active{
-				background-color: var(--bgcolor);
+			&:not(.active){
+				background-color: var(--bgcolor_card);
+				cursor: pointer;
 			}
 		}
 	}
 
-	div[data-tab]:not([hidden]){
-		flex-direction: column;
-		display: flex;
-		padding: var(--gap);
+	[data-tab]{
 		background-color: var(--bgcolor);
-	}
+		padding: var(--gap);
 
-	#themes{
-		max-height: 10em;
-		margin-bottom: var(--gap);
-		overflow-y: auto;
-
-
-		:hover, .active{
-			background-color: var(--bgcolor_card)
-		}
-	}
-
-	#themeEditor{
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-
-		label{
-			grid-column: 1;
-		}
-
-		input[type="color"]{
-			margin: .1em;
-			height: 1.5em;
-			padding: 0;
-			width: 3em;
-			vertical-align: bottom;
-		}
-	}
-
-	div[data-tab]{
-		label{
-			margin-left: var(--gap)
-		}
-
-		& > span:not(:first-child) {
-			margin-top: var(--gap)
-		}
-
-		& > label {
-			display: flex;
-			align-items: center;
+		> div{
 			justify-content: space-between;
-			//padding: 0 var(--gap);
-			min-height: 30px;
+			align-items: center;
+			display: flex;
+
+			// margin-left: var(--gap);
 		}
+	}
 
-		input{
-			background-color: transparent;
-			text-align: right;
+	input[type="text"], input[type="password"]{
+		background-color: var(--bgcolor_postform);
+		margin-left: var(--gap);
+		width: 10em;
+	}
 
-			&.switch {
-				display: none;
-			}
-		}
+	[type="checkbox"]{
+		-webkit-appearance: none;
+		-moz-appearance: none;
 
-		span.switch {
-			position: relative;
+		background-color: var(--bgcolor_postform);
+		border-radius: .5em;
+		cursor: pointer;
+		width: 2.5em;
+		height: .8em;
+		margin: 0;
+
+		position: relative;
+
+		&::after{
+			content: "";
+			position: absolute;
+			top: -.2em;
+
 			display: block;
-			
-			transition: background-color var(--animationDuration);
-			background-color: var(--btncolor);
-			border-radius: .5em;
-			width: 1.7em;
-			height: .7em;
+			height: 1.2em;
+			width: 1.2em;
 
-			&::after {
-				border-radius: 50%;
-				content: "";
+			background-color: var(--linkcolor_hover);
+			border-radius: 50%;
 
-				right: calc(100% - 1em);
-				position: absolute;
-				top: -25%;
-
-				transition: all var(--animationDuration);
-				background-color: var(--linkcolor_hover);
-				height: 1em;
-				width: 1em;
-			}
+			transition: right var(--animationDuration);
+			right: 1.3em;
 		}
 
-		input.switch:checked + span.switch {
-			background-color: var(--linkcolor);
-
-			&::after{
-				transition: right var(--animationDuration);
-				right: 0%;
-			}
+		&:checked::after{
+			right: 0;
 		}
 	}
 }
