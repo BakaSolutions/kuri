@@ -55,6 +55,7 @@ header{
 // Links
 a, .pseudoLink, .tabs label{
 	color: var(--linkcolor);
+	transition: color var(--animationDuration);
 }
 
 a{

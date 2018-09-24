@@ -30,8 +30,7 @@ let escapeRX = exp => exp.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 
 let codeTags = [
   ['[code]', '[/code]', 'code'],
-  ['```', '```', 'code'],
-  ['`', '`', 'inlineCode'],
+  ['```', '```', 'code']
 ];
 
 let tagMap = {
@@ -81,11 +80,10 @@ let tagMap = {
 
 let typeMap = {
   postLink: processPostLink,
-  quotation: '<blockquote>$1</blockquote>',
+  quotation: '<q>$1</q>',
   newLine: '<br />',
   reduceNewLines: new Array(Markup.reduceNewLines + 1).join('$1'),
-  code: '<pre>$1</pre>',
-  inlineCode: '<code>$1</code>',
+  code: '<code>$1</code>',
   bold: '<b>$1</b>',
   italic: '<i>$1</i>',
   underline: '<u>$1</u>',

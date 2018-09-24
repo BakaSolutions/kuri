@@ -1,36 +1,26 @@
-.spoiler {
-  text-shadow: 0 0 .5em var(--textcolor_secondary);
-  transition: text-shadow var(--animationDuration);
+.spoiler{
+	transition: text-shadow var(--animationDuration), color var(--animationDuration); 
+	
+	&:not(:hover) {
+		text-shadow: 0 0 .5em var(--textcolor);
 
-  &, * {
-    color: transparent;
-    background: transparent;
-  }
-
-  &:hover {
-    &, * {
-      color: unset;
-      background: unset;
-      text-shadow: none;
-    }
-    a {
-      color: var(--linkcolor);
-
-      &:hover {
-        color: var(--linkcolor_hover);
-      }
-    }
-  }
+		&, * {
+			color: transparent;
+			background: transparent;
+		}
+	}
 }
 
-blockquote {
-  display: inline-block;
-  margin: 0;
-  color: var(--quotationcolor);
+q {
+	color: var(--quotationcolor);
+
+	&:before, &:after{
+		display: none;
+	}
 }
 
-pre, code {
-  margin: 0;
-  padding: .4em;
-  background: var(--bgcolor);
+code {
+	background: var(--bgcolor);
+	padding: .4em;
+	margin: 0;
 }
