@@ -29,8 +29,9 @@ let escapeHTML = text => text.trim().replace(/[&<>"']/g, m => escapeMap[m]);
 let escapeRX = exp => exp.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 
 let codeTags = [
-  ['[code]', '[/code]', 'code'],
-  ['```', '```', 'code']
+  /\[code](?:\s*?)(.+?)(?:\s*?)\[\/code]/gi, // [code]
+  /```(?:\s*?)(.+?)(?:\s*?)```/gi, // ```
+  /`(.+?)`(?:\s|$)/gim // `
 ];
 
 let tagMap = {
@@ -103,11 +104,8 @@ Markup.process = async (text, board, thread, post) => {
 
   // Step 1. Bypass code tags.
   for (let i = 0; i < codeTags.length; i++) {
-    let [opening, closing, type] = codeTags[i]; // ['[code]', '[/code]']
-    let regex = new RegExp(escapeRX(opening) + '(.+?)' + escapeRX(closing), 'gi');
-
     // get all symbols in [code] => insert in a template string => escape a few chars to avoid further replacements
-    text = text.replace(regex, (_, p1) => typeMap[type].replace('$1', p1.replace(/[*_\[\]%'\\/:.#]/g, m => escapeMap[m])));
+    text = text.replace(codeTags[i], (_, p1) => typeMap.code.replace('$1', p1.replace(/[*_\[\]%'\\/:.#]/g, m => escapeMap[m])));
   }
 
   // Step 2. Replace other tags.
