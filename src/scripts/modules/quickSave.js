@@ -1,6 +1,8 @@
 const quickSave = {
-	addLink: target => {
-		for (info of target.querySelectorAll(".info")) {
+	addLink: (target) => {
+		let info = sel("div:last-child", target)
+
+		if(!sel(".dlLink", info)){
 			let downloadButton = createElement("a", {
 				className: "material-icons dlLink",
 				onclick: quickSave.load,
@@ -11,10 +13,12 @@ const quickSave = {
 		}
 	},
 
-	load: event => {
-		let a = event.target.parentNode.parentNode.querySelector("a"),
-			uri = a.href,
-			name = a.dataset.name
+	load: (event) => {
+		event.preventDefault()
+
+		let a = event.target.parentNode.parentNode,
+			name = a.dataset.name,
+			uri = a.href
 		
 		fetch(uri)
 			.then(response => {
@@ -47,13 +51,11 @@ const quickSave = {
 	}
 }
 
-document.addEventListener("mouseover", event => {
+document.addEventListener("mouseover", (event) => {
 	try{
-		let target = event.target.parentNode.parentNode
-		if (target.className != "thumbnails") target = target.parentNode
-
-		if(target.className == "thumbnails" && !sel(".dlLink", target)) quickSave.addLink(target)
+		let target = event.target.parentNode
+		if (target.parentNode.className == "thumbnails") quickSave.addLink(target)
 	} catch(error){
-		//
+		// ...
 	}
 })

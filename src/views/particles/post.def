@@ -39,13 +39,13 @@
 		{{? Array.isArray(post.files) && post.files.length}}
 			<div class="thumbnails">
 				{{~post.files.filter((file) => file.thumb) :file}}
-					<div>{{#def['particles/thumbnail']}}</div>
+					{{#def['particles/attachment']}}
 				{{~ }}
 			</div>
 
 			<div class="attachments">
 				{{~post.files.filter((file) => !file.thumb) :file}}
-					<div>{{#def['particles/attachment']}}</div>
+					{{#def['particles/attachment']}}
 				{{~ }}
 			</div>
 		{{? }}

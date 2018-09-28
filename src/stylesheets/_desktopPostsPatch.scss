@@ -55,29 +55,33 @@
 }
 
 .thumbnails{
-	& > div > a{
-		max-height: 15em;
-		max-width: 15em;
+	& > a{
+		div{
+			transition: opacity var(--animationDuration);
 
-		transition: opacity var(--animationDuration);
-	}
+			max-height: 16rem;
+			max-width: 16rem;
 
-	.info{
-		font-size: 1rem;
-		opacity: 0;
-	}
+			span{
+				pointer-events: none;
+			}
 
-	& > div:hover{
-		.info{
+			&:not(:first-child){
+				font-size: 1rem;
+				opacity: 0;
+			}
+		}
+
+		&:hover div:not(:first-child){
 			opacity: .8;
 		}
 	}
 }
 
 .attachments a{
-	margin: .2em 0;
+	margin: var(--gap) 0;
 }
 
-#hideImagesCheckbox:checked ~ main .thumbnails > div > a:not(:hover){
+#hideImagesCheckbox:checked ~ main .thumbnails > :not(:hover) > :first-child{
 	opacity: .3;
 }

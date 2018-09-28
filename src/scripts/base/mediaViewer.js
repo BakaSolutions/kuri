@@ -14,44 +14,38 @@ const media = {
 		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
 	},
 
-	prepare: function(e, mime) {
-		if (!e.ctrlKey && DEVICE == "desktop") {
-			e.preventDefault()
+	prepare: function(uri, mime, name) {
+		this.ntf = notifications.add({
+			text: "Загрузка...",
+			class: "notification",
+			closable: false
+		})
 
-			this.ntf = notifications.add({
-				text: "Загрузка...",
-				class: "notification",
-				closable: false
+		if (mime.split("/")[0] == "video") {
+			this.widget.classList.add("video")
+
+			let video = createElement("video", {
+				type: mime,
+				controls: 1
 			})
 
-			let name = e.target.dataset.name
-
-			if (mime.split("/")[0] == "video") {
-				this.widget.classList.add("video")
-
-				let video = createElement("video", {
-					type: mime,
-					controls: 1
-				})
-
-				video.onloadeddata = () => {
-					this.reset(name, video.videoWidth, video.videoHeight)
-					video.volume = storage.get("settings.videoVolume")
-					this.display(video)
-				}
-
-				video.src = e.target.href
-			} else{
-				this.widget.classList.remove("video")
-
-				let img = new Image()
-				img.onload = () => {
-					this.reset(name, img.naturalWidth, img.naturalHeight)
-					this.display(img)
-				}
-
-				img.src = e.target.href
+			video.onloadeddata = () => {
+				this.reset(name, video.videoWidth, video.videoHeight)
+				video.volume = storage.get("settings.videoVolume")
+				this.display(video)
 			}
+
+			video.src = uri
+		} else{
+			this.widget.classList.remove("video")
+
+			let img = new Image()
+			img.onload = () => {
+				this.reset(name, img.naturalWidth, img.naturalHeight)
+				this.display(img)
+			}
+
+			img.src = uri
 		}
 	},
 

@@ -35,9 +35,7 @@ musicPlayer.progressBar.addEventListener("change", () => {
 	t.currentTime = t.duration * p.value / 100
 })
 
-function loadAudio(e, uri, trackname) {
-	e.preventDefault()
-
+function loadAudio(uri, trackname) {
 	sel("#musicPlayer").removeAttribute("hidden")
 
 	sel("#musicPlayer #title").innerHTML = trackname

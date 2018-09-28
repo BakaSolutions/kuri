@@ -96,20 +96,17 @@ body{
 	overflow: auto;
 	display: flex;
 
-	& > div{
-		justify-content: center;
-		min-width: 10em;
-		display: flex;
-
+	& > a{
 		margin-right: calc(var(--gap) / 2);
+		color: var(--textcolor);
 		position: relative;
 
-		& > a{
+		div:first-child{
 			background-position: center;
 			background-size: cover;
 		}
 
-		.info{
+		div:not(:first-child){
 			position: absolute;
 			bottom: 0;
 
@@ -123,7 +120,7 @@ body{
 	}
 }
 
-.attachments a {
+.attachments a{
 	display: block;
 
 	span:first-child{
@@ -133,7 +130,7 @@ body{
 	}
 
 	span:last-child{
-		font-size: .9em;
+		font-size: .8em;
 		color: var(--textcolor_secondary)
 	}
 }

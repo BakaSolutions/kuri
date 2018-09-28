@@ -2,7 +2,7 @@
 	transition: text-shadow var(--animationDuration), color var(--animationDuration); 
 	
 	&:not(:hover) {
-		text-shadow: 0 0 .5em var(--textcolor);
+		text-shadow: 0 0 .3em var(--textcolor);
 
 		&, * {
 			color: transparent;
@@ -21,6 +21,6 @@ q {
 
 code {
 	background: var(--bgcolor);
-	padding: .4em;
-	margin: 0;
+	font-family: monospace;
+	padding: .2em;
 }

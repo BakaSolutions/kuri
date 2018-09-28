@@ -20,13 +20,13 @@
 }
 
 .thumbnails{
-	& > div{
-		& > a{
+	& > a{
+		div:first-child{
 			max-height: 150px;
 			max-width: 150px;
 		}
 
-		.info{
+		div:not(:first-child){
 			font-size: .9rem;
 			opacity: .8;
 		}
