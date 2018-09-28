@@ -95,35 +95,15 @@
 		}
 	}
 
-	.mediaInfo, #zoomButtons{
+	.mediaInfo{
 		position: absolute;
 		bottom: 1em;
-		z-index: 1;
-		opacity: .9;
-	}
-
-	.mediaInfo{
 		left: 1em;
+		z-index: 1;
 
 		background-color: var(--bgcolor_card);
 		padding: .5em;
-	}
-
-	#zoomButtons{
-		right: calc(1em + 12px);
-		display: flex;
-
-		button{
-			padding: .3em;
-		}
-
-		button:first-child{
-			margin-right: var(--gap)
-		}
-	}
-
-	&.video #zoomButtons{
-		display: none;
+		opacity: .9;
 	}
 }
 

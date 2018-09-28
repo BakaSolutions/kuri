@@ -24,10 +24,6 @@
 		<div></div>
 		<div></div>
 	</div>
-	<div id="zoomButtons">
-		<button type="button" class="material-icons" onclick="media.zoom(1.2)">add</button>
-		<button type="button" class="material-icons" onclick="media.zoom(0.8)">remove</button>
-	</div>
 </div>
 
 <form id="deletePosts" method="POST" action="{{!it.foxtan.href}}api/v1/post.delete" hidden>
