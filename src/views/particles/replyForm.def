@@ -14,7 +14,7 @@
 
 		<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
 
-		<input type="checkbox" name="OP" id="opCheckbox" hidden>
+		<input type="checkbox" name="op" id="opCheckbox" hidden>
 		<label for="opCheckbox" class="btn">OP</label>
 
 		<input type="checkbox" name="sage" id="sageCheckbox" hidden>

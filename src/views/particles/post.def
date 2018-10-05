@@ -18,6 +18,10 @@
 			<span class="subject">{{? post.subject}}{{!post.subject}}{{?? }}{{!it.board.defaultUsername || ''}}{{? }}</span> #{{!post.number}}
 		</a>
 
+		{{? post.op}}
+			<q># OP</q>
+		{{? }}
+
 		<a class="jumpToPost" name="{{!post.number}}"></a>
 
 		<!-- Дата -->
