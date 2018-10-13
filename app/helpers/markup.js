@@ -65,11 +65,10 @@ let tagMap = {
   link: [
     ['[url]', '[/url]'],
     /((?:https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi,
-    /(magnet:\\\?xt=urn:[a-z0-9]{20,50})/gi
   ],
   spoiler: [
-    ['[spoiler]', '[/spoiler]'],
-    ['%%', '%%'],
+    /\[spoiler]([\s\S]+?)\[\/spoiler]/gi,
+	/%%([\s\S]+?)%%/gi,
   ],
   newLine: [
     /\s?\n/g,
@@ -156,7 +155,7 @@ async function processPostLink(capture, matches, board, thread, post) {
   }
   if (+postFromMatch !== thread && +postFromMatch !== post) {
     let query = await API.getPost(board, postFromMatch);
-    if (!Tools.isObject(query)) {
+    if (!query.threadNumber) {
       return capture;
     }
     thread = query.threadNumber;
