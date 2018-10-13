@@ -2,7 +2,6 @@ const router = require('koa-router')();
 const Controller = require('../index');
 const Logger = require('../../helpers/logger');
 const Render = require('../../helpers/render');
-const Tools = require('../../helpers/tools');
 const BoardModel = require('../../models/board');
 
 module.exports = router;
@@ -12,19 +11,20 @@ router.paths = [];
 router.render = async path => {
   // /test/0.html [ '', 'test', '0.html' ]
   let [board, pageNumber] = path.replace('.html', '').split('/').slice(1);
-
+  pageNumber = +pageNumber || 0;
   let boardModel = BoardModel.getOne(board);
 
   let model = {
     board: boardModel,
     title: `/${boardModel.name}/ &mdash; ${boardModel.title}`,
-    threads: []
+    threads: [],
+    pageNumber
   };
 
-  let page = await BoardModel.getPage(board, +pageNumber || 0);
+  let page = await BoardModel.getPage(board, pageNumber);
   model = Object.assign({}, model, page);
 
-  if (page instanceof Error || (model.message && model.status != 404)) {
+  if (page instanceof Error || (model.message && model.status !== 404)) {
     return Render.renderPage('pages/error', model)
   }
   return Render.renderPage('pages/board', model);

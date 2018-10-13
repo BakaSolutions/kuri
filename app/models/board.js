@@ -1,3 +1,4 @@
+const config = require('../helpers/config');
 const Logger = require('../helpers/logger');
 const Tools = require('../helpers/tools');
 const API = require('./foxtan/websocket');
@@ -44,11 +45,14 @@ Board.get = (asObject = false, param, value) => {
   return out;
 };
 
-Board.getPageCount = async board => {
+Board.getPageCount = async (board, threadsPerPage) => {
   if (!Board.exists(board)) {
     return new Error(`There's no board called ${board}`);
   }
-  return (await API.getPageCount(board)) || 0;
+  if (!threadsPerPage) {
+    threadsPerPage = config('foxtan.threadsPerPage');
+  }
+  return (await API.getPageCount(board, threadsPerPage)) || 0;
 };
 
 Board.getPage = async (board, page) => {

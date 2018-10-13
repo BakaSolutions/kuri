@@ -13,8 +13,8 @@ let commands = {
   getBoards: 'GET BOARDS',
   getCounters: 'GET LPN', //
   getBoard: 'BOARD $1 INFO',
-  getPage: 'BOARD $1 $2',
-  getPageCount: 'BOARD $1 COUNT',
+  getPage: 'BOARD $1 $2 $3 $4 $5',
+  getPageCount: 'BOARD $1 COUNT $2',
   getFeed: 'BOARD $1 FEED',
   getCatalog: 'BOARD $1 CAT',
   getThread: 'THREAD $1:$2',
@@ -30,13 +30,14 @@ for (let cmd in commands) {
 function APIPlaceholder(url) {
   return async function defaultFunctionForAPI() {
     let link = url;
-    let args = [...arguments];
-    for (let i = 0; i < args.length; i++) {
-      link = link.replace('$' + (i + 1), args[i]);
+    let matches = link.match(/\$[0-9]/g) || [];
+    for (let i = 0; i < matches.length; i++) {
+      link = link.replace(matches[i], typeof arguments[i] === 'undefined' ? '' : arguments[i]);
     }
     Logger.debug(`[WS] Receiving ${link}...`);
     let out = await Request.send(link).catch(e => {return e});
-    Logger.debug(`[WS] Received: ${out} on "${link}"`);
+    Logger.debug(`[WS] Received on "${link}":`);
+    Logger.debug(out);
     try {
       out = JSON.parse(out);
     } catch (e) {
@@ -49,7 +50,7 @@ function APIPlaceholder(url) {
 API.getThread = (boardName, threadNumber) => {
   return APIPlaceholder(commands['getThread'])(boardName, threadNumber)
     .then(thread => {
-      if (typeof thread === 'string' && thread.includes('410')) {
+      if (typeof thread === 'string') {
         throw [boardName, threadNumber];
       }
       thread.posts = parseDateInPosts(thread.posts);
@@ -57,8 +58,8 @@ API.getThread = (boardName, threadNumber) => {
     })
 };
 
-API.getPage = (boardName, threadNumber) => {
-  return APIPlaceholder(commands['getPage'])(boardName, threadNumber)
+API.getPage = (boardName, pageNumber, limit = config('foxtan.threadsPerPage'), lastReplies = config('foxtan.lastReplies'), lastRepliesForFixed = config('foxtan.lastRepliesFixed')) => {
+  return APIPlaceholder(commands['getPage'])(boardName, pageNumber, limit, lastReplies, lastRepliesForFixed)
     .then(page => {
       let threads = page.threads;
       if (!threads) {

@@ -21,9 +21,8 @@
 						{{~[thread.posts[0]] :post}}
 							{{#def['particles/post']}}
 						{{~ }}
-
-						{{? thread.omittedPosts}}
-							<a class="omittedPosts" href="/{{!it.board.name}}/res/{{!thread.posts.shift().threadNumber}}.html">Пропущено постов: {{!thread.omittedPosts}}</a>
+						{{? thread.postCount && thread.omittedPosts}}
+							<a class="postCount" href="/{{!it.board.name}}/res/{{!thread.posts.shift().threadNumber}}.html">Всего постов: {{!thread.postCount}}</a>
 						{{?? }}
 							{{ thread.posts.shift() }}
 						{{? }}
@@ -34,6 +33,7 @@
 					</div>
 				{{~ }}
 			{{? }}
+			{{#def["particles/pagination"]}}
 			<a name="bottom"></a>
 		</main>
 

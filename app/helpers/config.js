@@ -12,6 +12,9 @@ let config = {
   foxtan: {
     http: URL.parse('https://foxtan.tuderi.tumba.ch/'),
     websocket: URL.parse('wss://foxtan.tuderi.tumba.ch/ws'),
+    threadsPerPage: 14,
+    lastReplies: 3,
+    lastRepliesFixed: 0
   },
   server: {
     host: '0.0.0.0',

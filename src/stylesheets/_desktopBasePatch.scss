@@ -13,9 +13,8 @@ main{
 }
 
 button, .btn{
-	cursor: default;
-
 	&:hover{
+		cursor: pointer;
 		background-color: var(--btncolor_hover);
 	}
 }

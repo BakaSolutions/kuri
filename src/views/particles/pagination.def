@@ -1,0 +1,8 @@
+{{? it.pageCount > 1 }}
+  <div class="pagination">
+    {{ for (let page = 0; page < it.pageCount; page++) { }}
+      <a href="./{{?page}}{{=page}}.html{{?}}"
+        class="btn{{? it.pageNumber === page}} selected{{?}}">{{=page}}</a>
+    {{ } }}
+  </div>
+{{?}}

@@ -76,12 +76,12 @@ sel("body").onclick = event => {
 
 	uri = uri.replace(window.location.host, "")
 
-	if(/^(\/|#)/.test(uri) && !target.hasAttribute("download")){
+	if(/^(\.|\/|#)/.test(uri) && !target.hasAttribute("download")){
 		event.preventDefault()
 
 		if (/^\#/.test(uri) || (uri.includes("#") && uri.split("#")[0] == window.location.pathname)){
 			document.querySelector(`a[name="${uri.split("#")[1]}"]`).scrollIntoView({behavior: storage.get("settings.animationLength") > 0 ? "smooth" : "instant"})
-		} else if (/^\//.test(uri)) {
+		} else if (/^(\.|\/)/.test(uri)) {
 			asyncLoadPage(uri)
 		}
 	}

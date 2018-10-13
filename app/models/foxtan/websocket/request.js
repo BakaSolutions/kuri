@@ -126,7 +126,7 @@ class WSClient {
       let message = e.split(' ');
       let command = message.shift();
       message = message.join(' ');
-      let status = +message;
+      let status = parseInt(message);
       if (status < 500) {
         silent = true;
       }
@@ -137,6 +137,9 @@ class WSClient {
             break;
           case 410:
             message = 'Gone!';
+            break;
+          case 500:
+            message = message.split('#')[1];
             break;
           case 504:
             message = 'Timeout!';
