@@ -16,11 +16,11 @@
 		<!-- Рефлинк -->
 		<a class="refLink" href="/{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
 			<span class="subject">{{? post.subject}}{{!post.subject}}{{?? }}{{!it.board.defaultUsername || ''}}{{? }}</span> #{{!post.number}}
-		</a>
 
-		{{? post.op}}
-			<q># OP</q>
-		{{? }}
+			{{? post.op}}
+				<span class="opMark"> (OP)</span>
+			{{? }}
+		</a>
 
 		<a class="jumpToPost" name="{{!post.number}}"></a>
 
