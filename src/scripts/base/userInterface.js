@@ -1,13 +1,42 @@
 function quickReply(element) {
-	let link = element.parentNode.querySelector(".refLink").href
-	if (window.location.href.split("#")[0] != link.split("#")[0]) asyncLoadPage(link)
+
+	if (storage.get("settings.quickReply.navigateTo")) {
+		let link = element.parentNode.querySelector(".refLink").href
+		if (window.location.href.split("#")[0] !== link.split("#")[0]) {
+			asyncLoadPage(link)
+		}
+	}
 
 	let cb = sel("#replyFormShow")
 	if(!cb.checked) cb.click()
 
 	let textarea = sel("#postForm textarea")
-	textarea.value += `>>${element.parentNode.parentNode.dataset.number}\n`
-	textarea.focus()
+	let mention = `>>${element.parentNode.parentNode.dataset.number}\n`;
+
+	if (storage.get("settings.quickReply.addSelection")) {
+		mention += getSelection().toString()
+	}
+
+	if (storage.get("settings.quickReply.insertAtCursor")) {
+		insertAtCursor(textarea, mention)
+	} else {
+		textarea.value += mention;
+		textarea.focus();
+	}
+}
+
+function insertAtCursor(field, value) {
+	if (field.selectionStart || field.selectionStart === 0) {
+		let {selectionStart, selectionEnd} = field
+		let cursorPosition = selectionStart + value.length
+		field.value = field.value.substring(0, selectionStart)
+			+ value
+			+ field.value.substring(selectionEnd, field.value.length)
+
+		field.setSelectionRange(cursorPosition, cursorPosition)
+		return field.focus()
+	}
+	return field.value += value
 }
 
 function activatePostRemovalWidget(noCheck){

@@ -1,4 +1,4 @@
-if (storage.get("settings.password") == ""){
+if (!storage.get("settings.password")){
 	let password = []
 	while(password.length < 16){
 		password.push(String.fromCharCode(Math.floor(Math.random() * 90) + 33))
@@ -45,8 +45,12 @@ const settings = {
 		switch (id) {
 			case "basic":
 				settings.addOption("settings.useAjax", "Использовать AJAX", 			id)
-				settings.addOption("settings.animationLength", "Длительность анимаций", id, 0, 1)
-				
+				settings.addOption("settings.animationLength", "Длительность анимаций", id)
+
+				settings.addOption("settings.quickReply.navigateTo", "Переходить на страницу поста при ответе",		id)
+				settings.addOption("settings.quickReply.addSelection", "Копировать выделенное при ответе",			id)
+				settings.addOption("settings.quickReply.insertAtCursor", "Учитывать положение курсора при ответе",	id)
+
 				break
 			case "security":
 				settings.addOption("settings.password", "Пароль", id, {
@@ -56,9 +60,9 @@ const settings = {
 
 				break
 			case "addons":
-				settings.addOption("addons.themes", "Темы", 						id, 0, 1)
-				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id, 0, 1)
-				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id, 0, 1)
+				settings.addOption("addons.themes", "Темы", 						id)
+				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id)
+				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id)
 
 				break
 		}
