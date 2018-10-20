@@ -39,6 +39,7 @@ const settings = {
 		settings.widgetBox.appendChild(div)
 
 		settings.initTab(id)
+		return div;
 	},
 
 	initTab: function(id) {
@@ -90,11 +91,14 @@ const settings = {
 			input.value = currentValue
 		}
 
-		for (o in options) input[o] = options[o]
+		for (let o in options) input[o] = options[o]
 
-		input.onchange = (event) => {
-			settings.set(id, value || (typeof currentValue == "boolean" ? event.target.checked : event.target.value))
+		input.onchange = event => {
+			value = value || (typeof currentValue === "boolean" ? event.target.checked : event.target.value)
+			settings.set(id, value)
 			if (refresh) window.location.reload(true)
+			let evt = new CustomEvent(`settings.${id}`, { detail: value, bubbles: true })
+			input.dispatchEvent(evt);
 		}
 
 		wrapper.appendChild(input)

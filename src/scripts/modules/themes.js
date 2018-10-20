@@ -3,22 +3,26 @@ themes = {
 		storage.defaults.themes = {
 			current: "tumbach"
 		}
-		
-		let name = storage.get("themes.current"),
-			json = storage.get(`themesCache.${name}`) || await this.load(name)
 
+		await this.setTheme()
+	},
+
+	setTheme: async function () {
+		let name = storage.get("themes.current"),
+			json = storage.get(`themes.cache.${name}`) || await this.load(name)
 		this.apply(json)
 	},
 
 	initInterface: function () {
 		let tabId = "themes"
 		this.wrapper = settings.addTab(tabId, "Темы")
+		this.wrapper.addEventListener('settings.themes.current', () => this.setTheme(), false)
 
-		settings.addOption("themes.current", "Standart", 	tabId, 0, 1, "tumbach")
-		settings.addOption("themes.current", "Crychan", 	tabId, 0, 1, "crychan")
-		settings.addOption("themes.current", "Sosach", 		tabId, 0, 1, "sosach")
-		settings.addOption("themes.current", "One Dark", 	tabId, 0, 1, "oneDark")
-		settings.addOption("themes.current", "Classic", 	tabId, 0, 1, "tumbachClassic")
+		settings.addOption("themes.current", "Standart", 	tabId, 0, 0, "tumbach")
+		settings.addOption("themes.current", "Crychan", 	tabId, 0, 0, "crychan")
+		settings.addOption("themes.current", "Sosach", 		tabId, 0, 0, "sosach")
+		settings.addOption("themes.current", "One Dark", 	tabId, 0, 0, "oneDark")
+		settings.addOption("themes.current", "Classic", 	tabId, 0, 0, "tumbachClassic")
 	},
 
 	load: async function (name) {
@@ -27,7 +31,7 @@ themes = {
 				if (response.status == 200) {
 					return response.json()
 							.then(data => {
-								// storage.set(`themesCache.${name}`, data)
+								// storage.set(`themes.cache.${name}`, data)
 								return data
 							})
 				} else {
