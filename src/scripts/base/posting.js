@@ -28,6 +28,7 @@ function sendPost() {
 		.then(response => {
 			response.json().then(r => {
 				if (response.status == 200) {
+					form.reset();
 					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
 					marker.addMark(r.boardName, r.number.toString(), "own")
 

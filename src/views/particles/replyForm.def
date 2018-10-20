@@ -3,7 +3,7 @@
 <div id="replyForm">
 	<div class="container"></div>
 	<div class="widgetHandle">
-		{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}
+		<span>{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}</span>
 		<label for="replyFormShow" class="material-icons">close</label>
 	</div>
 

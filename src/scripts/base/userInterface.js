@@ -1,9 +1,12 @@
 function quickReply(element) {
-
-	if (storage.get("settings.quickReply.navigateTo")) {
-		let link = element.parentNode.querySelector(".refLink").href
-		if (window.location.href.split("#")[0] !== link.split("#")[0]) {
+	let link = element.parentNode.querySelector(".refLink").href
+	if (window.location.href.split("#")[0] !== link.split("#")[0]) {
+		if (storage.get("settings.quickReply.navigateTo")) {
 			asyncLoadPage(link)
+		} else {
+			storage.set("settings.quickReply.navigateTo", true);
+			let title = sel('#replyForm .widgetHandle span')[0];
+			title.innerHTML = `TODO: Не загружать форму ответа с другой страницы`;
 		}
 	}
 
