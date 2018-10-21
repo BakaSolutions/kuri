@@ -55,7 +55,7 @@ Board.getPageCount = async (board, threadsPerPage) => {
   return (await API.getPageCount(board, threadsPerPage)) || 0;
 };
 
-Board.getPage = async (board, page) => {
+Board.getPage = async (board, page = 0) => {
   if (!Board.exists(board)) {
     return new Error(`There's no board called ${board}`);
   }
@@ -64,7 +64,27 @@ Board.getPage = async (board, page) => {
     return false;
   }
   return await API.getPage(board, page).then(async page => {
+    if (page.error) {
+        return page;
+    }
     await Promise.all(page.threads.map(thread => Post.markup(thread.posts)));
+    return page;
+  });
+};
+
+Board.getFeed = async (board, page = 0) => {
+  if (!Board.exists(board)) {
+    return new Error(`There's no board called ${board}`);
+  }
+  if (!Tools.isNumber(page)) {
+    Logger.error(new Error('Trying to get something unexpectable!'));
+    return false;
+  }
+  return await API.getFeed(board, page).then(async page => {
+    if (page.error) {
+      return page;
+    }
+    await Post.markup(page.feed);
     return page;
   });
 };

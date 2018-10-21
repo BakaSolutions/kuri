@@ -9,7 +9,7 @@
 			<span class="material-icons">details</span>
 		{{? }}
 		<!-- Закреплённый тред -->
-		{{? (post.number == post.threadNumber) && thread.pinned}}
+		{{? (post.number == post.threadNumber) && typeof thread !== 'undefined' && thread.pinned}}
 			<span class="material-icons">pin_drop</span>
 		{{? }}
 

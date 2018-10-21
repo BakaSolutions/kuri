@@ -12,6 +12,10 @@
 					<h2>/{{!it.board.name}}/ — {{!it.board.title}}</h2>
 					<h4>{{!it.board.subtitle}}</h4>
 				</a>
+
+				<a class="btn material-icons" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" alt="Лента постов">
+					view_list
+				</a>
 			</header>
 			{{? !it.threads.length}}
 				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>

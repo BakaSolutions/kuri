@@ -96,7 +96,7 @@ function errorHandler(err, ctx, isError = true) {
   const status = err.status || 500;
 
   if (status >= 500) {
-    Logger.error('[ERR]', ctx.header.host, status + '/' + ctx.status, ctx.url, err.message);
+    Logger.error('[ERR] ' + ctx.header.host + ctx.url + ' ' + status + '/' + ctx.status, err.message, err.stack);
 
     if (isError && config('debug.enable')) {
       err.stack = err.stack.replace(new RegExp(FS.ROOT, 'g'), '') || err;

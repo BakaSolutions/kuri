@@ -15,8 +15,8 @@ let commands = {
   getBoard: 'BOARD $1 INFO',
   getPage: 'BOARD $1 $2 $3 $4 $5',
   getPageCount: 'BOARD $1 COUNT $2',
-  getFeed: 'BOARD $1 FEED',
-  getCatalog: 'BOARD $1 CAT',
+  getFeed: 'BOARD $1 FEED $2 $3',
+  getCatalog: 'BOARD $1 CAT $2 $3',
   getThread: 'THREAD $1:$2',
   getPost: 'POST $1:$2'
 };
@@ -34,6 +34,7 @@ function APIPlaceholder(url) {
     for (let i = 0; i < matches.length; i++) {
       link = link.replace(matches[i], typeof arguments[i] === 'undefined' ? '' : arguments[i]);
     }
+    link = link.trim();
     Logger.debug(`[WS] Receiving ${link}...`);
     let out = await Request.send(link).catch(e => {return e});
     Logger.debug(`[WS] Received on "${link}":`);
