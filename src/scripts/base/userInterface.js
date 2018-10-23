@@ -4,9 +4,8 @@ function quickReply(element) {
 		if (storage.get("settings.quickReply.navigateTo")) {
 			asyncLoadPage(link)
 		} else {
-			storage.set("settings.quickReply.navigateTo", true);
-			let title = sel('#replyForm .widgetHandle span')[0];
-			title.innerHTML = `TODO: Не загружать форму ответа с другой страницы`;
+			storage.set("settings.quickReply.navigateTo", true)
+			return quickReply(element) // TODO: Не загружать форму ответа с другой страницы
 		}
 	}
 
@@ -14,17 +13,17 @@ function quickReply(element) {
 	if(!cb.checked) cb.click()
 
 	let textarea = sel("#postForm textarea")
-	let mention = `>>${element.parentNode.parentNode.dataset.number}\n`;
+	let mention = `>>${element.parentNode.parentNode.dataset.number}\n`
 
 	if (storage.get("settings.quickReply.addSelection")) {
-		mention += getSelection().toString()
+		mention += '> ' + getSelection().toString() + '\n'
 	}
 
 	if (storage.get("settings.quickReply.insertAtCursor")) {
 		insertAtCursor(textarea, mention)
 	} else {
-		textarea.value += mention;
-		textarea.focus();
+		textarea.value += mention
+		textarea.focus()
 	}
 }
 
