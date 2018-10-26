@@ -52,6 +52,8 @@ const settings = {
 				settings.addOption("settings.quickReply.addSelection", "Копировать выделенное при ответе",			id)
 				settings.addOption("settings.quickReply.insertAtCursor", "Учитывать положение курсора при ответе",	id)
 
+				settings.addOption("settings.autoUnspoil", "Раскрывать спойлеры", id)
+
 				break
 			case "security":
 				settings.addOption("settings.password", "Пароль", id, {

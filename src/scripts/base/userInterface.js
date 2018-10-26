@@ -174,6 +174,10 @@ function handleOpenPostForm() {
 
 function initInterface(update) {
 	document.body.style.setProperty("--animationDuration", `${storage.get("settings.animationLength")}s`)
+	
+	if (storage.get("settings.autoUnspoil")){
+		document.body.classList.add("noSpoilers")
+	}
 
 	if (sel(".noThreads")) return
 

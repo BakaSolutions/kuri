@@ -151,6 +151,7 @@ const storage = new Storage({
       animationLength: 0.3,
       useAjax: true,
       password: "",
+      autoUnspoil: false,
       quickReply: {
         navigateTo: false,
         addSelection: false,
