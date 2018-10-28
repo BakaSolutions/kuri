@@ -13,43 +13,52 @@ async function handlePostSend(e) { // TODO: Проверка валидност�
 
 function sendPost() {
 	let form = sel("#postForm"),
-		uri = form.action,
-		formData = new FormData(form),
-		options = {
-			credentials: "include",
-			method: "post",
-			headers: {
-				"X-Requested-With": "XMLHttpRequest"
-			},
-			body: formData
-		}
-
-	fetch(uri, options)
-		.then(response => {
-			response.json().then(r => {
-				if (response.status == 200) {
-					form.reset();
-					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
-					marker.addMark(r.boardName, r.number.toString(), "own")
-
-					notifications.add({
-						text: r.message,
-						timeout: 10000,
-						class: 'notification'
-					})
-				} else{
-					throw r.message
-				}
-			})
-			.catch(err => {
-				console.log(err)
-				notifications.add({
-					text: "Ошибка постинга:<br>" + err,
-					timeout: 10000,
-					class: 'notification'
-				})
-			})
+		xhr = new XMLHttpRequest(),
+		ntf = 0
+	
+	xhr.open("POST", form.action)
+	
+	xhr.onloadstart = (e) => {
+		ntf = notifications.add({
+			text: `Загрузка файла(ов): 0%`,
+			class: 'notification',
+			closeable: false
 		})
+	}
+
+	xhr.upload.onprogress = (e) => {
+		if (e.lengthComputable) {
+			notifications.update(ntf, `Загрузка файла(ов): ${(e.loaded / e.total * 100).toFixed(2)}%`)
+		}
+	}
+	
+	xhr.onload = (e) => {
+		notifications.remove(ntf)
+
+		if (xhr.status == 200) {
+			let r = JSON.parse(xhr.response)
+			
+			form.reset()
+			asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
+			marker.addMark(r.boardName, r.number.toString(), "own")
+
+			notifications.add({
+				text: r.message,
+				timeout: 10000,
+				class: 'notification'
+			})
+		} else{
+			notifications.add({
+				text: `Ошибка постинга: ${xhr.status}`,
+				timeout: 10000,
+				class: 'error'
+			})
+		}
+	}
+
+	xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+	xhr.withCredentials = true
+	xhr.send(new FormData(form))
 }
 
 captcha = {
