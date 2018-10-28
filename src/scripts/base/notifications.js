@@ -48,5 +48,10 @@ const notifications = {
 				this.container.removeChild(el)
 			}, 200)
 		}
+	},
+
+	update: function(id, html) {
+		let el = sel(`[data-notification-id="${id}"]`)
+		if (el) el.innerHTML = html
 	}
 }
