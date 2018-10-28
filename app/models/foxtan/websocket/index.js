@@ -54,7 +54,7 @@ API.getThread = (boardName, threadNumber) => {
       if (typeof thread === 'string') {
         throw [boardName, threadNumber];
       }
-      thread.posts = parseDateInPosts(thread.posts);
+      thread.posts = parseDataInPosts(thread.posts);
       return thread;
     })
 };
@@ -68,13 +68,13 @@ API.getPage = (boardName, pageNumber, limit = config('foxtan.threadsPerPage'), l
       }
       let threadsCount = threads.length;
       for (let i = 0; i < threadsCount; i++) {
-        parseDateInPosts(threads[i].posts);
+        parseDataInPosts(threads[i].posts);
       }
       return page;
     })
 };
 
-function parseDateInPosts(posts) {
+function parseDataInPosts(posts) {
   if (!Array.isArray(posts)) {
     posts = [ posts ];
   }
@@ -82,6 +82,13 @@ function parseDateInPosts(posts) {
   for (let i = 0; i < postsCount; i++) {
     posts[i].createdAt = new Date(posts[i].createdAt).toUTCString();
     posts[i].formatted_date = Tools.parseDate(posts[i].createdAt);
+
+    if (posts[i].files){
+      for (let file of posts[i].files) {
+        let unit = file.size > 1048575 ? "MiB" : "KiB"
+        file.size = `${+(file.size / (unit == "MiB" ? 1048576 : 1024)).toFixed(1)} ${unit}`;
+      }
+    }
   }
 
   return posts;

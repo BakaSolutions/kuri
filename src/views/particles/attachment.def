@@ -3,12 +3,12 @@
 		<div style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></div>
 
 		<div>
-			<span>{{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{!(file.size / 1048576).toFixed(2)}} MiB{{? }}</span>
+			<span>{{!file.size}}</span>
 			{{? file.duration }}<span>{{!file.duration}}</span>{{?}}
 		</div>
 	{{?? }}
 		{{? file.mime.split('/')[0] === "audio" }}<span class="material-icons">music_note</span>{{? }}
 		{{!file.name}} 
-		<span>({{? file.size < 1048576}}{{! (file.size / 1024).toFixed(1)}} KiB{{?? }}{{!(file.size / 1048576).toFixed(2)}} MiB{{? }})</span>
+		<span>{{!file.size}}</span>
 	{{? }}
 </a>
