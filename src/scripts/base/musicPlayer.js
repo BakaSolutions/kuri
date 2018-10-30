@@ -1,8 +1,41 @@
 const musicPlayer = {
+	player: sel("#musicPlayer"),
 	pauseButton: sel("#musicPlayer #pause"),
 	progressBar: sel("#musicPlayer #progress"),
-	track: null
+	title: sel("#musicPlayer #title"),
+	track: new Audio()
 }
+
+function updateOverflow() {
+	this.style.textOverflow = this.style.left === "0px" ? "ellipsis" : "unset";
+	this.style.overflow = this.style.left === "0px" ? "hidden" : "unset";
+	this.removeEventListener("transitionend", updateOverflow, false);
+}
+
+musicPlayer.title.addEventListener("mouseenter", function () {
+	if(this.scrollWidth <= this.offsetWidth)
+		return;
+	this.style.left = -(this.scrollWidth - this.offsetWidth) + "px";
+	this.addEventListener("transitionend", updateOverflow, false);
+	setTimeout(updateOverflow.bind(this), 50);
+})
+
+musicPlayer.title.addEventListener("mouseleave", function () {
+	if(this.scrollWidth <= this.offsetWidth)
+		return;
+	this.style.left = "0px";
+	this.addEventListener("transitionend", updateOverflow, false);
+})
+
+musicPlayer.track.addEventListener("timeupdate", () => {
+	let t = musicPlayer.track,
+		p = musicPlayer.progressBar
+	p.value = t.currentTime / t.duration * 100
+})
+
+musicPlayer.track.addEventListener("ended", () => {
+	musicPlayer.pauseButton.innerHTML = "play_arrow"
+})
 
 musicPlayer.pauseButton.addEventListener("click", () => {
 	let b = musicPlayer.pauseButton,
@@ -15,30 +48,23 @@ musicPlayer.pauseButton.addEventListener("click", () => {
 		b.innerHTML = "pause"
 		t.play()
 
-		musicPlayer.track.addEventListener("timeupdate", () => {
-			let t = musicPlayer.track,
-					p = musicPlayer.progressBar
-
-			p.value = t.currentTime / t.duration * 100
-		})
-
-		musicPlayer.track.addEventListener("ended", () => {
-			musicPlayer.pauseButton.innerHTML = "play_arrow"
-		})
 	}
 })
 
 musicPlayer.progressBar.addEventListener("change", () => {
 	let t = musicPlayer.track,
 			p = musicPlayer.progressBar
-
-	t.currentTime = t.duration * p.value / 100
+	t.currentTime = Math.floor(t.duration * p.value / 100)
 })
 
 function loadAudio(uri, trackname) {
-	sel("#musicPlayer").removeAttribute("hidden")
+	musicPlayer.player.removeAttribute("hidden")
 
-	sel("#musicPlayer #title").innerHTML = trackname
-	musicPlayer.track = new Audio(uri)
+	musicPlayer.title.innerHTML = trackname
+	if (musicPlayer.track.src) {
+		musicPlayer.track.pause()
+		musicPlayer.track.src = null
+	}
+	musicPlayer.track.src = uri;
 	musicPlayer.pauseButton.click()
 }

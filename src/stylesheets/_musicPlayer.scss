@@ -1,49 +1,31 @@
 #musicPlayer:not([hidden]){
 	position: absolute;
-	bottom: var(--gap);
-	left: var(--gap);
-
-	height: calc(50px + .5em + var(--gap) / 2);
-	width: calc(var(--sidebarWidth) - 2 * var(--gap));
-
-	color: var(--textcolor_secondary);
-	display: grid;
-
-	grid-template-columns: 50px 1fr;
-	grid-template-rows: 1em 1fr .5em;
-	grid-gap: var(--gap) / 2;
-
-	#cover{
-		background-size: cover;
-		height: 50px;
-		width: 50px;
-
-		grid-column: 1;
-		grid-row: 1;
-	}
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: var(--gap);
+	background-color: var(--bgcolor);
 
 	#title{
-		grid-column: 2;
-		grid-row: 1;
-
+		position: relative;
 		text-align: center;
-		line-height: 1em;
 		font-size: .9em;
+		padding: 0 0 .4em;
 
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow: hidden;
+		left: 0;
+
+		transition: left calc(var(--animationDuration) * 2) linear;
 	}
 
 	#controls{
 		justify-content: space-between;
 		display: flex;
 
-		grid-column: 2;
-		grid-row: 2;
-
 		.btn{
-			width: calc((100% / 3) - 2.5px);
+			width: 32%;
 
 			&:last-child{
 				border-radius: 0 2px 2px 0;
@@ -55,17 +37,26 @@
 		}
 	}
 
-	#progress{
-		grid-column: 1/3;
-		grid-row: 3;
+	#progressWrap {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		height: 1.5em;
 
-		margin: 10px 0 0;
-		width: 100%;
-		height: .4em;
-		outline: 0;
+		&:hover > #progress {
+			height: 80%;
+		}
+	}
+
+	#progress{
+		position: relative;
 		margin: 0;
+		width: 100%;
+		height: 50%;
+		outline: 0;
 
 		background-color: var(--btncolor);
+		transition: height var(--animationDuration);
 
 		-webkit-appearance: none;
 		overflow: hidden;
@@ -81,7 +72,7 @@
 
 		&::-moz-range-progress{
 			background-color: var(--linkcolor);
-			height: inherit;
+			height: 100%;
 		}
 
 		&::-webkit-slider-thumb {
