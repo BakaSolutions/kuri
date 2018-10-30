@@ -16,7 +16,10 @@ function quickReply(element) {
 	let mention = `>>${element.parentNode.parentNode.dataset.number}\n`
 
 	if (storage.get("settings.quickReply.addSelection")) {
-		mention += '> ' + getSelection().toString() + '\n'
+		let selection;
+		if (selection = getSelection().toString()) {
+			mention += '> ' + selection + '\n'
+		}
 	}
 
 	if (storage.get("settings.quickReply.insertAtCursor")) {
@@ -57,7 +60,7 @@ function activatePostRemovalWidget(noCheck){
 
 function deselectAllPosts() {
 	let checkboxes = document.querySelectorAll("[form='deletePosts']:checked")
-	for (checkbox of checkboxes) checkbox.checked = false
+	for (let checkbox of checkboxes) checkbox.checked = false
 
 	activatePostRemovalWidget(1)
 }
