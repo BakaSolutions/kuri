@@ -21,6 +21,13 @@ const fancyFileInputs = {
 				hidden: 1
 			})
 
+			let nsfwCheckbox = createElement("input", {
+				type: "checkbox",
+				name: `nsfwFile[${this.lastInputId}]`,
+				id: `f${this.lastInputId}NSFW`,
+				hidden: 1
+			})
+
 			let button = createElement("label", {
 				htmlFor: `f${this.lastInputId}`,
 				className: "fancyFileInput material-icons btn"
@@ -31,6 +38,7 @@ const fancyFileInputs = {
 
 			input.onchange = this.handleFiles
 
+			this.wrapper.appendChild(nsfwCheckbox)
 			this.wrapper.appendChild(input)
 			this.wrapper.appendChild(button)
 		}
@@ -66,10 +74,15 @@ const fancyFileInputs = {
 		let deleteButton = createElement("div", {
 			className: "del material-icons",
 			innerText: "close"
+		}), nsfwButton = createElement("div", {
+			className: "nsfw material-icons",
+			innerText: "visibility"
 		})
 
 		deleteButton.onclick = this.removeInput
+		nsfwButton.onclick = this.toggleNSFW
 		target.appendChild(deleteButton)
+		target.appendChild(nsfwButton)
 	},
 
 	removeInput: function(event) {
@@ -82,5 +95,14 @@ const fancyFileInputs = {
 		if (!sel(".fancyFileInput:not(.hasFile)")){
 			fancyFileInputs.addInput()
 		}
+	},
+
+	toggleNSFW: function(event) {
+		event.preventDefault()
+		let target = event.target,
+			checkbox = sel(`#fileInputs #${target.parentNode.htmlFor}NSFW`)
+		
+		checkbox.click()
+		target.innerText = `visibility${checkbox.checked ? '_off' : ''}`
 	}
 }
