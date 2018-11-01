@@ -64,16 +64,21 @@ document.onkeydown = e => {
 	}
 }
 
-function handleAttachmentClick(event, target){
-	if (!(target.parentNode.className == "thumbnails" && event.target.tagName == "A") && !event.ctrlKey && DEVICE == "desktop") {	
+function handleAttachmentClick(event){
+	let { target, ctrlKey } = event;
+	if (!(target.parentNode.className == "thumbnails" && target.tagName == "A") && !ctrlKey && DEVICE == "desktop") {
 		event.preventDefault()
 
-		let uri  = target.href,
-			mime = target.dataset.mime,
-			name = target.dataset.name,
-			type = mime.split("/")[0]
+		let { href, dataset } = target;
+		let { mime, name } = dataset
+		let type = mime.split("/")[0]
 
-		if (type == "audio") loadAudio(uri, name)
-		else if (type == "image" || type == "video") media.prepare(uri, mime, name)
+		if (type == "audio") {
+			let evt = new CustomEvent(`click.attachment.audio`, { detail: [href, mime, name], bubbles: true })
+			return target.dispatchEvent(evt)
+		}
+		if (type == "image" || type == "video") {
+			media.prepare(href, mime, name)
+		}
 	}
 }

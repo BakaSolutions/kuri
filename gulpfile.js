@@ -17,7 +17,8 @@ let input = {
 		home: ["src/scripts/home.js"],
 		themes: ["src/scripts/modules/themes.js"],
 		quickSave: ["src/scripts/modules/quickSave.js"],
-		floatingPosts: ["src/scripts/modules/floatingPosts.js"]
+		floatingPosts: ["src/scripts/modules/floatingPosts.js"],
+		musicPlayer: ["src/scripts/modules/musicPlayer.js"],
 	}
 };
 
@@ -28,39 +29,31 @@ let output = {
 	themes: 'public/themes'
 };
 
-gulp.task('staticFiles', (() => {
-	return gulp.src(input.staticFiles)
-		.pipe(gulp.dest(output.staticFiles))
-}));
+gulp.task('staticFiles', () => gulp.src(input.staticFiles).pipe(gulp.dest(output.staticFiles)));
 
-gulp.task('dot', (() => {
-	return Render.compileTemplates();
-}));
+gulp.task('dot', () => Render.compileTemplates());
 
-gulp.task("js", (() => {
+gulp.task("js", () => {
 	for (let inputName in input.js) {
 		gulp.src(input.js[inputName])
-			.pipe(minify())
+			.pipe(minify().on('error', console.log))
 			.pipe(concat(`${inputName}.js`))
 			.pipe(gulp.dest(output.js))
 	}
-}));
+});
 
-gulp.task('themes', (() => {
-	return gulp.src(input.themes)
-		.pipe(gulp.dest(output.themes));
-}));
+gulp.task('themes', () => gulp.src(input.themes).pipe(gulp.dest(output.themes)));
 
-gulp.task('sass', (() => {
+gulp.task('sass', () => {
 	return gulp.src(input.sass)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cleanCSS({debug: 'development'}, details => {
 			console.log(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize);
 		}))
 		.pipe(gulp.dest(output.sass));
-}));
+});
 
-gulp.task('watch', (() => {
+gulp.task('watch', () => {
 	watch(input.dot, () => gulp.start('dot'));
 	watch(input.sass, () => gulp.start('sass'));
 	watch(input.themes, () => gulp.start('themes'));
@@ -68,6 +61,6 @@ gulp.task('watch', (() => {
 	for (let inputName in input.js) {
 		watch(input.js[inputName], () => gulp.start("js"))
 	}
-}));
+});
 
 gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);
