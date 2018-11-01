@@ -1,6 +1,16 @@
 <a href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" data-name="{{!file.name}}" data-mime="{{=file.mime}}" onclick="handleAttachmentClick(event, this)">
-	{{? file.thumb}}
-		<div style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></div>
+	{{? /^(image|video)/.test(file.mime)}}
+		{{? file.thumb}}
+			<div style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></div>
+		{{?? }}
+			<div class="missingThumbnail">
+				{{? file.nsfw}}
+					NSFW
+				{{?? }}
+					Превью недоступно
+				{{? }}
+			</div>
+		{{? }}
 
 		<div>
 			<span>{{!file.size}}</span>
