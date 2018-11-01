@@ -159,9 +159,10 @@ const storage = new Storage({
       }
     },
     addons: {
+      themes: false,
       floatingPosts: false,
       quickSave: false,
-      themes: false,
+      audioPlayer: false,
     }
   }
 });

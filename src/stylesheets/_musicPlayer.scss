@@ -15,9 +15,6 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow: hidden;
-		left: 0;
-
-		transition: left calc(var(--animationDuration) * 2) linear;
 	}
 
 	#controls{
@@ -41,14 +38,16 @@
 		cursor: pointer;
 		display: flex;
 		align-items: center;
-		height: 1.5em;
+		height: 1.25em;
+		margin: .25em 0 0;
 
-		&:hover > #progress {
-			height: 80%;
+		&:hover > * {
+			height: 100%;
 		}
+
 	}
 
-	#progress{
+	#progress {
 		position: relative;
 		margin: 0;
 		width: 100%;
