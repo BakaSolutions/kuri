@@ -162,7 +162,7 @@ const storage = new Storage({
       themes: false,
       floatingPosts: false,
       quickSave: false,
-      audioPlayer: false,
+      musicPlayer: false,
     }
   }
 });

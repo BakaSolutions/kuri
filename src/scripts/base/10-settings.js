@@ -66,7 +66,7 @@ const settings = {
 				settings.addOption("addons.themes", "Темы", 						id)
 				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id)
 				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id)
-				settings.addOption("addons.audioPlayer", "Встроенный плеер", 		id)
+				settings.addOption("addons.musicPlayer", "Встроенный плеер", 		id)
 
 				break
 		}
