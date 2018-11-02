@@ -42,13 +42,13 @@
 	<div class="postBody">
 		{{? Array.isArray(post.files) && post.files.length}}
 			<div class="thumbnails">
-				{{~post.files.filter((file) => file.thumb) :file}}
+				{{~post.files.filter((file) => /^(image|video)/.test(file.mime)) :file}}
 					{{#def['particles/attachment']}}
 				{{~ }}
 			</div>
 
 			<div class="attachments">
-				{{~post.files.filter((file) => !file.thumb) :file}}
+				{{~post.files.filter((file) => !/^(image|video)/.test(file.mime)) :file}}
 					{{#def['particles/attachment']}}
 				{{~ }}
 			</div>
