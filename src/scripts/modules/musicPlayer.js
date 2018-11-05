@@ -7,12 +7,16 @@ const musicPlayer = {
 }
 
 sel("main").addEventListener('click.attachment.audio', event => {
-	let [href, _, name] = event.detail
+	event.preventDefault()
+
+	let [href, _, name] = event.detail,
+			t = musicPlayer.track
 
 	musicPlayer.player.removeAttribute("hidden")
 
 	musicPlayer.title.innerHTML = name
-	musicPlayer.track.src = href
+	t.src = href
+	t.currentTime = 0
 	musicPlayer.pauseButton.click()
 }, false)
 

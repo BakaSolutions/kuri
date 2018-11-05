@@ -65,20 +65,27 @@ document.onkeydown = e => {
 }
 
 function handleAttachmentClick(event){
-	let { target, ctrlKey } = event;
-	if (!(target.parentNode.className == "thumbnails" && target.tagName == "A") && !ctrlKey && DEVICE == "desktop") {
-		event.preventDefault()
-
-		let { href, dataset } = target;
+	let { target, ctrlKey } = event
+	if (!('mime' in target.dataset)) {
+		target = target.parentNode
+	}
+	if (["thumbnails", "attachments"].includes(target.parentNode.className) && !ctrlKey && DEVICE === "desktop") {
+		let { href, dataset } = target
 		let { mime, name } = dataset
 		let type = mime.split("/")[0]
 
-		if (type == "audio") {
-			let evt = new CustomEvent(`click.attachment.audio`, { detail: [href, mime, name], bubbles: true })
-			return target.dispatchEvent(evt)
-		}
-		if (type == "image" || type == "video") {
-			media.prepare(href, mime, name)
+		switch (type) {
+			case "audio":
+				let evt = new CustomEvent(`click.attachment.audio`, { detail: [href, mime, name], bubbles: true, cancelable: true })
+				let cancelled = !target.dispatchEvent(evt)
+				if (cancelled) {
+					event.preventDefault()
+				}
+			break;
+			case "image":
+			case "video":
+				event.preventDefault()
+				media.prepare(href, mime, name)
 		}
 	}
 }
