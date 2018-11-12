@@ -14,9 +14,9 @@ let commands = {
   getCounters: 'GET LPN', //
   getBoard: 'BOARD $1 INFO',
   getPage: 'BOARD $1 $2 $3 $4 $5',
-  getPageCount: 'BOARD $1 COUNT $2',
+  getPageCount: 'COUNT THREADS $1 $2',
   getFeed: 'BOARD $1 FEED $2 $3',
-  getCatalog: 'BOARD $1 CAT $2 $3',
+  getFeedCount: 'COUNT POSTS $1 $2',
   getThread: 'THREAD $1:$2',
   getPost: 'POST $1:$2'
 };
@@ -48,30 +48,48 @@ function APIPlaceholder(url) {
   };
 }
 
-API.getThread = (boardName, threadNumber) => {
-  return APIPlaceholder(commands['getThread'])(boardName, threadNumber)
-    .then(thread => {
-      if (typeof thread === 'string') {
-        throw [boardName, threadNumber];
-      }
-      thread.posts = parseDataInPosts(thread.posts);
-      return thread;
-    })
+API.getThread = async (boardName, threadNumber) => {
+  let out = {};
+  try {
+    out = await APIPlaceholder(commands['getThread'])(boardName, threadNumber);
+    out.posts = parseDataInPosts(out.posts);
+  } catch (e) {
+    Object.assign(out, e);
+  }
+  return out;
 };
 
-API.getPage = (boardName, pageNumber, limit = config('foxtan.threadsPerPage'), lastReplies = config('foxtan.lastReplies'), lastRepliesForFixed = config('foxtan.lastRepliesFixed')) => {
-  return APIPlaceholder(commands['getPage'])(boardName, pageNumber, limit, lastReplies, lastRepliesForFixed)
-    .then(page => {
-      let threads = page.threads;
-      if (!threads) {
-        return page;
-      }
-      let threadsCount = threads.length;
-      for (let i = 0; i < threadsCount; i++) {
-        parseDataInPosts(threads[i].posts);
-      }
-      return page;
-    })
+API.getPage = async (boardName, pageNumber, limit = config('foxtan.threadsPerPage'), lastReplies = config('foxtan.lastReplies'), lastRepliesForFixed = config('foxtan.lastRepliesFixed')) => {
+  let out = {};
+  try {
+    out = await APIPlaceholder(commands['getPage'])(boardName, pageNumber, limit, lastReplies, lastRepliesForFixed);
+    let threads = out.threads;
+    if (!threads) {
+      return out;
+    }
+    let threadsCount = threads.length;
+    for (let i = 0; i < threadsCount; i++) {
+      parseDataInPosts(threads[i].posts);
+    }
+  } catch (e) {
+    Object.assign(out, e);
+  }
+  return out;
+};
+
+API.getFeed = async (boardName, pageNumber, limit = config('foxtan.threadsPerPage')) => {
+  let out = {};
+  try {
+    out = await APIPlaceholder(commands['getFeed'])(boardName, pageNumber, limit);
+    let posts = out.feed;
+    if (!posts) {
+      return out;
+    }
+    parseDataInPosts(posts);
+  } catch (e) {
+    Object.assign(out, e);
+  }
+  return out;
 };
 
 function parseDataInPosts(posts) {
@@ -83,10 +101,10 @@ function parseDataInPosts(posts) {
     posts[i].createdAt = new Date(posts[i].createdAt).toUTCString();
     posts[i].formatted_date = Tools.parseDate(posts[i].createdAt);
 
-    if (posts[i].files){
+    if (posts[i].files) {
       for (let file of posts[i].files) {
-        let unit = file.size > 1048575 ? "MiB" : "KiB"
-        file.size = `${+(file.size / (unit == "MiB" ? 1048576 : 1024)).toFixed(1)} ${unit}`;
+        let unit = file.size > 1048575 ? "MiB" : "KiB";
+        file.size = +(file.size / (unit === "MiB" ? 1048576 : 1024)).toFixed(1) + ' ' + unit;
       }
     }
   }

@@ -45,14 +45,14 @@ Board.get = (asObject = false, param, value) => {
   return out;
 };
 
-Board.getPageCount = async (board, threadsPerPage) => {
+Board.getCount = async (type = "page", board, threadsPerPage) => {
   if (!Board.exists(board)) {
     return new Error(`There's no board called ${board}`);
   }
   if (!threadsPerPage) {
     threadsPerPage = config('foxtan.threadsPerPage');
   }
-  return (await API.getPageCount(board, threadsPerPage)) || 0;
+  return (await API[type === "page" ? "getPageCount" : "getFeedCount"](board, threadsPerPage)) || 0;
 };
 
 Board.getPage = async (board, page = 0) => {

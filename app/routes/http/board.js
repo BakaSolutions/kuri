@@ -86,14 +86,19 @@ router.add = async ({board} = {}) => {
   ];
   Logger.debug(`[HTTP] Add ${pattern.join(', ')} to routes...`);
 
-  let pageCount = await BoardModel.getPageCount(board);
-  for (let i = 0; i < pageCount; i++) {
-    let uri = `/${board}/${i || 'index'}.html`;
-    Logger.debug(`[HTTP] Add ${uri} to routes...`);
+  let pageCount = await BoardModel.getCount("page", board);
+  for (let i = 1; i < pageCount; i++) {
+    let uri = `/${board}/${i}.html`;
+    Logger.debug(`[HTTP] Add ${uri} to routes... [regular page]`);
     pattern.push(uri);
   }
 
-  // TODO: Add .getFeedCount()
+  let feedCount = await BoardModel.getCount("feed", board);
+  for (let i = 1; i < feedCount; i++) {
+    let uri = `/${board}/feed/${i}.html`;
+    Logger.debug(`[HTTP] Add ${uri} to routes... [feed page]`);
+    pattern.push(uri);
+  }
 
   router.paths.push(pattern);
   router.get(pattern, async ctx => {
