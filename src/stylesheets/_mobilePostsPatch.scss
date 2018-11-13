@@ -24,6 +24,11 @@
 		div:first-child{
 			max-height: 150px;
 			max-width: 150px;
+
+			&.missingThumbnail{
+				width: 150px;
+				height: 150px;
+			}
 		}
 
 		div:not(:first-child){

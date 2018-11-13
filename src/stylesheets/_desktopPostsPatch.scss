@@ -66,6 +66,11 @@
 				pointer-events: none;
 			}
 
+			&.missingThumbnail{
+				width: 256px;
+				height: 200px;
+			}
+
 			&:not(:first-child){
 				font-size: 1rem;
 				opacity: 0;

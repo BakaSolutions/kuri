@@ -151,11 +151,18 @@
 					margin-right: calc(var(--gap) / 2);
 				}
 
-				.del{
+				.del, .nsfw{
 					position: absolute;
 					background: var(--bgcolor);
-					right: 0;
 					top: 0;
+				}
+
+				.del{
+					right: 0;
+				}
+
+				.nsfw{
+					left: 0;
 				}
 			}
 		}

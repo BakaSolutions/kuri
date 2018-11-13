@@ -104,6 +104,14 @@ body{
 		div:first-child{
 			background-position: center;
 			background-size: cover;
+
+			&.missingThumbnail{
+				justify-content: center;
+				align-items: center;
+				display: flex;
+
+				background-color: var(--bgcolor);
+			}
 		}
 
 		div:not(:first-child){

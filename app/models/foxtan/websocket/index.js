@@ -105,6 +105,10 @@ function parseDataInPosts(posts) {
       for (let file of posts[i].files) {
         let unit = file.size > 1048575 ? "MiB" : "KiB";
         file.size = +(file.size / (unit === "MiB" ? 1048576 : 1024)).toFixed(1) + ' ' + unit;
+
+        if (file.nsfw) {
+          delete file.thumb;
+        }
       }
     }
   }
