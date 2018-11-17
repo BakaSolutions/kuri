@@ -11,10 +11,10 @@
 
 	.post{
 		position: relative;
+		margin: calc(var(--gap) / 2) 0;
 	}
 
 	> *:not(:first-child){
-		margin: calc(var(--gap) / 2) 0;
 		border-top: .15em solid var(--bgcolor);
 	}
 }
