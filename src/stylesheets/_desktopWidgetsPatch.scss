@@ -79,10 +79,12 @@
 	z-index: 2001;
 
 	.widgetBox{
-		background-color: transparent;
 		min-height: auto;
 		min-width: auto;
 		border: none;
+
+		background-color: var(--bgcolor);
+		background-image: url(/static/transparency.png); 
 
 		&.is-pointer-down{
 			cursor: move;
