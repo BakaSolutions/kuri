@@ -1,7 +1,7 @@
 themes = {
 	init: async function () {
 		storage.defaults.themes = {
-			current: "tumbach"
+			current: "oneDark"
 		}
 
 		await this.setTheme()
@@ -18,11 +18,10 @@ themes = {
 		this.wrapper = settings.addTab(tabId, "Темы")
 		this.wrapper.addEventListener('settings.themes.current', () => this.setTheme(), false)
 
-		settings.addOption("themes.current", "Standart", 	tabId, 0, 0, "tumbach")
-		settings.addOption("themes.current", "Crychan", 	tabId, 0, 0, "crychan")
-		settings.addOption("themes.current", "Sosach", 		tabId, 0, 0, "sosach")
-		settings.addOption("themes.current", "One Dark", 	tabId, 0, 0, "oneDark")
-		settings.addOption("themes.current", "Classic", 	tabId, 0, 0, "tumbachClassic")
+		settings.addOption("themes.current", "One Dark", 		tabId, 0, 0, "oneDark")
+		settings.addOption("themes.current", "Tumbach Classic", tabId, 0, 0, "tumbachClassic")
+		settings.addOption("themes.current", "Crychan", 		tabId, 0, 0, "crychan")
+		settings.addOption("themes.current", "Sosach", 			tabId, 0, 0, "sosach")
 	},
 
 	load: async function (name) {
