@@ -63,10 +63,10 @@ const settings = {
 
 				break
 			case "addons":
-				settings.addOption("addons.themes", "Темы", 						id)
-				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id)
-				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id)
-				settings.addOption("addons.musicPlayer", "Встроенный плеер", 		id)
+				settings.addOption("addons.themes", "Темы", 						id, 0, 1) // Ну вот кто просил это трогать, а?
+				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id, 0, 1) // Последнее значение в вызове функции
+				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id, 0, 1) // Заставляет страницу автоматически 
+				settings.addOption("addons.musicPlayer", "Встроенный плеер", 		id, 0, 1) // Перезагружаться при изменении настройки
 
 				break
 		}
@@ -99,6 +99,7 @@ const settings = {
 		input.onchange = event => {
 			value = value || (typeof currentValue === "boolean" ? event.target.checked : event.target.value)
 			settings.set(id, value)
+			console.log(refresh)
 			if (refresh) window.location.reload(true)
 			let evt = new CustomEvent(`settings.${id}`, { detail: value, bubbles: true })
 			input.dispatchEvent(evt);
