@@ -1,4 +1,4 @@
-function asyncLoadPage(uri, noScrolling) {
+function asyncLoadPage(uri, noScrolling, noStateChange) {
 	if (uri == "/" || !storage.get("settings.useAjax")) return location.href = uri
 
 	let ntf = notifications.add({
@@ -21,7 +21,7 @@ function asyncLoadPage(uri, noScrolling) {
 
 						let title = sel("title", doc)
 						sel("title").innerHTML = title.innerHTML
-						history.pushState({uri}, title, uri)
+						if (!noStateChange) history.pushState(uri, null, uri)
 
 						if (sel("#replyForm") && doc.querySelector("#replyForm")) {
 							sel("#replyForm .widgetHandle").innerHTML = sel("#replyForm .widgetHandle", doc).innerHTML
@@ -86,3 +86,7 @@ sel("body").onclick = event => {
 		}
 	}
 }
+
+// История
+history.replaceState(window.location.pathname, null, null)
+window.addEventListener("popstate", e => asyncLoadPage(e.state, 0, 1))
