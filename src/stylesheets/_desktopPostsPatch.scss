@@ -1,12 +1,12 @@
 .thread {
-	padding: 0 var(--gap);
+	padding: 0 var(--gap) var(--gap) var(--gap);
 
 	&:not(:nth-last-child(2)){
-		margin-bottom: var(--gap);
+		margin-bottom: calc(1.5 * var(--gap));
 	}
 
 	> *:not(:first-child){
-		margin-left: var(--gap);
+		margin-left: calc(1.5 * var(--gap));
 	}
 }
 
