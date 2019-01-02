@@ -12,7 +12,7 @@ Board.boards = {};
 
 Board.sync = async () => {
   let boards = await API.getBoards();
-  if (!Tools.isObject(boards)) {
+  if (!Tools.isObject(boards) || !Object.keys(boards).length) {
     return false;
   }
   Board.boards = boards;

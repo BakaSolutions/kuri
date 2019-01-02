@@ -10,6 +10,7 @@ const API = require('./foxtan/websocket');
 let Model = module.exports = {
   models: {
     base: {
+      boards: [],
       site: config('site'),
       foxtan: {
         href: config('foxtan.http.href')
