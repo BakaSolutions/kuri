@@ -25,6 +25,7 @@ let config = {
       generate: false,
       external: false // turn on to use nginx
     },
+    compileTemplatesOnStartup: true,
     version: packageJSON.version,
     logger: console.log
   },

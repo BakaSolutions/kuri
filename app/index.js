@@ -10,7 +10,9 @@ let app = new Koa();
 
 Event.emit(`websocket.online`);
 Event.on('sync.synced', async () => {
-  await Render.compileTemplates();
+  if (config('server.compileTemplatesOnStartup')) {
+    await Render.compileTemplates();
+  }
   await Render.loadTemplates();
   await routes.initHTTP(app);
 });
