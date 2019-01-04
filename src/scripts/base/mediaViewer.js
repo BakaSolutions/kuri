@@ -17,6 +17,15 @@ const media = {
 	},
 
 	prepare: function(uri, mime, name) {
+		let decoderError = () => {
+			notifications.remove(this.ntf)
+			notifications.add({
+				text: "Файл поврежден или формат не поддерживается",
+				class: "notification",
+				timeout: 5000
+			})
+		}
+
 		this.ntf = notifications.add({
 			text: "Загрузка...",
 			class: "notification",
@@ -37,6 +46,8 @@ const media = {
 				this.display(video)
 			}
 
+			video.onerror = decoderError
+
 			video.src = uri
 		} else{
 			this.widget.classList.remove("video")
@@ -46,6 +57,8 @@ const media = {
 				this.reset(name, img.naturalWidth, img.naturalHeight)
 				this.display(img)
 			}
+
+			img.onerror = decoderError
 
 			img.src = uri
 		}
