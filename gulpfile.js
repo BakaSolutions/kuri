@@ -11,11 +11,9 @@ let input = {
 	minjs: ['src/scripts/**/*.min.js', 'custom/src/scripts/**/*.min.js'],
 	sass: ['src/stylesheets/*.?(s)css', 'custom/src/stylesheets/*.?(s)css'],
 	staticFiles: ['src/static/**/*'],
-	themes: ['src/themes/**/*.json'],
 	js: {
 		base: ["src/scripts/base/masterLib.js", "src/scripts/base/*.js"],
 		home: ["src/scripts/home.js"],
-		themes: ["src/scripts/modules/themes.js"],
 		quickSave: ["src/scripts/modules/quickSave.js"],
 		floatingPosts: ["src/scripts/modules/floatingPosts.js"],
 		musicPlayer: ["src/scripts/modules/musicPlayer.js"],
@@ -25,8 +23,7 @@ let input = {
 let output = {
 	js: 'public/js',
 	sass: 'public/css',
-	staticFiles: 'public/static',
-	themes: 'public/themes'
+	staticFiles: 'public/static'
 };
 
 gulp.task('staticFiles', () => gulp.src(input.staticFiles).pipe(gulp.dest(output.staticFiles)));
@@ -42,8 +39,6 @@ gulp.task("js", () => {
 	}
 });
 
-gulp.task('themes', () => gulp.src(input.themes).pipe(gulp.dest(output.themes)));
-
 gulp.task('sass', () => {
 	return gulp.src(input.sass)
 		.pipe(sass().on('error', sass.logError))
@@ -56,11 +51,10 @@ gulp.task('sass', () => {
 gulp.task('watch', () => {
 	watch(input.dot, () => gulp.start('dot'));
 	watch(input.sass, () => gulp.start('sass'));
-	watch(input.themes, () => gulp.start('themes'));
 
 	for (let inputName in input.js) {
 		watch(input.js[inputName], () => gulp.start("js"))
 	}
 });
 
-gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', 'themes']);
+gulp.task('default', ['dot', 'js', 'sass', 'staticFiles']);

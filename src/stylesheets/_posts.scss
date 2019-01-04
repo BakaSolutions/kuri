@@ -1,22 +1,27 @@
 @import "_markup";
 
 .thread{
-	background-color: var(--bgcolor_card);
-	border-radius: 3px;
-
 	.postCount{
-		color: var(--textcolor_secondary);
-		padding-top: .25em;
+		color: var(--secondaryTextColor);
+		padding-left: var(--gap);
 		display: block;
 	}
 
 	.post{
+		border-radius: var(--borderRadius);
 		position: relative;
-		margin: calc(var(--gap) / 2) 0;
+		background-color: var(--primaryCardColor);
+		padding: 0 var(--gap) var(--gap) var(--gap);
 	}
 
-	> *:not(:first-child){
-		border-top: .15em solid var(--bgcolor);
+	& > * {
+		margin-top: calc(var(--gap) / 2);
+	}
+
+	&:not(.feed){
+		.post:first-child{
+			background-color: var(--secondaryCardColor);
+		}
 	}
 }
 
@@ -38,11 +43,11 @@
 
 .postDetails{
 	@include user-select(none);
-	color: var(--textcolor);
+	color: var(--primaryTextColor);
 	padding: .25em 0;
 
 	time{
-		color: var(--textcolor_secondary);
+		color: var(--secondaryTextColor);
 		position: absolute;
 		font-size: .9em;
 	}
@@ -52,7 +57,7 @@
 	}
 
 	.subject{
-		color: var(--textcolor_secondary);
+		color: var(--secondaryTextColor);
 	}
 
 	.material-icons{
@@ -83,7 +88,7 @@ body{
 	}
 
 	#hideImagesCheckbox:checked ~ #navbar [for="hideImagesCheckbox"]{
-		background-color: var(--btncolor_hover);
+		background-color: var(--buttonHoverColor);
 	}
 }
 
@@ -99,7 +104,7 @@ body{
 
 	& > a{
 		margin-right: calc(var(--gap) / 2);
-		color: var(--textcolor);
+		color: var(--primaryTextColor);
 		position: relative;
 
 		div:first-child{
@@ -111,7 +116,7 @@ body{
 				align-items: center;
 				display: flex;
 
-				background-color: var(--bgcolor);
+				background-color: var(--backgroundColor);
 			}
 		}
 
@@ -124,7 +129,7 @@ body{
 			width: 100%;
 
 			transition: opacity var(--animationDuration);
-			background-color: var(--bgcolor_card);
+			background-color: var(--primaryCardColor);
 		}
 	}
 }
@@ -134,12 +139,12 @@ body{
 
 	span:first-child{
 		font-size: 1.2em;
-		color: var(--textcolor);
+		color: var(--primaryTextColor);
 		vertical-align: bottom;
 	}
 
 	span:last-child{
 		font-size: .8em;
-		color: var(--textcolor_secondary)
+		color: var(--secondaryTextColor)
 	}
 }

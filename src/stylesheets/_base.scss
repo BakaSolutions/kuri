@@ -18,23 +18,24 @@
 }
 
 body{
-	background-color: var(--bgcolor);
+	background-color: var(--backgroundColor);
 
 	flex-direction: column;
 	display: flex;
 	margin: 0;
 
 	font-family: 'Noto Sans', sans-serif;
-	color: var(--textcolor);
+	color: var(--primaryTextColor);
 }
 
 header{
-	background-color: var(--bgcolor_card);
+	background-color: var(--primaryCardColor);
 	@include user-select(none);
 	padding: 0 var(--gap);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	border-radius: 0 0 var(--borderRadius) var(--borderRadius);
 
 	#title{
 		display: block;
@@ -45,7 +46,7 @@ header{
 		}
 
 		h2{
-			color: var(--textcolor);
+			color: var(--primaryTextColor);
 		}
 
 		h4{
@@ -56,7 +57,7 @@ header{
 
 // Links
 a, .pseudoLink, .tabs label{
-	color: var(--linkcolor);
+	color: var(--linkOverColor);
 	transition: color var(--animationDuration);
 }
 
@@ -69,7 +70,7 @@ a{
 }
 
 main{
-	background-color: var(--bgcolor);
+	background-color: var(--backgroundColor);
 	margin-left: var(--sidebarWidth);
 	box-shadow: var(--boxShadow);
 
@@ -89,18 +90,18 @@ main{
 	box-shadow: var(--boxShadow);
 
 	padding: 5px;
-	color: var(--textcolor) !important;
+	color: var(--primaryTextColor) !important;
 	transition: background-color var(--animationDuration);
-	background-color: var(--btncolor);
-	/*border: 1px solid var(--bordercolor);*/
+	background-color: var(--buttonOverColor);
+	/*border: 1px solid var(--borderColor);*/
 	border: none;
-	border-radius: 3px;
+	border-radius: var(--borderRadius);
 
 	@include user-select(none);
 }
 
 [type="checkbox"]:checked + .btn{
-	background-color: var(--btncolor_hover);
+	background-color: var(--buttonHoverColor);
 }
 
 .visibleCheckbox{
@@ -124,8 +125,8 @@ main{
 }
 
 input:not([type=file]), textarea{
-	background: var(--bgcolor);
-	color: var(--textcolor);
+	background: var(--backgroundColor);
+	color: var(--primaryTextColor);
 
 	border: none;
 

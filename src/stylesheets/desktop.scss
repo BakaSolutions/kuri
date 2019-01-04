@@ -63,13 +63,15 @@
 @import "_replyForm.scss";
 
 #replyForm{
+	border-radius: var(--borderRadius);
+	
 	min-width: var(--widgetMinWidth);
 
 	// Начальная позиция
 	left: calc(50vw - var(--widgetMinWidth) / 2);
 	top: 10em;
 
-	border: 1px solid var(--bordercolor);
+	border: 1px solid var(--borderColor);
 
 	.widgetHandle, .pseudoLink{
 		cursor: default;

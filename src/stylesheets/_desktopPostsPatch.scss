@@ -1,17 +1,14 @@
 .thread {
-	padding: 0 var(--gap) var(--gap) var(--gap);
-
 	&:not(:nth-last-child(2)){
-		margin-bottom: calc(1.5 * var(--gap));
+		margin-bottom: var(--gap);
 	}
 
-	> *:not(:first-child){
-		margin-left: calc(1.5 * var(--gap));
+	&:not(.feed) > :not(:first-child){
+		margin-left: 1.5rem;
 	}
 }
 
 .postDetails{
-	font-size: .9em;
 	cursor: default;
 
 	.material-icons{
@@ -25,7 +22,7 @@
 	}
 
 	time{
-		right: 0
+		right: var(--gap);
 	}
 }
 
@@ -47,9 +44,9 @@
 		left: 1em;
 		top: 1em;
 
-		background-color: var(--btncolor);
-		border: 1px solid var(--bgcolor);
-		color: var(--textcolor);
+		background-color: var(--buttonOverColor);
+		border: 1px solid var(--backgroundColor);
+		color: var(--primaryTextColor);
 		width: 50vw;
 	}
 }

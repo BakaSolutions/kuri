@@ -1,5 +1,5 @@
 #replyForm{
-	background-color: var(--bgcolor_card);
+	background-color: var(--primaryCardColor);
 	
 	padding: var(--gap);
 	padding-top: 0;
@@ -13,6 +13,7 @@
 
 	input, textarea{
 		font-size: .95em;
+		border-radius: var(--borderRadius);
 	}
 
 	.container{
@@ -129,10 +130,10 @@
 
 			.fancyFileInput{
 				@include user-select(none);
-				background-color: var(--btncolor);
+				background-color: var(--buttonOverColor);
 				width: $narrowLineHeight * 2;
 				height: $narrowLineHeight * 2;
-				// border: 1px solid var(--btncolor);
+				// border: 1px solid var(--buttonOverColor);
 
 				display: flex;
 				justify-content: center;
@@ -153,15 +154,17 @@
 
 				.del, .nsfw{
 					position: absolute;
-					background: var(--bgcolor);
+					background: var(--backgroundColor);
 					top: 0;
 				}
 
 				.del{
+					border-top-right-radius: var(--borderRadius);
 					right: 0;
 				}
 
 				.nsfw{
+					border-top-left-radius: var(--borderRadius);
 					left: 0;
 				}
 			}
@@ -172,8 +175,8 @@
 		}
 
 		[type="checkbox"]:checked + .btn{
-			color: var(--linkcolor) !important;
-			background-color: var(--bgcolor);
+			color: var(--linkOverColor) !important;
+			background-color: var(--backgroundColor);
 		}
 	}
 }

@@ -30,7 +30,7 @@ main{
 @import "_navBar";
 
 #navbar{
-	background-color: var(--bgcolor);
+	background-color: var(--backgroundColor);
 	flex-direction: row;
 	bottom: 0;
 
@@ -65,7 +65,7 @@ main{
 
 #replyForm{
 	bottom: calc(#{$navBarHeight} - var(--gap));
-	border: var(--gap) solid var(--bgcolor);
+	border: var(--gap) solid var(--backgroundColor);
 	width: 100vw;
 
 	textarea{

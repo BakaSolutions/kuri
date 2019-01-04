@@ -8,7 +8,7 @@
 	position: fixed;
 
 	#logo{
-		color: var(--textcolor);
+		color: var(--primaryTextColor);
 		text-align: center;
 		line-height: 1.3em;
 		margin: 5px 0;
@@ -37,7 +37,7 @@
 		color: red;
 
 		small{
-			color: var(--textcolor);
+			color: var(--primaryTextColor);
 		}
 	}
 }

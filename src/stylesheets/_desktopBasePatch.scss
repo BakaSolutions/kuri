@@ -15,7 +15,7 @@ main{
 button, .btn{
 	&:hover{
 		cursor: pointer;
-		background-color: var(--btncolor_hover);
+		background-color: var(--buttonHoverColor);
 	}
 }
 
@@ -28,5 +28,5 @@ a, .pseudoLink{
 }
 
 a:hover{
-	color: var(--linkcolor_hover)
+	color: var(--linkHoverColor)
 }

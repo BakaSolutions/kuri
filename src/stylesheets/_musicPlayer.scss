@@ -4,7 +4,7 @@
 	left: 0;
 	right: 0;
 	padding: var(--gap);
-	background-color: var(--bgcolor);
+	background-color: var(--backgroundColor);
 
 	#title{
 		position: relative;
@@ -54,7 +54,7 @@
 		height: 50%;
 		outline: 0;
 
-		background-color: var(--btncolor);
+		background-color: var(--buttonOverColor);
 		transition: height var(--animationDuration);
 
 		-webkit-appearance: none;
@@ -70,12 +70,12 @@
 		}
 
 		&::-moz-range-progress{
-			background-color: var(--linkcolor);
+			background-color: var(--linkOverColor);
 			height: 100%;
 		}
 
 		&::-webkit-slider-thumb {
-			box-shadow: -256px 0 0 256px var(--linkcolor);
+			box-shadow: -256px 0 0 256px var(--linkOverColor);
 			-webkit-appearance: none;
 			width: 0;
 		}

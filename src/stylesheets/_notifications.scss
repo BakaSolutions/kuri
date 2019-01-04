@@ -2,15 +2,16 @@
 	min-width: 10em;
 
 	position: fixed;
-	right: var(--gap);
 	top: var(--gap);
 	z-index: 2021;
+	right: 0;
 
 	& > *{
 		@include user-select(none);
 
-		border: 1px solid var(--bgcolor);
-		background: var(--bgcolor_card);
+		background: var(--primaryCardColor);
+		border: 1px solid var(--borderColor);
+		border-right: none;
 
 		box-sizing: border-box;
 		margin-bottom: var(--gap);
@@ -19,6 +20,8 @@
 		padding: 0 var(--gap);
 		max-height: 0;
 		opacity: 0;
+
+		border-radius: var(--borderRadius) 0 0 var(--borderRadius);
 
 		&.newNotification{
 			max-height: 100vh;

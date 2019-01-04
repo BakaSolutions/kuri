@@ -3,7 +3,7 @@ body:not(.noSpoilers){
 		transition: text-shadow var(--animationDuration), color var(--animationDuration); 
 		
 		&:not(:hover) {
-			text-shadow: 0 0 .3em var(--textcolor);
+			text-shadow: 0 0 .3em var(--primaryTextColor);
 
 			&, * {
 				color: transparent;
@@ -14,7 +14,7 @@ body:not(.noSpoilers){
 }
 
 q {
-	color: var(--quotationcolor);
+	color: var(--quotationColor);
 
 	&:before, &:after{
 		display: none;
@@ -22,7 +22,7 @@ q {
 }
 
 code {
-	background: var(--bgcolor);
+	background: var(--backgroundColor);
 	font-family: monospace;
 	padding: .2em;
 }

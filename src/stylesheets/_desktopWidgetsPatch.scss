@@ -1,6 +1,8 @@
 .widgetBox{
 	min-width: 30vw;
 	min-height: 50vh;
+
+	border-radius: var(--borderRadius);
 }
 
 #settings{
@@ -10,19 +12,21 @@
 		display: flex;
 
 		span{
+			border-radius: var(--borderRadius) var(--borderRadius) 0 0;
 			padding: calc(var(--gap) / 2) var(--gap);
 			text-align: center;
 			width: 100%;
 
 			&:not(.active){
-				background-color: var(--bgcolor_card);
+				background-color: var(--primaryCardColor);
 				cursor: pointer;
 			}
 		}
 	}
 
 	[data-tab]{
-		background-color: var(--bgcolor);
+		border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+		background-color: var(--backgroundColor);
 		padding: var(--gap);
 
 		> div{
@@ -30,12 +34,13 @@
 			align-items: center;
 			display: flex;
 
+
 			// margin-left: var(--gap);
 		}
 	}
 
 	input[type="text"], input[type="password"]{
-		background-color: var(--bgcolor_postform);
+		background-color: var(--secondaryCardColor);
 		margin-left: var(--gap);
 		width: 10em;
 	}
@@ -44,7 +49,7 @@
 		-webkit-appearance: none;
 		-moz-appearance: none;
 
-		background-color: var(--bgcolor_postform);
+		background-color: var(--secondaryCardColor);
 		border-radius: .5em;
 		cursor: pointer;
 		width: 2.5em;
@@ -62,7 +67,7 @@
 			height: 1.2em;
 			width: 1.2em;
 
-			background-color: var(--linkcolor_hover);
+			background-color: var(--linkHoverColor);
 			border-radius: 50%;
 
 			transition: right var(--animationDuration);
@@ -83,7 +88,7 @@
 		min-width: auto;
 		border: none;
 
-		background-color: var(--bgcolor);
+		background-color: var(--backgroundColor);
 		background-image: url(/static/transparency.png); 
 
 		&.is-pointer-down{
@@ -100,12 +105,14 @@
 	.mediaInfo{
 		position: absolute;
 		bottom: 1em;
-		left: 1em;
 		z-index: 1;
+		left: 0;
 
-		background-color: var(--bgcolor_card);
-		padding: .5em;
+		background-color: var(--primaryCardColor);
+		padding: .5em 1em;
 		opacity: .9;
+
+		border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
 	}
 }
 

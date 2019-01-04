@@ -20,8 +20,6 @@ const settings = {
 		settings.addTab("basic", "Общее", 1)
 		settings.addTab("security", "Безопасность")
 		settings.addTab("addons", "Расширения")
-
-		if (storage.get("addons.themes")) themes.initInterface()
 	},
 
 	addTab: function (id, title, activeAsDefault) {
@@ -63,7 +61,6 @@ const settings = {
 
 				break
 			case "addons":
-				settings.addOption("addons.themes", "Темы", 						id, 0, 1) // Ну вот кто просил это трогать, а?
 				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id, 0, 1) // Последнее значение в вызове функции
 				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id, 0, 1) // Заставляет страницу автоматически 
 				settings.addOption("addons.musicPlayer", "Встроенный плеер", 		id, 0, 1) // Перезагружаться при изменении настройки

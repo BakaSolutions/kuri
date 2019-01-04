@@ -16,11 +16,11 @@
 			{{? !it.feed.length}}
 				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
 			{{?? }}
-				{{~it.feed :post}}
-					<div class="thread">
+				<div class="feed thread">
+					{{~it.feed :post}}
 						{{#def['particles/post']}}
-					</div>
-				{{~ }}
+					{{~ }}
+				</div>
 			{{? }}
 			{{#def["particles/pagination"]}}
 			<a name="bottom"></a>

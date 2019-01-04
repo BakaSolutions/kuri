@@ -1,18 +1,19 @@
 :root{
-	--textcolor: #a8afbc;
-	--textcolor_secondary: #a8afbc;
+	--primaryTextColor: #a8afbc;
+	--secondaryTextColor: #888f9c;
 
-	--linkcolor: #5facec;
-	--linkcolor_hover: #47769d;
+	--linkOverColor: #5facec;
+	--linkHoverColor: #47769d;
 
-	--btncolor: #282c34;
-	--btncolor_hover: #2e323a;
+	--buttonOverColor: #282c34;
+	--buttonHoverColor: #2e323a;
 
-	--bgcolor: #21252b;
-	--bgcolor_card: #282c34;
-	--bgcolor_postform: #282c34;
+	--backgroundColor: #21252b;
+	--primaryCardColor: #282c34;
+	--secondaryCardColor: #2F333B;
 
-	--bordercolor: #181a1f;
+	--borderColor: #181a1f;
+	--borderRadius: .3rem;
 
-	--quotationcolor: #98c379;
+	--quotationColor: #98c379;
 }
