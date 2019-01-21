@@ -10,7 +10,9 @@ const FS = require('../helpers/fs');
 const Logger = require('../helpers/logger');
 const Render = require('../helpers/render');
 
-const Model = require('../models');
+require('../models');
+
+const ROOT = new RegExp(FS.ROOT.replace(/\\/g, '\\\\'), 'g');
 
 /**
  * Inits controllers: requires all .js from /controllers/http/ and sets routers
@@ -99,7 +101,7 @@ function errorHandler(err, ctx, isError = true) {
     Logger.error('[ERR] ' + ctx.header.host + ctx.url + ' ' + status + '/' + ctx.status, err.message, err.stack);
 
     if (isError && config('debug.enable')) {
-      err.stack = err.stack.replace(new RegExp(FS.ROOT, 'g'), '') || err;
+      err.stack = err.stack.replace(ROOT, '') || err;
     } else {
       delete err.stack;
     }
