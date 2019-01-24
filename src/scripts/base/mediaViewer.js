@@ -1,12 +1,35 @@
 const media = {
+	videoState: 0,
+
 	init: function() {
 		this.widget 	= sel(".widget#mediaViewer")
 		this.widgetBox 	= this.widget.querySelector(".widgetBox")
 		this.ntf		= null
 		storage.defaults.settings.videoVolume = .5
 
-		new Draggabilly(this.widgetBox)
+		let stylesheet = createElement("style")
 
+		if (/Gecko\//.test(navigator.userAgent)){
+			stylesheet.innerText = "#mediaViewer #FFfix{position: absolute; height: 100%; width: 100%} #mediaViewer.video #FFfix{height: calc(100% - 40px)}"
+
+			let FFfix = createElement("div", {id: "FFfix"})
+			this.widgetBox.appendChild(FFfix)
+
+			this.mFlag = 0;
+
+			FFfix.onmousedown = () => this.mFlag = 0
+			FFfix.onmousemove = () => this.mFlag = 1
+			FFfix.onmouseup = 	() => this.mFlag ? 0 : this.togglePause()
+		} else if (/Webkit\//.test(navigator.userAgent)){
+			stylesheet.innerText = "#mediaViewer video{pointer-events: none} #mediaViewer video::-webkit-media-controls{pointer-events: auto}"
+		}
+
+		new Draggabilly(this.widgetBox, this.mFlag === undefined ? undefined : {
+			handle: "#mediaViewer #FFfix"
+		})
+
+		document.head.appendChild(stylesheet)
+		
 		this.widgetBox.addEventListener("wheel", (event) => {
 			event.preventDefault()
 			media.zoom(event.deltaY > 0 ? 0.9 : 1.1)
@@ -14,7 +37,12 @@ const media = {
 	},
 
 	reset: function(title, width, height) {
-		this.widgetBox.innerHTML  										= ""
+		this.videoState = 0
+
+		try{
+			this.widgetBox.querySelector("img, video").remove()
+		} catch(error) {} // Nothing to remove
+		
 		this.widgetBox.style.left 										= 0
 		this.widgetBox.style.top  										= 0
 		this.widget.querySelector(".mediaInfo :first-child").innerText 	= width && height ? `${width}x${height}` : ""
@@ -54,6 +82,10 @@ const media = {
 			video.onerror = decoderError
 
 			video.src = uri
+
+			video.onpause = video.onplay = () => {
+				this.videoState = !this.videoState
+			}
 		} else{
 			this.widget.classList.remove("video")
 
@@ -99,5 +131,12 @@ const media = {
 		
 		toggleWidget("mediaViewer")
 		this.reset()
+	},
+
+	togglePause: function(){
+		try{
+			let video = this.widgetBox.querySelector("video")
+			this.videoState ? video.pause() : video.play()
+		} catch(error){} // Not a video
 	}
 }
