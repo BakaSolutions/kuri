@@ -6,6 +6,11 @@ const media = {
 		storage.defaults.settings.videoVolume = .5
 
 		new Draggabilly(this.widgetBox)
+
+		this.widgetBox.addEventListener("wheel", (event) => {
+			event.preventDefault()
+			media.zoom(event.deltaY > 0 ? 0.9 : 1.1)
+		})
 	},
 
 	reset: function(title, width, height) {
@@ -96,11 +101,3 @@ const media = {
 		this.reset()
 	}
 }
-
-document.addEventListener("wheel", (event) => {
-	if(!media.widget.hidden){
-		event.preventDefault()
-
-		media.zoom(event.deltaY > 0 ? 0.9 : 1.1)
-	}
-})
