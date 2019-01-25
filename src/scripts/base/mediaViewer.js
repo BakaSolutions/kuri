@@ -19,7 +19,7 @@ const media = {
 
 			FFfix.onmousedown = () => this.mFlag = 0
 			FFfix.onmousemove = () => this.mFlag = 1
-			FFfix.onmouseup = 	() => this.mFlag ? 0 : this.togglePause()
+			FFfix.onclick = 	() => this.mFlag ? 0 : this.togglePause()
 		} else if (/Webkit\//.test(navigator.userAgent)){
 			stylesheet.innerText = "#mediaViewer video{pointer-events: none} #mediaViewer video::-webkit-media-controls{pointer-events: auto}"
 		}
@@ -36,13 +36,7 @@ const media = {
 		})
 	},
 
-	reset: function(title, width, height) {
-		this.videoState = 0
-
-		try{
-			this.widgetBox.querySelector("img, video").remove()
-		} catch(error) {} // Nothing to remove
-		
+	reset: function(title, width, height) {		
 		this.widgetBox.style.left = this.widgetBox.style.top = 0
 		this.widget.querySelector(".mediaInfo :first-child").innerText 	= width && height ? `${width}x${height}` : ""
 		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
@@ -64,40 +58,39 @@ const media = {
 			closable: false
 		})
 
-		if (mime.split("/")[0] == "video") {
-			this.widget.classList.add("video")
+		let media
 
-			let video = createElement("video", {
+		if (mime.includes("video")) {
+			media = createElement("video", {
 				type: mime,
 				controls: 1
 			})
 
-			video.onloadeddata = () => {
-				this.reset(name, video.videoWidth, video.videoHeight)
-				video.volume = storage.get("settings.videoVolume")
-				this.display(video)
+			media.onloadeddata = () => {
+				this.reset(name, media.videoWidth, media.videoHeight)
+				media.volume = storage.get("settings.videoVolume")
+				this.display(media)
 			}
 
-			video.onerror = decoderError
-
-			video.src = uri
-
-			video.onpause = video.onplay = () => {
+			media.onpause = media.onplay = () => {
 				this.videoState = !this.videoState
 			}
+			
+			this.widget.classList.add("video")
 		} else{
-			this.widget.classList.remove("video")
-
-			let img = new Image()
-			img.onload = () => {
-				this.reset(name, img.naturalWidth, img.naturalHeight)
-				this.display(img)
+			media = new Image()
+			
+			media.onload = () => {
+				this.reset(name, media.naturalWidth, media.naturalHeight)
+				this.display(media)
 			}
 
-			img.onerror = decoderError
-
-			img.src = uri
 		}
+
+		media.onerror = decoderError
+		media.src = uri
+
+		this.media = media
 	},
 
 	display: function(element) {
@@ -107,15 +100,18 @@ const media = {
 	},
 
 	zoom: function(multiplier){
-		let node = this.widgetBox.querySelector("img, video")
-		
+		let node = this.media
+
 		node.style.maxHeight = node.style.maxWidth = "none"
 		node.style.width = `${multiplier * parseInt(window.getComputedStyle(node, null).getPropertyValue("width"))}px`
 	},
 
 	hide: function(){
-		let video = this.widgetBox.querySelector("video")
-		if (video) storage.set("settings.videoVolume", video.volume)
+		if (this.media.duration) storage.set("settings.videoVolume", this.media.volume)
+
+		this.widget.classList.remove("video")
+		this.videoState = 0
+		this.media.remove()
 		
 		toggleWidget("mediaViewer")
 		this.reset()
@@ -123,7 +119,7 @@ const media = {
 
 	togglePause: function(){
 		try{
-			let video = this.widgetBox.querySelector("video")
+			let video = this.media
 			this.videoState ? video.pause() : video.play()
 		} catch(error){} // Not a video
 	}
