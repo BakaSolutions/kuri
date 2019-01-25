@@ -43,8 +43,7 @@ const media = {
 			this.widgetBox.querySelector("img, video").remove()
 		} catch(error) {} // Nothing to remove
 		
-		this.widgetBox.style.left 										= 0
-		this.widgetBox.style.top  										= 0
+		this.widgetBox.style.left = this.widgetBox.style.top = 0
 		this.widget.querySelector(".mediaInfo :first-child").innerText 	= width && height ? `${width}x${height}` : ""
 		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
 	},
@@ -108,13 +107,10 @@ const media = {
 	},
 
 	zoom: function(multiplier){
-		let node = this.widgetBox.querySelector("img, video"),
-			computedStyle = window.getComputedStyle(node, null)
+		let node = this.widgetBox.querySelector("img, video")
 		
 		node.style.maxHeight = node.style.maxWidth = "none"
-		for (let dimension of ["height", "width"]) {
-			node.style[dimension] = `${multiplier * parseInt(computedStyle.getPropertyValue(dimension))}px`
-		}
+		node.style.width = `${multiplier * parseInt(window.getComputedStyle(node, null).getPropertyValue("width"))}px`
 	},
 
 	hide: function(){
