@@ -108,20 +108,12 @@ const media = {
 	},
 
 	zoom: function(multiplier){
-		let maxSize 		= window.innerWidth * 3,
-			minSize 		= window.innerHeight / 5,
-			mediaNode		= this.widgetBox.querySelector("*"),
-			computedStyle 	= window.getComputedStyle(mediaNode, null),
-			newHeight 		= multiplier * parseInt(computedStyle.getPropertyValue("height")),
-			newWidth  		= multiplier * parseInt(computedStyle.getPropertyValue("width"))
-
-		if (newHeight < maxSize && newWidth < maxSize && newHeight > minSize && newWidth > minSize) {
-			mediaNode.style.maxHeight 	= "none"
-			mediaNode.style.maxWidth 	= "none"
-			mediaNode.style.height 		= newHeight + "px"
-			mediaNode.style.width 		= newWidth  + "px"
-		} else{
-			console.error("Trying to set media width to", newWidth, "and height to", newHeight, "when minimum limit is", minSize, "and maximum limit is", maxSize)
+		let node = this.widgetBox.querySelector("img, video"),
+			computedStyle = window.getComputedStyle(node, null)
+		
+		node.style.maxHeight = node.style.maxWidth = "none"
+		for (let dimension of ["height", "width"]) {
+			node.style[dimension] = `${multiplier * parseInt(computedStyle.getPropertyValue(dimension))}px`
 		}
 	},
 
