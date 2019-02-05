@@ -224,3 +224,11 @@ function initInterface(update) {
 }
 
 initInterface()
+
+function showBoardInfo(name, bumpLimit, fileLimit){
+	notifications.add({
+		text: `${name}<br>Бамплимит: ${bumpLimit}<br>Максимум прикреплений: ${fileLimit}`, 
+		class: 'notification', 
+		timeout: 10000
+	})
+}

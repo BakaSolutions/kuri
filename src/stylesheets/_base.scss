@@ -53,6 +53,14 @@ header{
 			font-weight: normal;
 		}
 	}
+
+	& > div{
+		display: flex;
+
+		& > :first-child{
+			position: relative;
+		}
+	}
 }
 
 // Links
@@ -153,4 +161,14 @@ button, input, textarea{
 
 .noJs{
 	display: none;
+}
+
+#boardInfoTooltip{
+	position: absolute;
+	z-index: 1;
+	top: 2em;
+	left: -10em;
+
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 1.3rem;
 }

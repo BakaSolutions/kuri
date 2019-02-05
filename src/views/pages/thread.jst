@@ -12,6 +12,10 @@
 					<h2>{{!it.title}}</h2>
 					<h4>/{{!it.board.name}}/ — {{!it.board.title}}</h4>
 				</a>
+
+				<div>
+					<a class="btn material-icons jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">help</a>
+				</div>
 			</header>
 			<div class="thread">
 				{{ let thread = it.thread; }}

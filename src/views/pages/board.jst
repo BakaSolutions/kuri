@@ -13,9 +13,12 @@
 					<h4>{{!it.board.subtitle}}</h4>
 				</a>
 
-				<a class="btn material-icons" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
-					view_list
-				</a>
+				<div>
+					<a class="btn material-icons jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">help</a>
+					<a class="btn material-icons" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
+						view_list
+					</a>
+				</div>
 			</header>
 			{{? !it.threads.length}}
 				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
