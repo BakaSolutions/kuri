@@ -20,6 +20,9 @@
 					</a>
 				</div>
 			</header>
+			
+			{{#def['particles/replyForm']}}
+
 			{{? !it.threads.length}}
 				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
 			{{?? }}
@@ -44,7 +47,6 @@
 			<a name="bottom"></a>
 		</main>
 
-		{{#def['particles/replyForm']}}
 		{{#def["particles/widgets"]}}
 		{{#def["particles/notifications"]}}
 	</body>

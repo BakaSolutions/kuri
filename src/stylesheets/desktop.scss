@@ -63,27 +63,67 @@
 @import "_replyForm.scss";
 
 #replyForm{
-	border-radius: var(--borderRadius);
-	
-	min-width: var(--widgetMinWidth);
-
-	// Начальная позиция
 	left: calc(50vw - var(--widgetMinWidth) / 2);
-	top: 10em;
-
-	border: 1px solid var(--borderColor);
+	top: 5em;
 
 	.widgetHandle, .pseudoLink{
-		cursor: default;
+		cursor: move;
 	}
 
-	.material-icons{
-		cursor: pointer;
-	}
+	&.floating{
+		width: 40vw;
 
-	&.is-dragging{
-		.widgetHandle, .pseudoLink{
-			cursor: move;
+		form{
+			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
 		}
+
+		.widgetHandle{
+			button{
+				position: absolute;
+				right: 0;
+
+				margin-top: 1px;
+				padding: 0;
+			}
+		}
+
+		textarea{
+			min-height: 20vh;
+		}
+	}
+
+	&:not(.floating){
+		form{
+			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth) calc(3 * var(--buttonWidth)) 1fr;
+		}
+
+		.widgetHandle button{
+			display: none;
+		}
+	}
+}
+
+main > #usefulInfo{
+	display: flex;
+	justify-content: space-around;
+
+	margin-top: calc(var(--gap)/ 2);
+	border-radius: var(--borderRadius);
+	background-color: var(--primaryCardColor);
+
+	padding: var(--gap);
+}
+
+#usefulInfo{
+	h3{
+		margin: 0 var(--gap);
+	}
+
+	ul, table{
+		margin: 0 calc(2 * var(--gap));
+	}
+
+	ul{
+		padding: 0 calc(2 * var(--gap)); 
 	}
 }

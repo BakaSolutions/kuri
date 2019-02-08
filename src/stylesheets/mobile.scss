@@ -64,12 +64,28 @@ main{
 @import "_replyForm.scss";
 
 #replyForm{
-	bottom: calc(#{$navBarHeight} - var(--gap));
-	border: var(--gap) solid var(--backgroundColor);
 	width: 100vw;
 
 	textarea{
 		max-width: calc(var(--widgetMinWidth) - 2 * var(--gap));
-		resize: none;
+		height: 7.5em;
 	}
+
+	form{
+		grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
+	}
+
+	&.floating{
+		bottom: calc(#{$navBarHeight} - var(--gap));
+		border: var(--gap) solid var(--backgroundColor);
+		left: 0;
+	}
+
+	.widgetHandle button{
+		display: none;
+	}
+}
+
+#usefulInfo{
+	display: none;
 }

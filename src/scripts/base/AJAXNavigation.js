@@ -16,23 +16,19 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 					.then(data => {
 						let doc = (new DOMParser()).parseFromString(data, "text/html")
 
+						let fields = ["subject", "text"],
+							fieldValues = fields.map(f => sel(`#replyForm [name="${f}"]`).value)
+
 						let main = sel("main", doc)
 						if (main) sel("main").innerHTML = main.innerHTML
+
+						for(let i in fields){
+							sel(`#replyForm [name="${fields[i]}"]`).value = fieldValues[i]
+						}
 
 						let title = sel("title", doc)
 						sel("title").innerHTML = title.innerHTML
 						if (!noStateChange) history.pushState(uri, null, uri)
-
-						if (sel("#replyForm") && doc.querySelector("#replyForm")) {
-							sel("#replyForm .widgetHandle").innerHTML = sel("#replyForm .widgetHandle", doc).innerHTML
-
-							for (let field of ["boardName", "redirect", "threadNumber"]) {
-								sel(`#replyForm [name="${field}"]`).value = sel(`#replyForm [name="${field}"]`, doc).value
-							}
-
-							sel("#replyForm [name='subject']").placeholder = sel("#replyForm [name='subject']", doc).placeholder
-							sel("#replyForm #fileInputs").dataset.filelimit = sel("#replyForm #fileInputs", doc).dataset.filelimit
-						}
 
 						let postMenu = sel("#postMenu:not([hidden])")
 						if(postMenu) postMenu.setAttribute("hidden", 1)

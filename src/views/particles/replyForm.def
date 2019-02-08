@@ -1,10 +1,8 @@
-<input type="checkbox" id="replyFormShow" hidden>
-
 <div id="replyForm">
 	<div class="container"></div>
 	<div class="widgetHandle">
 		<span>{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}</span>
-		<label for="replyFormShow" class="material-icons">close</label>
+		<button class="material-icons" onclick="replyForm.toggleFloating()">close</button>
 	</div>
 
 	<form id="postForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">
@@ -12,13 +10,13 @@
 		<input type="hidden" name="redirect" value="{{!it.site.href}}{{? it.thread}}{{=it.board.name}}/res/{{=it.thread.number}}.html#bottom{{?? }}redirect?i=:board/:post{{? }}">
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
 
-		<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
+		<input type="checkbox" name="sage" id="sageCheckbox" hidden>
+		<label for="sageCheckbox" class="btn material-icons">arrow_downward</label>
 
 		<input type="checkbox" name="op" id="opCheckbox" hidden>
-		<label for="opCheckbox" class="btn">OP</label>
+		<label for="opCheckbox" class="btn">ОП</label>
 
-		<input type="checkbox" name="sage" id="sageCheckbox" hidden>
-		<label for="sageCheckbox" class="btn">Sage</label>
+		<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
 
 		<textarea name="text"></textarea>
 
@@ -35,6 +33,39 @@
 			{{ } }}
 		</div>
 
-		<button id="submit" onclick="handlePostSend(event)">Отправить</button>
+		<button id="submit" class="material-icons" onclick="handlePostSend(event)">send</button>
+
+		<div id="usefulInfo">
+			<div>
+				<h3>Правила:</h3>
+				<ul>
+					<li>Любого рода вайп, флуд, спам, панк и прочий мусорный постинг запрещен.</li>
+					<li>Авторы постов, нарушающих законодательство РФ, караются вне очереди.</li>
+					<li>Посты, ставшие причиной жалоб пользователей, будут рассмотрены отдельно.</li>
+					<li>Анонимность гарантируется, понимание и поддержка — нет.</li>
+				</ul>
+			</div>
+
+			<div>
+				<h3>Разметка:</h3>
+				<table>
+					<tr>
+						<td>**жирный**</td>
+						<td class="material-icons">arrow_right</td>
+						<td><b>жирный</b></td>
+					</tr>
+					<tr>
+						<td>__курсив__</td>
+						<td class="material-icons">arrow_right</td>
+						<td><i>курсив</i></td>
+					</tr>
+					<tr>
+						<td>%%спойлер%%</td>
+						<td class="material-icons">arrow_right</td>
+						<td><span class="spoiler">спойлер</span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</form>
 </div>

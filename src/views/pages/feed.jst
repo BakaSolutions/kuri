@@ -13,6 +13,9 @@
 					<h4>{{!it.board.subtitle}}</h4>
 				</a>
 			</header>
+			
+			{{#def['particles/replyForm']}}
+
 			{{? !it.feed.length}}
 				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
 			{{?? }}
@@ -26,7 +29,6 @@
 			<a name="bottom"></a>
 		</main>
 
-		{{#def['particles/replyForm']}}
 		{{#def["particles/widgets"]}}
 		{{#def["particles/notifications"]}}
 	</body>

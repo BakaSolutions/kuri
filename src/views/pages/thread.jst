@@ -17,6 +17,9 @@
 					<a class="btn material-icons jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">help</a>
 				</div>
 			</header>
+
+			{{#def['particles/replyForm']}}
+
 			<div class="thread">
 				{{ let thread = it.thread; }}
 				{{~thread.posts :post}}
@@ -26,7 +29,6 @@
 			<a name="bottom"></a>
 		</main>
 
-		{{#def['particles/replyForm']}}
 		{{#def["particles/widgets"]}}
 		{{#def["particles/notifications"]}}
 	</body>

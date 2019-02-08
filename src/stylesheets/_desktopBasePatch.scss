@@ -14,7 +14,7 @@ main{
 
 button, .btn{
 	&:hover{
-		cursor: pointer;
+		cursor: default;
 		background-color: var(--buttonHoverColor);
 	}
 }

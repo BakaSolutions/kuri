@@ -47,7 +47,7 @@
 		<!-- <a onclick="toggleWidget('favourite')" class="btn material-icons jsOnly">star</a> -->
 		<button type="button" class="material-icons jsOnly">star</button>
 		<label for="hideImagesCheckbox" class="btn material-icons desktopOnly">visibility_off</label>
-		<label for="replyFormShow" id="replyFormButton" class="btn material-icons replyFormShow">chat</label>
+		<button onclick="replyForm.toggleFloating()" class="material-icons">chat</button>
 		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>
 	</div>
 </div>

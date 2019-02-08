@@ -1,3 +1,42 @@
+function insertAtCursor(field, value) {
+	if (field.selectionStart || field.selectionStart === 0) {
+		let {selectionStart, selectionEnd} = field
+		let cursorPosition = selectionStart + value.length
+		field.value = field.value.substring(0, selectionStart)
+			+ value
+			+ field.value.substring(selectionEnd, field.value.length)
+
+		field.setSelectionRange(cursorPosition, cursorPosition)
+		return field.focus()
+	}
+	return field.value += value
+}
+
+function quickReply(element) {
+	let link = element.parentNode.querySelector(".refLink").href,
+		textarea = sel("#postForm textarea"),
+		mention = `>>${element.parentNode.parentNode.dataset.number}\n`
+
+	if (window.pageYOffset){
+		replyForm.toggleFloating(true)
+	}
+
+	if (storage.get("settings.quickReply.addSelection")) {
+		let selection;
+		if (selection = getSelection().toString()) {
+			mention += '> ' + selection + '\n'
+		}
+	}
+
+	if (storage.get("settings.quickReply.insertAtCursor")) {
+		insertAtCursor(textarea, mention)
+	} else {
+		textarea.value += mention
+	}
+
+	textarea.focus()
+}
+
 async function handlePostSend(e) { // TODO: Проверка валидности всех полей
 	e.preventDefault()
 
@@ -61,7 +100,7 @@ function sendPost() {
 	xhr.send(new FormData(form))
 }
 
-captcha = {
+let captcha = {
 	update: function() {
 		sel("#captcha img").src = FOXTAN_URL_BASE + "api/v1/captcha.image" + "?" + +new Date()
 		setTimeout(() => {sel("#captcha input").focus()}, 100)
@@ -123,5 +162,54 @@ captcha = {
 				})
 			}
 		}
+	}
+}
+
+let replyForm = {
+	init: function(){
+		this.state = true
+
+		if (DEVICE == "desktop") {
+			this.draggie = new Draggabilly("#replyForm", {
+				containment: 	"#replyForm .container",
+				handle: 		"#replyForm .widgetHandle"
+			})
+
+			this.draggie.on("dragStart", () => this.toggleFloating(true))
+		} else{
+			this.draggie = {
+				element: document.querySelector("#replyForm")
+			}
+		}
+
+		this.toggleFloating(false)
+	},
+
+	toggleFloating: function(value){
+		let height = document.body.clientHeight
+
+		if (value !== undefined) {
+			this.state = !value
+		} 
+
+		let usefulInfo = document.querySelector("#usefulInfo")
+
+		if (this.state){
+			this.draggie.element.style.left = null
+			this.draggie.element.style.top = null
+
+			document.querySelector("#postForm").appendChild(usefulInfo)
+
+			this.draggie.element.classList.remove("floating")
+		} else{
+			// document.querySelector("#postForm").removeChild(usefulInfo)
+			document.querySelector("main").insertBefore(usefulInfo, this.draggie.element);
+
+			this.draggie.element.classList.add("floating")
+		}
+
+		this.state = !this.state
+
+		window.scrollBy(0, document.body.clientHeight - height)
 	}
 }

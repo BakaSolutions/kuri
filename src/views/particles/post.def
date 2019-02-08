@@ -6,7 +6,7 @@
 
 		<!-- Сажа -->
 		{{? post.sage}}
-			<span class="material-icons">details</span>
+			<span class="material-icons">arrow_downward</span>
 		{{? }}
 		<!-- Закреплённый тред -->
 		{{? (post.number == post.threadNumber) && typeof thread !== 'undefined' && thread.pinned}}
