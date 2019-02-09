@@ -157,7 +157,8 @@ const storage = new Storage({
         addSelection: false,
         insertAtCursor: false,
       },
-      superSpoiling: false
+      superSpoiling: false,
+      hideMarkupCheatSheet: false
     },
     addons: {
       themes: false,

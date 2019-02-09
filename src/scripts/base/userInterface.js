@@ -133,6 +133,10 @@ function initInterface(update) {
 	marker.init()
 	time.recalculate()
 
+	if (storage.get("settings.hideMarkupCheatSheet")){
+		document.querySelector("#usefulInfo > div:last-child").remove()
+	}
+
 	if (fancyFileInputs.init()) {
 		sel("#postForm [name=password]").value = storage.get("settings.password")
 	}

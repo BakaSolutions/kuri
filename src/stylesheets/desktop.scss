@@ -71,7 +71,7 @@
 	}
 
 	&.floating{
-		width: 40vw;
+		width: 35vw;
 
 		form{
 			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
@@ -88,7 +88,7 @@
 		}
 
 		textarea{
-			min-height: 20vh;
+			height: 10em;
 		}
 	}
 
@@ -99,6 +99,10 @@
 
 		.widgetHandle button{
 			display: none;
+		}
+
+		textarea{
+			min-height: 10em;
 		}
 	}
 }
