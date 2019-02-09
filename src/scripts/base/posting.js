@@ -176,6 +176,13 @@ let replyForm = {
 			})
 
 			this.draggie.on("dragStart", () => this.toggleFloating(true))
+
+			document.querySelector("#replyForm textarea").addEventListener("input", (event) => {
+				let field = event.target
+
+				field.style.height = "100%"
+				field.style.height = `${field.scrollHeight}px`
+			}, false);
 		} else{
 			this.draggie = {
 				element: document.querySelector("#replyForm")
