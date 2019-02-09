@@ -51,6 +51,7 @@ const settings = {
 				settings.addOption("settings.quickReply.insertAtCursor", "Учитывать положение курсора при ответе",	id)
 
 				settings.addOption("settings.autoUnspoil", "Раскрывать спойлеры", id)
+				settings.addOption("settings.superSpoiling", "Скрывать посты полностью", id)
 
 				break
 			case "security":

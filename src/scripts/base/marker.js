@@ -17,10 +17,14 @@ const marker = {
 					let marksArray = this.marks[post.dataset.board][post.dataset.number]
 
 					if (marksArray){
-						post.dataset.marks = marksArray.join(" ")
+						if(storage.get("settings.superSpoiling") && marksArray.includes("hidden")){
+							post.remove()
+						} else{
+							post.dataset.marks = marksArray.join(" ")
 						
-						if (post.dataset.op){
-							post.parentNode.dataset.marks = marksArray.join(" ")
+							if (post.dataset.op){
+								post.parentNode.dataset.marks = marksArray.join(" ")
+							}
 						}
 					}
 				} catch(e) {

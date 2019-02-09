@@ -156,7 +156,8 @@ const storage = new Storage({
         navigateTo: false,
         addSelection: false,
         insertAtCursor: false,
-      }
+      },
+      superSpoiling: false
     },
     addons: {
       themes: false,
