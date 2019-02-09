@@ -133,7 +133,7 @@ function initInterface(update) {
 	marker.init()
 	time.recalculate()
 
-	if (storage.get("settings.hideMarkupCheatSheet")){
+	if (!storage.get("settings.showMarkupCheatSheet")){
 		document.querySelector("#usefulInfo > div:last-child").remove()
 	}
 

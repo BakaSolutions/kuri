@@ -185,25 +185,21 @@ let replyForm = {
 				field.style.height = "100%"
 				field.style.height = `${field.scrollHeight}px`
 			}, false);
+
+			try{
+				let pos = sessionStorage.getItem("replyFormPos").split(" ")
+				this.draggie.element.style.left = pos[0]
+				this.draggie.element.style.top = pos[1]
+			} catch(err){
+				// Позиция не записана
+			}
 		} else{
 			this.draggie = {
 				element: document.querySelector("#replyForm")
 			}
 		}
-
-		if(!update){
-			this.state = false
-		}
-
-		try{
-			let pos = sessionStorage.getItem("replyFormPos").split(" ")
-			this.draggie.element.style.left = pos[0]
-			this.draggie.element.style.top = pos[1]
-		} catch(err){
-			// Позиция не записана
-		}
-
-		this.toggleFloating(this.state)
+		
+		this.toggleFloating(update ? this.state : false)
 	},
 
 	toggleFloating: function(value){

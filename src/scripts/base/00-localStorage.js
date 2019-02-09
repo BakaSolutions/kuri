@@ -153,12 +153,11 @@ const storage = new Storage({
       password: "",
       autoUnspoil: false,
       quickReply: {
-        navigateTo: false,
         addSelection: false,
         insertAtCursor: false,
       },
       superSpoiling: false,
-      hideMarkupCheatSheet: false
+      showMarkupCheatSheet: true
     },
     addons: {
       themes: false,

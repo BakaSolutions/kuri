@@ -46,13 +46,12 @@ const settings = {
 				settings.addOption("settings.useAjax", "Использовать AJAX", 			id)
 				settings.addOption("settings.animationLength", "Длительность анимаций", id)
 
-				settings.addOption("settings.quickReply.navigateTo", "Переходить на страницу поста при ответе",		id)
 				settings.addOption("settings.quickReply.addSelection", "Копировать выделенное при ответе",			id)
 				settings.addOption("settings.quickReply.insertAtCursor", "Учитывать положение курсора при ответе",	id)
 
 				settings.addOption("settings.autoUnspoil", "Раскрывать спойлеры", id)
 				settings.addOption("settings.superSpoiling", "Скрывать посты полностью", id)
-				settings.addOption("settings.hideMarkupCheatSheet", "Не показывать подсказку по разметке", id)
+				settings.addOption("settings.showMarkupCheatSheet", "Показывать подсказку по разметке", id)
 
 
 				break
