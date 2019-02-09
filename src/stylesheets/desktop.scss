@@ -110,13 +110,20 @@
 
 main > #usefulInfo{
 	display: flex;
-	justify-content: space-around;
 
 	margin-top: calc(var(--gap)/ 2);
 	border-radius: var(--borderRadius);
 	background-color: var(--primaryCardColor);
 
 	padding: var(--gap);
+
+	& > div{
+		width: 50%;
+	}
+
+	h3{
+		margin: 0;
+	}
 }
 
 #usefulInfo{
