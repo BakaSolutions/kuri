@@ -30,6 +30,10 @@
 	display: none
 }
 
+.post[data-marks~=hidden], .thread[data-marks~=hidden]{
+	padding-bottom: 0
+}
+
 .postLink[data-marks~=hidden]{
 	text-decoration: line-through
 }
