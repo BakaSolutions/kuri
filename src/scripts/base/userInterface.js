@@ -126,7 +126,7 @@ function initInterface(update) {
 		document.body.classList.add("noSpoilers")
 	}
 
-	replyForm.init()
+	replyForm.init(update)
 
 	if (sel(".noThreads")) return
 

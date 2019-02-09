@@ -166,9 +166,7 @@ let captcha = {
 }
 
 let replyForm = {
-	init: function(){
-		this.state = true
-
+	init: function(update){
 		if (DEVICE == "desktop") {
 			this.draggie = new Draggabilly("#replyForm", {
 				containment: 	"#replyForm .container",
@@ -176,6 +174,10 @@ let replyForm = {
 			})
 
 			this.draggie.on("dragStart", () => this.toggleFloating(true))
+			this.draggie.on("dragEnd", () => {
+				let element = this.draggie.element
+				sessionStorage.setItem("replyFormPos", `${element.style.left} ${element.style.top}`)
+			})
 
 			document.querySelector("#replyForm textarea").addEventListener("input", (event) => {
 				let field = event.target
@@ -189,7 +191,19 @@ let replyForm = {
 			}
 		}
 
-		this.toggleFloating(false)
+		if(!update){
+			this.state = false
+		}
+
+		try{
+			let pos = sessionStorage.getItem("replyFormPos").split(" ")
+			this.draggie.element.style.left = pos[0]
+			this.draggie.element.style.top = pos[1]
+		} catch(err){
+			// Позиция не записана
+		}
+
+		this.toggleFloating(this.state)
 	},
 
 	toggleFloating: function(value){
@@ -209,7 +223,6 @@ let replyForm = {
 
 			this.draggie.element.classList.remove("floating")
 		} else{
-			// document.querySelector("#postForm").removeChild(usefulInfo)
 			document.querySelector("main").insertBefore(usefulInfo, this.draggie.element);
 
 			this.draggie.element.classList.add("floating")
