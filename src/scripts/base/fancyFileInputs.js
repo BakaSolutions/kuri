@@ -88,7 +88,10 @@ const fancyFileInputs = {
 	removeInput: function(event) {
 		event.preventDefault()
 
-		sel(`#fileInputs #${event.target.parentNode.htmlFor}`).remove()
+		let id = event.target.parentNode.htmlFor
+		
+		sel(`#fileInputs #${id}`).remove()
+		sel(`#fileInputs #${id}NSFW`).remove()
 		event.target.parentNode.remove()
 		fancyFileInputs.inputCount--
 
