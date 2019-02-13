@@ -24,6 +24,12 @@
 		display: flex;
 
 		margin-top: 1em;
+
+		a[data-badge]::after{
+			content: " " attr(data-badge);
+			vertical-align: super;
+			font-size: .8em;
+		}
 	}
 
 	#JSInd{

@@ -1,3 +1,49 @@
+let budges = {
+	getNews: () => {
+		let uri = FOXTAN_URL_BASE + "lastPostNumbers.json"
+
+		fetch(uri).then(response => {
+			if (response.status < 400) {
+				response.json().then(r => {
+					localStorage.setItem("lastPosts", JSON.stringify(r))
+				})
+			} else {
+				throw response.statusText
+			}
+		}).catch(err => console.error("Fetch error occured:", err))
+	},
+
+	setSeen: (boardName) => {
+		let seen = localStorage.getItem("seenPosts")
+			seen = JSON.parse(seen) || {}
+
+		let last = localStorage.getItem("lastPosts")
+
+		if(last){
+			seen[boardName] = JSON.parse(last)[boardName]
+			localStorage.setItem("seenPosts", JSON.stringify(seen))
+		}
+	},
+
+	show: () => {
+		let seen = JSON.parse(localStorage.getItem("seenPosts")),
+			last = JSON.parse(localStorage.getItem("lastPosts"))
+		
+		if(seen !== null){
+			for(let board in seen){
+				let number = last[board] - seen[board],
+					link = document.querySelector(`#boards [href="/${board}/"]`)
+
+				if (number){
+					link.dataset.badge = `+${number}`
+				} else{
+					delete link.dataset.badge
+				}
+			}
+		}
+	}
+}
+
 function activatePostRemovalWidget(noCheck){
 	let widget = sel("#deletePosts")
 
@@ -156,6 +202,10 @@ function initInterface(update) {
 			})
 		}, 10000)
 	}
+
+	budges.getNews()
+	budges.setSeen(window.location.href.split("/")[3])
+	budges.show()
 }
 
 initInterface()
