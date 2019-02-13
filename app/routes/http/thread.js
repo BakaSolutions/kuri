@@ -20,11 +20,9 @@ router.render = async path => {
     thread: await ThreadModel.getOne(board, threadNumber)
   };
   let opPost = model.thread.posts[0];
-  if (opPost.subject || opPost.text) {
-    model.title = opPost.subject || (opPost.text.length > 32 ? opPost.text.slice(0, 32) + '...' : opPost.text)
-  } else {
-    model.title = `/${model.board.name}/${model.thread.number}`;
-  }
+  model.title = (opPost.subject)
+    ? opPost.subject
+    : `/${model.board.name}/${model.thread.number}`;
   return Render.renderPage('pages/thread', model);
 };
 
@@ -54,6 +52,12 @@ router.add = ({board, thread} = {}) => {
   }
   let pattern = `/${board}/res/${thread}.html`;
   Logger.debug(`[HTTP] Add ${pattern} to routes...`);
+
+  if (router.paths.includes(pattern)) {
+    Logger.debug(`[HTTP] Route ${pattern} is already added!`);
+    return;
+  }
+
   router.paths.push(pattern);
   router.get(pattern, async ctx => {
     Controller.success(ctx, await router.render(ctx.originalUrl));
