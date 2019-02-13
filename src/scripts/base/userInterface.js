@@ -1,4 +1,4 @@
-let budges = {
+let badges = {
 	getNews: () => {
 		let uri = FOXTAN_URL_BASE + "lastPostNumbers.json"
 
@@ -203,9 +203,9 @@ function initInterface(update) {
 		}, 10000)
 	}
 
-	budges.getNews()
-	budges.setSeen(window.location.href.split("/")[3])
-	budges.show()
+	badges.getNews()
+	badges.setSeen(window.location.href.split("/")[3])
+	badges.show()
 }
 
 initInterface()
