@@ -12,7 +12,7 @@ const fancyFileInputs = {
 		return true
 	},
 
-	async pasteFile: function(file){
+	pasteFile: async function(file){
 		let input = sel(`#f${this.lastInputId}`)
 		let tile = sel(`[for="f${this.lastInputId}"]`)
 
