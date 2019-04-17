@@ -10,8 +10,8 @@ let config = {
     }
   },
   foxtan: {
-    http: URL.parse('https://foxtan.tuderi.tumba.ch/'),
-    websocket: URL.parse('wss://foxtan.tuderi.tumba.ch/ws'),
+    http: URL.parse('https://foxtan.tumba.ch/'),
+    websocket: URL.parse('wss://foxtan.tumba.ch/ws'),
     threadsPerPage: 14,
     lastReplies: 3,
     lastRepliesFixed: 0
