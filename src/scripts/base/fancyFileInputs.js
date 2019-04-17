@@ -2,18 +2,30 @@ const fancyFileInputs = {
 	init: function() {
 		this.wrapper = sel("#fileInputs")
 		if (!this.wrapper) return false
-		this.fileLimit = this.wrapper.dataset.filelimit
+		this.fileLimit = this.wrapper.dataset.filelimit // Maximum file count
 
 		this.wrapper.style.display = "flex"
 		this.wrapper.innerHTML = ""
-		this.lastInputId = 0
-		this.inputCount = 0
+		this.lastInputId = -1 // Can be greater than fileLimit and inputCount if files were removed
+		this.inputCount = 0 // Total number of displayed tiles
 		this.addInput()
 		return true
 	},
 
+	async pasteFile: function(file){
+		let input = sel(`#f${this.lastInputId}`)
+		let tile = sel(`[for="f${this.lastInputId}"]`)
+
+		if (!tile.classList.contains("hasFile")){
+			input.dataset.base64 = await fancyFileInputs.renderPreview(file, tile)
+		}
+	},
+
 	addInput: function(){
 		if (this.inputCount < this.fileLimit){
+			this.lastInputId++
+			this.inputCount++
+			
 			let input = createElement("input", {
 				type: "file",
 				name: `file[${this.lastInputId}]`,
@@ -33,9 +45,6 @@ const fancyFileInputs = {
 				className: "fancyFileInput material-icons btn"
 			})
 
-			this.lastInputId++
-			this.inputCount++
-
 			input.onchange = this.handleFiles
 
 			this.wrapper.appendChild(nsfwCheckbox)
@@ -52,37 +61,46 @@ const fancyFileInputs = {
 	},
 
 	renderPreview: function(file, target) {
-		if (file.type.match("image.*")) {
-			let reader = new FileReader()
+		return new Promise((resolve, reject) => {
+			let base64 = ""
 
-			reader.onload = ((file) => {
-				return (e) => {
-					target.style.backgroundImage = `url(${e.target.result})`
-					target.classList.add("hasFile")
-				}
-			})(file)
+			if (file.type.match("image.*")) {
+				let reader = new FileReader()
 
-			reader.readAsDataURL(file)
-		} else{
-			target.innerText = file.name.split(".").pop()
-			target.style.backgroundImage = ""
-			target.classList.add("hasFile")
-		}
-		
-		if (target.classList.contains("material-icons")) target.classList.remove("material-icons")
+				reader.onload = ((file) => {
+					return (event) => {
+						base64 = event.target.result
+						target.style.backgroundImage = `url(${base64})`
+						target.classList.add("hasFile")
 
-		let deleteButton = createElement("div", {
-			className: "del material-icons",
-			innerText: "close"
-		}), nsfwButton = createElement("div", {
-			className: "nsfw material-icons",
-			innerText: "visibility"
+						resolve(base64)
+					}
+				})(file)
+
+				reader.readAsDataURL(file)
+			} else{
+				target.innerText = file.name.split(".").pop()
+				target.style.backgroundImage = ""
+				target.classList.add("hasFile")
+
+				reject()
+			}
+			
+			if (target.classList.contains("material-icons")) target.classList.remove("material-icons")
+
+			let deleteButton = createElement("div", {
+				className: "del material-icons",
+				innerText: "close"
+			}), nsfwButton = createElement("div", {
+				className: "nsfw material-icons",
+				innerText: "visibility"
+			})
+
+			deleteButton.onclick = this.removeInput
+			nsfwButton.onclick = this.toggleNSFW
+			target.appendChild(deleteButton)
+			target.appendChild(nsfwButton)
 		})
-
-		deleteButton.onclick = this.removeInput
-		nsfwButton.onclick = this.toggleNSFW
-		target.appendChild(deleteButton)
-		target.appendChild(nsfwButton)
 	},
 
 	removeInput: function(event) {

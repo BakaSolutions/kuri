@@ -168,6 +168,8 @@ let captcha = {
 let replyForm = {
 	init: function(update){
 		if (DEVICE == "desktop") {
+			let textarea = document.querySelector("#replyForm textarea")
+
 			this.draggie = new Draggabilly("#replyForm", {
 				containment: 	"#replyForm .container",
 				handle: 		"#replyForm .widgetHandle"
@@ -179,12 +181,22 @@ let replyForm = {
 				sessionStorage.setItem("replyFormPos", `${element.style.left} ${element.style.top}`)
 			})
 
-			document.querySelector("#replyForm textarea").addEventListener("input", (event) => {
+			textarea.addEventListener("input", (event) => {
 				let field = event.target
 
 				field.style.height = "100%"
 				field.style.height = `${field.scrollHeight}px`
-			}, false);
+			}, false)
+
+			textarea.addEventListener("paste", (event) => {
+				let clipboard = (event.originalEvent || event).clipboardData
+				
+				if (clipboard.items !== undefined && clipboard.items.length > 0) {
+					for (let item of clipboard.items) {
+						if (item.kind == "file") fancyFileInputs.pasteFile(item.getAsFile())
+					}
+				}
+			}, false)
 
 			try{
 				let pos = sessionStorage.getItem("replyFormPos").split(" ")
