@@ -32,8 +32,13 @@ gulp.task('dot', () => Render.compileTemplates());
 
 gulp.task("js", () => {
 	for (let inputName in input.js) {
-		gulp.src(input.js[inputName])
-			.pipe(minify().on('error', console.log))
+		let stream = gulp.src(input.js[inputName])
+
+		if (process.env.NODE_ENV == "production") {
+			stream = stream.pipe(minify().on('error', console.log))
+		}
+
+		stream = stream
 			.pipe(concat(`${inputName}.js`))
 			.pipe(gulp.dest(output.js))
 	}

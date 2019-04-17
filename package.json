@@ -4,8 +4,10 @@
   "description": "The Foxtan web-client.",
   "main": "app/index.js",
   "scripts": {
-    "build": "gulp",
-    "watch": "gulp watch",
+    "build": "NODE_ENV=production gulp",
+    "build:dev": "NODE_ENV=development gulp",
+    "watch": "NODE_ENV=production gulp watch",
+    "watch:dev": "NODE_ENV=development gulp watch",
     "start": "NODE_ENV=production node app",
     "start:dev": "NODE_ENV=development node app"
   },
