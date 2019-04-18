@@ -5,12 +5,12 @@
 		z-index: 2000;
 	}
 
-	&.is-dragging{
+	&.isDragged{
 		opacity: .8;
 	}
 
 	&:not(.floating){
-		position: unset !important;	
+		position: unset !important;
 
 		#usefulInfo{
 			grid-column: 5/7;

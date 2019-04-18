@@ -24,20 +24,18 @@ const media = {
 			stylesheet.innerText = "#mediaViewer video{pointer-events: none} #mediaViewer video::-webkit-media-controls{pointer-events: auto}"
 		}
 
-		new Draggabilly(this.widgetBox, this.mFlag === undefined ? undefined : {
-			handle: "#mediaViewer #FFfix"
-		})
-
 		document.head.appendChild(stylesheet)
 		
 		this.widgetBox.addEventListener("wheel", (event) => {
 			event.preventDefault()
 			media.zoom(event.deltaY > 0 ? 0.9 : 1.1)
 		})
+
+		draggability.register(this.widgetBox, this.mFlag === undefined ? undefined : sel("#mediaViewer #FFfix"))
 	},
 
 	reset: function(title, width, height) {		
-		this.widgetBox.style.left = this.widgetBox.style.top = 0
+		draggability.reset(this.widgetBox)
 		this.widget.querySelector(".mediaInfo :first-child").innerText 	= width && height ? `${width}x${height}` : ""
 		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
 	},

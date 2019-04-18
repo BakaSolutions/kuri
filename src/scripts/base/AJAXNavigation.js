@@ -40,6 +40,8 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: storage.get("settings.animationLength") > 0 ? "smooth" : "instant"})
 						}
 
+						replyForm.toggleFloating(false)
+
 						// console.log("Asynchronously navigated to", uri)
 						// sel("main").classList.remove("refreshing")
 					})

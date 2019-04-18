@@ -167,19 +167,17 @@ let captcha = {
 
 let replyForm = {
 	init: function(update){
+		this.element = sel("#replyForm")
+
 		if (DEVICE == "desktop") {
 			let textarea = document.querySelector("#replyForm textarea")
 
-			this.draggie = new Draggabilly("#replyForm", {
-				containment: 	"#replyForm .container",
-				handle: 		"#replyForm .widgetHandle"
-			})
+			draggability.register(this.element, sel(".widgetHandle", this.element))
 
-			this.draggie.on("dragStart", () => this.toggleFloating(true))
-			this.draggie.on("dragEnd", () => {
-				let element = this.draggie.element
-				sessionStorage.setItem("replyFormPos", `${element.style.left} ${element.style.top}`)
-			})
+			this.element.addEventListener("dragStart", () => this.toggleFloating(true))
+			// this.element.addEventListener("dragEnd", () => {
+			// 	sessionStorage.setItem("replyFormPos", `${this.element.style.left} ${this.element.style.top}`)
+			// })
 
 			textarea.addEventListener("input", (event) => {
 				let field = event.target
@@ -198,17 +196,13 @@ let replyForm = {
 				}
 			}, false)
 
-			try{
-				let pos = sessionStorage.getItem("replyFormPos").split(" ")
-				this.draggie.element.style.left = pos[0]
-				this.draggie.element.style.top = pos[1]
-			} catch(err){
-				// Позиция не записана
-			}
-		} else{
-			this.draggie = {
-				element: document.querySelector("#replyForm")
-			}
+			// try{
+			// 	let pos = sessionStorage.getItem("replyFormPos").split(" ")
+			// 	this.element.style.left = pos[0]
+			// 	this.element.style.top = pos[1]
+			// } catch(err){
+			// 	// Позиция не записана
+			// }
 		}
 		
 		this.toggleFloating(update ? this.state : false)
@@ -221,19 +215,18 @@ let replyForm = {
 			this.state = !value
 		} 
 
-		let usefulInfo = document.querySelector("#usefulInfo")
+		let usefulInfo = sel("#usefulInfo")
 
 		if (this.state){
-			this.draggie.element.style.left = null
-			this.draggie.element.style.top = null
+			if (DEVICE == "desktop") draggability.reset(this.element)
 
-			document.querySelector("#postForm").appendChild(usefulInfo)
+			sel("#postForm").appendChild(usefulInfo)
 
-			this.draggie.element.classList.remove("floating")
+			this.element.classList.remove("floating")
 		} else{
-			document.querySelector("main").insertBefore(usefulInfo, this.draggie.element);
+			sel("main").insertBefore(usefulInfo, this.element);
 
-			this.draggie.element.classList.add("floating")
+			this.element.classList.add("floating")
 		}
 
 		this.state = !this.state
