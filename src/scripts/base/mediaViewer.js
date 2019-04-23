@@ -31,12 +31,12 @@ const media = {
 			media.zoom(event.deltaY > 0 ? 0.9 : 1.1)
 		})
 
-		draggability.register(this.widgetBox, this.mFlag === undefined ? undefined : sel("#mediaViewer #FFfix"))
+		this.dragElement = new Draggable(this.widgetBox, this.mFlag === undefined ? null : sel("#mediaViewer #FFfix"))
 	},
 
-	reset: function(title, width, height) {		
-		draggability.reset(this.widgetBox)
-		this.widget.querySelector(".mediaInfo :first-child").innerText 	= width && height ? `${width}x${height}` : ""
+	reset: function(title, width, height) {
+		this.dragElement.reset()
+		this.widget.querySelector(".mediaInfo :first-child").innerText = width && height ? `${width}x${height}` : ""
 		this.widget.querySelector(".mediaInfo :last-child").innerText 	= title
 	},
 

@@ -1,5 +1,4 @@
 <div id="replyForm">
-	<div class="container"></div>
 	<div class="widgetHandle">
 		<span>{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}</span>
 		<button class="material-icons" onclick="replyForm.toggleFloating()">close</button>

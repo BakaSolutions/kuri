@@ -172,12 +172,14 @@ let replyForm = {
 		if (DEVICE == "desktop") {
 			let textarea = document.querySelector("#replyForm textarea")
 
-			draggability.register(this.element, sel(".widgetHandle", this.element))
-
-			this.element.addEventListener("dragStart", () => this.toggleFloating(true))
-			// this.element.addEventListener("dragEnd", () => {
-			// 	sessionStorage.setItem("replyFormPos", `${this.element.style.left} ${this.element.style.top}`)
-			// })
+			this.dragElement = new Draggable(this.element, sel(".widgetHandle", this.element), "boundToViewport")
+			this.dragElement.ondragstart = () => {
+				this.element.classList.add("isDragged")
+				this.toggleFloating(true)
+			}
+			this.dragElement.ondragend = () => {
+				this.element.classList.remove("isDragged")
+			}
 
 			textarea.addEventListener("input", (event) => {
 				let field = event.target
@@ -195,14 +197,6 @@ let replyForm = {
 					}
 				}
 			}, false)
-
-			// try{
-			// 	let pos = sessionStorage.getItem("replyFormPos").split(" ")
-			// 	this.element.style.left = pos[0]
-			// 	this.element.style.top = pos[1]
-			// } catch(err){
-			// 	// Позиция не записана
-			// }
 		}
 		
 		this.toggleFloating(update ? this.state : false)
@@ -218,7 +212,7 @@ let replyForm = {
 		let usefulInfo = sel("#usefulInfo")
 
 		if (this.state){
-			if (DEVICE == "desktop") draggability.reset(this.element)
+			if (DEVICE == "desktop") this.dragElement.reset()
 
 			sel("#postForm").appendChild(usefulInfo)
 

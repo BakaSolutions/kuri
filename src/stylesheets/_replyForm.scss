@@ -9,13 +9,9 @@
 		opacity: .8;
 	}
 
-	&:not(.floating){
-		position: unset !important;
-
-		#usefulInfo{
-			grid-column: 5/7;
-			grid-row: 1/5;
-		}
+	&:not(.floating) #usefulInfo{
+		grid-column: 5/7;
+		grid-row: 1/5;
 	}
 
 	.widgetHandle{
@@ -42,15 +38,6 @@
 	input, textarea{
 		font-size: .95em;
 		border-radius: var(--borderRadius);
-	}
-
-	.container{
-		pointer-events: none;
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		top: 0;
 	}
 
 	form{
