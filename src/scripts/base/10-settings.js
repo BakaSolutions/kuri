@@ -21,9 +21,7 @@ const settings = {
 		settings.addTab("security", "Безопасность")
 		settings.addTab("addons", "Расширения")
 
-		console.log(0)
 		if (storage.get("addons.autoHide")) {
-			console.log(1)
 			autoHide.init();
 		}
 	},
