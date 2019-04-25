@@ -156,6 +156,10 @@ const storage = new Storage({
         addSelection: false,
         insertAtCursor: false,
       },
+      autoHide: {
+      	words: "",
+      	regexp: ""
+      },
       superSpoiling: false,
       showMarkupCheatSheet: true
     },
@@ -164,6 +168,7 @@ const storage = new Storage({
       floatingPosts: false,
       quickSave: false,
       musicPlayer: false,
+      autoHide: false
     }
   }
 });

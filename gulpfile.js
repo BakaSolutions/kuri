@@ -17,6 +17,7 @@ let input = {
 		quickSave: ["src/scripts/modules/quickSave.js"],
 		floatingPosts: ["src/scripts/modules/floatingPosts.js"],
 		musicPlayer: ["src/scripts/modules/musicPlayer.js"],
+		autoHide: ["src/scripts/modules/autoHide.js"],
 	}
 };
 

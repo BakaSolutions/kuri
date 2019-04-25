@@ -20,6 +20,12 @@ const settings = {
 		settings.addTab("basic", "Общее", 1)
 		settings.addTab("security", "Безопасность")
 		settings.addTab("addons", "Расширения")
+
+		console.log(0)
+		if (storage.get("addons.autoHide")) {
+			console.log(1)
+			autoHide.init();
+		}
 	},
 
 	addTab: function (id, title, activeAsDefault) {
@@ -63,9 +69,10 @@ const settings = {
 
 				break
 			case "addons":
-				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id, 0, 1) // Последнее значение в вызове функции
+				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", 	id, 0, 1) // Последнее значение в вызове функции
 				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id, 0, 1) // Заставляет страницу автоматически 
-				settings.addOption("addons.musicPlayer", "Встроенный плеер", 		id, 0, 1) // Перезагружаться при изменении настройки
+				settings.addOption("addons.musicPlayer", "Встроенный плеер", 			id, 0, 1) // Перезагружаться при изменении настройки
+				settings.addOption("addons.autoHide", "Автоскрытие", 					id, 0, 1)
 
 				break
 		}
@@ -95,13 +102,16 @@ const settings = {
 
 		for (let o in options) input[o] = options[o]
 
-		input.onchange = event => {
+		input.onchange = (event) => {
 			value = value || (typeof currentValue === "boolean" ? event.target.checked : event.target.value)
 			settings.set(id, value)
-			console.log(refresh)
-			if (refresh) window.location.reload(true)
-			let evt = new CustomEvent(`settings.${id}`, { detail: value, bubbles: true })
-			input.dispatchEvent(evt);
+
+			if (refresh){
+				window.location.reload(true)
+			} else{
+				input.dispatchEvent(new CustomEvent(`settingsChange`, { detail: {id, value}, bubbles: true }))
+			}
+			
 		}
 
 		wrapper.appendChild(input)
