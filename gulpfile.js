@@ -13,12 +13,9 @@ let input = {
 	staticFiles: ['src/static/**/*'],
 	js: {
 		base: ["src/scripts/base/masterLib.js", "src/scripts/base/*.js"],
-		home: ["src/scripts/home.js"],
-		quickSave: ["src/scripts/modules/quickSave.js"],
-		floatingPosts: ["src/scripts/modules/floatingPosts.js"],
-		musicPlayer: ["src/scripts/modules/musicPlayer.js"],
-		autoHide: ["src/scripts/modules/autoHide.js"],
-	}
+		home: ["src/scripts/home.js"]
+	},
+	modules: ["src/scripts/modules/*"]
 };
 
 let output = {
@@ -45,6 +42,14 @@ gulp.task("js", () => {
 	}
 });
 
+gulp.task("modules", () => {
+	for (let inputSrc of input.modules) {
+		gulp.src(inputSrc)
+			.pipe(minify().on('error', console.log))
+			.pipe(gulp.dest(output.js))
+	}
+});
+
 gulp.task('sass', () => {
 	return gulp.src(input.sass)
 		.pipe(sass().on('error', sass.logError))
@@ -61,6 +66,8 @@ gulp.task('watch', () => {
 	for (let inputName in input.js) {
 		watch(input.js[inputName], () => gulp.start("js"))
 	}
+
+	watch(input.modules, () => gulp.start("modules"))	
 });
 
-gulp.task('default', ['dot', 'js', 'sass', 'staticFiles']);
+gulp.task('default', ['dot', 'js', 'sass', 'staticFiles', "modules"]);
