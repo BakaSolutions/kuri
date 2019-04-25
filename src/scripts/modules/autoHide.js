@@ -49,4 +49,4 @@ autoHide = {
 }
 
 autoHide.updateFilters(null, true)
-autoHide.checkPosts(...document.querySelectorAll(".post"))
+autoHide.checkPosts(...document.querySelectorAll(".post:not([data-marks~='hidden']):not([data-marks~='own'])"))
