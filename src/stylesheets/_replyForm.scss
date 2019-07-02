@@ -118,13 +118,15 @@
 				&.hasFile{
 					background-size: cover;
 					background-position: center;
-					margin-right: calc(1.5em + var(--gap) / 2);
+					margin-right: calc(2em + var(--gap));
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
 				}
 
 				.del, .nsfw{
 					position: absolute;
 					background: var(--backgroundColor);
-					right: -1em;
+					right: -50%;
 					height: 50%;
 					width: 50%;
 					text-align: center;
