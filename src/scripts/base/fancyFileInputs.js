@@ -62,6 +62,8 @@ const fancyFileInputs = {
 
 	renderPreview: function(file, target) {
 		return new Promise((resolve, reject) => {
+			target.title = file.name
+			
 			let base64 = ""
 
 			if (file.type.match("image.*")) {

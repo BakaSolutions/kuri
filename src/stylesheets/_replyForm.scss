@@ -109,7 +109,7 @@
 				align-items: center;
 
 				position: relative;
-				
+
 				&:not(.hasFile):after{
 					content: "attach_file";
 					font-size: 1.5em;
@@ -118,23 +118,27 @@
 				&.hasFile{
 					background-size: cover;
 					background-position: center;
-					margin-right: calc(var(--gap) / 2);
+					margin-right: calc(1.5em + var(--gap) / 2);
 				}
 
 				.del, .nsfw{
 					position: absolute;
 					background: var(--backgroundColor);
-					top: 0;
+					right: -1em;
+					height: 50%;
+					width: 50%;
+					text-align: center;
+					cursor: pointer;
 				}
 
 				.del{
 					border-top-right-radius: var(--borderRadius);
-					right: 0;
+					top: 0;
 				}
 
 				.nsfw{
-					border-top-left-radius: var(--borderRadius);
-					left: 0;
+					border-bottom-right-radius: var(--borderRadius);
+					bottom: 0;
 				}
 			}
 		}
