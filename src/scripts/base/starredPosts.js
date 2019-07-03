@@ -43,14 +43,13 @@ async function requestPost(board, thread, post){
 }
 
 async function initStarredList(){
-	let list = marker.getPostsWithMark("starred")
-	let widgetBox = sel("#favourite .widgetBox")
-
-	for (post of list){
+	for (post of marker.getPostsWithMark("starred")){
 		let postDOM = await requestPost(post[0], await getThreadNumber(...post), post[1])
+		
 		postDOM.dataset.op = false
 		marker.markPosts(postDOM)
 		time.recalculate(sel("time", postDOM))
-		widgetBox.appendChild(postDOM)
+
+		sel("#favourite .widgetBox .content").appendChild(postDOM)
 	}
 }

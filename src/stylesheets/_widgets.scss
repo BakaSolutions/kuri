@@ -39,6 +39,12 @@
 			text-align: center;
 			cursor: default;
 		}
+
+		.content{
+			width: 30vw;
+			height: calc(80vh - var(--gap));
+			overflow: auto;
+		}
 	}
 
 	input{

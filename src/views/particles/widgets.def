@@ -41,6 +41,7 @@
 	<div class="widgetBgLayer" onclick="toggleWidget(this.parentNode)"></div>
 	<div class="widgetBox">
 		<h2>Отмеченные звездочкой</h2>
+		<div class="content"></div>
 	</div>
 </div>
 
