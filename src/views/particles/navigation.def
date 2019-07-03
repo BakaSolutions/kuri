@@ -44,8 +44,7 @@
 		<label for="hideSidebarCheckbox" class="btn material-icons desktopOnly">view_quilt</label>
 	</div>
 	<div>
-		<!-- <a onclick="toggleWidget('favourite')" class="btn material-icons jsOnly">star</a> -->
-		<button type="button" class="material-icons jsOnly">star</button>
+		<a onclick="toggleWidget('favourite', initStarredList)" class="btn material-icons jsOnly">star</a>
 		<label for="hideImagesCheckbox" class="btn material-icons desktopOnly">visibility_off</label>
 		<button onclick="replyForm.toggleFloating()" class="material-icons">chat</button>
 		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>

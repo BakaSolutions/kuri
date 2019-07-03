@@ -45,6 +45,15 @@
 	}
 }
 
+.postDetails .star{
+	transition: opacity var(--animationDuration);
+	opacity: .4;
+}
+
+.post[data-marks~=starred] .postDetails .star{
+	opacity: 1;
+}
+
 .postDetails{
 	@include user-select(none);
 	color: var(--primaryTextColor);
@@ -69,7 +78,7 @@
 		font-size: 1.35em;
 	}
 
-	input[id|="delete"], input[id|="star"]{
+	input[id|="delete"]{
 		& + label{
 			transition: opacity var(--animationDuration);
 			opacity: .4;

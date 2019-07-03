@@ -142,8 +142,8 @@ function handlePostMenuClick(event) {
 	}
 }
 
-function addToFavourites() {
-	// TODO:
+function toggleStarMark(board, number) {
+	marker.toggleMark(board, number, "starred")
 }
 
 function toggleWidget(widget, init) {
@@ -177,7 +177,7 @@ function initInterface(update) {
 	if (sel(".noThreads")) return
 
 	marker.init()
-	time.recalculate()
+	time.recalculate(...document.querySelectorAll("main .postDetails time"))
 
 	if (!storage.get("settings.showMarkupCheatSheet")){
 		document.querySelector("#usefulInfo > div:last-child").remove()

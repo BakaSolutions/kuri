@@ -15,8 +15,8 @@ const time = {
 		}
 	},
 
-	recalculate: function() {
-		for (let node of document.querySelectorAll(".postDetails time")) {
+	recalculate: function(...nodes) {
+		for (let node of nodes) {
 			node.innerText = ((date) => {
 				let d = date.getDate(),
 					month = ["Янв", "Фев", "Мар", "Апр", "Мая", "Июня", "Июля", "Авг", "Сен", "Окт", "Ноя", "Дек"][date.getMonth()],

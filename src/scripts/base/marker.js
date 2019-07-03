@@ -61,7 +61,7 @@ const marker = {
 			this.marks[board][number] = marksArray
 			this.backup()
 
-			this.markPosts(sel(`.post[data-board=${board}][data-number="${number}"]`))
+			this.markPosts(...document.querySelectorAll(`.post[data-board=${board}][data-number="${number}"]`))
 			this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`))
 		} else {
 			console.error("Post already has this mark")
@@ -77,7 +77,7 @@ const marker = {
 			this.marks[board][number] = marksArray
 			this.backup()
 
-			this.markPosts(sel(`.post[data-board=${board}][data-number="${number}"]`))
+			this.markPosts(...document.querySelectorAll(`.post[data-board=${board}][data-number="${number}"]`))
 			this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`))
 		} else {
 			console.error("Post doesn't have this mark")
@@ -98,4 +98,18 @@ const marker = {
 			this.addMark(board, number, mark)
 		}
 	},
+
+	getPostsWithMark: function(mark){
+		let returnValue = []
+
+		for (let board in this.marks){
+			for (let post in this.marks[board]){
+				if (this.marks[board][post].includes(mark)){
+					returnValue.push([board, parseInt(post)])
+				}
+			}
+		}
+		
+		return returnValue
+	}
 }

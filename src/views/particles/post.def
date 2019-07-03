@@ -34,10 +34,7 @@
 		<span class="material-icons jsOnly" onclick="quickReply(this)">reply</span>
 
 		<!-- Закладки -->
-		{{? post.number == post.threadNumber}}
-			<input type="checkbox" id="star-{{!it.board.name}}:{{!post.number}}" hidden>
-			<label for="star-{{!it.board.name}}:{{!post.number}}" class="material-icons jsOnly" onclick="addToFavourites('{{!it.board.name}}:{{!post.number}}')">star</label>
-		{{? }}
+		<span class="star material-icons jsOnly" onclick="toggleStarMark('{{!it.board.name}}', {{!post.number}})">star</span>
 	</div>
 	<div class="postBody">
 		{{? Array.isArray(post.files) && post.files.length}}
