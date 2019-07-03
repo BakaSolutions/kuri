@@ -33,6 +33,7 @@ main{
 	background-color: var(--backgroundColor);
 	flex-direction: row;
 	bottom: 0;
+	z-index: 600;
 
 	height: $navBarHeight;
 	width: 100vw;
