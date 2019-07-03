@@ -18,7 +18,7 @@ class Draggable {
 		this.mouseUpHandler = this._mouseUpHandler.bind(this)
 		this.dragHandler = this._dragHandler.bind(this)
 		
-		handle.addEventListener("mousedown", this.mouseDownHandler.bind(this))
+		this.handle.addEventListener("mousedown", this.mouseDownHandler.bind(this))
 	}
 
 	get cursorPosition() {
