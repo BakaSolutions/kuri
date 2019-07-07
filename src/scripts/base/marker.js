@@ -1,115 +1,90 @@
 const marker = {
+	Post: function(board, thread, number) {
+		this.board = board
+		this.thread = thread
+		this.number = number
+	},
+
 	init: function() {
 		let json = localStorage.getItem("postMarks")
+		
 		if (json){
-			this.marks = JSON.parse(json)
+			this._marks = JSON.parse(json)
+
 			this.markPosts(...document.querySelectorAll(".post"))
 			this.markLinks(...document.querySelectorAll(".postLink"))
 		} else {
-			this.marks = {}
+			this._marks = {}
 		}
+	},
+
+	toggleMark: function(board, thread, number, name) {
+		if (name in this._marks && this._marks[name].find((mark) => (mark.board === board && mark.number === number)) !== undefined){
+			// Remove mark
+
+			if (!(name in this._marks)) {
+				return
+			}
+			
+			this._marks[name] = this._marks[name].filter((mark) => !(mark.board === board && mark.number === number))
+		} else{
+			// Add mark
+
+			let post = new this.Post(board, thread, number)
+
+			if (name in this._marks) {
+				this._marks[name].push(post)
+			} else {
+				this._marks[name] = [post]
+			}
+		}
+
+		localStorage.setItem("postMarks", JSON.stringify(this._marks)) // Commit
+
+		this.markPosts(...document.querySelectorAll(`.post[data-board=${board}][data-number="${number}"]`)) 	// Display changes on posts
+		this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`)) // Display changes on post links
+	},
+
+	getPostsList: function(name) {
+		return this._marks[name]
 	},
 
 	markPosts: function(...posts) {
 		for (post of posts) {
-			if (post != undefined){
-				try {
-					let marksArray = this.marks[post.dataset.board][post.dataset.number]
+			let data = post.dataset,
+				marks = []
 
-					if (marksArray){
-						if(storage.get("settings.superSpoiling") && marksArray.includes("hidden")){
-							post.remove()
-						} else{
-							post.dataset.marks = marksArray.join(" ")
-						
-							if (post.dataset.op){
-								post.parentNode.dataset.marks = marksArray.join(" ")
-							}
-						}
-					}
-				} catch(e) {
-					if (!e instanceof TypeError) console.log(e)
+			for (name in this._marks) {
+				if (this._marks[name].find((mark) => (data.board === mark.board && data.number === mark.number)) !== undefined){
+					marks.push(name)
 				}
+			}
+
+			if(storage.get("settings.superSpoiling") && marks.includes("hidden")){
+				post.remove()
+			} else{
+				let marksString = marks.join(" ")
+				
+				post.dataset.marks = marksString
+				if (post.dataset.op === "true") post.parentNode.dataset.marks = marksString
 			}
 		}
 	},
 
 	markLinks: function(...links) {
 		for (link of links) {
-			if (link != undefined){
-				try {
-					let marksArray = this.marks[link.dataset.board][link.dataset.number]
+			let data = link.dataset,
+				marks = []
 
-					if (marksArray){
-						link.dataset.marks = marksArray.join(" ")
-					}
-				} catch(e) {
-					if (!e instanceof TypeError) console.log(e)
+			for (name in this._marks) {
+				if (this._marks[name].find((mark) => (data.board === mark.board && data.number === mark.number)) !== undefined) {
+					marks.push(name)
 				}
 			}
-		}
-	},
 
-	addMark: function(board, number, mark) {
-		console.log("Marking post number", number, `in /${board}/ as`, mark)
-
-		if (this.marks[board] == undefined) this.marks[board] = {}
-		let marksArray = this.marks[board][number] || []
-
-		if (!marksArray.includes(mark)){
-			marksArray.push(mark)
-			this.marks[board][number] = marksArray
-			this.backup()
-
-			this.markPosts(...document.querySelectorAll(`.post[data-board=${board}][data-number="${number}"]`))
-			this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`))
-		} else {
-			console.error("Post already has this mark")
-		}
-	},
-
-	removeMark: function(board, number, mark) {
-		console.log("Unmarking post number", number, `in /${board}/ as`, mark)
-		let marksArray = this.marks[board][number]
-
-		if (marksArray && marksArray.includes(mark)){
-			marksArray.splice(marksArray.indexOf(mark), 1)
-			this.marks[board][number] = marksArray
-			this.backup()
-
-			this.markPosts(...document.querySelectorAll(`.post[data-board=${board}][data-number="${number}"]`))
-			this.markLinks(...document.querySelectorAll(`.postLink[data-board=${board}][data-number="${number}"]`))
-		} else {
-			console.error("Post doesn't have this mark")
-		}
-	},
-
-	backup: function() {
-		localStorage.setItem("postMarks", JSON.stringify(this.marks))	
-	},
-
-	toggleMark: function(board, number, mark) {
-		if (this.marks[board] == undefined) this.marks[board] = {}
-		let marksArray = this.marks[board][number] || []
-
-		if (marksArray.includes(mark)){
-			this.removeMark(board, number, mark)
-		} else {
-			this.addMark(board, number, mark)
-		}
-	},
-
-	getPostsWithMark: function(mark){
-		let returnValue = []
-
-		for (let board in this.marks){
-			for (let post in this.marks[board]){
-				if (this.marks[board][post].includes(mark)){
-					returnValue.push([board, parseInt(post)])
-				}
+			if (marks.length > 0){
+				link.dataset.marks = marks.join(" ")
 			}
 		}
-		
-		return returnValue
 	}
 }

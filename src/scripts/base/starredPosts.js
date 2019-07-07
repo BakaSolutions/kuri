@@ -1,27 +1,3 @@
-// /api/v1/post.read
-
-async function getThreadNumber(board, post) {
-	let options = {
-		method: "post", 
-		body: new FormData()
-	}
-
-	options.body.append("board", board)
-	options.body.append("post", post)
-
-	return await fetch(FOXTAN_URL_BASE + "/api/v1/post.read", options)
-		.then(response => {
-			if (response.status == 200) {
-				return response.json().then(json => json.threadNumber)
-			}
-
-			throw response.status
-		})
-		.catch(err => {
-			console.log(err)
-		})
-}
-
 async function requestPost(board, thread, post){
 	return await fetch(`${window.location.origin}/${board}/res/${thread}.html`)
 		.then(response => {
@@ -43,8 +19,8 @@ async function requestPost(board, thread, post){
 }
 
 async function initStarredList(){
-	for (post of marker.getPostsWithMark("starred")){
-		let postDOM = await requestPost(post[0], await getThreadNumber(...post), post[1])
+	for (post of marker.getPostsList("starred")){
+		let postDOM = await requestPost(post.board, post.thread, post.number)
 		
 		postDOM.dataset.op = false
 		marker.markPosts(postDOM)

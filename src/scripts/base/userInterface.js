@@ -65,19 +65,20 @@ function deselectAllPosts() {
 	activatePostRemovalWidget(1)
 }
 
-function openPostMenu(event, board, postNumber, opPost) {
+function openPostMenu(event, data) {
 	let postMenu = sel("#postMenu"),
 		rect = event.target.getBoundingClientRect()
 
-	if (!postMenu.hasAttribute("hidden") && postNumber == postMenu.dataset.postNumber && board == postMenu.dataset.board) {
+	if (!postMenu.hasAttribute("hidden") && data.number == postMenu.dataset.number && data.board == postMenu.dataset.board) {
 		postMenu.setAttribute("hidden", 1)
 	} else{
 		postMenu.style.left = rect.right - 20 + "px"
 		postMenu.style.top 	= rect.bottom + window.scrollY - 10  + "px"
 
-		postMenu.dataset.board = board
-		postMenu.dataset.postNumber = postNumber
-		postMenu.dataset.opPost = opPost || 0
+		postMenu.dataset.board = data.board
+		postMenu.dataset.thread = data.thread
+		postMenu.dataset.number = data.number
+		postMenu.dataset.op = data.op
 
 		postMenu.removeAttribute("hidden")
 	}
@@ -93,17 +94,17 @@ function handlePostMenuClick(event) {
 	switch (event.target.dataset.action) {
 		case "delete":
 			document.documentElement.style.setProperty("--deletionIconsDisplay", "inline-block")
-			sel(`[for="delete-${data.board}:${data.postNumber}"]`).click()
+			sel(`[for="delete-${data.board}:${data.number}"]`).click()
 			break
 		case "hide":
-			marker.toggleMark(data.board, data.postNumber, "hidden")
+			marker.toggleMark(data.board, data.thread, data.number, "hidden")
 			break
 		case "edit":
 			// TODO:
 			break
 		case "pin":
 			let body = new FormData();
-			body.append(data.board, data.postNumber);
+			body.append(data.board, data.number);
 
 			let options = {
 				credentials: "include",
@@ -142,8 +143,8 @@ function handlePostMenuClick(event) {
 	}
 }
 
-function toggleStarMark(board, number) {
-	marker.toggleMark(board, number, "starred")
+function toggleStarMark(data) {
+	marker.toggleMark(data.board, data.thread, data.number, "starred")
 }
 
 function toggleWidget(widget, init) {

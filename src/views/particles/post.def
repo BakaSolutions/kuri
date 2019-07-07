@@ -1,4 +1,4 @@
-<article class="post" data-number="{{!post.number}}" data-board="{{!it.board.name}}" data-op="{{! post.number == post.threadNumber}}">
+<article class="post" data-number="{{!post.number}}" data-board="{{!it.board.name}}" data-thread="{{!post.threadNumber}}" data-op="{{! post.number == post.threadNumber}}">
 	<div class="postDetails">
 		<!-- Удаление поста -->
 		<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>
@@ -28,13 +28,13 @@
 		<time title="{{!post.createdAt}}">{{!post.formatted_date}}</time>
 
 		<!-- Меню -->
-		<span class="material-icons jsOnly" onclick="openPostMenu(event, '{{!it.board.name}}', {{!post.number}}{{? post.number == post.threadNumber}}, 1{{? }})">menu</span>
+		<span class="material-icons jsOnly" onclick="openPostMenu(event, this.parentNode.parentNode.dataset)">menu</span>
 
 		<!-- Быстрый ответ -->
 		<span class="material-icons jsOnly" onclick="quickReply(this)">reply</span>
 
 		<!-- Закладки -->
-		<span class="star material-icons jsOnly" onclick="toggleStarMark('{{!it.board.name}}', {{!post.number}})">star</span>
+		<span class="star material-icons jsOnly" onclick="toggleStarMark(this.parentNode.parentNode.dataset)">star</span>
 	</div>
 	<div class="postBody">
 		{{? Array.isArray(post.files) && post.files.length}}
