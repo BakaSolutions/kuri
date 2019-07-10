@@ -1,10 +1,10 @@
-<div id="replyForm">
+<div id="replyFormWrapper">
 	<div class="widgetHandle">
 		<span>{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}</span>
 		<button class="material-icons" onclick="replyForm.toggleFloating()">close</button>
 	</div>
 
-	<form id="postForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">
+	<form id="replyForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">
 		<input type="hidden" name="boardName" value="{{!it.board.name}}">
 		<input type="hidden" name="redirect" value="{{!it.site.href}}{{? it.thread}}{{=it.board.name}}/res/{{=it.thread.number}}.html#bottom{{?? }}redirect?i=:board/:post{{? }}">
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
@@ -19,7 +19,7 @@
 
 		<textarea name="text"></textarea>
 
-		<input type="password" name="password" class="noJs" placeholder="Пароль для управления постом">
+		<input type="password" name="password" placeholder="Пароль">
 
 		<div id="fileInputs" data-filelimit="{{!it.board.fileLimit || 0}}">
 			{{ for(let i = 0; i < it.board.fileLimit; i++){ }}
@@ -32,7 +32,7 @@
 			{{ } }}
 		</div>
 
-		<button id="submit" class="material-icons" onclick="handlePostSend(event)">send</button>
+		<button id="submit" class="material-icons">send</button>
 
 		<div id="usefulInfo">
 			<div>

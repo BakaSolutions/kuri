@@ -60,10 +60,7 @@ const settings = {
 
 				break
 			case "security":
-				settings.addOption("settings.password", "Пароль", id, {
-					form: "replyForm deletePosts",
-					type: "password"
-				})
+				settings.addOption("settings.password", "Пароль", id, { type: "password" })
 
 				break
 			case "addons":

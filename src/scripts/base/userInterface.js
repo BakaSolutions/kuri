@@ -173,7 +173,10 @@ function initInterface(update) {
 		document.body.classList.add("noSpoilers")
 	}
 
-	replyForm.init(update)
+	if (!("replyForm" in INITIALIZED_SCRIPTS)) {
+		replyForm.init()
+		INITIALIZED_SCRIPTS.push("replyForm")
+	}
 
 	if (sel(".noThreads")) return
 
@@ -183,11 +186,6 @@ function initInterface(update) {
 	if (!storage.get("settings.showMarkupCheatSheet")){
 		document.querySelector("#usefulInfo > div:last-child").remove()
 	}
-
-	if (fancyFileInputs.init()) {
-		sel("#postForm [name=password]").value = storage.get("settings.password")
-	}
-
 
 	if (DEVICE == "mobile"){
 		sel("a[name=top]").scrollIntoView()

@@ -62,7 +62,7 @@
 
 @import "_replyForm.scss";
 
-#replyForm{
+#replyFormWrapper{
 	left: calc(50vw - var(--widgetMinWidth) / 2);
 	top: 5em;
 
@@ -73,7 +73,7 @@
 	&.floating{
 		width: 35vw;
 
-		form{
+		#replyForm{
 			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
 		}
 
@@ -93,7 +93,7 @@
 	}
 
 	&:not(.floating){
-		form{
+		#replyForm{
 			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth) calc(3 * var(--buttonWidth)) 1fr;
 		}
 

@@ -64,7 +64,7 @@ main{
 
 @import "_replyForm.scss";
 
-#replyForm{
+#replyFormWrapper{
 	width: 100vw;
 
 	textarea{
@@ -72,7 +72,7 @@ main{
 		height: 7.5em;
 	}
 
-	form{
+	#replyForm{
 		grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
 	}
 
