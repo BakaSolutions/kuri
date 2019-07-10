@@ -31,7 +31,7 @@
 		<span class="material-icons jsOnly" onclick="openPostMenu(event, this.parentNode.parentNode.dataset)">menu</span>
 
 		<!-- Быстрый ответ -->
-		<span class="material-icons jsOnly" onclick="quickReply(this)">reply</span>
+		<span class="material-icons jsOnly" onclick="replyForm.quickReply(this)">reply</span>
 
 		<!-- Закладки -->
 		<span class="star material-icons jsOnly" onclick="toggleStarMark(this.parentNode.parentNode.dataset)">star</span>

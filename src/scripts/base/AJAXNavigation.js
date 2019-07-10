@@ -16,14 +16,31 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 					.then(data => {
 						let doc = (new DOMParser()).parseFromString(data, "text/html")
 
-						let fields = ["subject", "text"],
-							fieldValues = fields.map(f => sel(`#replyForm [name="${f}"]`).value)
+						replyForm.toggleFloating(false)
 
-						let main = sel("main", doc)
-						if (main) sel("main").innerHTML = main.innerHTML
+						for (option of ["boardName", "redirect", "threadNumber"]) {
+							replyForm.options[option] = sel(`#replyForm [name=${option}]`, doc).value;
+						}
 
-						for(let i in fields){
-							sel(`#replyForm [name="${fields[i]}"]`).value = fieldValues[i]
+						let oldRFormHandle = sel("#replyFormWrapper .widgetHandle"),
+							newRFormHandle = sel("#replyFormWrapper .widgetHandle", doc)
+
+						if (oldRFormHandle && newRFormHandle) {
+							oldRFormHandle.innerHTML = newRFormHandle.innerHTML
+						}
+
+						let oldRForm = sel("#replyFormWrapper", doc),
+							newRForm = sel("#replyFormWrapper")
+
+						if (oldRForm && newRForm) {
+							oldRForm.parentNode.replaceChild(newRForm, oldRForm)
+						}
+
+						let oldMain = sel("main"),
+							newMain = sel("main", doc)
+
+						if (oldMain && newMain) {
+							oldMain.parentNode.replaceChild(newMain, oldMain)
 						}
 
 						let title = sel("title", doc)
@@ -40,8 +57,6 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: storage.get("settings.animationLength") > 0 ? "smooth" : "instant"})
 						}
 
-						replyForm.toggleFloating(false)
-
 						// console.log("Asynchronously navigated to", uri)
 						// sel("main").classList.remove("refreshing")
 					})
@@ -49,15 +64,15 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 
 			throw response.status
 		})
-		.catch(err => {
-			console.log(err)
+		// .catch(err => {
+		// 	console.log(err)
 			
-			ntf = notifications.add({
-				text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
-				class: "error",
-				timeout: 10000
-			})
-		})
+		// 	ntf = notifications.add({
+		// 		text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
+		// 		class: "error",
+		// 		timeout: 10000
+		// 	})
+		// })
 }
 
 // Бинд кликов

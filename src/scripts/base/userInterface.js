@@ -173,7 +173,7 @@ function initInterface(update) {
 		document.body.classList.add("noSpoilers")
 	}
 
-	if (!("replyForm" in INITIALIZED_SCRIPTS)) {
+	if (!INITIALIZED_SCRIPTS.includes("replyForm")) {
 		replyForm.init()
 		INITIALIZED_SCRIPTS.push("replyForm")
 	}

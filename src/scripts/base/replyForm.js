@@ -9,7 +9,7 @@ const replyForm = {
 			this.options[option] = field.value
 			this.form.removeChild(field)
 		}
-
+		
 		this.form.removeChild(sel("[name=password]", this.form))
 
 		let submitButton = sel("#submit", this.form)
@@ -23,12 +23,8 @@ const replyForm = {
 			count: 0 // Total number of currently displayed tiles
 		}
 
-		while (this.fileInputs.wrapper.firstChild) {
-			this.fileInputs.wrapper.firstChild.remove()
-		}
-
 		this.fileInputs.wrapper.style.display = "flex"
-		this.addFInput()
+		this.resetForm()
 
 		if (DEVICE == "desktop") {
 			let textarea = document.querySelector("#replyForm textarea")
@@ -193,7 +189,8 @@ const replyForm = {
 			}
 
 			for (option of ["sage", "op"]) {
-				data.append(option, sel(`[name=${option}]`, rF.form).checked)
+				let cb = sel(`[name=${option}]`, rF.form).checked
+				if (cb) data.append(option, cb)
 			}
 
 			data.append("password", storage.get("settings.password"))
@@ -202,6 +199,10 @@ const replyForm = {
 			for (slot of document.querySelectorAll(".fancyFileInput[title]", rF.fileInputs.wrapper)) {
 				let inputFile = sel(`#${slot.htmlFor}`, rF.fileInputs.wrapper).files[0]
 				data.append(`file[${fileEnum++}]`, inputFile ? inputFile : rF.pastedFiles[slot.htmlFor.match(/[0-9]+/)[0]])
+
+				let ID = slot.htmlFor.match(/[0-9]+/)[0]
+				let cb = sel(`#nsfwFile-${ID}`, rF.form).checked
+				if (cb) data.append(`nsfwFile[${ID}]`, cb)
 			}
 
 			let xhr = new XMLHttpRequest(),
@@ -229,7 +230,7 @@ const replyForm = {
 				if (xhr.status === 200) {
 					let r = JSON.parse(xhr.response)
 					
-					this.form.reset()
+					rF.resetForm()
 					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
 					marker.toggleMark(r.boardName, r.threadNumber, r.number.toString(), "own")
 
@@ -254,6 +255,18 @@ const replyForm = {
 			replyForm.captcha.update()
 			toggleWidget("captcha")
 		}
+	},
+
+	resetForm: function() {
+		this.form.reset()
+
+		while (this.fileInputs.wrapper.firstChild) {
+			this.fileInputs.wrapper.firstChild.remove()
+		}
+
+		this.fileInputs.count = 0
+
+		this.addFInput()
 	},
 
 	toggleFloating: function(value) {
@@ -288,7 +301,7 @@ const replyForm = {
 			mention = `>>${element.parentNode.parentNode.dataset.number}\n`
 
 		if (window.pageYOffset){
-			replyForm.toggleFloating(true)
+			this.toggleFloating(true)
 		}
 
 		if (storage.get("settings.quickReply.addSelection")) {
