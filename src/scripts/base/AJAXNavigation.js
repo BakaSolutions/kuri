@@ -64,15 +64,15 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 
 			throw response.status
 		})
-		// .catch(err => {
-		// 	console.log(err)
+		.catch(err => {
+			console.log(err)
 			
-		// 	ntf = notifications.add({
-		// 		text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
-		// 		class: "error",
-		// 		timeout: 10000
-		// 	})
-		// })
+			ntf = notifications.add({
+				text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
+				class: "error",
+				timeout: 10000
+			})
+		})
 }
 
 // Бинд кликов
