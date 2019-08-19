@@ -50,7 +50,7 @@ document.onkeydown = e => {
 			media.zoom(0.8)
 			break
 		case "Escape":
-			if (sel("#mediaViewer:not([hidden])")) toggleWidget("mediaViewer")
+			if (sel("#mediaViewer:not([hidden])")) media.hide()
 			break
 		case "Enter":
 			if (e.ctrlKey && sel("#replyFormShow").checked) handlePostSend(e)
