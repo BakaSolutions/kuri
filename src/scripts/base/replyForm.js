@@ -56,9 +56,34 @@ const replyForm = {
 					}
 				}
 			}, false)
+
+			// Drag-and-Drop File Uploader
+			document.body.addEventListener("dragenter", stopRightThereCriminalScum, false)
+			document.body.addEventListener("dragover", stopRightThereCriminalScum, false)
+			document.body.addEventListener("dragleave", stopRightThereCriminalScum, false)
+			document.body.addEventListener("drop", this.handleDrop, false)
 		}
 
 		this.toggleFloating(update ? this.state : false)
+	},
+
+	handleDrop: function(event) {
+		stopRightThereCriminalScum(event)
+		
+		let file = event.dataTransfer.files[0]
+		let tile = sel(`[for="file-${replyForm.fileInputs.lastID}"`)
+
+		if (!tile.hasAttribute("title")){ // Check if there are free slots
+			replyForm.renderThumbnail(file, tile)
+
+			if (replyForm.pastedFiles === undefined) {
+				replyForm.pastedFiles = []
+			}
+
+			replyForm.pastedFiles[replyForm.fileInputs.lastID] = file
+			
+			replyForm.addFInput()
+		}
 	},
 
 	addFInput: function() {

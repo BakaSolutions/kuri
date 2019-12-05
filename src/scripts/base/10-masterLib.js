@@ -89,3 +89,8 @@ function handleAttachmentClick(event){
 		}
 	}
 }
+
+function stopRightThereCriminalScum(event) {
+	event.preventDefault()
+	event.stopPropagation()
+}

@@ -41,6 +41,10 @@
 	}
 
 	#replyForm{
+		&.dragAndDrop{
+			color: red !important;
+		}
+
 		$narrowLineHeight: 30px;
 		--buttonWidth: 60px;
 
