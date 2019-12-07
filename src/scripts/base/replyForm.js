@@ -325,6 +325,9 @@ const replyForm = {
 			textarea = sel("textarea", this.form),
 			mention = `>>${element.parentNode.parentNode.dataset.number}\n`
 
+		this.options.threadNumber = element.parentNode.parentNode.dataset.thread
+		this.wrapper.querySelector(".widgetHandle > span").innerHTML = `Ответ в тред <span class="pseudoLink">#${this.options.threadNumber}</span>`
+
 		if (window.pageYOffset){
 			this.toggleFloating(true)
 		}
