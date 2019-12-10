@@ -1,5 +1,5 @@
 const media = {
-	videoState: 0,
+	playState: 0,
 
 	init: function() {
 		this.widget 	= sel(".widget#mediaViewer")
@@ -56,7 +56,7 @@ const media = {
 			closable: false
 		})
 
-		let media
+		let media, background
 
 		if (mime.includes("video")) {
 			media = createElement("video", {
@@ -71,11 +71,38 @@ const media = {
 			}
 
 			media.onpause = media.onplay = () => {
-				this.videoState = !this.videoState
+				this.playState = !this.playState
 			}
 			
 			this.widget.classList.add("video")
-		} else{
+		} else if (mime.includes("audio")) {
+			background = createElement("video", {
+				type: "video/mp4",
+				controls: 0,
+				loop: true,
+				autoplay: true
+			})
+
+			// background.autoplay = true
+			background.src = "/static/audiobackground.mp4"
+
+			media = createElement("audio", {
+				type: mime,
+				controls: 1
+			})
+
+			media.onloadeddata = () => {
+				this.reset(name, background.videoWidth, background.videoHeight)
+				media.volume = storage.get("settings.videoVolume")
+				this.display(media, background)
+			}
+
+			media.onpause = media.onplay = () => {
+				this.playState = !this.playState
+			}
+			
+			this.widget.classList.add("audio")
+		} else {
 			media = new Image()
 			
 			media.onload = () => {
@@ -88,11 +115,14 @@ const media = {
 		media.onerror = decoderError
 		media.src = uri
 
+		this.background = background
 		this.media = media
 	},
 
-	display: function(element) {
-		this.widgetBox.appendChild(element)
+	display: function(...elements) {
+		elements.forEach(element => {
+			this.widgetBox.appendChild(element)
+		})
 		toggleWidget("mediaViewer")
 		notifications.remove(this.ntf)
 	},
@@ -107,8 +137,12 @@ const media = {
 	hide: function(){
 		if (this.media.duration) storage.set("settings.videoVolume", this.media.volume)
 
+		this.widget.classList.remove("audio")
 		this.widget.classList.remove("video")
-		this.videoState = 0
+		this.playState = 0
+		if (this.background) {
+			this.background.remove()
+		}
 		this.media.remove()
 		
 		toggleWidget("mediaViewer")
@@ -117,8 +151,8 @@ const media = {
 
 	togglePause: function(){
 		try{
-			let video = this.media
-			this.videoState ? video.pause() : video.play()
-		} catch(error){} // Not a video
+			let media = this.media
+			this.playState ? media.pause() : media.play()
+		} catch(error) { }// Not video/audio
 	}
 }

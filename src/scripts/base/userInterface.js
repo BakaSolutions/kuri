@@ -216,3 +216,35 @@ function showBoardInfo(name, bumpLimit, fileLimit){
 		timeout: 10000
 	})
 }
+
+function handleAttachmentClick(event){
+	let { target, ctrlKey } = event
+	
+	if (!("mime" in target.dataset)) {
+		target = target.parentNode
+	}
+
+	if (["thumbnails", "attachments"].includes(target.parentNode.className) && !ctrlKey && DEVICE === "desktop") {
+		let { href, dataset } = target
+		let { mime, name } = dataset
+
+		switch (mime.split("/")[0]) {
+			case "audio":
+				if (storage.get("addons")["musicPlayer"]) {
+					let evt = new CustomEvent("click.attachment.audio", { detail: [href, mime, name], bubbles: true, cancelable: true })
+					let cancelled = !target.dispatchEvent(evt)
+					if (cancelled) {
+						event.preventDefault()
+					}
+
+					break;
+				}
+			case "image":
+			case "video":
+				event.preventDefault()
+				media.prepare(href, mime, name)
+			default:
+				return
+		}
+	}
+}

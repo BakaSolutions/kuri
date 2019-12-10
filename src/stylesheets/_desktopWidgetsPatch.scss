@@ -115,6 +115,18 @@
 
 		border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
 	}
+
+	&.audio{
+		.widgetBox{
+			position: relative;
+		}
+
+		audio{
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+		}
+	}
 }
 
 #deletePosts{

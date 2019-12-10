@@ -66,7 +66,7 @@ const settings = {
 			case "addons":
 				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", 	id, 0, 1) // Последнее значение в вызове функции
 				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id, 0, 1) // Заставляет страницу автоматически 
-				settings.addOption("addons.musicPlayer", "Встроенный плеер", 			id, 0, 1) // Перезагружаться при изменении настройки
+				settings.addOption("addons.musicPlayer", "Расширенный аудиоплеер", 			id, 0, 1) // Перезагружаться при изменении настройки
 				settings.addOption("addons.autoHide", "Автоскрытие", 					id, 0, 1)
 
 				break

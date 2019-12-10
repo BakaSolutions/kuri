@@ -64,32 +64,6 @@ document.onkeydown = e => {
 	}
 }
 
-function handleAttachmentClick(event){
-	let { target, ctrlKey } = event
-	if (!('mime' in target.dataset)) {
-		target = target.parentNode
-	}
-	if (["thumbnails", "attachments"].includes(target.parentNode.className) && !ctrlKey && DEVICE === "desktop") {
-		let { href, dataset } = target
-		let { mime, name } = dataset
-		let type = mime.split("/")[0]
-
-		switch (type) {
-			case "audio":
-				let evt = new CustomEvent(`click.attachment.audio`, { detail: [href, mime, name], bubbles: true, cancelable: true })
-				let cancelled = !target.dispatchEvent(evt)
-				if (cancelled) {
-					event.preventDefault()
-				}
-			break;
-			case "image":
-			case "video":
-				event.preventDefault()
-				media.prepare(href, mime, name)
-		}
-	}
-}
-
 function stopRightThereCriminalScum(event) {
 	event.preventDefault()
 	event.stopPropagation()
