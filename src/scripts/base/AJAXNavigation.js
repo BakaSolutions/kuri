@@ -18,22 +18,18 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 
 						replyForm.toggleFloating(false)
 
-						for (option of ["boardName", "redirect", "threadNumber"]) {
-							replyForm.options[option] = sel(`#replyForm [name=${option}]`, doc).value;
-						}
-
-						let oldRFormHandle = sel("#replyFormWrapper .widgetHandle"),
-							newRFormHandle = sel("#replyFormWrapper .widgetHandle", doc)
-
-						if (oldRFormHandle && newRFormHandle) {
-							oldRFormHandle.innerHTML = newRFormHandle.innerHTML
-						}
-
-						let oldRForm = sel("#replyFormWrapper", doc),
-							newRForm = sel("#replyFormWrapper")
+						let oldRForm = sel("#replyFormWrapper"),
+							newRForm = sel("#replyFormWrapper", doc)
 
 						if (oldRForm && newRForm) {
-							oldRForm.parentNode.replaceChild(newRForm, oldRForm)
+							for (option of ["boardName", "redirect", "threadNumber"]) {
+								replyForm.options[option] = sel(`#replyForm [name=${option}]`, newRForm).value;
+							}
+
+							replyForm.setFInputLimit(sel("#fileInputs", newRForm).dataset.filelimit)
+
+							sel(".widgetHandle", oldRForm).innerHTML = sel(".widgetHandle", newRForm).innerHTML
+							newRForm.parentNode.replaceChild(oldRForm, newRForm)
 						}
 
 						let oldMain = sel("main"),
@@ -56,9 +52,6 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 						if (!noScrolling) {
 							sel(`a[name="${uri.includes("#") ? uri.split("#")[1] : "top"}"]`).scrollIntoView({behavior: storage.get("settings.animationLength") > 0 ? "smooth" : "instant"})
 						}
-
-						// console.log("Asynchronously navigated to", uri)
-						// sel("main").classList.remove("refreshing")
 					})
 			}
 

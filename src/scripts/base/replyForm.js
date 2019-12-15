@@ -7,10 +7,7 @@ const replyForm = {
 		for (option of ["boardName", "redirect", "threadNumber"]) {
 			let field = sel(`[name=${option}]`, this.form)
 			this.options[option] = field.value
-			this.form.removeChild(field)
 		}
-		
-		this.form.removeChild(sel("[name=password]", this.form))
 
 		let submitButton = sel("#submit", this.form)
 		submitButton.type = "button"
@@ -116,19 +113,37 @@ const replyForm = {
 		}
 	},
 
-	removeFInput: function(event) {
-		event.preventDefault()
-
-		let label = this.parentNode
-		let ID = label.htmlFor.match(/[0-9]+/)[0]
-		
+	removeFInput: function(ID) {
 		sel(`#fileInputs #file-${ID}`).remove()
 		sel(`#fileInputs #nsfwFile-${ID}`).remove()
-		label.remove()
-		--replyForm.fileInputs.count
+		sel(`#fileInputs label[for="file-${ID}"]`).remove()
+		--this.fileInputs.count
 
 		if (!sel(".fancyFileInput:not([title])")){
-			replyForm.addFInput()
+			this.addFInput()
+		}
+	},
+
+	fInputCrossClickHandler: function(event) {
+		event.preventDefault()
+		
+		replyForm.removeFInput(this.parentNode.htmlFor.match(/[0-9]+/)[0])
+	},
+
+	setFInputLimit: function(limit) {
+		if (limit === this.fileInputs.limit) return
+
+		this.fileInputs.limit = limit	
+
+		while (this.fileInputs.count > limit) {
+			let inputs = this.fileInputs.wrapper.querySelectorAll("input[type=\"file\"]"),
+				lastID = inputs[inputs.length - 1].id.split("-")[1]
+			
+			this.removeFInput(lastID)
+		}
+
+		if (!sel(".fancyFileInput:not([title])")){
+			this.addFInput()
 		}
 	},
 
@@ -183,7 +198,7 @@ const replyForm = {
 			title: "Спрятать"
 		})
 
-		deleteButton.onclick = this.removeFInput
+		deleteButton.onclick = this.fInputCrossClickHandler
 		nsfwButton.onclick = this.toggleNSFW
 		target.appendChild(deleteButton)
 		target.appendChild(nsfwButton)
