@@ -431,7 +431,7 @@ replyForm.captcha = {
 				return
 			} else if (c.passed) {
 				toggleWidget("captcha")
-				submitPost()
+				replyForm.submitPost()
 			} else{
 				this.update()
 				notifications.add({
