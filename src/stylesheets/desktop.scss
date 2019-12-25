@@ -34,10 +34,6 @@
 
 @import "_sidebar";
 
-#sidebar #logo:hover{
-	text-decoration: none;
-}
-
 // Sidebar hiding
 #hideSidebarCheckbox:checked ~ main {
 	margin-left: var(--gap);

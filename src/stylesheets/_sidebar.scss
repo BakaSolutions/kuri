@@ -7,23 +7,15 @@
 	padding: 10px var(--gap);
 	position: fixed;
 
-	#logo{
+	#logo h2{
 		color: var(--primaryTextColor);
 		text-align: center;
-		line-height: 1.3em;
-		margin: 5px 0;
-
-		:first-child{
-			line-height: 1em;
-			font-size: 2em;
-		}
+		margin: .3em 0;
 	}
 
 	#boards{
 		flex-direction: column;
 		display: flex;
-
-		margin-top: 1em;
 
 		a[data-badge]::after{
 			content: " " attr(data-badge);
