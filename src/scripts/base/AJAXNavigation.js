@@ -23,8 +23,10 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 
 						if (oldRForm && newRForm) {
 							for (option of ["boardName", "redirect", "threadNumber"]) {
-								replyForm.options[option] = sel(`#replyForm [name=${option}]`, newRForm).value;
+								replyForm.options[option] = sel(`#replyForm [name=${option}]`, newRForm).value
 							}
+
+							sel("input[name='subject']", oldRForm).placeholder = sel("input[name='subject']", newRForm).placeholder
 
 							replyForm.setFInputLimit(sel("#fileInputs", newRForm).dataset.filelimit)
 

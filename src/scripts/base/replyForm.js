@@ -342,6 +342,7 @@ const replyForm = {
 
 		this.options.threadNumber = element.parentNode.parentNode.dataset.thread
 		this.wrapper.querySelector(".widgetHandle > span").innerHTML = `Ответ в тред <span class="pseudoLink">#${this.options.threadNumber}</span>`
+		sel("input[name='subject']", this.wrapper).placeholder = "Имя"
 
 		if (window.pageYOffset){
 			this.toggleFloating(true)
