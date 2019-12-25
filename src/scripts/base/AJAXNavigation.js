@@ -43,7 +43,12 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 
 						let title = sel("title", doc)
 						sel("title").innerHTML = title.innerHTML
-						if (!noStateChange) history.pushState(uri, null, uri)
+						
+						try {
+							if (!noStateChange) history.pushState(uri, null, uri)
+						} catch(e) {
+							console.log(e)
+						}
 
 						let postMenu = sel("#postMenu:not([hidden])")
 						if(postMenu) postMenu.setAttribute("hidden", 1)
@@ -96,5 +101,9 @@ sel("body").onclick = event => {
 }
 
 // История
-history.replaceState(window.location.pathname, null, null)
-window.addEventListener("popstate", e => asyncLoadPage(e.state, 0, 1))
+try {
+	history.replaceState(window.location.pathname, null, null)
+	window.addEventListener("popstate", e => asyncLoadPage(e.state, 0, 1))
+} catch(e) {
+	console.log(e)	
+}

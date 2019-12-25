@@ -155,11 +155,6 @@ function toggleWidget(widget, init) {
 	} 
 
 	if (element.hasAttribute("hidden")){
-		if(DEVICE == "mobile"){
-			let postFormCheckbox = sel("#replyFormShow")
-			if (postFormCheckbox.checked) postFormCheckbox.click()
-		}
-
 		element.removeAttribute("hidden")
 	} else{
 		element.setAttribute("hidden", 1)
