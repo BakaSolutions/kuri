@@ -356,7 +356,7 @@ const replyForm = {
 		}
 
 		if (storage.get("settings.quickReply.insertAtCursor")) {
-			insertAtCursor(textarea, mention)
+			this.insertAtCursor(textarea, mention)
 		} else {
 			textarea.value += mention
 		}
