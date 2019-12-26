@@ -59,6 +59,8 @@ const replyForm = {
 			document.body.addEventListener("dragover", stopRightThereCriminalScum, false)
 			document.body.addEventListener("dragleave", stopRightThereCriminalScum, false)
 			document.body.addEventListener("drop", this.handleDrop, false)
+
+			this.captcha.init()
 		}
 
 		this.toggleFloating(update ? this.state : false)
@@ -381,14 +383,24 @@ const replyForm = {
 }
 
 replyForm.captcha = {
+	init: function() {
+		this.input = sel("#captcha input[type=text]")
+		this.input.onkeypress = event => {
+			if (!/[0-9]/.test(event.key)) stopRightThereCriminalScum(event)
+			if (event.key == "Enter") replyForm.captcha.send()
+		}
+
+		sel("#captcha input[type=button]").onclick = event => {
+			replyForm.captcha.send()
+		}
+	},
+
 	update: function() {
 		sel("#captcha img").src = FOXTAN_URL_BASE + "api/v1/captcha.image" + "?" + +new Date()
-		setTimeout(() => {sel("#captcha input").focus()}, 100)
+		setTimeout(() => {this.input.focus()}, 100)
 	},
 
 	check: async function() {
-		console.log("sending captcha", sel("#captcha input").value)
-
 		let uri = FOXTAN_URL_BASE + "api/v1/captcha.check",
 			options = {
 				credentials: "include",
@@ -396,7 +408,7 @@ replyForm.captcha = {
 				body: new FormData()
 			}
 
-		options.body.append("code", sel("#captcha input").value)
+		options.body.append("code", this.input.value)
 
 		return fetch(uri, options)
 			.then(response => {
@@ -417,30 +429,25 @@ replyForm.captcha = {
 			})
 	},
 
-	send: async function(e) {
-		let value = sel("#captcha input").value
-		if (!/[0-9]/.test(e.key)) {
-			e.preventDefault()
-		}
-	
-		if (e.key == "Enter" && value.length > 4) {
-			let c = await this.check()
-			sel("#captcha input").value = ""
+	send: async function() {
+		if (this.input.value.length <= 4) return
 
-			if (!c){
-				this.update()
-				return
-			} else if (c.passed) {
-				toggleWidget("captcha")
-				replyForm.submitPost()
-			} else{
-				this.update()
-				notifications.add({
-					text: "Капча введена неверно",
-					timeout: 10000,
-					class: "error"
-				})
-			}
+		let c = await this.check()
+		this.input.value = ""
+
+		if (!c){
+			this.update()
+			return
+		} else if (c.passed) {
+			toggleWidget("captcha")
+			replyForm.submitPost()
+		} else{
+			this.update()
+			notifications.add({
+				text: "Капча введена неверно",
+				timeout: 10000,
+				class: "error"
+			})
 		}
 	}
 }

@@ -58,6 +58,7 @@
 	<div class="widgetBox">
 		<h2>Проверка</h2>
 		<img width="192" height="64" onclick="replyForm.captcha.update()">
-		<input type="text" autocomplete="off" placeholder="Капча" onkeypress="replyForm.captcha.send(event)">
+		<input type="text" autocomplete="off" placeholder="Капча">
+		<input type="button" value="Отправить">
 	</div>
 </div>
