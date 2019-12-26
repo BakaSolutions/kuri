@@ -1,5 +1,5 @@
 let API = require('../models/foxtan/websocket/');
-let Tools = require('./tools');
+let Model = require('../models');
 
 let Markup = module.exports = {
   reduceNewLines: 4 // 4 = 1 + 3: 1 line break and 3 empty lines
@@ -71,7 +71,7 @@ let tagMap = {
 	/%%([\s\S]+?)%%/gi,
   ],
   newLine: [
-    /\s?\n/g,
+    /\r?\n/g,
   ],
   reduceNewLines: [
     new RegExp(`(<br \/>){${Markup.reduceNewLines},}`, 'gi'),
@@ -148,19 +148,24 @@ function getMatches(string, regex) {
   return { capture, matches };
 }
 
-async function processPostLink(capture, matches, board, thread, post) {
+async function processPostLink(capture, matches, boardName, thread, post) {
   let [boardFromMatch, postFromMatch] = matches;
   if (boardFromMatch) {
-    board = boardFromMatch.replace(/\//g, '');
+    boardName = boardFromMatch.replace(/\//g, '');
   }
   if (+postFromMatch !== thread && +postFromMatch !== post) {
-    let query = await API.getPost(board, postFromMatch);
+    let LPN = Model.getLastPostNumbers(boardName);
+    if (LPN < postFromMatch) {
+      return capture;
+    }
+    let query = await API.getPost(boardName, postFromMatch);
     if (!query.threadNumber) {
       return capture;
     }
     thread = query.threadNumber;
   }
-  return `<a class="postLink" data-board="${board}" data-number="${postFromMatch}" href="/${board}/res/${thread}.html#${postFromMatch}">${capture}</a>`;
+  capture = capture.replace(/&gt;/g, '>');
+  return `<a class="postLink" data-board="${boardName}" data-number="${postFromMatch}" href="/${boardName}/res/${thread}.html#${postFromMatch}">${capture}</a>`;
 }
 
 function processTitledURL(_, matches) {

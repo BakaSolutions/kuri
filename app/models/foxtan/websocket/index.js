@@ -35,7 +35,7 @@ function APIPlaceholder(url) {
       link = link.replace(matches[i], typeof arguments[i] === 'undefined' ? '' : arguments[i]);
     }
     link = link.trim();
-    Logger.debug(`[WS] Receiving ${link}...`);
+    Logger.debug(`[WS] Requesting ${link}...`);
     let out = await Request.send(link).catch(e => {return e});
     Logger.debug(`[WS] Received on "${link}":`);
     Logger.debug(out);

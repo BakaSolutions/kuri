@@ -27,6 +27,7 @@ class WSClient {
     }
     return new Pledge(resolve => {
       this.instance = new WebSocket(this.url);
+      this.instance.setMaxListeners(999);
       this.instance.on('open', async data => {
         await this.onOpen();
         Event.emit('websocket.open', data);
@@ -50,22 +51,12 @@ class WSClient {
 
   async send (data) {
     return new Pledge(async (resolve, reject) => {
-      setTimeout(() => {
-        reject('FAIL 504')
-      }, 5000);
 
       if (!this.opened()) {
         await this.open();
       }
 
       let id = this.generateID();
-
-      try {
-        this.instance.send(data + id);
-      } catch (e) {
-        reject(e);
-      }
-
       let promiseWrapper = data => {
         if (data.includes(id)) {
           data = data.replace(id, '');
@@ -77,6 +68,17 @@ class WSClient {
         }
       };
       this.instance.on('message', promiseWrapper);
+
+      setTimeout(() => {
+        this.instance.removeEventListener('message', promiseWrapper);
+        reject('FAIL 504')
+      }, 5000);
+
+      try {
+        this.instance.send(data + id);
+      } catch (e) {
+        reject(e);
+      }
 
     }, true).catch(e => {
       if (e instanceof Error) {
