@@ -54,7 +54,7 @@
 						<td><b>жирный</b></td>
 					</tr>
 					<tr>
-						<td>__курсив__</td>
+						<td>*курсив*</td>
 						<td class="material-icons">arrow_right</td>
 						<td><i>курсив</i></td>
 					</tr>
