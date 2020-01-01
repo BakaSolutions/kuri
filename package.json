@@ -24,7 +24,6 @@
   "dependencies": {
     "dot": "^1.1.2",
     "figurecon": "rngnrs/figurecon",
-    "gulp-concat": "^2.6.1",
     "koa": "^2.3.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
@@ -33,7 +32,8 @@
     "ws": "^5.0.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
+    "gulp": "latest",
+    "gulp-concat": "latest",
     "gulp-babel-minify": "latest",
     "gulp-clean-css": "latest",
     "gulp-sass": "latest",
