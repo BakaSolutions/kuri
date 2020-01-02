@@ -1,8 +1,8 @@
 {{? it.pageCount > 1 }}
-  <div class="pagination">
-    {{ for (let page = 0; page < it.pageCount; page++) { }}
-      <a href="./{{?page}}{{=page}}.html{{?}}"
-        class="btn{{? it.pageNumber === page}} selected{{?}}">{{=page}}</a>
-    {{ } }}
-  </div>
+	<div class="pagination">
+		{{ pages = []; for (let page = 0; page < it.pageCount; ++page) {pages.push(page)} }}
+		{{~pages :value:page }}
+			<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{?page}}{{=page}}.html{{?}}" class="btn{{? it.pageNumber === page}} selected{{?}}">{{=page}}</a>
+		{{~ }}
+	</div>
 {{?}}
