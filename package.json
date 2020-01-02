@@ -33,10 +33,11 @@
   },
   "devDependencies": {
     "gulp": "latest",
-    "gulp-babel-minify": "latest",
     "gulp-clean-css": "latest",
     "gulp-concat": "latest",
-    "gulp-sass": "latest"
+    "gulp-sass": "latest",
+    "gulp-uglify": "^3.0.2",
+    "uglify-es": "^3.3.9"
   },
   "engines": {
     "node": ">= 8.0.0"

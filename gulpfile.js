@@ -1,16 +1,19 @@
 const gulp = require("gulp")
 const cleanCSS = require("gulp-clean-css")
 const gulpSASS = require("gulp-sass")
-const gulpBabelMinify = require("gulp-babel-minify")
+const uglifyJS = require("uglify-es");
+const composer = require("gulp-uglify/composer");
 const gulpConcat = require("gulp-concat")
 const Render = require("./app/helpers/render")
+
+const minifyJS = composer(uglifyJS, console);
 
 const input = {
 	dot: ["src/views/**/*.@(jst|def|dot)", "custom/src/views/**/*.@(jst|def|dot)"],
 	sass: ["src/stylesheets/*.?(s)css", "custom/src/stylesheets/*.?(s)css"],
 	static: ["src/static/**/*"],
 	baseJS: ["src/scripts/base/*"],
-	homeJS: ["src/scripts/home/*"],
+	homeJS: ["src/scripts/home.js"],
 	modulesJS: ["src/scripts/modules/*"],
 }
 
@@ -31,13 +34,13 @@ function dot() {
 
 function baseJS() {
 	let stream = gulp.src(input.baseJS)
+		.pipe(gulpConcat("base.js"))
 
 	if (process.env.NODE_ENV == "production") {
-		stream = stream.pipe(gulpBabelMinify().on("error", console.log))
+		stream = stream.pipe(minifyJS())
 	}
 
 	return stream
-		.pipe(gulpConcat("base.js"))
 		.pipe(gulp.dest(output.js))
 }
 
@@ -45,11 +48,10 @@ function homeJS() {
 	let stream = gulp.src(input.homeJS)
 
 	if (process.env.NODE_ENV == "production") {
-		stream = stream.pipe(gulpBabelMinify().on("error", console.log))
+		stream = stream.pipe(minifyJS())
 	}
 
 	return stream
-		.pipe(gulpConcat("home.js"))
 		.pipe(gulp.dest(output.js))
 }
 
@@ -57,7 +59,7 @@ function modulesJS() {
 	let stream = gulp.src(input.modulesJS)
 
 	if (process.env.NODE_ENV == "production") {
-		stream = stream.pipe(gulpBabelMinify().on("error", console.log))
+		stream = stream.pipe(minifyJS())
 	}
 
 	return stream
