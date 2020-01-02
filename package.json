@@ -4,8 +4,8 @@
   "description": "The Foxtan web-client.",
   "main": "app/index.js",
   "scripts": {
-    "build": "NODE_ENV=production gulp",
-    "build:dev": "NODE_ENV=development gulp",
+    "build": "NODE_ENV=production gulp build",
+    "build:dev": "NODE_ENV=development gulp build",
     "watch": "NODE_ENV=production gulp watch",
     "watch:dev": "NODE_ENV=development gulp watch",
     "start": "NODE_ENV=production node app",
@@ -33,11 +33,10 @@
   },
   "devDependencies": {
     "gulp": "latest",
-    "gulp-concat": "latest",
     "gulp-babel-minify": "latest",
     "gulp-clean-css": "latest",
-    "gulp-sass": "latest",
-    "gulp-watch": "latest"
+    "gulp-concat": "latest",
+    "gulp-sass": "latest"
   },
   "engines": {
     "node": ">= 8.0.0"

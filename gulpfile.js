@@ -1,90 +1,85 @@
 const gulp = require("gulp")
 const cleanCSS = require("gulp-clean-css")
-const sass = require("gulp-sass")
-const watch = require("gulp-watch")
-const minify = require("gulp-babel-minify")
-const concat = require("gulp-concat")
+const gulpSASS = require("gulp-sass")
+const gulpBabelMinify = require("gulp-babel-minify")
+const gulpConcat = require("gulp-concat")
 const Render = require("./app/helpers/render")
 
-let input = {
+const input = {
 	dot: ["src/views/**/*.@(jst|def|dot)", "custom/src/views/**/*.@(jst|def|dot)"],
 	sass: ["src/stylesheets/*.?(s)css", "custom/src/stylesheets/*.?(s)css"],
 	static: ["src/static/**/*"],
-	js: {
-		base: ["src/scripts/base/*"],
-		home: ["src/scripts/home.js"],
-		modules: ["src/scripts/modules/*"]
-	}
+	baseJS: ["src/scripts/base/*"],
+	homeJS: ["src/scripts/home/*"],
+	modulesJS: ["src/scripts/modules/*"],
 }
 
-let output = {
+const output = {
 	js: "public/js",
 	sass: "public/css",
-	static: "public/static"
+	static: "public/static",
 }
 
-gulp.task("static", () => {
+function static() {
 	return gulp.src(input.static)
 		.pipe(gulp.dest(output.static))
-})
+}
 
-gulp.task("dot", () => {
+function dot() {
 	return Render.compileTemplates()
-})
+}
 
-gulp.task("baseJS", () => {
-	let stream = gulp.src(input.js.base)
+function baseJS() {
+	let stream = gulp.src(input.baseJS)
 
 	if (process.env.NODE_ENV == "production") {
-		stream = stream.pipe(minify().on("error", console.log))
+		stream = stream.pipe(gulpBabelMinify().on("error", console.log))
 	}
 
 	return stream
-		.pipe(concat("base.js"))
+		.pipe(gulpConcat("base.js"))
 		.pipe(gulp.dest(output.js))
-})
+}
 
-gulp.task("homeJS", () => {
-	let stream = gulp.src(input.js.home)
+function homeJS() {
+	let stream = gulp.src(input.homeJS)
 
 	if (process.env.NODE_ENV == "production") {
-		stream = stream.pipe(minify().on("error", console.log))
+		stream = stream.pipe(gulpBabelMinify().on("error", console.log))
 	}
 
 	return stream
-		.pipe(concat("home.js"))
+		.pipe(gulpConcat("home.js"))
 		.pipe(gulp.dest(output.js))
-})
+}
 
-gulp.task("modulesJS", () => {
-	let stream = gulp.src(input.js.modules)
+function modulesJS() {
+	let stream = gulp.src(input.modulesJS)
 
 	if (process.env.NODE_ENV == "production") {
-		stream = stream.pipe(minify().on("error", console.log))
+		stream = stream.pipe(gulpBabelMinify().on("error", console.log))
 	}
 
 	return stream
 		.pipe(gulp.dest(output.js))
-})
+}
 
-gulp.task("sass", () => {
+function sass() {
 	return gulp.src(input.sass)
-		.pipe(sass().on("error", sass.logError))
+		.pipe(gulpSASS().on("error", gulpSASS.logError))
 		.pipe(cleanCSS({debug: "development"}, details => {
-			console.log(details.name + ": " + details.stats.originalSize + " -> " + details.stats.minifiedSize)
+			console.log(`${details.name}: ${details.stats.originalSize} -> ${details.stats.minifiedSize}`)
 		}))
 		.pipe(gulp.dest(output.sass))
-})
+}
 
 gulp.task("watch", () => {
-	watch(input.dot, () => gulp.start("dot"))
-	watch(input.sass, () => gulp.start("sass"))
-
-	for (let inputName in input.js) {
-		watch(input.js[inputName], () => gulp.start("js"))
-	}
-
-	watch(input.modules, () => gulp.start("modules"))	
+	gulp.watch(input.dot, dot)
+	gulp.watch(input.sass, sass)
+	gulp.watch(input.static, static)
+	gulp.watch(input.baseJS, baseJS)
+	gulp.watch(input.homeJS, homeJS)
+	gulp.watch(input.modulesJS, modulesJS)
 })
 
-gulp.task("default", gulp.parallel(["dot", "baseJS", "homeJS", "sass", "static", "modulesJS"]))
+gulp.task("build", gulp.parallel(dot, baseJS, homeJS, modulesJS, sass, static))
