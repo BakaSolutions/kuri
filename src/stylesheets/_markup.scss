@@ -23,6 +23,14 @@ q {
 
 code {
 	background: var(--backgroundColor);
-	font-family: monospace;
 	padding: .2em;
+	font-size: 1.2em;
+}
+
+pre {
+	margin: 0;
+}
+
+pre > code {
+	display: block;
 }

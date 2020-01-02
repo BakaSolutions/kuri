@@ -28,13 +28,14 @@ let escapeMap = {
 let escapeHTML = text => text.trim().replace(/[&<>"']/g, m => escapeMap[m]);
 let escapeRX = exp => exp.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 
-let codeTags = [
-  /\[code](?:\s*?)(.+?)(?:\s*?)\[\/code]/gi, // [code]
-  /```(?:\s*?)(.+?)(?:\s*?)```/gi, // ```
-  /`(.+?)`(?:\s|$)/gim // `
-];
-
 let tagMap = {
+  code: [
+    /\[code](?:\s+?)([\s\S]+?)(?:\s+?)\[\/code]/gi,
+    /````(?:\s+?)([\s\S]+?)(?:\s+?)```/gi,
+  ],
+  inlineCode: [
+    /`(.+?)`(?:\W|$)/gim,
+  ],
   postLink: [
     /&gt;&gt;(\/?.+\/)?([0-9]+)/gi,
   ],
@@ -79,11 +80,10 @@ let tagMap = {
 };
 
 let typeMap = {
+  code: processCode('<pre><code>$1</code></pre>'),
+  inlineCode: processCode('<code>$1</code>'),
   postLink: processPostLink,
   quotation: '<q>$1</q>',
-  newLine: '<br />',
-  reduceNewLines: new Array(Markup.reduceNewLines + 1).join('$1'),
-  code: '<code>$1</code>',
   bold: '<b>$1</b>',
   italic: '<i>$1</i>',
   underline: '<u>$1</u>',
@@ -91,6 +91,8 @@ let typeMap = {
   titledLink: processTitledURL,
   link: processURL,
   spoiler: '<span class="spoiler">$1</span>',
+  newLine: '<br />',
+  reduceNewLines: new Array(Markup.reduceNewLines + 1).join('$1'),
 };
 
 Markup.process = async (text, board, thread, post) => {
@@ -102,11 +104,6 @@ Markup.process = async (text, board, thread, post) => {
   text = escapeHTML(text);
 
   // Step 1. Bypass code tags.
-  for (let i = 0; i < codeTags.length; i++) {
-    // get all symbols in [code] => insert in a template string => escape a few chars to avoid further replacements
-    text = text.replace(codeTags[i], (_, p1) => typeMap.code.replace('$1', p1.replace(/[*_\[\]%'\\/:.#]/g, m => escapeMap[m])));
-  }
-
   // Step 2. Replace other tags.
   let tagTypes = Object.keys(tagMap); // select tag types and their template strings
   for (let i = 0; i < tagTypes.length; i++) {
@@ -148,6 +145,13 @@ function getMatches(string, regex) {
   return { capture, matches };
 }
 
+function processCode(tagString) { // escape a few chars to avoid further replacements
+  return (_, matches) => {
+    let code = matches[0].replace(/[*_\[\]%'\\/:.#]/g, m => escapeMap[m]);
+    return tagString.replace('$1', code);
+  }
+}
+
 async function processPostLink(capture, matches, boardName, thread, post) {
   let [boardFromMatch, postFromMatch] = matches;
   if (boardFromMatch) {
@@ -175,7 +179,7 @@ function processTitledURL(_, matches) {
 }
 
 function processURL(capture, matches) {
-  if (capture.includes('[url]', 0)) { // [url]href[/url]
+  if (capture.startsWith('[url]')) { // [url]href[/url]
     matches = getMatches(capture, /((?:https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi).matches[0];
   }
   let [ href ] = matches;
