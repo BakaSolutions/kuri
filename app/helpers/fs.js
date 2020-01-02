@@ -11,6 +11,7 @@ const writeFile = promisify(fs.writeFile);
 const Pledge = require('./promise');
 
 let FS = module.exports = {};
+const TMPDIR = require('os').tmpdir();
 const ROOT = FS.ROOT = path.join(__dirname, '/../../');
 
 /**
@@ -30,7 +31,7 @@ FS.normalize = filePath => {
  * @param {String} filePath
  * @returns {boolean}
  */
-FS.check = filePath => filePath.includes(ROOT, 0);
+FS.check = filePath => filePath.startsWith(ROOT) || filePath.startsWith(TMPDIR);
 
 /**
  * Read file synchronously with checking the filePath
@@ -122,7 +123,10 @@ FS.mkdirSync = dir => {
   try {
     fs.mkdirSync(dir[dir.length - 1]);
   } catch (e) {
-    let parent = dir[dir.length - 1].replace(/\/$/, '').split('/');
+    if (e.code !== "ENOENT") {
+      throw e;
+    }
+    let parent = dir[dir.length - 1].replace(/\/$/, '').replace(/\\/g, '/').split('/');
     parent.pop();
     parent = parent.join('/');
     dir[dir.length] = parent;

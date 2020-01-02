@@ -15,9 +15,9 @@ const settings = {
 const ILLEGAL_CHARACTERS_REGEXP = /[^a-zA-Z$_]/gi;
 
 const TEMPL = 'src/views';
-const DESTI = '.tmp/views';
+const DESTI = 'kuri/views';
 const TEMPL_FOLDER = path.join(__dirname, '../../', TEMPL, path.sep);
-const DESTI_FOLDER = path.join(__dirname, '../../', DESTI, path.sep);
+const DESTI_FOLDER = path.join(require('os').tmpdir(), DESTI, path.sep);
 
 
 Render.loadTemplates = async () => {
