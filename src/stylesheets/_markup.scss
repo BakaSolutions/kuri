@@ -23,14 +23,17 @@ q {
 
 code {
 	background: var(--backgroundColor);
-	padding: .2em;
-	font-size: 1.2em;
+	padding: .1rem .3rem;
+	font-size: 1rem;
+	user-select: all;
 }
 
 pre {
 	margin: 0;
-}
 
-pre > code {
-	display: block;
+	& > code {
+		display: block;
+		padding: var(--gap);
+		margin: var(--gap) 0;
+	}
 }
