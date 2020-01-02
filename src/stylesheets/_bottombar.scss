@@ -1,15 +1,17 @@
 .pagination {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  width: 100%;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	width: 100%;
+	gap: var(--gap);
 
-  .btn {
-    height: 3rem;
-    width: 3rem;
+	.btn {
+		cursor: pointer;
+		height: 3rem;
+		width: 3rem;
 
-    &.selected {
-      background: var(--buttonHoverColor);
-    }
-  }
+		&.selected {
+			background: var(--buttonHoverColor);
+		}
+	}
 }

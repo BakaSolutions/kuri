@@ -1,8 +1,29 @@
 {{? it.pageCount > 1 }}
 	<div class="pagination">
 		{{ pages = []; for (let page = 0; page < it.pageCount; ++page) {pages.push(page)} }}
-		{{~pages :value:page }}
-			<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{?page}}{{=page}}.html{{?}}" class="btn{{? it.pageNumber === page}} selected{{?}}">{{=page}}</a>
-		{{~ }}
+		
+		{{? it.pageCount <= 5 }}
+			{{~pages :value:page }}
+				<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{?page}}{{=page}}.html{{?}}" class="btn{{? it.pageNumber === page}} selected{{?}}">{{=page}}</a>
+			{{~ }}
+		{{??}}
+			{{? pages.includes(it.pageNumber - 2)}}
+				<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/" class="btn material-icons">first_page</a>
+			{{?}}
+
+			{{? pages.includes(it.pageNumber - 1)}}
+				<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{?it.pageNumber - 1}}{{=it.pageNumber - 1}}.html{{?}}" class="btn">{{=it.pageNumber - 1}}</a>
+			{{?}}
+
+			<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{=it.pageNumber}}.html" class="btn selected">{{=it.pageNumber}}</a>
+
+			{{? pages.includes(it.pageNumber + 1)}}
+				<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{=it.pageNumber + 1}}.html" class="btn">{{=it.pageNumber + 1}}</a>
+			{{?}}
+
+			{{? pages.includes(it.pageNumber + 2)}}
+				<a href="{{=it.site.url.href}}{{=it.board.name}}{{?'feed' in it}}/feed{{?}}/{{=it.pageCount - 1}}.html" class="btn material-icons">last_page</a>
+			{{?}}
+		{{?}}
 	</div>
 {{?}}
