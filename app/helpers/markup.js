@@ -10,7 +10,7 @@ let escapeMap = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
-  "'": '&#39;',
+  "'": '&apos;',
 
   '*': '&#42;',
   '_': '&#95;',
@@ -30,11 +30,11 @@ let escapeRX = exp => exp.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 
 let tagMap = {
   code: [
-    /\[code](?:\s+?)([\s\S]+?)(?:\s+?)\[\/code]/gi,
+    /\[code](?:\s*)([\s\S]+?)(?:\s*)\[\/code]/gi,
     /```(?:\s*)([\s\S]+?)(?:\s*)```/gi,
   ],
   inlineCode: [
-    /`(.+?)`(?:\W|$)/gim,
+    /`(.+?)`/gim,
   ],
   postLink: [
     /&gt;&gt;(\/?.+\/)?([0-9]+)/gi,
@@ -88,8 +88,8 @@ let typeMap = {
   italic: '<i>$1</i>',
   underline: '<u>$1</u>',
   strike: '<s>$1</s>',
-  titledLink: processTitledURL,
-  link: processURL,
+  titledLink: processURL('<a href="$1" target="_blank" title="$1">$2</a>'),
+  link: processURL('<a href="$1" target="_blank">$1</a>'),
   spoiler: '<span class="spoiler">$1</span>',
   newLine: '<br />',
   reduceNewLines: new Array(Markup.reduceNewLines + 1).join('$1'),
@@ -147,7 +147,7 @@ function getMatches(string, regex) {
 
 function processCode(tagString) { // escape a few chars to avoid further replacements
   return (_, matches) => {
-    let code = matches[0].replace(/[*_\[\]%'\\/:.#]/g, m => escapeMap[m]);
+    let code = matches[0].replace(/[*_\[\]%~/:.#]/g, m => escapeMap[m]);
     return tagString.replace('$1', code);
   }
 }
@@ -172,22 +172,24 @@ async function processPostLink(capture, matches, boardName, thread, post) {
   return `<a class="postLink" data-board="${boardName}" data-number="${postFromMatch}" href="/${boardName}/res/${thread}.html#${postFromMatch}">${capture}</a>`;
 }
 
-function processTitledURL(_, matches) {
-  let [title, href] = matches;
-  href = href.replace(/[*_\[\]'\\/:.#]/g, m => escapeMap[m]);
-  return `<a href="${href}" target="_blank">${title}</a>`;
-}
+function processURL(tagString) {
+  return (capture, matches) => {
+    let title, href;
+    if (capture.startsWith('[url]')) { // [url]href[/url]
+      matches = getMatches(capture, /((?:https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi).matches[0];
 
-function processURL(capture, matches) {
-  if (capture.startsWith('[url]')) { // [url]href[/url]
-    matches = getMatches(capture, /((?:https?|s?ftp):\/\/[a-z0-9\-.]+\/?(?:(?!%%|\[\/|\s|<\/|" ).)*)/gi).matches[0];
+    }
+    if (matches.length === 2){ // [title](url)
+      [title, href] = matches;
+    } else {
+      [href] = matches;
+    }
+    href = href.replace(/[*_\[\]%~/:.#]/g, m => escapeMap[m]);
+    try {
+      href = decodeURIComponent(href);
+    } catch (e) {
+      console.log(e, href);
+    }
+    return tagString.replace(/\$1/g, href).replace('$2', title);
   }
-  let [ href ] = matches;
-  href = href.replace(/[*_\[\]'\\/:.#]/g, m => escapeMap[m]);
-  try {
-    href = decodeURIComponent(href);
-  } catch (e) {
-    console.log(e, href);
-  }
-  return `<a href="${href}" target="_blank">${href}</a>`;
 }
