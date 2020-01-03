@@ -31,7 +31,7 @@ let escapeRX = exp => exp.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 let tagMap = {
   code: [
     /\[code](?:\s+?)([\s\S]+?)(?:\s+?)\[\/code]/gi,
-    /````(?:\s+?)([\s\S]+?)(?:\s+?)```/gi,
+    /```(?:\s*)([\s\S]+?)(?:\s*)```/gi,
   ],
   inlineCode: [
     /`(.+?)`(?:\W|$)/gim,
@@ -69,7 +69,7 @@ let tagMap = {
   ],
   spoiler: [
     /\[spoiler]([\s\S]+?)\[\/spoiler]/gi,
-	/%%([\s\S]+?)%%/gi,
+    /%%([\s\S]+?)%%/gi,
   ],
   newLine: [
     /\r?\n/g,
