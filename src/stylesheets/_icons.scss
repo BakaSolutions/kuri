@@ -12,7 +12,10 @@
 	filter: invert(69%);
 	vertical-align: top;
 	height: 100%;
-	transform: scale(-1, 1);
+
+	&.mirror{
+		transform: scale(-1, 1);
+	}
 
 	&.spin{
 		animation-name: spin;

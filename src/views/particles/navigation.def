@@ -40,7 +40,7 @@
 		<label for="hideSidebarCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_view_quilt_24px.svg"></label>
 	</div>
 	<div>
-		<a class="btn jsOnly desktopOnly" onclick="toggleAutoReload(this)"><img class="icon" src="/static/icons/fish_13.svg"></a>
+		<a class="btn jsOnly desktopOnly" onclick="toggleAutoReload(this)"><img class="icon mirror" src="/static/icons/fish_13.svg"></a>
 		<a onclick="toggleWidget('favourite', initStarredList)" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_star_24px.svg"></a>
 		<label for="hideImagesCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_visibility_off_24px.svg"></label>
 		<a onclick="replyForm.toggleFloating()" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_chat_24px.svg"></a>
