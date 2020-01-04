@@ -243,3 +243,18 @@ function handleAttachmentClick(event){
 		}
 	}
 }
+
+function toggleAutoReload(button) {
+	let icon = sel("img", button)
+	if (icon.classList.contains("spin")) {
+		clearInterval(window.autoReload)
+		
+		icon.classList.remove("spin")
+	} else{
+		window.autoReload = setInterval(() => {
+			asyncLoadPage(location.href, true, true, true)
+		}, 3e4)
+
+		icon.classList.add("spin")
+	}
+}

@@ -1,15 +1,21 @@
-function asyncLoadPage(uri, noScrolling, noStateChange) {
+function asyncLoadPage(uri, noScrolling, noStateChange, silent = false) {
 	if (uri == "/" || !storage.get("settings.useAjax")) return location.href = uri
 
-	let ntf = notifications.add({
-		text: "Загрузка...",
-		class: 'notification',
-		closable: false
-	})
+	let ntf
+
+	if (!silent) {
+		ntf = notifications.add({
+			text: "Загрузка...",
+			class: 'notification',
+			closable: false
+		})
+	}
 
 	fetch(uri)
 		.then(response => {
-			notifications.remove(ntf)
+			if (!silent){
+				notifications.remove(ntf)
+			}
 
 			if (response.status == 200) {
 				return response.text()
@@ -67,11 +73,13 @@ function asyncLoadPage(uri, noScrolling, noStateChange) {
 		.catch(err => {
 			console.log(err)
 			
-			ntf = notifications.add({
-				text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
-				class: "error",
-				timeout: 10000
-			})
+			if (!silent) {
+				ntf = notifications.add({
+					text: "Не удалось загрузить страницу.<br>" + JSON.stringify(err),
+					class: "error",
+					timeout: 10000
+				})
+			}
 		})
 }
 
