@@ -12,6 +12,12 @@
 					<h2>Лента постов /{{!it.board.name}}/</h2>
 					<h4>{{!it.board.subtitle}}</h4>
 				</a>
+
+				<div>
+					<a class="btn jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">
+						<img class="icon" src="/static/icons/material-design/ic_help_24px.svg">
+					</a>
+				</div>
 			</header>
 			
 			{{#def['particles/replyForm']}}
