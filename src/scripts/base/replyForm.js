@@ -263,7 +263,7 @@ const replyForm = {
 			let xhr = new XMLHttpRequest(),
 				ntf = 0
 			
-			xhr.open("POST", this.form.action)
+			xhr.open("POST", replyForm.form.action)
 			
 			xhr.onloadstart = (event) => {
 				ntf = notifications.add({
