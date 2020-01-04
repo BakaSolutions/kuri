@@ -4,7 +4,6 @@
 	<title>{{!it.title}}</title>
 	<meta charset='utf-8'>
 
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" media="(min-width: 451px)" href="/css/desktop.css">
 	<link rel="stylesheet" media="(max-width: 450px)" href="/css/mobile.css">
 	<script type="text/javascript">

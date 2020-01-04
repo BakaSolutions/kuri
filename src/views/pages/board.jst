@@ -14,9 +14,11 @@
 				</a>
 
 				<div>
-					<a class="btn material-icons jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">help</a>
-					<a class="btn material-icons" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
-						view_list
+					<a class="btn jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">
+						<img class="icon" src="/static/icons/material-design/ic_help_24px.svg">
+					</a>
+					<a class="btn" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
+						<img class="icon" src="/static/icons/material-design/ic_view_list_24px.svg">
 					</a>
 				</div>
 			</header>

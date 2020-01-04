@@ -116,26 +116,6 @@ main{
 	background-color: var(--buttonHoverColor);
 }
 
-.visibleCheckbox{
-	display: none;
-
-	& + label{
-		@include user-select(none);
-	}
-
-	& + label::before{
-		font-family: 'Material Icons';
-		content: 'check_box_outline_blank';
-
-		vertical-align: middle;
-		margin-right: 3px;
-	}
-
-	&:checked + label::before{
-		content: 'check_box';
-	}
-}
-
 input:not([type=file]), textarea{
 	background: var(--backgroundColor);
 	color: var(--primaryTextColor);

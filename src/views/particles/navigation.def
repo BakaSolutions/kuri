@@ -33,17 +33,16 @@
 
 <div id="navbar">
 	<div>
-		<a id="toTop" class="btn material-icons" href="#top">arrow_upward</a>
-		<a href="{{=it.site.url.pathname}}" class="btn material-icons mobileOnly">home</a>
-		<!-- <button type="button" onclick="toggleWidget('search')" class="btn material-icons jsOnly">search</button> -->
-		<button type="button" class="material-icons jsOnly">search</button>
-		<button type="button" onclick="toggleWidget('settings', settings.init)" class="material-icons desktopOnly jsOnly">settings</button>
-		<label for="hideSidebarCheckbox" class="btn material-icons desktopOnly">view_quilt</label>
+		<a id="toTop" class="btn" href="#top"><img class="icon" src="/static/icons/material-design/ic_arrow_upward_24px.svg"></a>
+		<a href="{{=it.site.url.pathname}}" class="btn mobileOnly"><img class="icon" src="/static/icons/material-design/ic_home_24px.svg"></a>
+		<a class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_search_24px.svg"></a>
+		<a class="btn jsOnly desktopOnly" onclick="toggleWidget('settings', settings.init)"><img class="icon" src="/static/icons/material-design/ic_settings_24px.svg"></a>
+		<label for="hideSidebarCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_view_quilt_24px.svg"></label>
 	</div>
 	<div>
-		<a onclick="toggleWidget('favourite', initStarredList)" class="btn material-icons jsOnly">star</a>
-		<label for="hideImagesCheckbox" class="btn material-icons desktopOnly">visibility_off</label>
-		<button onclick="replyForm.toggleFloating()" class="material-icons jsOnly">chat</button>
-		<a id="toBot" class="btn material-icons" href="#bottom">arrow_downward</a>
+		<a onclick="toggleWidget('favourite', initStarredList)" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_star_24px.svg"></a>
+		<label for="hideImagesCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_visibility_off_24px.svg"></label>
+		<a onclick="replyForm.toggleFloating()" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_chat_24px.svg"></a>
+		<a id="toBot" class="btn" href="#bottom"><img class="icon" src="/static/icons/material-design/ic_arrow_downward_24px.svg"></a>
 	</div>
 </div>

@@ -25,6 +25,15 @@
 
 		span{
 			margin-left: 5px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.btn{
+			position: absolute;
+			top: 0.3em;
+			right: 0;
+			padding: 0;
 		}
 	}
 
@@ -111,11 +120,6 @@
 
 				position: relative;
 
-				&:not([title]):after{
-					content: "attach_file";
-					font-size: 1.5em;
-				}
-
 				&[title]{
 					background-size: cover;
 					background-position: center;
@@ -124,7 +128,7 @@
 					border-bottom-right-radius: 0;
 				}
 
-				.del, .nsfw{
+				.btn{
 					position: absolute;
 					background: var(--backgroundColor);
 					right: -50%;
@@ -132,6 +136,7 @@
 					width: 50%;
 					text-align: center;
 					cursor: pointer;
+					padding: 0;
 				}
 
 				.del{

@@ -11,10 +11,6 @@
 .postDetails{
 	cursor: default;
 
-	.material-icons{
-		cursor: pointer;
-	}
-
 	input[id|="delete"], input[id|="star"]{
 		&:hover + label{
 			opacity: .6;

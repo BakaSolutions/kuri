@@ -104,8 +104,15 @@ const replyForm = {
 
 			let button = createElement("label", {
 				htmlFor: `file-${this.fileInputs.lastID}`,
-				className: "fancyFileInput material-icons btn"
+				className: "fancyFileInput btn"
 			})
+
+			let icon = createElement("img", {
+				className: "icon",
+				src: "/static/icons/material-design/ic_attach_file_24px.svg"
+			})
+
+			button.appendChild(icon)
 
 			input.onchange = this.handleFile
 
@@ -186,22 +193,28 @@ const replyForm = {
 			target.style.backgroundImage = ""
 		}
 		
-		if (target.classList.contains("material-icons")) {
-			target.classList.remove("material-icons")
-		}
+		target.classList.add("hasFile")
 
 		let deleteButton = createElement("div", {
-			className: "del material-icons",
-			innerText: "close",
+			className: "del btn",
 			title: "Удалить"
 		}), nsfwButton = createElement("div", {
-			className: "nsfw material-icons",
-			innerText: "visibility",
-			title: "Спрятать"
+			className: "nsfw btn",
+			title: "Спойлер"
+		})
+
+		let deleteIcon = createElement("img", {
+			className: "icon",
+			src: "/static/icons/material-design/ic_delete_24px.svg"
+		}), nsfwIcon = createElement("img", {
+			className: "icon",
+			src: "/static/icons/material-design/ic_visibility_24px.svg"
 		})
 
 		deleteButton.onclick = this.fInputCrossClickHandler
 		nsfwButton.onclick = this.toggleNSFW
+		deleteButton.appendChild(deleteIcon)
+		nsfwButton.appendChild(nsfwIcon)
 		target.appendChild(deleteButton)
 		target.appendChild(nsfwButton)
 	},
@@ -212,7 +225,7 @@ const replyForm = {
 		let checkbox = sel(`#fileInputs #nsfwFile-${this.parentNode.htmlFor.match(/[0-9]+/)[0]}`)
 
 		checkbox.click()
-		this.innerText = `visibility${checkbox.checked ? "_off" : ""}`
+		sel("img", this).src = `/static/icons/material-design/ic_visibility${checkbox.checked ? "_off" : ""}_24px.svg`
 	},
 
 	submitPost: async function(event) {

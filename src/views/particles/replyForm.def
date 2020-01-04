@@ -1,7 +1,9 @@
 <div id="replyFormWrapper">
 	<div class="widgetHandle">
 		<span>{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}</span>
-		<button class="material-icons" onclick="replyForm.toggleFloating()">close</button>
+		<a class="btn" onclick="replyForm.toggleFloating()" title="Открепить/Прикрепить">
+			<img class="icon desktopOnly" src="/static/icons/material-design/ic_drag_handle_24px.svg">
+		</a>
 	</div>
 
 	<form id="replyForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">
@@ -10,10 +12,14 @@
 		<input type="hidden" id="threadNumber" name="threadNumber" value="{{? it.thread}}{{=it.thread.number}}{{? }}">
 
 		<input type="checkbox" name="sage" id="sageCheckbox" hidden>
-		<label for="sageCheckbox" class="btn material-icons">arrow_downward</label>
+		<label for="sageCheckbox" class="btn" title="Sage!">
+			<img class="icon" src="/static/icons/material-design/ic_arrow_downward_24px.svg">
+		</label>
 
 		<input type="checkbox" name="op" id="opCheckbox" hidden>
-		<label for="opCheckbox" class="btn">ОП</label>
+		<label for="opCheckbox" class="btn" title="ОП">
+			<img class="icon" src="/static/icons/material-design/ic_person_24px.svg">
+		</label>
 
 		<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
 
@@ -27,12 +33,16 @@
 					<input type="file" name="file[{{=i}}]">
 
 					<input type="checkbox" hidden name="fileRating[{{=i}}]" id="fileRating{{=i}}">
-					<label class="btn material-icons" for="fileRating{{=i}}">visibility_off</label>
+					<label class="btn" for="fileRating{{=i}}" title="Спойлер">
+						<img class="icon" src="/static/icons/material-design/ic_visibility_off_24px.svg">
+					</label>
 				</div>
 			{{ } }}
 		</div>
 
-		<button id="submit" class="material-icons">send</button>
+		<a class="btn" id="submit" title="Отправить">
+			<img class="icon" src="/static/icons/material-design/ic_send_24px.svg">
+		</a>
 
 		<div id="usefulInfo">
 			<div>
@@ -50,17 +60,17 @@
 				<table>
 					<tr>
 						<td>**жирный**</td>
-						<td class="material-icons">arrow_right</td>
+						<td><img class="icon" src="/static/icons/material-design/ic_chevron_right_24px.svg"></td>
 						<td><b>жирный</b></td>
 					</tr>
 					<tr>
 						<td>*курсив*</td>
-						<td class="material-icons">arrow_right</td>
+						<td><img class="icon" src="/static/icons/material-design/ic_chevron_right_24px.svg"></td>
 						<td><i>курсив</i></td>
 					</tr>
 					<tr>
 						<td>%%спойлер%%</td>
-						<td class="material-icons">arrow_right</td>
+						<td><img class="icon" src="/static/icons/material-design/ic_chevron_right_24px.svg"></td>
 						<td><span class="spoiler">спойлер</span></td>
 					</tr>
 				</table>

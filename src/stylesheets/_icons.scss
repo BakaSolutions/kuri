@@ -1,0 +1,28 @@
+.icon{
+	filter: invert(69%);
+	vertical-align: top;
+	height: 100%;
+}
+
+#navbar .icon{
+	height: 55%;
+}
+
+#replyForm{
+	.icon{
+		height: 120%;
+	}
+
+	.fancyFileInput .icon, #submit .icon{
+		height: 69%;
+	}
+
+	.fancyFileInput.hasFile > .icon{
+		display: none;
+	}
+}
+
+
+.post .icon{
+	cursor: pointer;
+}
