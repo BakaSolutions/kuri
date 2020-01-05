@@ -283,26 +283,36 @@ const replyForm = {
 				notifications.remove(ntf)
 
 				if (xhr.status === 200) {
-					let r = JSON.parse(xhr.response)
+					let { message, boardName, threadNumber, number } = xhr.response
 					
 					rF.resetForm()
-					asyncLoadPage(`/${r.boardName}/res/${r.threadNumber}.html#${r.number}`)
-					marker.toggleMark(r.boardName, r.threadNumber, r.number.toString(), "own")
+					asyncLoadPage(`/${boardName}/res/${r.threadNumber}.html#${number}`)
+					marker.toggleMark(boardName, threadNumber, number.toString(), "own")
 
 					notifications.add({
-						text: r.message,
+						text: message,
 						timeout: 10000,
 						class: "notification"
 					})
 				} else{
+					let { response: {message, error}, status } = xhr
+					let errorText = error || status
+					if (message instanceof Object) {
+						let errors = [];
+						for (let key of Object.keys(message)) {
+							errors.push("&mdash; " + message[key])
+						}
+						errorText += ":<br/>" + errors.join("<br/>")
+					}
 					notifications.add({
-						text: `Ошибка постинга: ${xhr.status}`,
+						text: `Ошибка постинга:<br/>${errorText}`,
 						timeout: 10000,
 						class: "error"
 					})
 				}
 			}
 
+			xhr.responseType = 'json'
 			xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
 			xhr.withCredentials = true
 			xhr.send(data)

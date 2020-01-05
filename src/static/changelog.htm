@@ -21,32 +21,32 @@
 			list-style: none;
 		}
 
+		li::before{
+			width: 4em;
+			display: inline-block;
+		}
+
 		.deadMNGO::before{
 			content: "🥭";
-			padding-right: 1.2em;
 		}
 
 		.deadMNGO.anon::before{
 			content: "🥭 👔";
-			padding-right: 0;
 		}
 
 		.rngnrs::before{
 			content: "🦊";
-			padding-right: 1.2em;
 		}
 
 		.question::before{
 			content: "❓";
-			padding-right: 1.2em;
 		}
 
 		.rngnrs.deadMNGO:before{
 			content: "🦊 🥭";
-			padding-right: 0;
 		}
 
-		li::before, time{
+		time{
 			margin-right: .5em;
 		}
 
@@ -99,6 +99,7 @@
 		<h1>Последние изменения</h1>
 		<ul>
 			<h4>2020</h4>
+			<li class="rngnrs"><time>5 Янв.</time>Показ ошибки при неудачной отправке поста</li>
 			<li class="deadMNGO anon"><time>4 Янв.</time>Рыбное автообновление страницы</li>
 			<li class="rngnrs deadMNGO"><time>2 Янв.</time>Улучшенная пагинация и разметка, исправления багов</li>
 			<h4>2019</h4>
