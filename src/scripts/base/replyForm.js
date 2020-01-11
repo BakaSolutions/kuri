@@ -286,7 +286,7 @@ const replyForm = {
 					let { message, boardName, threadNumber, number } = xhr.response
 					
 					rF.resetForm()
-					asyncLoadPage(`/${boardName}/res/${r.threadNumber}.html#${number}`)
+					asyncLoadPage(`/${boardName}/res/${threadNumber}.html#${number}`)
 					marker.toggleMark(boardName, threadNumber, number.toString(), "own")
 
 					notifications.add({
