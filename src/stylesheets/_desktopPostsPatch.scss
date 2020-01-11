@@ -1,8 +1,4 @@
 .thread {
-	&:not(:nth-last-child(2)){
-		margin-bottom: var(--gap);
-	}
-
 	&:not(.feed) > :not(:first-child){
 		margin-left: 1.5rem;
 	}

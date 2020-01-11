@@ -20,14 +20,15 @@
 				</div>
 			</header>
 
-			{{#def['particles/replyForm']}}
-
 			<div class="thread">
 				{{ let thread = it.thread; }}
 				{{~thread.posts :post}}
 					{{#def['particles/post']}}
 				{{~ }}
 			</div>
+
+			{{#def['particles/replyForm']}}
+			
 			<a name="bottom"></a>
 		</main>
 

@@ -357,7 +357,9 @@ const replyForm = {
 
 		this.state = !this.state
 
-		window.scrollBy(0, document.body.clientHeight - height)
+		if (location.pathname.split("/")[2] != "res"){ // On thread page, compensation not needed
+			window.scrollBy(0, document.body.clientHeight - height)
+		}
 	},
 
 	quickReply: function(element) {
