@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
-
 :root{
 	--gap: 1vmin;
 
@@ -28,7 +26,7 @@ body{
 	display: flex;
 	margin: 0;
 
-	font-family: 'Noto Sans', sans-serif;
+	font-family: "Noto Sans", "Lucida Grande", "Roboto", "Helvetica Neue", Arial, sans-serif;
 	color: var(--primaryTextColor);
 }
 
@@ -153,6 +151,5 @@ button, input, textarea{
 	top: 2em;
 	left: -10em;
 
-	font-family: 'Noto Sans', sans-serif;
 	font-size: 1.3rem;
 }
