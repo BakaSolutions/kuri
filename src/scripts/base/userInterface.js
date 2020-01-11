@@ -179,7 +179,7 @@ function initInterface(update) {
 	time.recalculate(...document.querySelectorAll("main .postDetails time"))
 
 	if (!storage.get("settings.showMarkupCheatSheet")){
-		document.querySelector("#usefulInfo > div:last-child").remove()
+		document.querySelector("#usefulInfo > div:last-child").hidden = true
 	}
 
 	if (DEVICE == "mobile"){
