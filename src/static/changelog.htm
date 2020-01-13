@@ -12,9 +12,9 @@
 			font-family: sans;
 			color: #cccccc;
 			
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 12em 1fr;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 
 		ul{
@@ -76,6 +76,15 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			margin: 2em 0;
+		}
+
+		ul{
+			margin: 0
+		}
+
+		h4:first-child{
+			margin-top: 0
 		}
 
 	</style>
@@ -95,6 +104,10 @@
    //___\/___\/\      \
               \.___.-. |
 	</pre>
+	<section>
+		<h1>Запланированные изменения</h1>
+		<a target="_blank" href="https://docs.google.com/spreadsheets/d/1fn81vcFqh9pEsGsZ-OEJB1QekbsV11zhqZW88_fw8GU/edit?usp=sharing">Список фичреквестов и багтрекер доступны по ссылке</a>
+	</section>
 	<section>
 		<h1>Последние изменения</h1>
 		<ul>
@@ -143,19 +156,6 @@
 			<li class="deadMNGO"><time>04 Авг.</time>Пересчет времени в постах на локальное и относительное</li>
 			<li class="deadMNGO"><time>03 Авг.</time>Исправление разнообразных багов интерфейса</li>
 			<li class="deadMNGO"><time>02 Авг.</time>Улучшенные поля для прикрепления файлов</li>
-		</ul>
-	</section>
-	<section>
-		<h1>Запланированные изменения</h1>
-		<ul>
-			<h4>Приоритет: высокий</h4>
-			<li class="rngnrs">Система модерации</li>
-			<li class="rngnrs">Поддержка бамп- и тредлимитов</li>
-			<li class="deadMNGO">Новая главная</li>
-			<h4>Приоритет: средний</h4>
-			<li class="rngnrs">Вывод ошибок</li>
-			<h4>Приоритет: низкий</h4>
-			<li class="rngnrs">Плейлисты для аудиоплеера</li>
 		</ul>
 	</section>
 </body>
