@@ -17,7 +17,7 @@
 			{{? file.duration }}<span>{{!file.duration}}</span>{{?}}
 		</div>
 	{{?? }}
-		{{? file.mime.split('/')[0] === "audio" }}<span class="material-icons">music_note</span>{{? }}
+		{{? file.mime.split('/')[0] === "audio" }}<img class="icon" src="/static/icons/material-design/ic_music_note_24px.svg">{{? }}
 		{{!file.name}} 
 		<span>{{!file.size}}</span>
 	{{? }}
