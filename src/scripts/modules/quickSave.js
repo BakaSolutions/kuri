@@ -16,7 +16,7 @@ const quickSave = {
 		stopRightThereCriminalScum(event)
 
 		let a = event.target.parentNode.parentNode,
-			name = a.dataset.name,
+			name = `tumba.ch_${a.dataset.name}`,
 			uri = a.href
 
 		fetch(uri)
