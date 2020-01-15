@@ -1,45 +1,45 @@
 const quickSave = {
 	addLink: (target) => {
-		let info = sel("div:last-child", target)
-
-		if(!sel(".dlLink", info)){
-			let downloadButton = createElement("a", {
-				className: "material-icons dlLink",
-				onclick: quickSave.load,
-				innerText: "save_alt"
+		let meta = target.parentNode.querySelector(".imageMeta")
+		if (meta.querySelector(".icon") === null) {
+			let button = createElement("img", {
+				className: "icon",
+				src: "/static/icons/material-design/ic_save_alt_24px.svg",
+				onclick: quickSave.load
 			})
 
-			info.appendChild(downloadButton)
+			meta.appendChild(button)
 		}
 	},
 
 	load: (event) => {
-		event.preventDefault()
+		stopRightThereCriminalScum(event)
 
 		let a = event.target.parentNode.parentNode,
 			name = a.dataset.name,
 			uri = a.href
-		
+
 		fetch(uri)
-			.then(response => {
+			.then((response) => {
 				if (response.status == 200) {
 					return response.blob()
-						.then(data => {
+						.then((data) => {
 							let link = createElement("a", {
 								href: window.URL.createObjectURL(data),
 								download: name,
 								hidden: 1
 							})
 
-							document.body.appendChild(link) // Фаерфокс не реагирует на .click(), 
-							link.click()					// если ссылки нет в DOMе
+							// Firefox doesn't react click event if link is not in DOM
+							document.body.appendChild(link)
+							link.click()
 							document.body.removeChild(link)
 						})
+				} else {
+					throw response.status
 				}
-
-				throw response.status
 			})
-			.catch(err => {
+			.catch((error) => {
 				console.log(err)
 				
 				ntf = notifications.add({
@@ -52,10 +52,7 @@ const quickSave = {
 }
 
 document.addEventListener("mouseover", (event) => {
-	try{
-		let target = event.target.parentNode
-		if (target.parentNode.className == "thumbnails") quickSave.addLink(target)
-	} catch(error){
-		// ...
+	if (["thumbnail", "missingThumbnail", "imageMeta"].includes(event.target.className)){
+		quickSave.addLink(event.target)
 	}
 })

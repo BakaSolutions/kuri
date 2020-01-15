@@ -1,7 +1,7 @@
 <a href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" data-name="{{!file.name}}" data-mime="{{=file.mime}}" onclick="handleAttachmentClick(event)">
 	{{? /^(image|video)/.test(file.mime)}}
 		{{? file.thumb}}
-			<div style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></div>
+			<div class="thumbnail" style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></div>
 		{{?? }}
 			<div class="missingThumbnail">
 				{{? file.nsfw}}
@@ -12,7 +12,7 @@
 			</div>
 		{{? }}
 
-		<div>
+		<div class="imageMeta">
 			<span>{{!file.size}}</span>
 			{{? file.duration }}<span>{{!file.duration}}</span>{{?}}
 		</div>
