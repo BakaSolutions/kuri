@@ -9,11 +9,9 @@
 	display: none;
 }
 
-button, .btn{
-	&:hover{
-		cursor: default;
-		background-color: var(--buttonHoverColor);
-	}
+.btn:hover{
+	cursor: default;
+	background-color: var(--buttonHoverColor);
 }
 
 header{
@@ -31,9 +29,9 @@ a:hover{
 @import "_main";
 
 main{
-	// margin-right: calc(3.5rem + 2 * var(--gap));
 	transition: margin var(--animationDuration);
 	padding-bottom: var(--gap);
+	width: 50em;
 }
 
 @import "_defaultTheme";
@@ -131,6 +129,7 @@ main{
 	flex-direction: column;
 
 	height: 100vh;
+	right: calc(50vw - 25em - 3.5rem - 2 * var(--gap));
 
 	& > div{
 		flex-direction: column;
@@ -143,12 +142,6 @@ main{
 }
 
 @import "_sidebar";
-
-// Sidebar hiding
-// #hideSidebarCheckbox:checked ~ main {
-// 	margin-left: var(--gap);
-// }
-
 @import "_notifications";
 
 #notificationsContainer .notification{

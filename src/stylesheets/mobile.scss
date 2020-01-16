@@ -1,21 +1,9 @@
-$navBarHeight: 60px;
-
-:root{
-	--sidebarWidth: calc(100vw / 3 * 2 + 0.5 * var(--gap));
-}
+$navbarButtonsCount: 6;
 
 @import "_base";
 
-html{
-	overflow-x: hidden;
-}
-
-body{
-	overflow-x: auto;
-}
-
 main{
-	padding-bottom: calc(#{$navBarHeight} - .4em);
+	padding-bottom: calc(100vw / #{$navbarButtonsCount} + var(--gap));
 	width: 100vw;
 }
 
@@ -26,10 +14,6 @@ main{
 @import "_main";
 @import "_defaultTheme";
 @import "_posts";
-
-.thread:not(:nth-last-child(2)){
-	margin-bottom: calc(var(--gap) * 2);
-}
 
 .post{
 	padding: var(--gap);
@@ -80,34 +64,32 @@ main{
 
 #navbar{
 	background-color: var(--backgroundColor);
-	flex-direction: row;
 	bottom: 0;
 	z-index: 600;
 
-	height: $navBarHeight;
 	width: 100vw;
-
-	& > div{
-		width: 50%;
-	}
+	justify-content: center;
 
 	.btn{
-		width: 100%;
+		height: calc(100vw / #{$navbarButtonsCount} - var(--gap));
+		width: calc(100vw / #{$navbarButtonsCount} - var(--gap));
 	}
 }
 
-@import "_sidebar";
+#sidebar{
+	display: none;
+}
 @import "_pagination";
 @import "_notifications";
 @import "_widgets";
 
 .widgetBox{
-	height: calc(100vh - #{$navBarHeight});
+	height: calc(100vh - 100vw / #{$navbarButtonsCount} - var(--gap));
 	width: 100vw;
 }
 
 #deletePosts{
-	bottom: calc(#{$navBarHeight});
+	bottom: calc(100vw / #{$navbarButtonsCount} + var(--gap));
 }
 
 @import "_replyForm.scss";
@@ -125,8 +107,8 @@ main{
 	}
 
 	&.floating{
-		bottom: calc(#{$navBarHeight} - var(--gap));
-		border: var(--gap) solid var(--backgroundColor);
+		bottom: calc(100vw / #{$navbarButtonsCount});
+		border-top: var(--gap) solid var(--backgroundColor);
 		left: 0;
 	}
 

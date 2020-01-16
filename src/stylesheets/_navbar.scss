@@ -2,13 +2,9 @@
 	padding: var(--gap) 0;
 
 	position: fixed;
-	right: calc(50vw - 25em - 3.5rem - 2 * var(--gap));
 
 	&, & > div{
 		display: flex;
-	}
-
-	& > div{
 		gap: var(--gap);
 	}
 
