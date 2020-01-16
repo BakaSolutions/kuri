@@ -32,7 +32,7 @@
 		}
 	}
 
-	margin-top: calc(var(--gap)/ 2);
+	margin-top: var(--gap);
 	border-radius: var(--borderRadius);
 	background-color: var(--primaryCardColor);
 
@@ -52,7 +52,7 @@
 		padding-top: calc(var(--gap) / 2);
 
 		grid-template-rows: $narrowLineHeight 1fr auto;
-		grid-gap: calc(var(--gap) / 2);
+		grid-gap: var(--gap);
 
 		input[name="subject"]{
 			min-width: 10em;
