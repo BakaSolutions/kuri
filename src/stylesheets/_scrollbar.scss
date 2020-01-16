@@ -1,12 +1,8 @@
 ::-webkit-scrollbar {
-  background-color: var(--backgroundColor);
-  padding-left: 10px;
-  position: fixed;
-  width: 12px;
+	background-color: var(--backgroundColor);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--primaryCardColor);
-  border: 1px solid var(--borderColor);
-  box-shadow: var(--boxShadow);
+	background-color: var(--secondaryCardColor);
+	border-radius: .3em;
 }
