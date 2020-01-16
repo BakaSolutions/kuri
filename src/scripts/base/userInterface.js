@@ -182,9 +182,7 @@ function initInterface(update) {
 		time.recalculate(...document.querySelectorAll("main .postDetails time"))
 	}
 
-	if (DEVICE == "mobile"){
-		sel("a[name=top]").scrollIntoView()
-	} else if(!update && DEVICE == "desktop"){
+	if(!update && DEVICE == "desktop"){
 		media.init()
 
 		// Только на время беты
