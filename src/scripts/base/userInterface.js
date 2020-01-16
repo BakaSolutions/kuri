@@ -173,10 +173,10 @@ function initInterface(update) {
 		INITIALIZED_SCRIPTS.push("replyForm")
 	}
 
-	if (sel(".noThreads")) return
-
-	marker.init()
-	time.recalculate(...document.querySelectorAll("main .postDetails time"))
+	if (!sel(".noThreads")){
+		marker.init()
+		time.recalculate(...document.querySelectorAll("main .postDetails time"))
+	}
 
 	if (DEVICE == "mobile"){
 		sel("a[name=top]").scrollIntoView()
