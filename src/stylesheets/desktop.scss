@@ -4,29 +4,139 @@
 }
 
 @import "_base";
+
+.mobileOnly{
+	display: none;
+}
+
+button, .btn{
+	&:hover{
+		cursor: default;
+		background-color: var(--buttonHoverColor);
+	}
+}
+
+header{
+	cursor: default;
+}
+
+a, .pseudoLink{
+	cursor: pointer;
+}
+
+a:hover{
+	color: var(--linkHoverColor)
+}
+
+@import "_main";
+
+main{
+	// margin-right: calc(3.5rem + 2 * var(--gap));
+	transition: margin var(--animationDuration);
+	padding-bottom: var(--gap);
+}
+
 @import "_defaultTheme";
-@import "_desktopBasePatch";
 @import "_musicPlayer";
 @import "_scrollbar";
 @import "_pagination";
 @import "_posts";
-@import "_desktopPostsPatch";
-@import "_navBar";
+
+.thread {
+	&:not(.feed) > :not(:first-child){
+		margin-left: 1.5rem;
+	}
+}
+
+.postDetails{
+	cursor: default;
+
+	input[id|="delete"], input[id|="star"]{
+		&:hover + label{
+			opacity: .6;
+		}
+	}
+
+	time{
+		right: 0;
+	}
+}
+
+.postCount{
+	font-size: .9em;
+}
+
+.postLink{
+	position: relative;
+
+	&:not(:hover) .post{
+		display: none;
+	}
+
+	&:hover .post{
+		padding: calc(var(--gap)/ 2) var(--gap);
+		position: absolute;
+		z-index: 999;
+		left: 1em;
+		top: 1em;
+
+		background-color: var(--buttonOverColor);
+		border: 1px solid var(--backgroundColor);
+		color: var(--primaryTextColor);
+		width: 50vw;
+	}
+}
+
+.thumbnails{
+	& > a{
+		div{
+			transition: opacity var(--animationDuration);
+
+			max-height: 16rem;
+			max-width: 16rem;
+
+			span{
+				pointer-events: none;
+			}
+
+			&.missingThumbnail{
+				width: 256px;
+				height: 200px;
+			}
+
+			&:not(:first-child){
+				font-size: 1rem;
+				opacity: 0;
+			}
+		}
+
+		&:hover div:not(:first-child){
+			opacity: .8;
+		}
+	}
+}
+
+.attachments a{
+	margin: var(--gap) 0;
+}
+
+#hideImagesCheckbox:checked ~ main .thumbnails > :not(:hover) > :first-child{
+	opacity: .3;
+}
+
+@import "_navbar";
 
 #navbar{
 	justify-content: space-between;
 	flex-direction: column;
 
 	height: 100vh;
-	right: 0;
 
 	& > div{
 		flex-direction: column;
 	}
 
 	.btn, button{
-		font-size: 1.5rem;
-
 		height: 3.5rem;
 		width: 3.5rem;
 	}
@@ -35,9 +145,9 @@
 @import "_sidebar";
 
 // Sidebar hiding
-#hideSidebarCheckbox:checked ~ main {
-	margin-left: var(--gap);
-}
+// #hideSidebarCheckbox:checked ~ main {
+// 	margin-left: var(--gap);
+// }
 
 @import "_notifications";
 
@@ -54,7 +164,139 @@
 }
 
 @import "_widgets";
-@import "_desktopWidgetsPatch";
+
+.widgetBox{
+	min-width: 30vw;
+	min-height: 50vh;
+
+	border-radius: var(--borderRadius);
+}
+
+#settings{
+	@include user-select(none);
+
+	.tabs{
+		display: flex;
+
+		span{
+			border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+			padding: calc(var(--gap) / 2) var(--gap);
+			text-align: center;
+			width: 100%;
+
+			&:not(.active){
+				background-color: var(--primaryCardColor);
+				cursor: pointer;
+			}
+		}
+	}
+
+	[data-tab]{
+		border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+		background-color: var(--backgroundColor);
+		padding: var(--gap);
+
+		> div{
+			justify-content: space-between;
+			align-items: center;
+			display: flex;
+			line-height: 1.75em;
+		}
+	}
+
+	input[type="text"], input[type="password"]{
+		background-color: var(--secondaryCardColor);
+		margin-left: var(--gap);
+		width: 10em;
+	}
+
+	[type="checkbox"]{
+		-webkit-appearance: none;
+		-moz-appearance: none;
+
+		background-color: var(--secondaryCardColor);
+		border-radius: .5em;
+		cursor: pointer;
+		width: 2.5em;
+		height: .8em;
+		margin: 0;
+
+		position: relative;
+
+		&::after{
+			content: "";
+			position: absolute;
+			top: -.2em;
+
+			display: block;
+			height: 1.2em;
+			width: 1.2em;
+
+			background-color: var(--linkHoverColor);
+			border-radius: 50%;
+
+			transition: right var(--animationDuration);
+			right: 1.3em;
+		}
+
+		&:checked::after{
+			right: 0;
+		}
+	}
+}
+
+#mediaViewer{
+	z-index: 2001;
+
+	.widgetBox{
+		min-height: auto;
+		min-width: auto;
+		border: none;
+
+		background-color: var(--backgroundColor);
+		background-image: url(/static/transparency.png); 
+
+		&.is-pointer-down{
+			cursor: move;
+		}
+
+		img, video{
+			vertical-align: middle;
+			max-width: 80vw;
+			max-height: 80vh;
+			border-radius: inherit;
+		}
+	}
+
+	.mediaInfo{
+		position: absolute;
+		bottom: 1em;
+		z-index: 1;
+		left: 0;
+
+		background-color: var(--primaryCardColor);
+		padding: .5em 1em;
+		opacity: .9;
+
+		border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+	}
+
+	&.audio{
+		.widgetBox{
+			position: relative;
+		}
+
+		audio{
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+		}
+	}
+}
+
+#deletePosts{
+	bottom: 0;
+}
 
 @import "_replyForm.scss";
 

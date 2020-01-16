@@ -1,5 +1,5 @@
 :root{
-	--gap: 1vmin;
+	--gap: 0.50rem;
 
 	--deletionIconsDisplay: none;
 }
@@ -28,6 +28,8 @@ body{
 
 	font-family: "Noto Sans", "Lucida Grande", "Roboto", "Helvetica Neue", Arial, sans-serif;
 	color: var(--primaryTextColor);
+
+	align-items: center;
 }
 
 header{
@@ -79,20 +81,8 @@ a{
 	}
 }
 
-main{
-	background-color: var(--backgroundColor);
-	margin-left: var(--sidebarWidth);
-	box-shadow: var(--boxShadow);
-
-	flex-direction: column;
-	display: flex;
-	z-index: 500;
-
-	min-height: 100vh;
-}
-
 // Buttons
-.btn, button{
+.btn{
 	justify-content: center;
 	align-items: center;
 	display: flex;
@@ -103,8 +93,6 @@ main{
 	color: var(--primaryTextColor) !important;
 	transition: background-color var(--animationDuration);
 	background-color: var(--buttonOverColor);
-	/*border: 1px solid var(--borderColor);*/
-	border: none;
 	border-radius: var(--borderRadius);
 
 	@include user-select(none);

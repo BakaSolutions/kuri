@@ -1,0 +1,12 @@
+main{
+	background-color: var(--backgroundColor);
+	/*margin-left: var(--sidebarWidth);*/
+	box-shadow: var(--boxShadow);
+
+	flex-direction: column;
+	display: flex;
+	z-index: 500;
+
+	min-height: 100vh;
+	width: 50em;
+}

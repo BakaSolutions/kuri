@@ -1,14 +1,15 @@
 #navbar{
-	padding: calc(var(--gap) / 2);
+	padding: var(--gap) 0;
 
 	position: fixed;
+	right: calc(50vw - 25em - 3.5rem - 2 * var(--gap));
 
 	&, & > div{
 		display: flex;
 	}
 
-	.btn, button{
-		margin: calc(var(--gap) / 2);
+	& > div{
+		gap: var(--gap);
 	}
 
 	.active{

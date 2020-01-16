@@ -1,6 +1,11 @@
 @import "_markup";
 
 .thread{
+	gap: var(--gap);
+	display: flex;
+	flex-direction: column;
+	margin-top: var(--gap);
+
 	.postCount{
 		color: var(--secondaryTextColor);
 		padding-left: var(--gap);
@@ -12,10 +17,6 @@
 		position: relative;
 		background-color: var(--primaryCardColor);
 		padding: 0 var(--gap) var(--gap) var(--gap);
-	}
-
-	& > * {
-		margin-top: calc(var(--gap) / 2);
 	}
 
 	&:not(.feed){

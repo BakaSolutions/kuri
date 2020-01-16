@@ -1,15 +1,16 @@
 #sidebar{
-	@include user-select(none);
-
 	flex-direction: column;
 	width: var(--sidebarWidth);
 	height: 100vh;
-	padding: 10px var(--gap);
 	position: fixed;
+
+	text-align: right;
+
+	left: calc(50vw - 25em - var(--sidebarWidth) - 2 * var(--gap));
+	width: var(--sidebarWidth);
 
 	#logo h2{
 		color: var(--primaryTextColor);
-		text-align: center;
 		margin: .3em 0;
 	}
 
