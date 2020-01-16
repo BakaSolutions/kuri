@@ -341,17 +341,10 @@ const replyForm = {
 			this.state = !value
 		}
 
-		let usefulInfo = sel("#usefulInfo")
-
 		if (this.state){
 			if (DEVICE == "desktop") this.dragElement.reset()
-
-			sel("#replyForm").appendChild(usefulInfo)
-
 			this.wrapper.classList.remove("floating")
 		} else{
-			sel("main").insertBefore(usefulInfo, this.wrapper);
-
 			this.wrapper.classList.add("floating")
 		}
 

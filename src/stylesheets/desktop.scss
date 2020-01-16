@@ -332,7 +332,7 @@ main{
 
 	&:not(.floating){
 		#replyForm{
-			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth) calc(3 * var(--buttonWidth)) 1fr;
+			grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
 		}
 
 		.widgetHandle button{
@@ -342,6 +342,7 @@ main{
 
 	textarea{
 		height: 100%;
+		min-height: 10em;
 		max-height: 50vh;
 	}
 }

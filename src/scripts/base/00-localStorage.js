@@ -160,8 +160,7 @@ const storage = new Storage({
       	words: "",
       	regexp: ""
       },
-      superSpoiling: false,
-      showMarkupCheatSheet: true
+      superSpoiling: false
     },
     addons: {
       themes: false,

@@ -9,11 +9,6 @@
 		opacity: .8;
 	}
 
-	&:not(.floating) #usefulInfo{
-		grid-column: 5/7;
-		grid-row: 1/5;
-	}
-
 	.widgetHandle{
 		@include user-select(none);
 		justify-content: center;

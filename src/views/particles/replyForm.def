@@ -43,38 +43,5 @@
 		<a class="btn" id="submit" title="Отправить">
 			<img class="icon" src="/static/icons/material-design/ic_send_24px.svg">
 		</a>
-
-		<div id="usefulInfo">
-			<div>
-				<h3>Правила:</h3>
-				<ul>
-					<li>Любого рода вайп, флуд, спам, панк и прочий мусорный постинг запрещен.</li>
-					<li>Авторы постов, нарушающих законодательство РФ, караются вне очереди.</li>
-					<li>Посты, ставшие причиной жалоб пользователей, будут рассмотрены отдельно.</li>
-					<li>Анонимность гарантируется, понимание и поддержка — нет.</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3>Разметка:</h3>
-				<table>
-					<tr>
-						<td>**жирный**</td>
-						<td><img class="icon" src="/static/icons/material-design/ic_chevron_right_24px.svg"></td>
-						<td><b>жирный</b></td>
-					</tr>
-					<tr>
-						<td>*курсив*</td>
-						<td><img class="icon" src="/static/icons/material-design/ic_chevron_right_24px.svg"></td>
-						<td><i>курсив</i></td>
-					</tr>
-					<tr>
-						<td>%%спойлер%%</td>
-						<td><img class="icon" src="/static/icons/material-design/ic_chevron_right_24px.svg"></td>
-						<td><span class="spoiler">спойлер</span></td>
-					</tr>
-				</table>
-			</div>
-		</div>
 	</form>
 </div>

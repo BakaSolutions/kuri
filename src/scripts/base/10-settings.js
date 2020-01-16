@@ -55,8 +55,6 @@ const settings = {
 
 				settings.addOption("settings.autoUnspoil", "Раскрывать спойлеры", id)
 				settings.addOption("settings.superSpoiling", "Скрывать посты полностью", id)
-				settings.addOption("settings.showMarkupCheatSheet", "Показывать подсказку по разметке", id)
-
 
 				break
 			case "security":
