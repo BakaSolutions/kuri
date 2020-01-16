@@ -8,3 +8,38 @@ main{
 
 	min-height: 100vh;
 }
+
+header{
+	background-color: var(--primaryCardColor);
+	@include user-select(none);
+	padding: 0 var(--gap);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+
+	#title{
+		display: block;
+		padding: .3em 0;
+
+		& > *{
+			margin: 0;
+		}
+
+		h2{
+			color: var(--primaryTextColor);
+		}
+
+		h4{
+			font-weight: normal;
+		}
+	}
+
+	& > div{
+		display: flex;
+
+		& > :first-child{
+			position: relative;
+		}
+	}
+}
