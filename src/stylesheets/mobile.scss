@@ -71,6 +71,7 @@ main{
 	justify-content: center;
 
 	.btn{
+		margin: 0 calc(var(--gap) / 2);
 		height: calc(100vw / #{$navbarButtonsCount} - var(--gap));
 		width: calc(100vw / #{$navbarButtonsCount} - var(--gap));
 	}
@@ -107,7 +108,7 @@ main{
 	}
 
 	&.floating{
-		bottom: calc(100vw / #{$navbarButtonsCount});
+		bottom: calc(100vw / #{$navbarButtonsCount} + var(--gap));
 		border-top: var(--gap) solid var(--backgroundColor);
 		left: 0;
 	}
