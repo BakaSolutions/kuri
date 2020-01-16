@@ -5,6 +5,7 @@
 		<a class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_search_24px.svg"></a>
 		<a onclick="toggleWidget('favourite', initStarredList)" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_star_24px.svg"></a>
 		<a class="btn jsOnly desktopOnly" onclick="toggleWidget('settings', settings.init)"><img class="icon" src="/static/icons/material-design/ic_settings_24px.svg"></a>
+		<label for="wideViewCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_view_quilt_24px.svg"></label>
 	</div>
 	<div>
 		<a class="btn jsOnly desktopOnly" onclick="toggleAutoReload(this)"><img class="icon mirror" src="/static/icons/fish_13.svg"></a>

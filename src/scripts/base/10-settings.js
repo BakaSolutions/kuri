@@ -133,5 +133,6 @@ const settings = {
 document.addEventListener("settingsChange", (event) => {
 	if (event.detail.id == "settings.fullBoardTitles") {
 		document.body.style.setProperty("--fullBoardTitlesDisplay", event.detail.value ? "inline" : "none")
+		document.body.style.setProperty("--sidebarWidth", event.detail.value ? "14em" : "7em")
 	}
 })

@@ -1,6 +1,6 @@
 :root{
 	--widgetMinWidth: 450px;
-	--sidebarWidth: 20em;
+	--sidebarWidth: 14em;
 }
 
 @import "_base";
@@ -25,6 +25,24 @@ a, .pseudoLink{
 a:hover{
 	color: var(--linkHoverColor)
 }
+
+#wideViewCheckbox:checked{
+	& ~ #sidebar{
+		text-align: left;
+		left: var(--gap);
+	}
+
+	& ~ main{
+		position: absolute;
+		left: var(--sidebarWidth);
+		right: calc(var(--gap) * 2 + 3.5rem);
+		width: auto;
+	}
+
+	& ~ #navbar{
+		right: var(--gap);
+	}
+} 
 
 @import "_main";
 

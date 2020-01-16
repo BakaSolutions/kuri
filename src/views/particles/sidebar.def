@@ -1,6 +1,3 @@
-<input type="checkbox" id="hideSidebarCheckbox" hidden>
-<input type="checkbox" id="hideImagesCheckbox" hidden>
-
 <div id="sidebar">
 	<a href="/" id="logo"><h2>Тумбач</h2></a>
 
