@@ -23,6 +23,10 @@
 			vertical-align: super;
 			font-size: .8em;
 		}
+
+		.fullBoardTitle{
+			display: var(--fullBoardTitlesDisplay);
+		}
 	}
 
 	#JSInd{

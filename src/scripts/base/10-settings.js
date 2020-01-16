@@ -55,6 +55,7 @@ const settings = {
 
 				settings.addOption("settings.autoUnspoil", "Раскрывать спойлеры", id)
 				settings.addOption("settings.superSpoiling", "Скрывать посты полностью", id)
+				settings.addOption("settings.fullBoardTitles", "Показывать полные названия досок", id)
 
 				break
 			case "security":
@@ -62,10 +63,10 @@ const settings = {
 
 				break
 			case "addons":
-				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", 	id, 0, 1) // Последнее значение в вызове функции
+				settings.addOption("addons.quickSave", "Быстрое сохранение файлов", id, 0, 1) // Последнее значение в вызове функции
 				settings.addOption("addons.floatingPosts", "Плавающие посты", 		id, 0, 1) // Заставляет страницу автоматически 
-				settings.addOption("addons.musicPlayer", "Расширенный аудиоплеер", 			id, 0, 1) // Перезагружаться при изменении настройки
-				settings.addOption("addons.autoHide", "Автоскрытие", 					id, 0, 1)
+				settings.addOption("addons.musicPlayer", "Расширенный аудиоплеер", 	id, 0, 1) // Перезагружаться при изменении настройки
+				settings.addOption("addons.autoHide", "Автоскрытие", 				id, 0, 1)
 
 				break
 		}
@@ -96,7 +97,7 @@ const settings = {
 		for (let o in options) input[o] = options[o]
 
 		input.onchange = (event) => {
-			value = value || (typeof currentValue === "boolean" ? event.target.checked : event.target.value)
+			value = typeof currentValue === "boolean" ? event.target.checked : event.target.value
 			settings.set(id, value)
 
 			if (refresh){
@@ -128,3 +129,9 @@ const settings = {
 		storage.set(id, value)
 	}
 }
+
+document.addEventListener("settingsChange", (event) => {
+	if (event.detail.id == "settings.fullBoardTitles") {
+		document.body.style.setProperty("--fullBoardTitlesDisplay", event.detail.value ? "inline" : "none")
+	}
+})

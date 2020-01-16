@@ -163,6 +163,7 @@ function toggleWidget(widget, init) {
 
 function initInterface(update) {
 	document.body.style.setProperty("--animationDuration", `${storage.get("settings.animationLength")}s`)
+	document.body.style.setProperty("--fullBoardTitlesDisplay", storage.get("settings.fullBoardTitles") ? "inline" : "none")
 	
 	if (storage.get("settings.autoUnspoil")){
 		document.body.classList.add("noSpoilers")

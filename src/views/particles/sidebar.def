@@ -8,7 +8,7 @@
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
 			{{~group.boards.filter(function(board) { return !board.hidden; }) :board}}
 				<a href="{{=it.site.url.pathname}}{{!board.name}}/">
-					/{{!board.name}}/ — {{!board.title}}
+					/{{!board.name}}/<span class="fullBoardTitle"> — {{!board.title}}</span>
 				</a>
 			{{~ }}
 		{{~ }}
