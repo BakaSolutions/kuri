@@ -17,6 +17,9 @@ document.addEventListener("mouseover", (event) => {
 								let doc = (new DOMParser()).parseFromString(data, "text/html"),
 									post = sel(selector, doc).cloneNode(true)
 
+								marker.markPosts(post)
+								marker.markLinks(...post.querySelectorAll(".postLink"))
+
 								target.appendChild(post)
 							})
 					}
