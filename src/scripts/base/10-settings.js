@@ -105,7 +105,6 @@ const settings = {
 			} else{
 				input.dispatchEvent(new CustomEvent(`settingsChange`, { detail: {id, value}, bubbles: true }))
 			}
-			
 		}
 
 		wrapper.appendChild(input)
@@ -136,3 +135,7 @@ document.addEventListener("settingsChange", (event) => {
 		document.body.style.setProperty("--sidebarWidth", event.detail.value ? "14em" : "7em")
 	}
 })
+
+document.querySelector("#wideViewCheckbox").onchange = (event) => {
+	settings.set("settings.wideMode", event.target.checked)
+}

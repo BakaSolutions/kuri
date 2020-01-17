@@ -167,6 +167,10 @@ function initInterface(update) {
 		id: "settings.fullBoardTitles", 
 		value: storage.get("settings.fullBoardTitles")
 	}, bubbles: true }))
+
+	if(storage.get("settings.wideMode")){
+		document.querySelector("#wideViewCheckbox").click()
+	}
 	
 	if (storage.get("settings.autoUnspoil")){
 		document.body.classList.add("noSpoilers")

@@ -161,7 +161,8 @@ const storage = new Storage({
 				regexp: ""
 			},
 			superSpoiling: false,
-			fullBoardTitles: true
+			fullBoardTitles: true,
+			wideMode: false
 		},
 		addons: {
 			themes: false,
