@@ -18,7 +18,7 @@ const loader = {
 							break
 					}
 					
-					node.innerText = r
+					node.innerHTML = r
 					document.querySelector("head").appendChild(node)
 				})
 			} else {
