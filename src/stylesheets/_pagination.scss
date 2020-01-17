@@ -3,13 +3,13 @@
 	justify-content: center;
 	position: relative;
 	width: 100%;
-	gap: var(--gap);
 	margin-top: var(--gap);
 
 	.btn {
 		cursor: pointer;
 		height: 3.5rem;
 		width: 3.5rem;
+		margin: 0 calc(var(--gap) / 2);
 
 		&.selected {
 			background: var(--buttonHoverColor);
