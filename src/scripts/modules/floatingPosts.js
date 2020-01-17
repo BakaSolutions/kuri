@@ -19,6 +19,7 @@ document.addEventListener("mouseover", (event) => {
 
 								marker.markPosts(post)
 								marker.markLinks(...post.querySelectorAll(".postLink"))
+								time.recalculate(post.querySelector("time"))
 
 								target.appendChild(post)
 							})
