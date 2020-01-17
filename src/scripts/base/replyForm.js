@@ -46,10 +46,9 @@ const replyForm = {
 				let clipboard = (event.originalEvent || event).clipboardData
 				
 				if (clipboard.items !== undefined && clipboard.items.length > 0) {
-					for (item of clipboard.items) {
-						if (item.kind == "file") {
-							replyForm.pasteFile(item.getAsFile())
-						}
+					if (clipboard.items[0].kind == "file") {
+						stopRightThereCriminalScum(event)
+						replyForm.pasteFile(clipboard.items[0].getAsFile())
 					}
 				}
 			}, false)
