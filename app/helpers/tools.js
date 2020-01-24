@@ -180,15 +180,14 @@ tools.deepSet = (obj, path, value) => {
   return obj;
 };
 
-tools.parseDate = d => {
-  let months = ['Янв', 'Фев', 'Мар', 'Апр', 'Мая', 'Июня', 'Июля', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-  if (!(d instanceof Date)) d = new Date(d);
-
-  let date = d.getUTCDate(),
-      month = months[d.getUTCMonth()],
-      year = d.getUTCFullYear(),
-      hours = d.getUTCHours().toString().padStart(2, 0),
-      minutes = d.getUTCMinutes().toString().padStart(2, 0);
-
-  return `${date} ${month} ${year} ${hours}:${minutes} (UTC)`;
+tools.parseDate = (date) => {
+  return (new Date(date)).toLocaleDateString("ru-RU", {
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric',
+    timeZone: 'UTC',
+    timeZoneName: 'short'
+  })
 };
