@@ -1,15 +1,12 @@
 ### Kuri (栗)
-*next-gen client for next-gen engine*
-
-#### What is it?
-Kuri is a Web-client for the imageboard engine
-called [Foxtan](https://github.com/tumbach/foxtan).
+A web-client for [Foxtan](https://github.com/BakaSolutions/foxtan) imageboard engine.
 
 #### Installation
-````
-git clone https://github.com/tumbach/kuri
+```bash
+git clone https://github.com/BakaSolutions/kuri.git
 cd kuri
 npm run install:all
 npm run build
 npm start
-````
+```
+
