@@ -35,8 +35,9 @@
     "gulp": "latest",
     "gulp-clean-css": "latest",
     "gulp-concat": "latest",
-    "gulp-sass": "latest",
+    "gulp-sass": "^5.0.0",
     "gulp-uglify": "^3.0.2",
+    "node-sass": "^6.0.1",
     "uglify-es": "^3.3.9"
   },
   "engines": {

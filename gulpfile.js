@@ -1,8 +1,8 @@
 const gulp = require("gulp")
 const cleanCSS = require("gulp-clean-css")
-const gulpSASS = require("gulp-sass")
-const uglifyJS = require("uglify-es");
-const composer = require("gulp-uglify/composer");
+const gulpSASS = require("gulp-sass")(require("node-sass"))
+const uglifyJS = require("uglify-es")
+const composer = require("gulp-uglify/composer")
 const gulpConcat = require("gulp-concat")
 const Render = require("./app/helpers/render")
 
