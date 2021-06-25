@@ -1,0 +1,71 @@
+January 2020
+
+- Pagination and markdown improvements
+- Automatic page reloading option
+- Interface improvements
+- Bugfixes
+
+December 2019
+
+- Drag and drop attachments
+- Reply to thread from the board page
+- Save form state while navigating between the site pages
+- Interface improvements
+- Bugfixes
+
+July 2019
+
+- Bookmarks menu
+
+April 2019
+
+- Automatic post hiding option
+- Ctrl+V image attachments
+- Bugfixes
+
+February 2019
+
+- Counters for new posts
+- Interface improvements
+
+December 2018
+
+- Bugfixes
+
+November 2018
+
+- Feed pagination
+- Spoilers for attachments
+- Audio player is an optional module
+
+October 2018
+
+- Automatic spoiler revealing option
+- OP marks
+- Pagination
+- Feed page
+- Upload progress bar
+- Interface improvements
+
+September 2018
+
+- Zoom media attachments with a mouse wheel
+- Save image attachments in one click
+- Floating posts
+- Pinned threads
+- Markdown system improvements
+- Posting form improvements
+- Interface improvements
+
+August 2018
+
+- Preserve volume settings
+- An option to set your password in the settings menu
+- A brand new media viewer
+- Video length is shown on the preview
+- Module system
+- Own post indicators
+- Options to recalculate time to local and/or relative
+- Optimisations
+- Interface improvements
+- Bugfixes

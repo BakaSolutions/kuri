@@ -28,7 +28,7 @@ let badges = {
 	show: () => {
 		let seen = JSON.parse(localStorage.getItem("seenPosts")),
 			last = JSON.parse(localStorage.getItem("lastPosts"))
-		
+
 		if(seen !== null){
 			for(let board in seen){
 				let number = last[board] - seen[board],
@@ -87,7 +87,7 @@ function openPostMenu(event, data) {
 function handlePostMenuClick(event) {
 	let menu = event.target
 	if (menu.dataset.action) menu = menu.parentNode
-	
+
 	let data = menu.dataset
 	toggleWidget(menu)
 
@@ -150,9 +150,9 @@ function toggleStarMark(data) {
 function toggleWidget(widget, init) {
 	let element = widget instanceof HTMLElement ? widget : sel(`.widget#${widget}`)
 	if (init && !INITIALIZED_SCRIPTS.includes(widget)){
-		INITIALIZED_SCRIPTS.push(widget)	
+		INITIALIZED_SCRIPTS.push(widget)
 		init()
-	} 
+	}
 
 	if (element.hasAttribute("hidden")){
 		element.removeAttribute("hidden")
@@ -164,14 +164,14 @@ function toggleWidget(widget, init) {
 function initInterface(update) {
 	document.body.style.setProperty("--animationDuration", `${storage.get("settings.animationLength")}s`)
 	document.body.dispatchEvent(new CustomEvent("settingsChange", { detail: {
-		id: "settings.fullBoardTitles", 
+		id: "settings.fullBoardTitles",
 		value: storage.get("settings.fullBoardTitles")
 	}, bubbles: true }))
 
 	if(storage.get("settings.wideMode")){
 		document.querySelector("#wideViewCheckbox").click()
 	}
-	
+
 	if (storage.get("settings.autoUnspoil")){
 		document.body.classList.add("noSpoilers")
 	}
@@ -188,15 +188,6 @@ function initInterface(update) {
 
 	if(!update && DEVICE == "desktop"){
 		media.init()
-
-		// Только на время беты
-		setTimeout(() => {
-			notifications.add({
-				text: `Тестер! Не пропускай последние новости,<br>проверь нашу <a href="${this.location.origin}/static/changelog.htm">страницу с чейнджлогом</a>`,
-				class: "notification",
-				timeout: 30000
-			})
-		}, 10000)
 	}
 
 	badges.getNews()
@@ -208,15 +199,15 @@ initInterface()
 
 function showBoardInfo(name, bumpLimit, fileLimit){
 	notifications.add({
-		text: `${name}<br>Бамплимит: ${bumpLimit}<br>Максимум прикреплений: ${fileLimit}`, 
-		class: 'notification', 
+		text: `${name}<br>Бамплимит: ${bumpLimit}<br>Максимум прикреплений: ${fileLimit}`,
+		class: 'notification',
 		timeout: 10000
 	})
 }
 
 function handleAttachmentClick(event){
 	let { target, ctrlKey } = event
-	
+
 	if (!("mime" in target.dataset)) {
 		target = target.parentNode
 	}
@@ -250,7 +241,7 @@ function toggleAutoReload(button) {
 	let icon = sel("img", button)
 	if (icon.classList.contains("spin")) {
 		clearInterval(window.autoReload)
-		
+
 		icon.classList.remove("spin")
 	} else{
 		window.autoReload = setInterval(() => {
