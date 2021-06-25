@@ -23,7 +23,7 @@
   "homepage": "https://github.com/tumbach/kuri",
   "dependencies": {
     "dot": "^1.1.2",
-    "figurecon": "rngnrs/figurecon",
+    "figurecon": "rngnrs/figurecon#0.4.0",
     "koa": "^2.3.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
