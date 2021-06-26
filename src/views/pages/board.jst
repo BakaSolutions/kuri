@@ -4,7 +4,7 @@
 	<body>
 		<input type="checkbox" id="wideViewCheckbox" hidden>
 		<input type="checkbox" id="hideImagesCheckbox" hidden>
-		
+
 		{{#def["particles/sidebar"]}}
 		<main>
 			<a name="top"></a>
@@ -15,15 +15,12 @@
 				</a>
 
 				<div>
-					<a class="btn jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">
-						<img class="icon" src="/static/icons/material-design/ic_help_24px.svg">
-					</a>
 					<a class="btn" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
 						<img class="icon" src="/static/icons/material-design/ic_view_list_24px.svg">
 					</a>
 				</div>
 			</header>
-			
+
 			{{#def['particles/replyForm']}}
 
 			{{? !it.threads.length}}
@@ -50,8 +47,5 @@
 			<a name="bottom"></a>
 		</main>
 		{{#def["particles/navbar"]}}
-
-		{{#def["particles/widgets"]}}
-		{{#def["particles/notifications"]}}
 	</body>
 </html>

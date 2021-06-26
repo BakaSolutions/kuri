@@ -1,14 +1,12 @@
-body:not(.noSpoilers){
-	.spoiler{
-		transition: text-shadow var(--animationDuration), color var(--animationDuration); 
-		
-		&:not(:hover) {
-			text-shadow: 0 0 .3em var(--primaryTextColor);
+.spoiler {
+	transition: text-shadow var(--animationDuration), color var(--animationDuration);
 
-			&, * {
-				color: transparent;
-				background: transparent;
-			}
+	&:not(:hover) {
+		text-shadow: 0 0 .3em var(--primaryTextColor);
+
+		&, * {
+			color: transparent;
+			background: transparent;
 		}
 	}
 }

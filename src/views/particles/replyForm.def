@@ -1,9 +1,12 @@
 <div id="replyFormWrapper">
 	<div class="widgetHandle">
-		<span>{{? it.thread}}Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>{{?? }}Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>{{? }}</span>
-		<a class="btn" onclick="replyForm.toggleFloating()" title="Открепить/Прикрепить">
-			<img class="icon desktopOnly" src="/static/icons/material-design/ic_drag_handle_24px.svg">
-		</a>
+		<span>
+			{{? it.thread}}
+				Ответ в тред <span class="pseudoLink">#{{=it.thread.number}}</span>
+			{{?? }}
+				Создание треда в <span class="pseudoLink">/{{=it.board.name}}/</span>
+			{{? }}
+		</span>
 	</div>
 
 	<form id="replyForm" action="{{!it.foxtan.href}}api/v1/post.create" method="post" class="widgetContent">
@@ -22,12 +25,10 @@
 		</label>
 
 		<input name="subject" type="text" placeholder="{{? it.thread}}Имя{{?? }}Тема{{? }}">
-
 		<textarea name="text"></textarea>
+		<input type="password" name="password" placeholder="Пароль">
 
-		<input type="password" name="password" class="noJs" placeholder="Пароль">
-
-		<div id="fileInputs" data-filelimit="{{!it.board.fileLimit || 0}}">
+		<div id="fileInputs">
 			{{ for(let i = 0; i < it.board.fileLimit; i++){ }}
 				<div>
 					<input type="file" name="file[{{=i}}]">

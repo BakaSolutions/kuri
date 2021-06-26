@@ -1,42 +1,20 @@
-<article class="post" data-number="{{!post.number}}" data-board="{{!it.board.name}}" data-thread="{{!post.threadNumber}}" data-op="{{! post.number == post.threadNumber}}">
+<article class="post">
 	<div class="postDetails">
-		<!-- Удаление поста -->
-		<input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts" hidden>
-		<label for="delete-{{!it.board.name}}:{{!post.number}}" class="jsOnly" onclick="activatePostRemovalWidget()">
-			<img class="icon" src="/static/icons/material-design/ic_delete_24px.svg">
-		</label>
+		<!-- <input type="checkbox" id="delete-{{!it.board.name}}:{{!post.number}}" name="post" value="{{!it.board.name}}:{{!post.number}}" form="deletePosts"> -->
 
-		<!-- Сажа -->
 		{{? post.sage}}
 			<span><img class="icon" src="/static/icons/material-design/ic_arrow_downward_24px.svg"></span>
 		{{? }}
-		<!-- Закреплённый тред -->
 		{{? (post.number == post.threadNumber) && typeof thread !== 'undefined' && thread.pinned}}
 			<span><img class="icon" src="/static/icons/material-design/ic_pin_drop_24px.svg"></span>
 		{{? }}
 
-		<!-- Рефлинк -->
 		<a class="refLink" href="/{{!it.board.name}}/res/{{!post.threadNumber}}.html{{? post.number != post.threadNumber}}#{{!post.number}}">{{?? }}">{{? }}
 			<span class="subject">{{? post.subject}}{{!post.subject}}{{?? }}{{!it.board.defaultUsername || ''}}{{? }}</span> #{{!post.number}}
-
-			{{? post.op}}
-				<span class="opMark"> (OP)</span>
-			{{? }}
 		</a>
 
 		<a class="jumpToPost" name="{{!post.number}}"></a>
-
-		<!-- Дата -->
-		<time title="{{!post.createdAt}}">{{!post.formatted_date}}</time>
-
-		<!-- Меню -->
-		<span class="jsOnly" onclick="openPostMenu(event, this.parentNode.parentNode.dataset)"><img class="icon" src="/static/icons/material-design/ic_menu_24px.svg"></span>
-
-		<!-- Быстрый ответ -->
-		<span class="jsOnly" onclick="replyForm.quickReply(this)"><img class="icon" src="/static/icons/material-design/ic_reply_24px.svg"></span>
-
-		<!-- Закладки -->
-		<span class="star jsOnly" onclick="toggleStarMark(this.parentNode.parentNode.dataset)"><img class="icon" src="/static/icons/material-design/ic_star_24px.svg"></span>
+		<time>{{!post.formatted_date}}</time>
 	</div>
 	<div class="postBody">
 		{{? Array.isArray(post.files) && post.files.length}}

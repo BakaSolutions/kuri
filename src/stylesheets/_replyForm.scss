@@ -1,14 +1,4 @@
 #replyFormWrapper{
-	&.floating{
-		border: 1px solid var(--borderColor);
-		position: fixed !important;
-		z-index: 2000;
-	}
-
-	&.isDragged{
-		opacity: .8;
-	}
-
 	.widgetHandle{
 		@include user-select(none);
 		justify-content: center;
@@ -56,12 +46,12 @@
 
 		input[name="subject"]{
 			min-width: 10em;
-			grid-column: 3/5;			
+			grid-column: 3/5;
 			grid-row: 1;
 		}
 
 		textarea{
-			
+
 			padding: .5em;
 			resize: none;
 
@@ -101,47 +91,6 @@
 
 				input:checked + label{
 					opacity: 1
-				}
-			}
-
-			.fancyFileInput{
-				@include user-select(none);
-				width: $narrowLineHeight * 2;
-				height: $narrowLineHeight * 2;
-
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				position: relative;
-
-				&[title]{
-					background-size: cover;
-					background-position: center;
-					margin-right: calc(2em + var(--gap));
-					border-top-right-radius: 0;
-					border-bottom-right-radius: 0;
-				}
-
-				.btn{
-					position: absolute;
-					background: var(--backgroundColor);
-					right: -50%;
-					height: 50%;
-					width: 50%;
-					text-align: center;
-					cursor: pointer;
-					padding: 0;
-				}
-
-				.del{
-					border-top-right-radius: var(--borderRadius);
-					top: 0;
-				}
-
-				.nsfw{
-					border-bottom-right-radius: var(--borderRadius);
-					bottom: 0;
 				}
 			}
 		}

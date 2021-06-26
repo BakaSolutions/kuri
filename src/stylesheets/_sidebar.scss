@@ -18,29 +18,8 @@
 		flex-direction: column;
 		display: flex;
 
-		a[data-badge]::after{
-			content: " " attr(data-badge);
-			vertical-align: super;
-			font-size: .8em;
-		}
-
 		.fullBoardTitle{
 			display: var(--fullBoardTitlesDisplay);
-		}
-	}
-
-	#JSInd{
-		bottom: var(--gap);
-		position: fixed;
-		left: 0;
-
-		width: var(--sidebarWidth);
-		padding: var(--gap);
-		text-align: center;
-		color: red;
-
-		small{
-			color: var(--primaryTextColor);
 		}
 	}
 }

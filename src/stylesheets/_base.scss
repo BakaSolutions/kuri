@@ -93,16 +93,3 @@ button, input, textarea{
 	position: absolute;
 	right: 0;
 }
-
-.noJs{
-	display: none;
-}
-
-#boardInfoTooltip{
-	position: absolute;
-	z-index: 1;
-	top: 2em;
-	left: -10em;
-
-	font-size: 1.3rem;
-}

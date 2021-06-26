@@ -2,15 +2,10 @@
 	<div>
 		<a class="btn" href="#top"><img class="icon" src="/static/icons/material-design/ic_arrow_upward_24px.svg"></a>
 		<a href="{{=it.site.url.pathname}}" class="btn mobileOnly"><img class="icon" src="/static/icons/material-design/ic_home_24px.svg"></a>
-		<a class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_search_24px.svg"></a>
-		<a onclick="toggleWidget('favourite', initStarredList)" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_star_24px.svg"></a>
-		<a class="btn jsOnly desktopOnly" onclick="toggleWidget('settings', settings.init)"><img class="icon" src="/static/icons/material-design/ic_settings_24px.svg"></a>
 		<label for="wideViewCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_view_quilt_24px.svg"></label>
 	</div>
 	<div>
-		<a class="btn jsOnly desktopOnly" onclick="toggleAutoReload(this)"><img class="icon mirror" src="/static/icons/fish_13.svg"></a>
 		<label for="hideImagesCheckbox" class="btn desktopOnly"><img class="icon" src="/static/icons/material-design/ic_visibility_off_24px.svg"></label>
-		<a onclick="replyForm.toggleFloating()" class="btn jsOnly"><img class="icon" src="/static/icons/material-design/ic_chat_24px.svg"></a>
 		<a class="btn" href="#bottom"><img class="icon" src="/static/icons/material-design/ic_arrow_downward_24px.svg"></a>
 	</div>
 </div>

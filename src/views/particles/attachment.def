@@ -1,4 +1,4 @@
-<a href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank" data-name="{{!file.name}}" data-mime="{{=file.mime}}" onclick="handleAttachmentClick(event)">
+<a href="{{=it.foxtan.upload}}{{!file.path}}" target="_blank">
 	{{? /^(image|video)/.test(file.mime)}}
 		{{? file.thumb}}
 			<div class="thumbnail" style="background-image: url({{=it.foxtan.thumb}}{{!file.thumb.path}}); width: {{!file.thumb.width}}px; height: {{!file.thumb.height}}px"></div>
@@ -18,7 +18,7 @@
 		</div>
 	{{?? }}
 		{{? file.mime.split('/')[0] === "audio" }}<img class="icon" src="/static/icons/material-design/ic_music_note_24px.svg">{{? }}
-		{{!file.name}} 
+		{{!file.name}}
 		<span>{{!file.size}}</span>
 	{{? }}
 </a>

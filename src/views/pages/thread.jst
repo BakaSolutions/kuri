@@ -4,7 +4,7 @@
 	<body>
 		<input type="checkbox" id="wideViewCheckbox" hidden>
 		<input type="checkbox" id="hideImagesCheckbox" hidden>
-		
+
 		{{#def["particles/sidebar"]}}
 		<main>
 			<a name="top"></a>
@@ -13,12 +13,6 @@
 					<h2>{{!it.title}}</h2>
 					<h4>/{{!it.board.name}}/ — {{!it.board.title}}</h4>
 				</a>
-
-				<div>
-					<a class="btn jsOnly desktopOnly" onclick="showBoardInfo('{{!it.board.title}}', {{!it.board.bumpLimit}}, {{!it.board.fileLimit}})">
-						<img class="icon" src="/static/icons/material-design/ic_help_24px.svg">
-					</a>
-				</div>
 			</header>
 
 			<div class="thread">
@@ -29,12 +23,9 @@
 			</div>
 
 			{{#def['particles/replyForm']}}
-			
+
 			<a name="bottom"></a>
 		</main>
 		{{#def["particles/navbar"]}}
-
-		{{#def["particles/widgets"]}}
-		{{#def["particles/notifications"]}}
 	</body>
 </html>

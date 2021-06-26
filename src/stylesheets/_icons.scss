@@ -1,28 +1,7 @@
-@keyframes spin {
-	0% {
-		transform:rotate(0deg) scale(-1, 1);
-	}
-
-	100% {
-		transform:rotate(360deg) scale(-1, 1);
-	}
-}
-
 .icon{
 	filter: invert(69%);
 	vertical-align: top;
 	height: 100%;
-
-	&.mirror{
-		transform: scale(-1, 1);
-	}
-
-	&.spin{
-		animation-name: spin;
-		animation-duration: 5000ms;
-		animation-iteration-count: infinite;
-		animation-timing-function: cubic-bezier(0.3, 0.4, 0.8, 0.9); 
-	}
 }
 
 #navbar .icon{
@@ -34,12 +13,8 @@
 		height: 120%;
 	}
 
-	.fancyFileInput .icon, #submit .icon{
+	#submit .icon{
 		height: 69%;
-	}
-
-	.fancyFileInput.hasFile > .icon{
-		display: none;
 	}
 }
 

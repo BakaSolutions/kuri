@@ -80,9 +80,8 @@ main{
 #sidebar{
 	display: none;
 }
+
 @import "_pagination";
-@import "_notifications";
-@import "_widgets";
 
 .widgetBox{
 	height: calc(100vh - 100vw / #{$navbarButtonsCount} - var(--gap));
@@ -105,16 +104,6 @@ main{
 
 	#replyForm{
 		grid-template-columns: var(--buttonWidth) var(--buttonWidth) 1fr var(--buttonWidth);
-	}
-
-	&.floating{
-		bottom: calc(100vw / #{$navbarButtonsCount} + var(--gap));
-		border-top: var(--gap) solid var(--backgroundColor);
-		left: 0;
-	}
-
-	.widgetHandle button{
-		display: none;
 	}
 }
 

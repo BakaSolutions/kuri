@@ -169,7 +169,7 @@ async function processPostLink(capture, matches, boardName, thread, post) {
     thread = query.threadNumber;
   }
   capture = capture.replace(/&gt;/g, '>');
-  return `<a class="postLink" data-board="${boardName}" data-number="${postFromMatch}" href="/${boardName}/res/${thread}.html#${postFromMatch}">${capture}</a>`;
+  return `<a class="postLink" href="/${boardName}/res/${thread}.html#${postFromMatch}">${capture}</a>`;
 }
 
 function processURL(tagString) {

@@ -10,20 +10,4 @@
 			{{~ }}
 		{{~ }}
 	</div>
-
-	<div id="musicPlayer" class="jsOnly" hidden>
-		<div id="title"></div>
-		<div id="controls">
-			<a class="btn material-icons" id="previousTrack">skip_previous</a>
-			<a class="btn material-icons" id="pause">play_arrow</a>
-			<a class="btn material-icons" id="nextTrack">skip_next</a>
-		</div>
-		<div id="progressWrap">
-			<input id="progress" type="range" value="0" min="0" max="100" step="any">
-		</div>
-	</div>
-
-	<noscript id="JSInd">
-		JavaScript отключен<br><small>Некоторые функции недоступны.</small>
-	</noscript>
 </div>

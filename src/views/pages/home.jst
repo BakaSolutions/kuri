@@ -8,7 +8,6 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="shortcut icon" href="/static/favicon.ico">
 		<link rel="stylesheet" href="/css/home.css">
-		<script defer src="/js/home.js"></script>
 	</head>
 	<body>
 		<main>
@@ -69,11 +68,13 @@
 		</main>
 
 		<div id="links">
-			<a href="/test/">/a</a>
-			<a href="/test/">/art</a>
-			<a href="/test/">/b</a>
-			<a href="/test/">/mu</a>
-			<a href="/test/">/vg</a>
+			{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
+				{{~group.boards.filter(board => !board.hidden) :board}}
+					<a href="{{=it.site.url.pathname}}{{!board.name}}/">
+						/{{!board.name}}
+					</a>
+				{{~ }}
+			{{~ }}
 		</div>
 	</body>
 </html>
