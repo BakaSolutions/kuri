@@ -32,7 +32,7 @@ async function renderPage(boardModel, pageNumber = 0) {
   let page = await BoardModel.getPage(boardModel.name, pageNumber);
   let model = {
     board: boardModel,
-    title: `/${boardModel.name}/ &mdash; ${boardModel.title}`,
+    title: boardModel.title,
     threads: [],
     pageNumber
   };
@@ -49,7 +49,7 @@ async function renderPage(boardModel, pageNumber = 0) {
 async function renderFeed(boardModel, pageNumber = 0) {
   let model = {
     board: boardModel,
-    title: `/${boardModel.name}/'s feed`,
+    title: `${boardModel.title} feed`,
     feed: [],
     pageNumber
   };

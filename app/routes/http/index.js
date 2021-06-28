@@ -9,8 +9,7 @@ router.paths = ['/', '/index.html'];
 
 router.render = async path => {
   return Render.renderPage('pages/home', {
-    title: 'Home &mdash; Kuri',
-    mainStylesheet: 'home.css'
+    title: 'Home'
   });
 };
 

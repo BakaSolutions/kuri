@@ -30,6 +30,7 @@ let config = {
     logger: console.log
   },
   site: {
+    title: 'Kuri',
     url: URL.parse('http://0.0.0.0:8080/')
   }
 };
