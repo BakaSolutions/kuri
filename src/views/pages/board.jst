@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="ru">
 	{{#def["particles/head"]}}
-	<body>
-		<input type="checkbox" id="wideViewCheckbox" hidden>
-		<input type="checkbox" id="hideImagesCheckbox" hidden>
 
-		{{#def["particles/sidebar"]}}
-		<main>
-			<a name="top"></a>
-			<header>
-				<a id="title" href="{{=it.site.url.pathname}}{{!it.board.name}}/">
-					<h2>/{{!it.board.name}}/ — {{!it.board.title}}</h2>
-					<h4>{{!it.board.subtitle}}</h4>
+	<input type="checkbox" id="wideViewCheckbox" hidden>
+	<input type="checkbox" id="hideImagesCheckbox" hidden>
+
+	{{#def["particles/sidebar"]}}
+	<main>
+		<a name="top"></a>
+		<header>
+			<a id="title" href="{{=it.site.url.pathname}}{{!it.board.name}}/">
+				<h2>/{{!it.board.name}}/ — {{!it.board.title}}</h2>
+				<h4>{{!it.board.subtitle}}</h4>
+			</a>
+
+			<div>
+				<a class="btn" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
+					<img class="icon" src="/static/icons/material-design/ic_view_list_24px.svg">
 				</a>
+			</div>
+		</header>
 
-				<div>
-					<a class="btn" href="{{=it.site.url.pathname}}{{!it.board.name}}/feed/" title="Лента постов">
-						<img class="icon" src="/static/icons/material-design/ic_view_list_24px.svg">
-					</a>
+		{{#def['particles/replyForm']}}
+
+		{{? !it.threads.length}}
+			<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
+		{{?? }}
+			{{~it.threads :thread}}
+				<div class="thread">
+					{{~[thread.posts[0]] :post}}
+						{{#def['particles/post']}}
+					{{~ }}
+					{{? thread.postCount && thread.omittedPosts}}
+						<a class="postCount" href="/{{!it.board.name}}/res/{{!thread.posts.shift().threadNumber}}.html">Всего постов: {{!thread.postCount}}</a>
+					{{?? }}
+						{{ thread.posts.shift() }}
+					{{? }}
+
+					{{~thread.posts :post}}
+						{{#def['particles/post']}}
+					{{~ }}
 				</div>
-			</header>
-
-			{{#def['particles/replyForm']}}
-
-			{{? !it.threads.length}}
-				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
-			{{?? }}
-				{{~it.threads :thread}}
-					<div class="thread">
-						{{~[thread.posts[0]] :post}}
-							{{#def['particles/post']}}
-						{{~ }}
-						{{? thread.postCount && thread.omittedPosts}}
-							<a class="postCount" href="/{{!it.board.name}}/res/{{!thread.posts.shift().threadNumber}}.html">Всего постов: {{!thread.postCount}}</a>
-						{{?? }}
-							{{ thread.posts.shift() }}
-						{{? }}
-
-						{{~thread.posts :post}}
-							{{#def['particles/post']}}
-						{{~ }}
-					</div>
-				{{~ }}
-			{{? }}
-			{{#def["particles/pagination"]}}
-			<a name="bottom"></a>
-		</main>
-		{{#def["particles/navbar"]}}
-	</body>
+			{{~ }}
+		{{? }}
+		{{#def["particles/pagination"]}}
+		<a name="bottom"></a>
+	</main>
+	{{#def["particles/navbar"]}}
 </html>

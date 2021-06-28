@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
 	{{#def["particles/head"]}}
-	<body>
-		<input type="checkbox" id="wideViewCheckbox" hidden>
-		<input type="checkbox" id="hideImagesCheckbox" hidden>
 
-		{{#def["particles/sidebar"]}}
-		<main>
-			<a name="top"></a>
-			<header>
-				<a id="title" href="{{=it.site.url.pathname}}{{!it.board.name}}/">
-					<h2>Лента постов /{{!it.board.name}}/</h2>
-					<h4>{{!it.board.subtitle}}</h4>
-				</a>
-			</header>
+	<input type="checkbox" id="wideViewCheckbox" hidden>
+	<input type="checkbox" id="hideImagesCheckbox" hidden>
 
-			{{#def['particles/replyForm']}}
+	{{#def["particles/sidebar"]}}
+	<main>
+		<a name="top"></a>
+		<header>
+			<a id="title" href="{{=it.site.url.pathname}}{{!it.board.name}}/">
+				<h2>Лента постов /{{!it.board.name}}/</h2>
+				<h4>{{!it.board.subtitle}}</h4>
+			</a>
+		</header>
 
-			{{? !it.feed.length}}
-				<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
-			{{?? }}
-				<div class="feed thread">
-					{{~it.feed :post}}
-						{{#def['particles/post']}}
-					{{~ }}
-				</div>
-			{{? }}
-			{{#def["particles/pagination"]}}
-			<a name="bottom"></a>
-		</main>
-		{{#def["particles/navbar"]}}
-	</body>
+		{{#def['particles/replyForm']}}
+
+		{{? !it.feed.length}}
+			<div class="noThreads">Здесь никого, кроме нас, цыплят!</div>
+		{{?? }}
+			<div class="feed thread">
+				{{~it.feed :post}}
+					{{#def['particles/post']}}
+				{{~ }}
+			</div>
+		{{? }}
+		{{#def["particles/pagination"]}}
+		<a name="bottom"></a>
+	</main>
+	{{#def["particles/navbar"]}}
 </html>

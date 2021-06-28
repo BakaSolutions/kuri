@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
 	{{#def["particles/head"]}}
-	<body>
-		<input type="checkbox" id="wideViewCheckbox" hidden>
-		<input type="checkbox" id="hideImagesCheckbox" hidden>
 
-		{{#def["particles/sidebar"]}}
-		<main>
-			<link rel="stylesheet" href="/css/error.css">
-			<a name="top"></a>
-			<header>
-				<a id="title" href="/">
-					<h2>{{!it.error}}</h2>
-					<h4>{{!it.message}}</h4>
-				</a>
+	<input type="checkbox" id="wideViewCheckbox" hidden>
+	<input type="checkbox" id="hideImagesCheckbox" hidden>
 
-				{{?it.stack}}
-					<pre>{{=it.stack}}</pre>
-				{{?}}
+	{{#def["particles/sidebar"]}}
+	<main>
+		<link rel="stylesheet" href="/css/error.css">
+		<a name="top"></a>
+		<header>
+			<a id="title" href="/">
+				<h2>{{!it.error}}</h2>
+				<h4>{{!it.message}}</h4>
+			</a>
 
-			</header>
+			{{?it.stack}}
+				<pre>{{=it.stack}}</pre>
+			{{?}}
 
-			<div class="noThreads" id="banner">
-				<img src="/static/err.png">
-			</div>
-		</main>
-		{{#def["particles/navbar"]}}
-	</body>
+		</header>
+
+		<div class="noThreads" id="banner">
+			<img src="/static/err.png">
+		</div>
+	</main>
+	{{#def["particles/navbar"]}}
 </html>

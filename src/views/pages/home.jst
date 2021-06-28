@@ -1,80 +1,73 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0">
-		<title>{{!it.title}} — {{!it.site.title}}</title>
-		<meta charset="UTF-8">
+	{{#def["particles/head"]}}
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/css/home.css">
 
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="shortcut icon" href="/static/favicon.ico">
-		<link rel="stylesheet" href="/css/home.css">
-	</head>
-	<body>
-		<main>
-			<div id="player">
-				<img id="logo" src="/static/logo/tumba_big.gif"></img>
-			</div>
-
-			<div id="feed">
-				<span>Последние события:</span>
-
-				<a href="#">
-					<i class="material-icons">cake</i>
-					<div class="content">
-						<b>Два года Тумбачу</b>
-						<time>01.01.2018</time>
-						<div class="details">А также запуск радио и тестовый эфир</div>
-					</div>
-				</a>
-
-				<a href="#">
-					<i class="material-icons">build</i>
-					<div class="content">
-						<b>Обновление главной</b>
-						<time>12.12.2017</time>
-						<div class="details">Картинки на фоне и виджет последних новостей</div>
-					</div>
-				</a>
-
-				<a href="#">
-					<i class="material-icons">build</i>
-					<div class="content">
-						<b>Анонс нового движка</b>
-						<time>28.07.2017</time>
-						<div class="details">Примерная дата выхода: лето 2021</div>
-					</div>
-				</a>
-			</div>
-
-			<div id="faq">
-				<span>Рекомендовано к прочтению:</span>
-				<div class="content">
-					<a href="#">
-						<i class="material-icons">supervisor_account</i>
-						<b>Правила</b>
-					</a>
-
-					<a href="#">
-						<i class="material-icons">timeline</i>
-						<b>Статистика</b>
-					</a>
-
-					<a href="#">
-						<i class="material-icons">receipt</i>
-						<b>ЧаВО</b>
-					</a>
-				</div>
-			</div>
-		</main>
-
-		<div id="links">
-			{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
-				{{~group.boards.filter(board => !board.hidden) :board}}
-					<a href="{{=it.site.url.pathname}}{{!board.name}}/">
-						/{{!board.name}}
-					</a>
-				{{~ }}
-			{{~ }}
+	<main>
+		<div id="player">
+			<img id="logo" src="/static/logo/tumba_big.gif"></img>
 		</div>
-	</body>
+
+		<div id="feed">
+			<span>Последние события:</span>
+
+			<a href="#">
+				<i class="material-icons">cake</i>
+				<div class="content">
+					<b>Два года Тумбачу</b>
+					<time>01.01.2018</time>
+					<div class="details">А также запуск радио и тестовый эфир</div>
+				</div>
+			</a>
+
+			<a href="#">
+				<i class="material-icons">build</i>
+				<div class="content">
+					<b>Обновление главной</b>
+					<time>12.12.2017</time>
+					<div class="details">Картинки на фоне и виджет последних новостей</div>
+				</div>
+			</a>
+
+			<a href="#">
+				<i class="material-icons">build</i>
+				<div class="content">
+					<b>Анонс нового движка</b>
+					<time>28.07.2017</time>
+					<div class="details">Примерная дата выхода: лето 2021</div>
+				</div>
+			</a>
+		</div>
+
+		<div id="faq">
+			<span>Рекомендовано к прочтению:</span>
+			<div class="content">
+				<a href="#">
+					<i class="material-icons">supervisor_account</i>
+					<b>Правила</b>
+				</a>
+
+				<a href="#">
+					<i class="material-icons">timeline</i>
+					<b>Статистика</b>
+				</a>
+
+				<a href="#">
+					<i class="material-icons">receipt</i>
+					<b>ЧаВО</b>
+				</a>
+			</div>
+		</div>
+	</main>
+
+	<div id="links">
+		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}
+			{{~group.boards.filter(board => !board.hidden) :board}}
+				<a href="{{=it.site.url.pathname}}{{!board.name}}/">
+					/{{!board.name}}
+				</a>
+			{{~ }}
+		{{~ }}
+	</div>
 </html>
