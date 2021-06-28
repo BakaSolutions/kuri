@@ -1,46 +1,30 @@
 {
-  "name": "kuri",
-  "version": "0.2.0",
-  "description": "The Foxtan web-client.",
-  "main": "app/index.js",
-  "scripts": {
-    "build": "NODE_ENV=production gulp build",
-    "build:dev": "NODE_ENV=development gulp build",
-    "watch": "NODE_ENV=production gulp watch",
-    "watch:dev": "NODE_ENV=development gulp watch",
-    "start": "NODE_ENV=production node app",
-    "start:dev": "NODE_ENV=development node app"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tumbach/kuri.git"
-  },
-  "keywords": [
-    "imageboard"
-  ],
-  "author": "rngnrs",
-  "license": "MIT",
-  "homepage": "https://github.com/tumbach/kuri",
-  "dependencies": {
-    "dot": "^1.1.2",
-    "figurecon": "rngnrs/figurecon#0.4.0",
-    "koa": "^2.3.0",
-    "koa-conditional-get": "^2.0.0",
-    "koa-etag": "^3.0.0",
-    "koa-router": "^7.3.0",
-    "rfc6902": "^2.2.2",
-    "ws": "^5.0.0"
-  },
-  "devDependencies": {
-    "gulp": "latest",
-    "gulp-clean-css": "latest",
-    "gulp-sass": "^5.0.0",
-    "node-sass": "^6.0.1"
-  },
-  "engines": {
-    "node": ">= 8.0.0"
-  },
-  "optionalDependencies": {
-    "koa-static": "^4.0.2"
-  }
+	"license": "MIT",
+	"scripts": {
+		"build": "gulp build",
+		"watch": "gulp watch",
+		"start": "node app"
+	},
+	"dependencies": {
+		"dot": "^1.1.2",
+		"figurecon": "rngnrs/figurecon#0.4.0",
+		"koa": "^2.3.0",
+		"koa-conditional-get": "^2.0.0",
+		"koa-etag": "^3.0.0",
+		"koa-router": "^7.3.0",
+		"rfc6902": "^2.2.2",
+		"ws": "^5.0.0"
+	},
+	"devDependencies": {
+		"gulp": "latest",
+		"gulp-clean-css": "latest",
+		"gulp-sass": "^5.0.0",
+		"node-sass": "^6.0.1"
+	},
+	"optionalDependencies": {
+		"koa-static": "^4.0.2"
+	},
+	"engines": {
+		"node": ">= 14.16.1"
+	}
 }
