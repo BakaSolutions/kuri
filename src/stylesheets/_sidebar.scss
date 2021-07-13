@@ -1,4 +1,4 @@
-#sidebar{
+#sidebar {
 	flex-direction: column;
 	width: var(--sidebarWidth);
 	height: 100vh;
@@ -9,17 +9,14 @@
 	left: calc(50vw - 25em - var(--sidebarWidth) - 2 * var(--gap));
 	width: var(--sidebarWidth);
 
-	#logo h2{
+	#logo {
 		color: var(--primaryTextColor);
-		margin: .3em 0;
+		font-size: 2rem;
+		font-weight: bold;
 	}
 
-	#boards{
+	#boards {
 		flex-direction: column;
 		display: flex;
-
-		.fullBoardTitle{
-			display: var(--fullBoardTitlesDisplay);
-		}
 	}
 }

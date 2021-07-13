@@ -79,18 +79,13 @@
 				align-items: center;
 				display: flex;
 
-				&:not(:last-child){
+				&:not(:last-child) {
 					margin-bottom: var(--gap)
 				}
 
-				label{
+				label {
 					background-color: inherit !important;
 					font-size: 1.3em;
-					opacity: .5
-				}
-
-				input:checked + label{
-					opacity: 1
 				}
 			}
 		}
@@ -99,9 +94,12 @@
 			line-height: 0;
 		}
 
+		[type="checkbox"] + .btn{
+			opacity: 0.5;
+		}
+
 		[type="checkbox"]:checked + .btn{
-			color: var(--linkOverColor) !important;
-			background-color: var(--backgroundColor);
+			opacity: 1;
 		}
 	}
 }

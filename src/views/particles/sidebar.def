@@ -1,5 +1,5 @@
 <div id="sidebar">
-	<a href="/" id="logo"><h2>{{!it.site.title}}</h2></a>
+	<a href="/" id="logo">{{!it.site.title}}</a>
 
 	<div id="boards">
 		{{~it.boardGroups || [{boards: it.boards, name: "boards", title: "Доски"}] :group}}

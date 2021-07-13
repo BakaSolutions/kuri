@@ -9,33 +9,35 @@ main{
 	min-height: 100vh;
 }
 
-header{
+header {
 	background-color: var(--primaryCardColor);
 	@include user-select(none);
-	padding: 0 var(--gap);
+	padding: var(--gap);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	border-radius: 0 0 var(--borderRadius) var(--borderRadius);
 
-	#title{
+	#title {
 		display: block;
 		padding: .3em 0;
 
-		& > *{
+		h1, h2 {
 			margin: 0;
+			font-weight: normal;
 		}
 
-		h2{
+		h1 {
+			font-size: 1.5rem;
 			color: var(--primaryTextColor);
 		}
 
-		h4{
-			font-weight: normal;
+		h2 {
+			font-size: 1rem;
 		}
 	}
 
-	& > div{
+	& > div {
 		display: flex;
 
 		& > :first-child{

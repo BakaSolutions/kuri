@@ -63,10 +63,6 @@ a{
 	@include user-select(none);
 }
 
-[type="checkbox"]:checked + .btn{
-	background-color: var(--buttonHoverColor);
-}
-
 input:not([type=file]), textarea{
 	background: var(--backgroundColor);
 	color: var(--primaryTextColor);
